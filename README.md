@@ -59,10 +59,13 @@ PROPOSITION F: Depending upon the exact geometry of intersections and the patter
 
 
 
-======================================
+-------------------------------------
+-------------------------------------
 CHRONOLOGICAL DEVELOPMENT OF SCALAR–ANGULAR THEORY (SAT)
 (Canonical Name: Scalar–Angular Theory or Scalar–Angular Torsion Theory)
-======================================
+-------------------------------------
+-------------------------------------
+
 
 I. PHASE 0: CONCEPTUAL AND PROTO-THEORY STAGE (c. 1993 – c. 2022)
 -------------------------------------
