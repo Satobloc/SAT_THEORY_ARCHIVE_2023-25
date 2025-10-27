@@ -1,0 +1,35 @@
+Coupling Logic:
+
+Update τ using Metropolis annealing under standard fusion constraint (τ₀ + τ₁ + τ₂ ≡ 0 mod 3).
+
+Update θ₄(x,y) dynamically with feedback from τ violations:
+
+𝜃
+4
+(
+𝑥
+,
+𝑦
+)
+→
+𝜃
+4
+(
+𝑥
+,
+𝑦
+)
++
+𝛼
+⋅
+local fusion violation count
+θ 
+4
+​
+ (x,y)→θ 
+4
+​
+ (x,y)+α⋅local fusion violation count
+Use local smoothing (e.g., Laplacian filter) to allow θ₄ to diffuse and respond nonlocally.
+
+Set α ≈ 0.05, unless instability observed.

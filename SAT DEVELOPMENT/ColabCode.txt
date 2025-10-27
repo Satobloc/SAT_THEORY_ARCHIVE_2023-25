@@ -1,0 +1,232 @@
+COLAB CODE
+[Runtime: ~3.5hrs]
+
+# SAT θ₄–τ Coupled Annealing Simulation in 2D
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.ndimage import laplace
+from scipy.stats import pearsonr
+import seaborn as sns
+
+# Simulation parameters
+L = 50  # Grid size
+alpha = 0.05  # θ₄ response to local violations
+steps = 1000  # Mid snapshot
+final_steps = 10000  # Total annealing steps
+T = 1.0  # Metropolis annealing temperature
+fusion_mod = 3  # τ ∈ Z₃
+
+# Grid setup
+x = np.linspace(0, 1, L)
+y = np.linspace(0, 1, L)
+X, Y = np.meshgrid(x, y)
+
+# θ₄ initial profile: small phase modulation
+theta = (2 * np.pi / 3) * (1 + 0.2 * np.sin(2 * np.pi * X) * np.cos(2 * np.pi * Y))
+
+# τ initialization: random in Z₃
+tau = np.random.randint(0, fusion_mod, size=(L, L))
+
+# Approximate hexagonal neighbors (on square grid)
+neighbors = [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, 1), (1, -1)]
+
+# Count fusion violations at (x, y)
+def fusion_violation_count(tau_grid, x, y):
+    Lx, Ly = tau_grid.shape
+    violations = 0
+    center = tau_grid[x, y]
+    for dx1, dy1 in neighbors:
+        x1, y1 = (x + dx1) % Lx, (y + dy1) % Ly
+        for dx2, dy2 in neighbors:
+            if (dx1, dy1) == (dx2, dy2): continue
+            x2, y2 = (x + dx2) % Lx, (y + dy2) % Ly
+            total = (center + tau_grid[x1, y1] + tau_grid[x2, y2]) % fusion_mod
+            if total != 0:
+                violations += 1
+    return violations
+
+# One annealing step
+def simulate_step(tau, theta, alpha, T):
+    Lx, Ly = tau.shape
+    new_tau = tau.copy()
+    violation_map = np.zeros_like(tau, dtype=float)
+
+    # Metropolis τ update
+    for x in range(Lx):
+        for y in range(Ly):
+            current = tau[x, y]
+            proposal = (current + np.random.choice([-1, 1])) % fusion_mod
+            old_v = fusion_violation_count(tau, x, y)
+            tau[x, y] = proposal
+            new_v = fusion_violation_count(tau, x, y)
+            dE = new_v - old_v
+            if dE <= 0 or np.random.rand() < np.exp(-dE / T):
+                new_tau[x, y] = proposal
+            else:
+                tau[x, y] = current  # revert
+            violation_map[x, y] = new_v
+
+    # θ₄ responds to local violations
+    theta += alpha * violation_map
+    theta += 0.1 * laplace(theta)
+
+    return new_tau, theta, violation_map
+
+# Run simulation
+curvatures, violations, snapshots = [], [], []
+for step in range(final_steps):
+    tau, theta, vmap = simulate_step(tau, theta, alpha, T)
+    if step in [steps, final_steps - 1]:
+        snapshots.append((theta.copy(), vmap.copy()))
+    if step % 100 == 0:
+        curvatures.append(np.mean(laplace(theta)**2))
+        violations.append(np.sum(vmap))
+
+# Correlation between θ₄ curvature and τ violations
+correlation = pearsonr(curvatures, violations)
+
+# Unpack snapshots
+theta_before, vmap_before = snapshots[0]
+theta_after, vmap_after = snapshots[1]
+
+alpha = 0.15  # instead of 0.05
+T = 0.8       # lower temperature to emphasize curvature-driven ordering
+final_steps = 30000  # still manageable in Colab
+
+# Plot
+fig, axs = plt.subplots(2, 3, figsize=(18, 10))
+sns.heatmap(theta_before, ax=axs[0, 0], cmap='viridis')
+axs[0, 0].set_title("θ₄ Before Annealing")
+
+sns.heatmap(vmap_before, ax=axs[0, 1], cmap='Reds')
+axs[0, 1].set_title("τ Fusion Violations (Initial)")
+
+axs[0, 2].plot(curvatures, label="Avg. θ₄ Curvature")
+axs[0, 2].plot(violations, label="Total τ Violations")
+axs[0, 2].legend()
+axs[0, 2].set_title("Dynamics Over Time")
+
+sns.heatmap(theta_after, ax=axs[1, 0], cmap='viridis')
+axs[1, 0].set_title("θ₄ After Annealing")
+
+sns.heatmap(vmap_after, ax=axs[1, 1], cmap='Reds')
+axs[1, 1].set_title("τ Fusion Violations (Final)")
+
+axs[1, 2].text(0.1, 0.5, f"Correlation:\nθ₄ curvature ↔ τ violations\nr = {correlation[0]:.3f}",
+               fontsize=14)
+axs[1, 2].axis("off")
+
+plt.tight_layout()
+plt.show()
+
+CODE:
+
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.ndimage import laplace
+from scipy.stats import pearsonr
+
+# Parameters for the high-coupling test
+L = 50
+alpha = 0.15
+steps = 5000
+final_steps = 30000
+T = 0.8
+fusion_mod = 3
+
+# Initialize fields
+theta = 10000 + 5 * np.random.randn(L, L)
+tau = np.random.randint(0, fusion_mod, size=(L, L))
+neighbors = [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, 1), (1, -1)]
+
+def fusion_violation_count(tau_grid, x, y):
+    Lx, Ly = tau_grid.shape
+    violations = 0
+    center = tau_grid[x, y]
+    for dx1, dy1 in neighbors:
+        x1, y1 = (x + dx1) % Lx, (y + dy1) % Ly
+        for dx2, dy2 in neighbors:
+            if (dx1, dy1) == (dx2, dy2): continue
+            x2, y2 = (x + dx2) % Lx, (y + dy2) % Ly
+            total = (center + tau_grid[x1, y1] + tau_grid[x2, y2]) % fusion_mod
+            if total != 0:
+                violations += 1
+    return violations
+
+def simulate_step(tau, theta, alpha, T):
+    Lx, Ly = tau.shape
+    new_tau = tau.copy()
+    violation_map = np.zeros_like(tau, dtype=float)
+
+    for x in range(Lx):
+        for y in range(Ly):
+            current = tau[x, y]
+            proposal = (current + np.random.choice([-1, 1])) % fusion_mod
+            old_violation = fusion_violation_count(tau, x, y)
+            tau[x, y] = proposal
+            new_violation = fusion_violation_count(tau, x, y)
+            dE = new_violation - old_violation
+            if dE <= 0 or np.random.rand() < np.exp(-dE / T):
+                new_tau[x, y] = proposal
+            else:
+                tau[x, y] = current
+
+    for x in range(Lx):
+        for y in range(Ly):
+            v = fusion_violation_count(new_tau, x, y)
+            theta[x, y] += alpha * v
+            violation_map[x, y] = v
+
+    theta += 0.1 * laplace(theta)
+
+    return new_tau, theta, violation_map
+
+curvatures, violations, snapshots = [], [], []
+for step in range(final_steps):
+    tau, theta, vmap = simulate_step(tau, theta, alpha, T)
+    if step in [steps, final_steps - 1]:
+        snapshots.append((theta.copy(), vmap.copy()))
+    if step % 1000 == 0:
+        avg_curv = np.mean(laplace(theta)**2)
+        total_viol = np.sum(vmap)
+        curvatures.append(avg_curv)
+        violations.append(total_viol)
+
+curv_array = np.array(curvatures)
+viol_array = np.array(violations)
+correlation = pearsonr(curv_array, viol_array)
+
+# Prepare plots
+theta_before, vmap_before = snapshots[0]
+theta_after, vmap_after = snapshots[1]
+
+fig, axs = plt.subplots(2, 3, figsize=(18, 10))
+im0 = axs[0, 0].imshow(theta_before, cmap='viridis')
+axs[0, 0].set_title("θ₄ Before Annealing")
+fig.colorbar(im0, ax=axs[0, 0])
+
+im1 = axs[0, 1].imshow(vmap_before, cmap='Reds')
+axs[0, 1].set_title("τ Fusion Violations (Initial)")
+fig.colorbar(im1, ax=axs[0, 1])
+
+axs[0, 2].plot(curv_array, label="Avg. θ₄ Curvature")
+axs[0, 2].plot(viol_array, label="Total τ Violations")
+axs[0, 2].set_title("Dynamics Over Time")
+axs[0, 2].legend()
+
+im2 = axs[1, 0].imshow(theta_after, cmap='viridis')
+axs[1, 0].set_title("θ₄ After Annealing")
+fig.colorbar(im2, ax=axs[1, 0])
+
+im3 = axs[1, 1].imshow(vmap_after, cmap='Reds')
+axs[1, 1].set_title("τ Fusion Violations (Final)")
+fig.colorbar(im3, ax=axs[1, 1])
+
+axs[1, 2].axis("off")
+axs[1, 2].text(0.1, 0.5, f"Correlation:\nθ₄ curvature ↔ τ violations\nr = {correlation[0]:.3f}", fontsize=14)
+
+plt.tight_layout()
+from pathlib import Path
+out_path = Path("/mnt/data/SAT_high_coupling_run.png")
+plt.savefig(out_path)
+out_path
