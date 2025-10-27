@@ -1,0 +1,236 @@
+SATX HAMILTONIAN
+
+Minimal 1 + 1-dimensional Hamiltonian for the SAT θ₄–ψ sector
+1 Starting point – reduced Lagrangian
+In units 
+c
+=
+ℏ
+=
+1
+c=ℏ=1 the MARK IV.2 Lagrangian density, restricted to two space-time dimensions and after inserting the projector that kills ghost modes, is
+	L
+=
+1
+2
+(
+∂
+μ
+θ
+4
+)
+(
+∂
+μ
+θ
+4
+)
+−
+μ
+2
+cos
+⁡
+3
+θ
+4
++
+α
+(
+∂
+μ
+u
+ν
+)
+(
+∂
+μ
+u
+ν
+)
++
+β
+ 
+sin
+⁡
+2
+θ
+4
+ 
+∂
+μ
+u
+μ		(1)
+L=21 (∂μ θ4 )(∂μθ4 )−μ2cos3θ4 +α(∂μ uν )(∂μuν)+βsin2θ4 ∂μ uμ (1)
+subject to the unit-timelike constraint
+			
+uμuμ =−1.(2)
+
+2 Gauge-fix the constraint
+Solve (2) by introducing a single boost angle 
+ψ
+(
+t
+,
+x
+)
+ψ(t,x):
+			
+uμ=(coshψ,sinhψ),uμ =(coshψ,−sinhψ).(3)
+In 1 + 1 D the covariant derivative reduces to an ordinary partial, so
+			
+(∂μ uν )(∂μuν)=cosh2ψ(∂μ ψ)(∂μψ).(4)
+Substituting (3)–(4) into (1) gives the gauge-fixed Lagrangian
+			
+L=21 (∂μ θ4 )2−μ2cos3θ4 +αcosh2ψ(∂μ ψ)(∂μψ)+βsin2θ4 ∂μ (coshψ,sinhψ)μ (5)
+(the last term simplifies to 
+β
+sin
+⁡
+2
+θ
+4
+ 
+ψ
+′
+βsin2θ4 ψ′ because 
+∂
+μ
+u
+μ
+=
+∂
+x
+sinh
+⁡
+ψ
+=
+ψ
+′
+∂μ uμ=∂x sinhψ=ψ′).
+
+3 Canonical momenta
+			
+πθ =∂θ˙4 ∂L =θ˙4 ,πψ =∂ψ˙ ∂L =2αcosh2ψψ˙ .(6)
+No primary constraints appear in this gauge.
+
+4 Velocities expressed through momenta
+			
+θ˙4 =πθ ,ψ˙ =2αcosh−2ψ πψ .(7)
+
+5 Hamiltonian density
+			
+H	=
+π
+θ
+θ
+˙
+4
++
+π
+ψ
+ψ
+˙
+−
+L
+	=
+1
+2
+π
+θ
+2
++
+1
+2
+(
+θ
+4
+′
+)
+2
++
+μ
+2
+cos
+⁡
+3
+θ
+4
+	+
+cosh
+⁡
+2
+ ⁣
+ψ
+4
+α
+ 
+π
+ψ
+2
++
+α
+cosh
+⁡
+2
+ ⁣
+ψ
+ 
+(
+ψ
+′
+)
+2
++
+β
+ 
+sin
+⁡
+2
+θ
+4
+ 
+ψ
+′
+  
++
+  
+H
+τ
+,
+H =πθ θ˙4 +πψ ψ˙ −L=21 πθ2 +21 (θ4′ )2+μ2cos3θ4 +4αcosh2ψ πψ2 +αcosh2ψ(ψ′)2+βsin2θ4 ψ′+Hτ , (8)
+where primes denote 
+∂
+/
+∂
+x
+∂/∂x and 
+H
+τ
+Hτ  is the (optional) discrete-τ energy density that can be appended later.
+
+6 Small-fluctuation spectrum
+Linearise (8) around the vacuum 
+θ
+4
+=
+0
+,
+  
+ψ
+=
+0
+θ4 =0,ψ=0:
+			
+ωθ2 =k2+3μ2,ωψ2 =2αk2 ,(9)
+so the theory is ghost-free and tachyon-free provided 
+α
+>
+0
+α>0.
+
+7 Final boxed form
+			
+H(t,x)=21 πθ2 +21 (θ4′ )2+μ2cos3θ4 +4αcosh2ψ πψ2 +αcosh2ψ(ψ′)2+βsin2θ4 ψ′+Hτ (10)
+Equation (10) is first-class, positive-definite and ready for quantisation or numerical simulation. Adding the fully dynamical τ sector or extending to 3 + 1 D is straightforward once this 1 + 1 D core is in place.
+
+(End of Hamiltonian write-up.)
