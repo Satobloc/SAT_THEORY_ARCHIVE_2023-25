@@ -1,0 +1,59 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\usepackage{amsmath,amssymb}
+\geometry{margin=1in}
+
+\begin{document}
+
+\section*{Module SAT.O$_9$ (\texttt{sat\_o9.py})}
+
+\subsection*{Overview}
+Implements the 4D‐only string embedding computations:
+\begin{itemize}
+  \item Mass formula: $m^2 = k\,(N + \beta\,Q^2 - a)$
+  \item Spectrum generation over ranges of $(N,Q)$
+  \item Ground–state calibration from $N=0$ data
+\end{itemize}
+
+\subsection*{Functions}
+
+\begin{verbatim}
+def mass_squared(N, Q, k, beta, a):
+    """
+    Compute m^2 = k*(N + beta*Q^2 - a).
+    """
+\end{verbatim}
+
+\begin{verbatim}
+def mass_spectrum(N_range, Q_range, k, beta, a):
+    """
+    Return a DataFrame listing m^2 for each (N,Q) in the given ranges.
+    """
+\end{verbatim}
+
+\begin{verbatim}
+def calibrate_from_ground_states(masses, Q_vals, a_fixed=1.0):
+    """
+    Fit k and beta from N=0 ground-state masses.
+    Solves m_i^2 = k*(beta*Q_i^2 - a_fixed) for inputs
+    masses[i], Q_vals[i].
+    Returns {'k':..., 'beta':..., 'a': a_fixed}.
+    """
+\end{verbatim}
+
+\subsection*{Usage Example}
+\begin{verbatim}
+from sat_o9 import calibrate_from_ground_states, mass_spectrum
+
+# Calibrate from electron, muon, pion (N=0, Q=1,2,3)
+params = calibrate_from_ground_states(
+    masses=[0.000511, 0.10566, 0.13957],
+    Q_vals=[1,2,3],
+    a_fixed=1.0
+)
+# Generate the (N=0..5, Q=1..5) spectrum
+df = mass_spectrum(N_range=range(6), Q_range=range(1,6),
+                   k=params['k'], beta=params['beta'], a=params['a'])
+\end{verbatim}
+
+\end{document}

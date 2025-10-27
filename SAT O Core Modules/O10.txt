@@ -1,0 +1,87 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\geometry{margin=1in}
+
+\begin{document}
+
+\section*{Module SAT.O$_{10}$ (\texttt{sat\_o10.py})}
+
+\subsection*{Overview}
+Provides the two‐sector calibration and prediction framework:
+\begin{itemize}
+  \item \emph{Leptonic sector}: fit $m^2 = p_2\,Q^2 + p_1$ to $(e,\mu,\pi)$
+  \item \emph{Hadronic sector}: fit the same form to $(\rho,K^*,\phi)$
+  \item Predict ground states and radial excitations
+  \item Plot trajectories with data overlays
+\end{itemize}
+
+\subsection*{Functions}
+
+\begin{verbatim}
+def calibrate_leptonic(masses, Q_vals):
+    """
+    Fit m^2 = p2*Q^2 + p1 to leptonic ground states.
+    Returns {'p2':..., 'p1':..., 'masses':..., 'Q_vals':...}.
+    """
+\end{verbatim}
+
+\begin{verbatim}
+def calibrate_hadronic(masses, Q_vals):
+    """
+    Fit m^2 = p2*Q^2 + p1 to hadronic ground states.
+    Returns {'p2':..., 'p1':..., 'masses':..., 'Q_vals':...}.
+    """
+\end{verbatim}
+
+\begin{verbatim}
+def predict_ground_states(p2, p1, Q_range):
+    """
+    Compute m_ground(Q)=sqrt(p2*Q^2 + p1) for Q in Q_range.
+    """
+\end{verbatim}
+
+\begin{verbatim}
+def predict_radial_states(p2, p1, k_rad, Q_vals):
+    """
+    Compute m_radial(Q)=sqrt(p2*Q^2 + p1 + k_rad) for Q in Q_vals.
+    """
+\end{verbatim}
+
+\begin{verbatim}
+def plot_trajectories(params_lept, params_had):
+    """
+    Plot m^2 vs Q for both sectors, with input data points.
+    """
+\end{verbatim}
+
+\subsection*{Usage Example}
+\begin{verbatim}
+from sat_o10 import (
+    calibrate_leptonic, calibrate_hadronic,
+    predict_ground_states, predict_radial_states,
+    plot_trajectories
+)
+
+# 1. Calibrate each sector
+lep_params = calibrate_leptonic(
+    masses=[0.000511,0.10566,0.13957], Q_vals=[1,2,3]
+)
+had_params = calibrate_hadronic(
+    masses=[0.775,0.892,1.019], Q_vals=[3,4,6]
+)
+
+# 2. Predict ground states for Q=1..10
+df_lep = predict_ground_states(**lep_params, Q_range=range(1,11))
+df_had = predict_ground_states(**had_params, Q_range=range(3,11))
+
+# 3. Fit radial slope from ρ(1450)
+k_rad = 1.450**2 - (had_params['p2']*3**2 + had_params['p1'])
+df_rad = predict_radial_states(**had_params, k_rad=k_rad, Q_vals=[3,4,6])
+
+# 4. Plot both trajectories
+plot_trajectories(lep_params, had_params)
+\end{verbatim}
+
+\end{document}
