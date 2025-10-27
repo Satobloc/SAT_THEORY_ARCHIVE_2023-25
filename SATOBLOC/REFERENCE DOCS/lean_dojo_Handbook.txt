@@ -1,0 +1,4513 @@
+ API Reference lean_dojo.interaction Edit on GitHub
+lean_dojo.interaction
+lean_dojo.interaction.dojo
+CommandState
+Dojo
+DojoCrashError
+DojoInitError
+DojoTacticTimeoutError
+LeanError
+ProofFinished
+ProofGivenUp
+TacticState
+check_proof()
+kill_descendants()
+lean_dojo.interaction.parse_goals
+Declaration
+Goal
+parse_goals()
+lean_dojo.interaction.dojo
+classlean_dojo.interaction.dojo.CommandState(id: int, message: str | None = None)[source]
+Bases: object
+
+id: int
+message: str | None= None
+classlean_dojo.interaction.dojo.Dojo(entry: Theorem | Tuple[LeanGitRepo, Path, int], timeout: int = 600, additional_imports: List[str] = [], build_deps: bool = True)[source]
+Bases: object
+
+Gym-like environment for programmatic interaction with Lean through tactics or commands.
+
+additional_imports: List[str]
+entry: Theorem | Tuple[LeanGitRepo, Path, int]
+file_path: Path
+has_timedout: bool= False
+is_crashed: bool= False
+is_successful: bool | None= None
+modified_file: TextIO
+repo: LeanGitRepo
+run_cmd(state: CommandState, command: str)→ CommandState | LeanError[source]
+run_tac(state: TacticState, tactic: str)→ TacticState | ProofFinished | LeanError | ProofGivenUp[source]
+propertyuses_commands: bool
+ 
+propertyuses_tactics: bool
+exceptionlean_dojo.interaction.dojo.DojoCrashError[source]
+Bases: Exception
+
+propertyis_out_of_memory: bool
+exceptionlean_dojo.interaction.dojo.DojoInitError[source]
+Bases: Exception
+
+exceptionlean_dojo.interaction.dojo.DojoTacticTimeoutError[source]
+Bases: Exception
+
+classlean_dojo.interaction.dojo.LeanError(error: str)[source]
+Bases: object
+
+error: str
+classlean_dojo.interaction.dojo.ProofFinished(tactic_state_id: int, message: str | None = None)[source]
+Bases: object
+
+message: str | None= None
+tactic_state_id: int
+classlean_dojo.interaction.dojo.ProofGivenUp[source]
+Bases: object
+
+classlean_dojo.interaction.dojo.TacticState(pp: str, id: int, message: str | None = None)[source]
+Bases: object
+
+goals: List[Goal]
+id: int
+message: str | None= None
+propertynum_goals: int
+pp: str
+lean_dojo.interaction.dojo.check_proof(thm: Theorem, proof: str)→ bool[source]
+Check if a proof is correct.
+
+Parameters
+:
+thm (Theorem) – The theorem statement.
+
+proof (str) – The proof to check.
+
+lean_dojo.interaction.dojo.kill_descendants(pid: int)→ None[source]lean_dojo.interaction.parse_goals
+Utilities for parsing Lean’s pretty-printed proof goals.
+
+classlean_dojo.interaction.parse_goals.Declaration(ident: str, lean_type: str)[source]
+Bases: object
+
+A declaration in the local context.
+
+ident: str
+lean_type: str
+classlean_dojo.interaction.parse_goals.Goal(assumptions: List[Declaration], conclusion: str)[source]
+Bases: object
+
+A goal in Lean.
+
+assumptions: List[Declaration]
+conclusion: str
+classmethodfrom_pp(pp: str)→ Goal[source]
+Parse a pretty-printed goal.
+
+lean_dojo.interaction.parse_goals.parse_goals(pp: str)→ List[Goal][source]
+Parse a list of pretty-printed goals.
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.constants
+CACHE_DIR
+DISABLE_REMOTE_CACHE
+LEAN4_PACKAGES_DIR
+LEAN4_URL
+LOAD_USED_PACKAGES_ONLY
+NUM_PROCS
+REMOTE_CACHE_URL
+TACTIC_CPU_LIMIT
+TACTIC_MEMORY_LIMIT
+TMP_DIR
+check_git_version()
+AI-powered ad network for devs. Get your message in front of the right developers with EthicalAds.
+Ads by EthicalAds
+Close Ad
+ API Reference lean_dojo.constants Edit on GitHub
+lean_dojo.constants
+Constants controlling LeanDojo’s behaviors. Many of them are configurable via Environment Variables.
+
+lean_dojo.constants.CACHE_DIR= PosixPath('/home/docs/.cache/lean_dojo')
+Cache directory for storing traced repos (see Caching).
+
+lean_dojo.constants.DISABLE_REMOTE_CACHE= False
+Whether to disable remote caching (see Caching) and build all repos locally.
+
+lean_dojo.constants.LEAN4_PACKAGES_DIR= PosixPath('.lake/packages')
+The directory where Lean 4 dependencies are stored (since v4.3.0-rc2).
+
+lean_dojo.constants.LEAN4_URL= 'https://github.com/leanprover/lean4'
+The URL of the Lean 4 repo.
+
+lean_dojo.constants.LOAD_USED_PACKAGES_ONLY= False
+Only load depdendency files that are actually used by the target repo.
+
+lean_dojo.constants.NUM_PROCS= 2
+Number of processes to use
+
+lean_dojo.constants.REMOTE_CACHE_URL= 'https://dl.fbaipublicfiles.com/lean-dojo'
+URL of the remote cache (see Caching).
+
+lean_dojo.constants.TACTIC_CPU_LIMIT= 1
+Number of CPUs for executing tactics when interacting with Lean.
+
+lean_dojo.constants.TACTIC_MEMORY_LIMIT= '32g'
+Maximum memory when interacting with Lean.
+
+lean_dojo.constants.TMP_DIR= None
+Temporary directory used by LeanDojo for storing intermediate files
+
+lean_dojo.constants.check_git_version(min_version: Tuple[int, int, int])→ None[source]
+Check the version of Git installed on the system.
+
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.interaction.dojo
+CommandState
+Dojo
+DojoCrashError
+DojoInitError
+DojoTacticTimeoutError
+LeanError
+ProofFinished
+ProofGivenUp
+TacticState
+check_proof()
+kill_descendants()
+lean_dojo.interaction.parse_goals
+lean_dojo.constants
+Sponsored: EthicalAds
+AI-powered ad network for devs. Get your message in front of the right developers with EthicalAds.
+Ad by EthicalAds   ·   ℹ️
+ API Reference lean_dojo.interaction lean_dojo.interaction.dojo Edit on GitHub
+lean_dojo.interaction.dojo
+classlean_dojo.interaction.dojo.CommandState(id: int, message: str | None = None)[source]
+Bases: object
+
+id: int
+message: str | None= None
+classlean_dojo.interaction.dojo.Dojo(entry: Theorem | Tuple[LeanGitRepo, Path, int], timeout: int = 600, additional_imports: List[str] = [], build_deps: bool = True)[source]
+Bases: object
+
+Gym-like environment for programmatic interaction with Lean through tactics or commands.
+
+additional_imports: List[str]
+entry: Theorem | Tuple[LeanGitRepo, Path, int]
+file_path: Path
+has_timedout: bool= False
+is_crashed: bool= False
+is_successful: bool | None= None
+modified_file: TextIO
+repo: LeanGitRepo
+run_cmd(state: CommandState, command: str)→ CommandState | LeanError[source]
+run_tac(state: TacticState, tactic: str)→ TacticState | ProofFinished | LeanError | ProofGivenUp[source]
+propertyuses_commands: bool
+ 
+propertyuses_tactics: bool
+exceptionlean_dojo.interaction.dojo.DojoCrashError[source]
+Bases: Exception
+
+propertyis_out_of_memory: bool
+exceptionlean_dojo.interaction.dojo.DojoInitError[source]
+Bases: Exception
+
+exceptionlean_dojo.interaction.dojo.DojoTacticTimeoutError[source]
+Bases: Exception
+
+classlean_dojo.interaction.dojo.LeanError(error: str)[source]
+Bases: object
+
+error: str
+classlean_dojo.interaction.dojo.ProofFinished(tactic_state_id: int, message: str | None = None)[source]
+Bases: object
+
+message: str | None= None
+tactic_state_id: int
+classlean_dojo.interaction.dojo.ProofGivenUp[source]
+Bases: object
+
+classlean_dojo.interaction.dojo.TacticState(pp: str, id: int, message: str | None = None)[source]
+Bases: object
+
+goals: List[Goal]
+id: int
+message: str | None= None
+propertynum_goals: int
+pp: str
+lean_dojo.interaction.dojo.check_proof(thm: Theorem, proof: str)→ bool[source]
+Check if a proof is correct.
+
+Parameters
+:
+thm (Theorem) – The theorem statement.
+
+proof (str) – The proof to check.
+
+lean_dojo.interaction.dojo.kill_descendants(pid: int)→ None[source]
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.interaction.dojo
+CommandState
+Dojo
+DojoCrashError
+DojoInitError
+DojoTacticTimeoutError
+LeanError
+ProofFinished
+ProofGivenUp
+TacticState
+check_proof()
+kill_descendants()
+lean_dojo.interaction.parse_goals
+lean_dojo.constants
+Sponsored: EthicalAds
+AI-powered ad network for devs. Get your message in front of the right developers with EthicalAds.
+Ad by EthicalAds   ·   ℹ️
+ API Reference lean_dojo.interaction lean_dojo.interaction.dojo Edit on GitHub
+lean_dojo.interaction.dojo
+classlean_dojo.interaction.dojo.CommandState(id: int, message: str | None = None)[source]
+Bases: object
+
+id: int
+message: str | None= None
+classlean_dojo.interaction.dojo.Dojo(entry: Theorem | Tuple[LeanGitRepo, Path, int], timeout: int = 600, additional_imports: List[str] = [], build_deps: bool = True)[source]
+Bases: object
+
+Gym-like environment for programmatic interaction with Lean through tactics or commands.
+
+additional_imports: List[str]
+entry: Theorem | Tuple[LeanGitRepo, Path, int]
+file_path: Path
+has_timedout: bool= False
+is_crashed: bool= False
+is_successful: bool | None= None
+modified_file: TextIO
+repo: LeanGitRepo
+run_cmd(state: CommandState, command: str)→ CommandState | LeanError[source]
+run_tac(state: TacticState, tactic: str)→ TacticState | ProofFinished | LeanError | ProofGivenUp[source]
+propertyuses_commands: bool
+ 
+propertyuses_tactics: bool
+exceptionlean_dojo.interaction.dojo.DojoCrashError[source]
+Bases: Exception
+
+propertyis_out_of_memory: bool
+exceptionlean_dojo.interaction.dojo.DojoInitError[source]
+Bases: Exception
+
+exceptionlean_dojo.interaction.dojo.DojoTacticTimeoutError[source]
+Bases: Exception
+
+classlean_dojo.interaction.dojo.LeanError(error: str)[source]
+Bases: object
+
+error: str
+classlean_dojo.interaction.dojo.ProofFinished(tactic_state_id: int, message: str | None = None)[source]
+Bases: object
+
+message: str | None= None
+tactic_state_id: int
+classlean_dojo.interaction.dojo.ProofGivenUp[source]
+Bases: object
+
+classlean_dojo.interaction.dojo.TacticState(pp: str, id: int, message: str | None = None)[source]
+Bases: object
+
+goals: List[Goal]
+id: int
+message: str | None= None
+propertynum_goals: int
+pp: str
+lean_dojo.interaction.dojo.check_proof(thm: Theorem, proof: str)→ bool[source]
+Check if a proof is correct.
+
+Parameters
+:
+thm (Theorem) – The theorem statement.
+
+proof (str) – The proof to check.
+
+lean_dojo.interaction.dojo.kill_descendants(pid: int)→ None[source]
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.interaction.dojo
+lean_dojo.interaction.parse_goals
+Declaration
+Goal
+parse_goals()
+lean_dojo.constants
+Sponsored: Read the Docs
+Private repos, priority support, SSO, custom builders.
+Check our Read the Docs Enterprise plans
+Ad by EthicalAds   ·   ℹ️
+ API Reference lean_dojo.interaction lean_dojo.interaction.parse_goals Edit on GitHub
+lean_dojo.interaction.parse_goals
+Utilities for parsing Lean’s pretty-printed proof goals.
+
+classlean_dojo.interaction.parse_goals.Declaration(ident: str, lean_type: str)[source]
+Bases: object
+
+A declaration in the local context.
+
+ident: str
+lean_type: str
+classlean_dojo.interaction.parse_goals.Goal(assumptions: List[Declaration], conclusion: str)[source]
+Bases: object
+
+A goal in Lean.
+
+assumptions: List[Declaration]
+conclusion: str
+classmethodfrom_pp(pp: str)→ Goal[source]
+Parse a pretty-printed goal.
+
+lean_dojo.interaction.parse_goals.parse_goals(pp: str)→ List[Goal][source]
+Parse a list of pretty-printed goals.
+
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.constants
+CACHE_DIR
+DISABLE_REMOTE_CACHE
+LEAN4_PACKAGES_DIR
+LEAN4_URL
+LOAD_USED_PACKAGES_ONLY
+NUM_PROCS
+REMOTE_CACHE_URL
+TACTIC_CPU_LIMIT
+TACTIC_MEMORY_LIMIT
+TMP_DIR
+check_git_version()
+AI-powered ad network for devs. Get your message in front of the right developers with EthicalAds.
+Ads by EthicalAds
+Close Ad
+ API Reference lean_dojo.constants Edit on GitHub
+lean_dojo.constants
+Constants controlling LeanDojo’s behaviors. Many of them are configurable via Environment Variables.
+
+lean_dojo.constants.CACHE_DIR= PosixPath('/home/docs/.cache/lean_dojo')
+Cache directory for storing traced repos (see Caching).
+
+lean_dojo.constants.DISABLE_REMOTE_CACHE= False
+Whether to disable remote caching (see Caching) and build all repos locally.
+
+lean_dojo.constants.LEAN4_PACKAGES_DIR= PosixPath('.lake/packages')
+The directory where Lean 4 dependencies are stored (since v4.3.0-rc2).
+
+lean_dojo.constants.LEAN4_URL= 'https://github.com/leanprover/lean4'
+The URL of the Lean 4 repo.
+
+lean_dojo.constants.LOAD_USED_PACKAGES_ONLY= False
+Only load depdendency files that are actually used by the target repo.
+
+lean_dojo.constants.NUM_PROCS= 2
+Number of processes to use
+
+lean_dojo.constants.REMOTE_CACHE_URL= 'https://dl.fbaipublicfiles.com/lean-dojo'
+URL of the remote cache (see Caching).
+
+lean_dojo.constants.TACTIC_CPU_LIMIT= 1
+Number of CPUs for executing tactics when interacting with Lean.
+
+lean_dojo.constants.TACTIC_MEMORY_LIMIT= '32g'
+Maximum memory when interacting with Lean.
+
+lean_dojo.constants.TMP_DIR= None
+Temporary directory used by LeanDojo for storing intermediate files
+
+lean_dojo.constants.check_git_version(min_version: Tuple[int, int, int])→ None[source]
+Check the version of Git installed on the system.
+
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.interaction.dojo
+CommandState
+Dojo
+DojoCrashError
+DojoInitError
+DojoTacticTimeoutError
+LeanError
+ProofFinished
+ProofGivenUp
+TacticState
+check_proof()
+kill_descendants()
+lean_dojo.interaction.parse_goals
+lean_dojo.constants
+Sponsored: EthicalAds
+AI-powered ad network for devs. Get your message in front of the right developers with EthicalAds.
+Ad by EthicalAds   ·   ℹ️
+ API Reference lean_dojo.interaction lean_dojo.interaction.dojo Edit on GitHub
+lean_dojo.interaction.dojo
+classlean_dojo.interaction.dojo.CommandState(id: int, message: str | None = None)[source]
+Bases: object
+
+id: int
+message: str | None= None
+classlean_dojo.interaction.dojo.Dojo(entry: Theorem | Tuple[LeanGitRepo, Path, int], timeout: int = 600, additional_imports: List[str] = [], build_deps: bool = True)[source]
+Bases: object
+
+Gym-like environment for programmatic interaction with Lean through tactics or commands.
+
+additional_imports: List[str]
+entry: Theorem | Tuple[LeanGitRepo, Path, int]
+file_path: Path
+has_timedout: bool= False
+is_crashed: bool= False
+is_successful: bool | None= None
+modified_file: TextIO
+repo: LeanGitRepo
+run_cmd(state: CommandState, command: str)→ CommandState | LeanError[source]
+run_tac(state: TacticState, tactic: str)→ TacticState | ProofFinished | LeanError | ProofGivenUp[source]
+propertyuses_commands: bool
+ 
+propertyuses_tactics: bool
+exceptionlean_dojo.interaction.dojo.DojoCrashError[source]
+Bases: Exception
+
+propertyis_out_of_memory: bool
+exceptionlean_dojo.interaction.dojo.DojoInitError[source]
+Bases: Exception
+
+exceptionlean_dojo.interaction.dojo.DojoTacticTimeoutError[source]
+Bases: Exception
+
+classlean_dojo.interaction.dojo.LeanError(error: str)[source]
+Bases: object
+
+error: str
+classlean_dojo.interaction.dojo.ProofFinished(tactic_state_id: int, message: str | None = None)[source]
+Bases: object
+
+message: str | None= None
+tactic_state_id: int
+classlean_dojo.interaction.dojo.ProofGivenUp[source]
+Bases: object
+
+classlean_dojo.interaction.dojo.TacticState(pp: str, id: int, message: str | None = None)[source]
+Bases: object
+
+goals: List[Goal]
+id: int
+message: str | None= None
+propertynum_goals: int
+pp: str
+lean_dojo.interaction.dojo.check_proof(thm: Theorem, proof: str)→ bool[source]
+Check if a proof is correct.
+
+Parameters
+:
+thm (Theorem) – The theorem statement.
+
+proof (str) – The proof to check.
+
+lean_dojo.interaction.dojo.kill_descendants(pid: int)→ None[source]
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.interaction.dojo
+lean_dojo.interaction.parse_goals
+Declaration
+Goal
+parse_goals()
+lean_dojo.constants
+Sponsored: Read the Docs
+Private docs hosting for any Docs as Code tool.
+Get started
+Ad by EthicalAds   ·   ℹ️
+ API Reference lean_dojo.interaction lean_dojo.interaction.parse_goals Edit on GitHub
+lean_dojo.interaction.parse_goals
+Utilities for parsing Lean’s pretty-printed proof goals.
+
+classlean_dojo.interaction.parse_goals.Declaration(ident: str, lean_type: str)[source]
+Bases: object
+
+A declaration in the local context.
+
+ident: str
+lean_type: str
+classlean_dojo.interaction.parse_goals.Goal(assumptions: List[Declaration], conclusion: str)[source]
+Bases: object
+
+A goal in Lean.
+
+assumptions: List[Declaration]
+conclusion: str
+classmethodfrom_pp(pp: str)→ Goal[source]
+Parse a pretty-printed goal.
+
+lean_dojo.interaction.parse_goals.parse_goals(pp: str)→ List[Goal][source]
+Parse a list of pretty-printed goals.
+
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.constants
+CACHE_DIR
+DISABLE_REMOTE_CACHE
+LEAN4_PACKAGES_DIR
+LEAN4_URL
+LOAD_USED_PACKAGES_ONLY
+NUM_PROCS
+REMOTE_CACHE_URL
+TACTIC_CPU_LIMIT
+TACTIC_MEMORY_LIMIT
+TMP_DIR
+check_git_version()
+AI-powered ad network for devs. Get your message in front of the right developers with EthicalAds.
+Ads by EthicalAds
+Close Ad
+ API Reference lean_dojo.constants Edit on GitHub
+lean_dojo.constants
+Constants controlling LeanDojo’s behaviors. Many of them are configurable via Environment Variables.
+
+lean_dojo.constants.CACHE_DIR= PosixPath('/home/docs/.cache/lean_dojo')
+Cache directory for storing traced repos (see Caching).
+
+lean_dojo.constants.DISABLE_REMOTE_CACHE= False
+Whether to disable remote caching (see Caching) and build all repos locally.
+
+lean_dojo.constants.LEAN4_PACKAGES_DIR= PosixPath('.lake/packages')
+The directory where Lean 4 dependencies are stored (since v4.3.0-rc2).
+
+lean_dojo.constants.LEAN4_URL= 'https://github.com/leanprover/lean4'
+The URL of the Lean 4 repo.
+
+lean_dojo.constants.LOAD_USED_PACKAGES_ONLY= False
+Only load depdendency files that are actually used by the target repo.
+
+lean_dojo.constants.NUM_PROCS= 2
+Number of processes to use
+
+lean_dojo.constants.REMOTE_CACHE_URL= 'https://dl.fbaipublicfiles.com/lean-dojo'
+URL of the remote cache (see Caching).
+
+lean_dojo.constants.TACTIC_CPU_LIMIT= 1
+Number of CPUs for executing tactics when interacting with Lean.
+
+lean_dojo.constants.TACTIC_MEMORY_LIMIT= '32g'
+Maximum memory when interacting with Lean.
+
+lean_dojo.constants.TMP_DIR= None
+Temporary directory used by LeanDojo for storing intermediate files
+
+lean_dojo.constants.check_git_version(min_version: Tuple[int, int, int])→ None[source]
+Check the version of Git installed on the system.
+
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.interaction.dojo
+CommandState
+Dojo
+DojoCrashError
+DojoInitError
+DojoTacticTimeoutError
+LeanError
+ProofFinished
+ProofGivenUp
+TacticState
+check_proof()
+kill_descendants()
+lean_dojo.interaction.parse_goals
+lean_dojo.constants
+Sponsored: EthicalAds
+AI-powered ad network for devs. Get your message in front of the right developers with EthicalAds.
+Ad by EthicalAds   ·   ℹ️
+ API Reference lean_dojo.interaction lean_dojo.interaction.dojo Edit on GitHub
+lean_dojo.interaction.dojo
+classlean_dojo.interaction.dojo.CommandState(id: int, message: str | None = None)[source]
+Bases: object
+
+id: int
+message: str | None= None
+classlean_dojo.interaction.dojo.Dojo(entry: Theorem | Tuple[LeanGitRepo, Path, int], timeout: int = 600, additional_imports: List[str] = [], build_deps: bool = True)[source]
+Bases: object
+
+Gym-like environment for programmatic interaction with Lean through tactics or commands.
+
+additional_imports: List[str]
+entry: Theorem | Tuple[LeanGitRepo, Path, int]
+file_path: Path
+has_timedout: bool= False
+is_crashed: bool= False
+is_successful: bool | None= None
+modified_file: TextIO
+repo: LeanGitRepo
+run_cmd(state: CommandState, command: str)→ CommandState | LeanError[source]
+run_tac(state: TacticState, tactic: str)→ TacticState | ProofFinished | LeanError | ProofGivenUp[source]
+propertyuses_commands: bool
+ 
+propertyuses_tactics: bool
+exceptionlean_dojo.interaction.dojo.DojoCrashError[source]
+Bases: Exception
+
+propertyis_out_of_memory: bool
+exceptionlean_dojo.interaction.dojo.DojoInitError[source]
+Bases: Exception
+
+exceptionlean_dojo.interaction.dojo.DojoTacticTimeoutError[source]
+Bases: Exception
+
+classlean_dojo.interaction.dojo.LeanError(error: str)[source]
+Bases: object
+
+error: str
+classlean_dojo.interaction.dojo.ProofFinished(tactic_state_id: int, message: str | None = None)[source]
+Bases: object
+
+message: str | None= None
+tactic_state_id: int
+classlean_dojo.interaction.dojo.ProofGivenUp[source]
+Bases: object
+
+classlean_dojo.interaction.dojo.TacticState(pp: str, id: int, message: str | None = None)[source]
+Bases: object
+
+goals: List[Goal]
+id: int
+message: str | None= None
+propertynum_goals: int
+pp: str
+lean_dojo.interaction.dojo.check_proof(thm: Theorem, proof: str)→ bool[source]
+Check if a proof is correct.
+
+Parameters
+:
+thm (Theorem) – The theorem statement.
+
+proof (str) – The proof to check.
+
+lean_dojo.interaction.dojo.kill_descendants(pid: int)→ None[source]
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.interaction.dojo
+CommandState
+Dojo
+DojoCrashError
+DojoInitError
+DojoTacticTimeoutError
+LeanError
+ProofFinished
+ProofGivenUp
+TacticState
+check_proof()
+kill_descendants()
+lean_dojo.interaction.parse_goals
+lean_dojo.constants
+Sponsored: EthicalAds
+AI-powered ad network for devs. Get your message in front of the right developers with EthicalAds.
+Ad by EthicalAds   ·   ℹ️
+ API Reference lean_dojo.interaction lean_dojo.interaction.dojo Edit on GitHub
+lean_dojo.interaction.dojo
+classlean_dojo.interaction.dojo.CommandState(id: int, message: str | None = None)[source]
+Bases: object
+
+id: int
+message: str | None= None
+classlean_dojo.interaction.dojo.Dojo(entry: Theorem | Tuple[LeanGitRepo, Path, int], timeout: int = 600, additional_imports: List[str] = [], build_deps: bool = True)[source]
+Bases: object
+
+Gym-like environment for programmatic interaction with Lean through tactics or commands.
+
+additional_imports: List[str]
+entry: Theorem | Tuple[LeanGitRepo, Path, int]
+file_path: Path
+has_timedout: bool= False
+is_crashed: bool= False
+is_successful: bool | None= None
+modified_file: TextIO
+repo: LeanGitRepo
+run_cmd(state: CommandState, command: str)→ CommandState | LeanError[source]
+run_tac(state: TacticState, tactic: str)→ TacticState | ProofFinished | LeanError | ProofGivenUp[source]
+propertyuses_commands: bool
+ 
+propertyuses_tactics: bool
+exceptionlean_dojo.interaction.dojo.DojoCrashError[source]
+Bases: Exception
+
+propertyis_out_of_memory: bool
+exceptionlean_dojo.interaction.dojo.DojoInitError[source]
+Bases: Exception
+
+exceptionlean_dojo.interaction.dojo.DojoTacticTimeoutError[source]
+Bases: Exception
+
+classlean_dojo.interaction.dojo.LeanError(error: str)[source]
+Bases: object
+
+error: str
+classlean_dojo.interaction.dojo.ProofFinished(tactic_state_id: int, message: str | None = None)[source]
+Bases: object
+
+message: str | None= None
+tactic_state_id: int
+classlean_dojo.interaction.dojo.ProofGivenUp[source]
+Bases: object
+
+classlean_dojo.interaction.dojo.TacticState(pp: str, id: int, message: str | None = None)[source]
+Bases: object
+
+goals: List[Goal]
+id: int
+message: str | None= None
+propertynum_goals: int
+pp: str
+lean_dojo.interaction.dojo.check_proof(thm: Theorem, proof: str)→ bool[source]
+Check if a proof is correct.
+
+Parameters
+:
+thm (Theorem) – The theorem statement.
+
+proof (str) – The proof to check.
+
+lean_dojo.interaction.dojo.kill_descendants(pid: int)→ None[source]
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.interaction.dojo
+CommandState
+Dojo
+DojoCrashError
+DojoInitError
+DojoTacticTimeoutError
+LeanError
+ProofFinished
+ProofGivenUp
+TacticState
+check_proof()
+kill_descendants()
+lean_dojo.interaction.parse_goals
+lean_dojo.constants
+Sponsored: EthicalAds
+AI-powered ad network for devs. Get your message in front of the right developers with EthicalAds.
+Ad by EthicalAds   ·   ℹ️
+ API Reference lean_dojo.interaction lean_dojo.interaction.dojo Edit on GitHub
+lean_dojo.interaction.dojo
+classlean_dojo.interaction.dojo.CommandState(id: int, message: str | None = None)[source]
+Bases: object
+
+id: int
+message: str | None= None
+classlean_dojo.interaction.dojo.Dojo(entry: Theorem | Tuple[LeanGitRepo, Path, int], timeout: int = 600, additional_imports: List[str] = [], build_deps: bool = True)[source]
+Bases: object
+
+Gym-like environment for programmatic interaction with Lean through tactics or commands.
+
+additional_imports: List[str]
+entry: Theorem | Tuple[LeanGitRepo, Path, int]
+file_path: Path
+has_timedout: bool= False
+is_crashed: bool= False
+is_successful: bool | None= None
+modified_file: TextIO
+repo: LeanGitRepo
+run_cmd(state: CommandState, command: str)→ CommandState | LeanError[source]
+run_tac(state: TacticState, tactic: str)→ TacticState | ProofFinished | LeanError | ProofGivenUp[source]
+propertyuses_commands: bool
+ 
+propertyuses_tactics: bool
+exceptionlean_dojo.interaction.dojo.DojoCrashError[source]
+Bases: Exception
+
+propertyis_out_of_memory: bool
+exceptionlean_dojo.interaction.dojo.DojoInitError[source]
+Bases: Exception
+
+exceptionlean_dojo.interaction.dojo.DojoTacticTimeoutError[source]
+Bases: Exception
+
+classlean_dojo.interaction.dojo.LeanError(error: str)[source]
+Bases: object
+
+error: str
+classlean_dojo.interaction.dojo.ProofFinished(tactic_state_id: int, message: str | None = None)[source]
+Bases: object
+
+message: str | None= None
+tactic_state_id: int
+classlean_dojo.interaction.dojo.ProofGivenUp[source]
+Bases: object
+
+classlean_dojo.interaction.dojo.TacticState(pp: str, id: int, message: str | None = None)[source]
+Bases: object
+
+goals: List[Goal]
+id: int
+message: str | None= None
+propertynum_goals: int
+pp: str
+lean_dojo.interaction.dojo.check_proof(thm: Theorem, proof: str)→ bool[source]
+Check if a proof is correct.
+
+Parameters
+:
+thm (Theorem) – The theorem statement.
+
+proof (str) – The proof to check.
+
+lean_dojo.interaction.dojo.kill_descendants(pid: int)→ None[source]
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.interaction.dojo
+lean_dojo.interaction.parse_goals
+Declaration
+Goal
+parse_goals()
+lean_dojo.constants
+Sponsored: EthicalAds
+AI-powered ad network for devs. Get your message in front of the right developers with EthicalAds.
+Ad by EthicalAds   ·   ℹ️
+ API Reference lean_dojo.interaction lean_dojo.interaction.parse_goals Edit on GitHub
+lean_dojo.interaction.parse_goals
+Utilities for parsing Lean’s pretty-printed proof goals.
+
+classlean_dojo.interaction.parse_goals.Declaration(ident: str, lean_type: str)[source]
+Bases: object
+
+A declaration in the local context.
+
+ident: str
+lean_type: str
+classlean_dojo.interaction.parse_goals.Goal(assumptions: List[Declaration], conclusion: str)[source]
+Bases: object
+
+A goal in Lean.
+
+assumptions: List[Declaration]
+conclusion: str
+classmethodfrom_pp(pp: str)→ Goal[source]
+Parse a pretty-printed goal.
+
+lean_dojo.interaction.parse_goals.parse_goals(pp: str)→ List[Goal][source]
+Parse a list of pretty-printed goals.
+
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.constants
+CACHE_DIR
+DISABLE_REMOTE_CACHE
+LEAN4_PACKAGES_DIR
+LEAN4_URL
+LOAD_USED_PACKAGES_ONLY
+NUM_PROCS
+REMOTE_CACHE_URL
+TACTIC_CPU_LIMIT
+TACTIC_MEMORY_LIMIT
+TMP_DIR
+check_git_version()
+AI-powered ad network for devs. Get your message in front of the right developers with EthicalAds.
+Ads by EthicalAds
+Close Ad
+ API Reference lean_dojo.constants Edit on GitHub
+lean_dojo.constants
+Constants controlling LeanDojo’s behaviors. Many of them are configurable via Environment Variables.
+
+lean_dojo.constants.CACHE_DIR= PosixPath('/home/docs/.cache/lean_dojo')
+Cache directory for storing traced repos (see Caching).
+
+lean_dojo.constants.DISABLE_REMOTE_CACHE= False
+Whether to disable remote caching (see Caching) and build all repos locally.
+
+lean_dojo.constants.LEAN4_PACKAGES_DIR= PosixPath('.lake/packages')
+The directory where Lean 4 dependencies are stored (since v4.3.0-rc2).
+
+lean_dojo.constants.LEAN4_URL= 'https://github.com/leanprover/lean4'
+The URL of the Lean 4 repo.
+
+lean_dojo.constants.LOAD_USED_PACKAGES_ONLY= False
+Only load depdendency files that are actually used by the target repo.
+
+lean_dojo.constants.NUM_PROCS= 2
+Number of processes to use
+
+lean_dojo.constants.REMOTE_CACHE_URL= 'https://dl.fbaipublicfiles.com/lean-dojo'
+URL of the remote cache (see Caching).
+
+lean_dojo.constants.TACTIC_CPU_LIMIT= 1
+Number of CPUs for executing tactics when interacting with Lean.
+
+lean_dojo.constants.TACTIC_MEMORY_LIMIT= '32g'
+Maximum memory when interacting with Lean.
+
+lean_dojo.constants.TMP_DIR= None
+Temporary directory used by LeanDojo for storing intermediate files
+
+lean_dojo.constants.check_git_version(min_version: Tuple[int, int, int])→ None[source]
+Check the version of Git installed on the system.
+
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.interaction.dojo
+CommandState
+Dojo
+DojoCrashError
+DojoInitError
+DojoTacticTimeoutError
+LeanError
+ProofFinished
+ProofGivenUp
+TacticState
+check_proof()
+kill_descendants()
+lean_dojo.interaction.parse_goals
+lean_dojo.constants
+Sponsored: EthicalAds
+AI-powered ad network for devs. Get your message in front of the right developers with EthicalAds.
+Ad by EthicalAds   ·   ℹ️
+ API Reference lean_dojo.interaction lean_dojo.interaction.dojo Edit on GitHub
+lean_dojo.interaction.dojo
+classlean_dojo.interaction.dojo.CommandState(id: int, message: str | None = None)[source]
+Bases: object
+
+id: int
+message: str | None= None
+classlean_dojo.interaction.dojo.Dojo(entry: Theorem | Tuple[LeanGitRepo, Path, int], timeout: int = 600, additional_imports: List[str] = [], build_deps: bool = True)[source]
+Bases: object
+
+Gym-like environment for programmatic interaction with Lean through tactics or commands.
+
+additional_imports: List[str]
+entry: Theorem | Tuple[LeanGitRepo, Path, int]
+file_path: Path
+has_timedout: bool= False
+is_crashed: bool= False
+is_successful: bool | None= None
+modified_file: TextIO
+repo: LeanGitRepo
+run_cmd(state: CommandState, command: str)→ CommandState | LeanError[source]
+run_tac(state: TacticState, tactic: str)→ TacticState | ProofFinished | LeanError | ProofGivenUp[source]
+propertyuses_commands: bool
+ 
+propertyuses_tactics: bool
+exceptionlean_dojo.interaction.dojo.DojoCrashError[source]
+Bases: Exception
+
+propertyis_out_of_memory: bool
+exceptionlean_dojo.interaction.dojo.DojoInitError[source]
+Bases: Exception
+
+exceptionlean_dojo.interaction.dojo.DojoTacticTimeoutError[source]
+Bases: Exception
+
+classlean_dojo.interaction.dojo.LeanError(error: str)[source]
+Bases: object
+
+error: str
+classlean_dojo.interaction.dojo.ProofFinished(tactic_state_id: int, message: str | None = None)[source]
+Bases: object
+
+message: str | None= None
+tactic_state_id: int
+classlean_dojo.interaction.dojo.ProofGivenUp[source]
+Bases: object
+
+classlean_dojo.interaction.dojo.TacticState(pp: str, id: int, message: str | None = None)[source]
+Bases: object
+
+goals: List[Goal]
+id: int
+message: str | None= None
+propertynum_goals: int
+pp: str
+lean_dojo.interaction.dojo.check_proof(thm: Theorem, proof: str)→ bool[source]
+Check if a proof is correct.
+
+Parameters
+:
+thm (Theorem) – The theorem statement.
+
+proof (str) – The proof to check.
+
+lean_dojo.interaction.dojo.kill_descendants(pid: int)→ None[source]
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.interaction.dojo
+CommandState
+Dojo
+DojoCrashError
+DojoInitError
+DojoTacticTimeoutError
+LeanError
+ProofFinished
+ProofGivenUp
+TacticState
+check_proof()
+kill_descendants()
+lean_dojo.interaction.parse_goals
+lean_dojo.constants
+Sponsored: EthicalAds
+AI-powered ad network for devs. Get your message in front of the right developers with EthicalAds.
+Ad by EthicalAds   ·   ℹ️
+ API Reference lean_dojo.interaction lean_dojo.interaction.dojo Edit on GitHub
+lean_dojo.interaction.dojo
+classlean_dojo.interaction.dojo.CommandState(id: int, message: str | None = None)[source]
+Bases: object
+
+id: int
+message: str | None= None
+classlean_dojo.interaction.dojo.Dojo(entry: Theorem | Tuple[LeanGitRepo, Path, int], timeout: int = 600, additional_imports: List[str] = [], build_deps: bool = True)[source]
+Bases: object
+
+Gym-like environment for programmatic interaction with Lean through tactics or commands.
+
+additional_imports: List[str]
+entry: Theorem | Tuple[LeanGitRepo, Path, int]
+file_path: Path
+has_timedout: bool= False
+is_crashed: bool= False
+is_successful: bool | None= None
+modified_file: TextIO
+repo: LeanGitRepo
+run_cmd(state: CommandState, command: str)→ CommandState | LeanError[source]
+run_tac(state: TacticState, tactic: str)→ TacticState | ProofFinished | LeanError | ProofGivenUp[source]
+propertyuses_commands: bool
+ 
+propertyuses_tactics: bool
+exceptionlean_dojo.interaction.dojo.DojoCrashError[source]
+Bases: Exception
+
+propertyis_out_of_memory: bool
+exceptionlean_dojo.interaction.dojo.DojoInitError[source]
+Bases: Exception
+
+exceptionlean_dojo.interaction.dojo.DojoTacticTimeoutError[source]
+Bases: Exception
+
+classlean_dojo.interaction.dojo.LeanError(error: str)[source]
+Bases: object
+
+error: str
+classlean_dojo.interaction.dojo.ProofFinished(tactic_state_id: int, message: str | None = None)[source]
+Bases: object
+
+message: str | None= None
+tactic_state_id: int
+classlean_dojo.interaction.dojo.ProofGivenUp[source]
+Bases: object
+
+classlean_dojo.interaction.dojo.TacticState(pp: str, id: int, message: str | None = None)[source]
+Bases: object
+
+goals: List[Goal]
+id: int
+message: str | None= None
+propertynum_goals: int
+pp: str
+lean_dojo.interaction.dojo.check_proof(thm: Theorem, proof: str)→ bool[source]
+Check if a proof is correct.
+
+Parameters
+:
+thm (Theorem) – The theorem statement.
+
+proof (str) – The proof to check.
+
+lean_dojo.interaction.dojo.kill_descendants(pid: int)→ None[source]
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.constants
+CACHE_DIR
+DISABLE_REMOTE_CACHE
+LEAN4_PACKAGES_DIR
+LEAN4_URL
+LOAD_USED_PACKAGES_ONLY
+NUM_PROCS
+REMOTE_CACHE_URL
+TACTIC_CPU_LIMIT
+TACTIC_MEMORY_LIMIT
+TMP_DIR
+check_git_version()
+Reach the right audience on a privacy-first ad network only for software devs: EthicalAds
+Ads by EthicalAds
+Close Ad
+ API Reference lean_dojo.constants Edit on GitHub
+lean_dojo.constants
+Constants controlling LeanDojo’s behaviors. Many of them are configurable via Environment Variables.
+
+lean_dojo.constants.CACHE_DIR= PosixPath('/home/docs/.cache/lean_dojo')
+Cache directory for storing traced repos (see Caching).
+
+lean_dojo.constants.DISABLE_REMOTE_CACHE= False
+Whether to disable remote caching (see Caching) and build all repos locally.
+
+lean_dojo.constants.LEAN4_PACKAGES_DIR= PosixPath('.lake/packages')
+The directory where Lean 4 dependencies are stored (since v4.3.0-rc2).
+
+lean_dojo.constants.LEAN4_URL= 'https://github.com/leanprover/lean4'
+The URL of the Lean 4 repo.
+
+lean_dojo.constants.LOAD_USED_PACKAGES_ONLY= False
+Only load depdendency files that are actually used by the target repo.
+
+lean_dojo.constants.NUM_PROCS= 2
+Number of processes to use
+
+lean_dojo.constants.REMOTE_CACHE_URL= 'https://dl.fbaipublicfiles.com/lean-dojo'
+URL of the remote cache (see Caching).
+
+lean_dojo.constants.TACTIC_CPU_LIMIT= 1
+Number of CPUs for executing tactics when interacting with Lean.
+
+lean_dojo.constants.TACTIC_MEMORY_LIMIT= '32g'
+Maximum memory when interacting with Lean.
+
+lean_dojo.constants.TMP_DIR= None
+Temporary directory used by LeanDojo for storing intermediate files
+
+lean_dojo.constants.check_git_version(min_version: Tuple[int, int, int])→ None[source]
+Check the version of Git installed on the system.
+
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.interaction.dojo
+CommandState
+Dojo
+DojoCrashError
+DojoInitError
+DojoTacticTimeoutError
+LeanError
+ProofFinished
+ProofGivenUp
+TacticState
+check_proof()
+kill_descendants()
+lean_dojo.interaction.parse_goals
+lean_dojo.constants
+Sponsored: EthicalAds
+AI-powered ad network for devs. Get your message in front of the right developers with EthicalAds.
+Ad by EthicalAds   ·   ℹ️
+ API Reference lean_dojo.interaction lean_dojo.interaction.dojo Edit on GitHub
+lean_dojo.interaction.dojo
+classlean_dojo.interaction.dojo.CommandState(id: int, message: str | None = None)[source]
+Bases: object
+
+id: int
+message: str | None= None
+classlean_dojo.interaction.dojo.Dojo(entry: Theorem | Tuple[LeanGitRepo, Path, int], timeout: int = 600, additional_imports: List[str] = [], build_deps: bool = True)[source]
+Bases: object
+
+Gym-like environment for programmatic interaction with Lean through tactics or commands.
+
+additional_imports: List[str]
+entry: Theorem | Tuple[LeanGitRepo, Path, int]
+file_path: Path
+has_timedout: bool= False
+is_crashed: bool= False
+is_successful: bool | None= None
+modified_file: TextIO
+repo: LeanGitRepo
+run_cmd(state: CommandState, command: str)→ CommandState | LeanError[source]
+run_tac(state: TacticState, tactic: str)→ TacticState | ProofFinished | LeanError | ProofGivenUp[source]
+propertyuses_commands: bool
+ 
+propertyuses_tactics: bool
+exceptionlean_dojo.interaction.dojo.DojoCrashError[source]
+Bases: Exception
+
+propertyis_out_of_memory: bool
+exceptionlean_dojo.interaction.dojo.DojoInitError[source]
+Bases: Exception
+
+exceptionlean_dojo.interaction.dojo.DojoTacticTimeoutError[source]
+Bases: Exception
+
+classlean_dojo.interaction.dojo.LeanError(error: str)[source]
+Bases: object
+
+error: str
+classlean_dojo.interaction.dojo.ProofFinished(tactic_state_id: int, message: str | None = None)[source]
+Bases: object
+
+message: str | None= None
+tactic_state_id: int
+classlean_dojo.interaction.dojo.ProofGivenUp[source]
+Bases: object
+
+classlean_dojo.interaction.dojo.TacticState(pp: str, id: int, message: str | None = None)[source]
+Bases: object
+
+goals: List[Goal]
+id: int
+message: str | None= None
+propertynum_goals: int
+pp: str
+lean_dojo.interaction.dojo.check_proof(thm: Theorem, proof: str)→ bool[source]
+Check if a proof is correct.
+
+Parameters
+:
+thm (Theorem) – The theorem statement.
+
+proof (str) – The proof to check.
+
+lean_dojo.interaction.dojo.kill_descendants(pid: int)→ None[source]
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.interaction.dojo
+lean_dojo.interaction.parse_goals
+Declaration
+Goal
+parse_goals()
+lean_dojo.constants
+Sponsored: EthicalAds
+Reach the right audience on a privacy-first ad network only for software devs:
+EthicalAds
+Ad by EthicalAds   ·   ℹ️
+ API Reference lean_dojo.interaction lean_dojo.interaction.parse_goals Edit on GitHub
+lean_dojo.interaction.parse_goals
+Utilities for parsing Lean’s pretty-printed proof goals.
+
+classlean_dojo.interaction.parse_goals.Declaration(ident: str, lean_type: str)[source]
+Bases: object
+
+A declaration in the local context.
+
+ident: str
+lean_type: str
+classlean_dojo.interaction.parse_goals.Goal(assumptions: List[Declaration], conclusion: str)[source]
+Bases: object
+
+A goal in Lean.
+
+assumptions: List[Declaration]
+conclusion: str
+classmethodfrom_pp(pp: str)→ Goal[source]
+Parse a pretty-printed goal.
+
+lean_dojo.interaction.parse_goals.parse_goals(pp: str)→ List[Goal][source]
+Parse a list of pretty-printed goals.
+
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.constants
+CACHE_DIR
+DISABLE_REMOTE_CACHE
+LEAN4_PACKAGES_DIR
+LEAN4_URL
+LOAD_USED_PACKAGES_ONLY
+NUM_PROCS
+REMOTE_CACHE_URL
+TACTIC_CPU_LIMIT
+TACTIC_MEMORY_LIMIT
+TMP_DIR
+check_git_version()
+Reach the right audience on a privacy-first ad network only for software devs: EthicalAds
+Ads by EthicalAds
+Close Ad
+ API Reference lean_dojo.constants Edit on GitHub
+lean_dojo.constants
+Constants controlling LeanDojo’s behaviors. Many of them are configurable via Environment Variables.
+
+lean_dojo.constants.CACHE_DIR= PosixPath('/home/docs/.cache/lean_dojo')
+Cache directory for storing traced repos (see Caching).
+
+lean_dojo.constants.DISABLE_REMOTE_CACHE= False
+Whether to disable remote caching (see Caching) and build all repos locally.
+
+lean_dojo.constants.LEAN4_PACKAGES_DIR= PosixPath('.lake/packages')
+The directory where Lean 4 dependencies are stored (since v4.3.0-rc2).
+
+lean_dojo.constants.LEAN4_URL= 'https://github.com/leanprover/lean4'
+The URL of the Lean 4 repo.
+
+lean_dojo.constants.LOAD_USED_PACKAGES_ONLY= False
+Only load depdendency files that are actually used by the target repo.
+
+lean_dojo.constants.NUM_PROCS= 2
+Number of processes to use
+
+lean_dojo.constants.REMOTE_CACHE_URL= 'https://dl.fbaipublicfiles.com/lean-dojo'
+URL of the remote cache (see Caching).
+
+lean_dojo.constants.TACTIC_CPU_LIMIT= 1
+Number of CPUs for executing tactics when interacting with Lean.
+
+lean_dojo.constants.TACTIC_MEMORY_LIMIT= '32g'
+Maximum memory when interacting with Lean.
+
+lean_dojo.constants.TMP_DIR= None
+Temporary directory used by LeanDojo for storing intermediate files
+
+lean_dojo.constants.check_git_version(min_version: Tuple[int, int, int])→ None[source]
+Check the version of Git installed on the system.
+
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.interaction.dojo
+CommandState
+Dojo
+DojoCrashError
+DojoInitError
+DojoTacticTimeoutError
+LeanError
+ProofFinished
+ProofGivenUp
+TacticState
+check_proof()
+kill_descendants()
+lean_dojo.interaction.parse_goals
+lean_dojo.constants
+Sponsored: EthicalAds
+AI-powered ad network for devs. Get your message in front of the right developers with EthicalAds.
+Ad by EthicalAds   ·   ℹ️
+ API Reference lean_dojo.interaction lean_dojo.interaction.dojo Edit on GitHub
+lean_dojo.interaction.dojo
+classlean_dojo.interaction.dojo.CommandState(id: int, message: str | None = None)[source]
+Bases: object
+
+id: int
+message: str | None= None
+classlean_dojo.interaction.dojo.Dojo(entry: Theorem | Tuple[LeanGitRepo, Path, int], timeout: int = 600, additional_imports: List[str] = [], build_deps: bool = True)[source]
+Bases: object
+
+Gym-like environment for programmatic interaction with Lean through tactics or commands.
+
+additional_imports: List[str]
+entry: Theorem | Tuple[LeanGitRepo, Path, int]
+file_path: Path
+has_timedout: bool= False
+is_crashed: bool= False
+is_successful: bool | None= None
+modified_file: TextIO
+repo: LeanGitRepo
+run_cmd(state: CommandState, command: str)→ CommandState | LeanError[source]
+run_tac(state: TacticState, tactic: str)→ TacticState | ProofFinished | LeanError | ProofGivenUp[source]
+propertyuses_commands: bool
+ 
+propertyuses_tactics: bool
+exceptionlean_dojo.interaction.dojo.DojoCrashError[source]
+Bases: Exception
+
+propertyis_out_of_memory: bool
+exceptionlean_dojo.interaction.dojo.DojoInitError[source]
+Bases: Exception
+
+exceptionlean_dojo.interaction.dojo.DojoTacticTimeoutError[source]
+Bases: Exception
+
+classlean_dojo.interaction.dojo.LeanError(error: str)[source]
+Bases: object
+
+error: str
+classlean_dojo.interaction.dojo.ProofFinished(tactic_state_id: int, message: str | None = None)[source]
+Bases: object
+
+message: str | None= None
+tactic_state_id: int
+classlean_dojo.interaction.dojo.ProofGivenUp[source]
+Bases: object
+
+classlean_dojo.interaction.dojo.TacticState(pp: str, id: int, message: str | None = None)[source]
+Bases: object
+
+goals: List[Goal]
+id: int
+message: str | None= None
+propertynum_goals: int
+pp: str
+lean_dojo.interaction.dojo.check_proof(thm: Theorem, proof: str)→ bool[source]
+Check if a proof is correct.
+
+Parameters
+:
+thm (Theorem) – The theorem statement.
+
+proof (str) – The proof to check.
+
+lean_dojo.interaction.dojo.kill_descendants(pid: int)→ None[source]
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest	q
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.interaction.dojo
+lean_dojo.interaction.parse_goals
+Declaration
+Goal
+parse_goals()
+lean_dojo.constants
+Sponsored: EthicalAds
+AI-powered ad network for devs. Get your message in front of the right developers with EthicalAds.
+Ad by EthicalAds   ·   ℹ️
+ API Reference lean_dojo.interaction lean_dojo.interaction.parse_goals Edit on GitHub
+lean_dojo.interaction.parse_goals
+Utilities for parsing Lean’s pretty-printed proof goals.
+
+classlean_dojo.interaction.parse_goals.Declaration(ident: str, lean_type: str)[source]
+Bases: object
+
+A declaration in the local context.
+
+ident: str
+lean_type: str
+classlean_dojo.interaction.parse_goals.Goal(assumptions: List[Declaration], conclusion: str)[source]
+Bases: object
+
+A goal in Lean.
+
+assumptions: List[Declaration]
+conclusion: str
+classmethodfrom_pp(pp: str)→ Goal[source]
+Parse a pretty-printed goal.
+
+lean_dojo.interaction.parse_goals.parse_goals(pp: str)→ List[Goal][source]
+Parse a list of pretty-printed goals.
+
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.constants
+CACHE_DIR
+DISABLE_REMOTE_CACHE
+LEAN4_PACKAGES_DIR
+LEAN4_URL
+LOAD_USED_PACKAGES_ONLY
+NUM_PROCS
+REMOTE_CACHE_URL
+TACTIC_CPU_LIMIT
+TACTIC_MEMORY_LIMIT
+TMP_DIR
+check_git_version()
+Reach the right audience on a privacy-first ad network only for software devs: EthicalAds
+Ads by EthicalAds
+Close Ad
+ API Reference lean_dojo.constants Edit on GitHub
+lean_dojo.constants
+Constants controlling LeanDojo’s behaviors. Many of them are configurable via Environment Variables.
+
+lean_dojo.constants.CACHE_DIR= PosixPath('/home/docs/.cache/lean_dojo')
+Cache directory for storing traced repos (see Caching).
+
+lean_dojo.constants.DISABLE_REMOTE_CACHE= False
+Whether to disable remote caching (see Caching) and build all repos locally.
+
+lean_dojo.constants.LEAN4_PACKAGES_DIR= PosixPath('.lake/packages')
+The directory where Lean 4 dependencies are stored (since v4.3.0-rc2).
+
+lean_dojo.constants.LEAN4_URL= 'https://github.com/leanprover/lean4'
+The URL of the Lean 4 repo.
+
+lean_dojo.constants.LOAD_USED_PACKAGES_ONLY= False
+Only load depdendency files that are actually used by the target repo.
+
+lean_dojo.constants.NUM_PROCS= 2
+Number of processes to use
+
+lean_dojo.constants.REMOTE_CACHE_URL= 'https://dl.fbaipublicfiles.com/lean-dojo'
+URL of the remote cache (see Caching).
+
+lean_dojo.constants.TACTIC_CPU_LIMIT= 1
+Number of CPUs for executing tactics when interacting with Lean.
+
+lean_dojo.constants.TACTIC_MEMORY_LIMIT= '32g'
+Maximum memory when interacting with Lean.
+
+lean_dojo.constants.TMP_DIR= None
+Temporary directory used by LeanDojo for storing intermediate files
+
+lean_dojo.constants.check_git_version(min_version: Tuple[int, int, int])→ None[source]
+Check the version of Git installed on the system.
+
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.interaction.dojo
+CommandState
+Dojo
+DojoCrashError
+DojoInitError
+DojoTacticTimeoutError
+LeanError
+ProofFinished
+ProofGivenUp
+TacticState
+check_proof()
+kill_descendants()
+lean_dojo.interaction.parse_goals
+lean_dojo.constants
+Sponsored: EthicalAds
+AI-powered ad network for devs. Get your message in front of the right developers with EthicalAds.
+Ad by EthicalAds   ·   ℹ️
+ API Reference lean_dojo.interaction lean_dojo.interaction.dojo Edit on GitHub
+lean_dojo.interaction.dojo
+classlean_dojo.interaction.dojo.CommandState(id: int, message: str | None = None)[source]
+Bases: object
+
+id: int
+message: str | None= None
+classlean_dojo.interaction.dojo.Dojo(entry: Theorem | Tuple[LeanGitRepo, Path, int], timeout: int = 600, additional_imports: List[str] = [], build_deps: bool = True)[source]
+Bases: object
+
+Gym-like environment for programmatic interaction with Lean through tactics or commands.
+
+additional_imports: List[str]
+entry: Theorem | Tuple[LeanGitRepo, Path, int]
+file_path: Path
+has_timedout: bool= False
+is_crashed: bool= False
+is_successful: bool | None= None
+modified_file: TextIO
+repo: LeanGitRepo
+run_cmd(state: CommandState, command: str)→ CommandState | LeanError[source]
+run_tac(state: TacticState, tactic: str)→ TacticState | ProofFinished | LeanError | ProofGivenUp[source]
+propertyuses_commands: bool
+ 
+propertyuses_tactics: bool
+exceptionlean_dojo.interaction.dojo.DojoCrashError[source]
+Bases: Exception
+
+propertyis_out_of_memory: bool
+exceptionlean_dojo.interaction.dojo.DojoInitError[source]
+Bases: Exception
+
+exceptionlean_dojo.interaction.dojo.DojoTacticTimeoutError[source]
+Bases: Exception
+
+classlean_dojo.interaction.dojo.LeanError(error: str)[source]
+Bases: object
+
+error: str
+classlean_dojo.interaction.dojo.ProofFinished(tactic_state_id: int, message: str | None = None)[source]
+Bases: object
+
+message: str | None= None
+tactic_state_id: int
+classlean_dojo.interaction.dojo.ProofGivenUp[source]
+Bases: object
+
+classlean_dojo.interaction.dojo.TacticState(pp: str, id: int, message: str | None = None)[source]
+Bases: object
+
+goals: List[Goal]
+id: int
+message: str | None= None
+propertynum_goals: int
+pp: str
+lean_dojo.interaction.dojo.check_proof(thm: Theorem, proof: str)→ bool[source]
+Check if a proof is correct.
+
+Parameters
+:
+thm (Theorem) – The theorem statement.
+
+proof (str) – The proof to check.
+
+lean_dojo.interaction.dojo.kill_descendants(pid: int)→ None[source]
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.interaction.dojo
+lean_dojo.interaction.parse_goals
+Declaration
+Goal
+parse_goals()
+lean_dojo.constants
+Sponsored: Read the Docs
+Automatic doc previews for every PR when you host your documentation on Read the Docs.
+Sign up today.
+Ad by EthicalAds   ·   ℹ️
+ API Reference lean_dojo.interaction lean_dojo.interaction.parse_goals Edit on GitHub
+lean_dojo.interaction.parse_goals
+Utilities for parsing Lean’s pretty-printed proof goals.
+
+classlean_dojo.interaction.parse_goals.Declaration(ident: str, lean_type: str)[source]
+Bases: object
+
+A declaration in the local context.
+
+ident: str
+lean_type: str
+classlean_dojo.interaction.parse_goals.Goal(assumptions: List[Declaration], conclusion: str)[source]
+Bases: object
+
+A goal in Lean.
+
+assumptions: List[Declaration]
+conclusion: str
+classmethodfrom_pp(pp: str)→ Goal[source]
+Parse a pretty-printed goal.
+
+lean_dojo.interaction.parse_goals.parse_goals(pp: str)→ List[Goal][source]
+Parse a list of pretty-printed goals.
+
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.constants
+CACHE_DIR
+DISABLE_REMOTE_CACHE
+LEAN4_PACKAGES_DIR
+LEAN4_URL
+LOAD_USED_PACKAGES_ONLY
+NUM_PROCS
+REMOTE_CACHE_URL
+TACTIC_CPU_LIMIT
+TACTIC_MEMORY_LIMIT
+TMP_DIR
+check_git_version()
+AI-powered ad network for devs. Get your message in front of the right developers with EthicalAds.
+Ads by EthicalAds
+Close Ad
+ API Reference lean_dojo.constants Edit on GitHub
+lean_dojo.constants
+Constants controlling LeanDojo’s behaviors. Many of them are configurable via Environment Variables.
+
+lean_dojo.constants.CACHE_DIR= PosixPath('/home/docs/.cache/lean_dojo')
+Cache directory for storing traced repos (see Caching).
+
+lean_dojo.constants.DISABLE_REMOTE_CACHE= False
+Whether to disable remote caching (see Caching) and build all repos locally.
+
+lean_dojo.constants.LEAN4_PACKAGES_DIR= PosixPath('.lake/packages')
+The directory where Lean 4 dependencies are stored (since v4.3.0-rc2).
+
+lean_dojo.constants.LEAN4_URL= 'https://github.com/leanprover/lean4'
+The URL of the Lean 4 repo.
+
+lean_dojo.constants.LOAD_USED_PACKAGES_ONLY= False
+Only load depdendency files that are actually used by the target repo.
+
+lean_dojo.constants.NUM_PROCS= 2
+Number of processes to use
+
+lean_dojo.constants.REMOTE_CACHE_URL= 'https://dl.fbaipublicfiles.com/lean-dojo'
+URL of the remote cache (see Caching).
+
+lean_dojo.constants.TACTIC_CPU_LIMIT= 1
+Number of CPUs for executing tactics when interacting with Lean.
+
+lean_dojo.constants.TACTIC_MEMORY_LIMIT= '32g'
+Maximum memory when interacting with Lean.
+
+lean_dojo.constants.TMP_DIR= None
+Temporary directory used by LeanDojo for storing intermediate files
+
+lean_dojo.constants.check_git_version(min_version: Tuple[int, int, int])→ None[source]
+Check the version of Git installed on the system.
+
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.interaction.dojo
+lean_dojo.interaction.parse_goals
+Declaration
+Goal
+parse_goals()
+lean_dojo.constants
+Sponsored: EthicalAds
+AI-powered ad network for devs. Get your message in front of the right developers with EthicalAds.
+Ad by EthicalAds   ·   ℹ️
+ API Reference lean_dojo.interaction lean_dojo.interaction.parse_goals Edit on GitHub
+lean_dojo.interaction.parse_goals
+Utilities for parsing Lean’s pretty-printed proof goals.
+
+classlean_dojo.interaction.parse_goals.Declaration(ident: str, lean_type: str)[source]
+Bases: object
+
+A declaration in the local context.
+
+ident: str
+lean_type: str
+classlean_dojo.interaction.parse_goals.Goal(assumptions: List[Declaration], conclusion: str)[source]
+Bases: object
+
+A goal in Lean.
+
+assumptions: List[Declaration]
+conclusion: str
+classmethodfrom_pp(pp: str)→ Goal[source]
+Parse a pretty-printed goal.
+
+lean_dojo.interaction.parse_goals.parse_goals(pp: str)→ List[Goal][source]
+Parse a list of pretty-printed goals.
+
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.constants
+CACHE_DIR
+DISABLE_REMOTE_CACHE
+LEAN4_PACKAGES_DIR
+LEAN4_URL
+LOAD_USED_PACKAGES_ONLY
+NUM_PROCS
+REMOTE_CACHE_URL
+TACTIC_CPU_LIMIT
+TACTIC_MEMORY_LIMIT
+TMP_DIR
+check_git_version()
+AI-powered ad network for devs. Get your message in front of the right developers with EthicalAds.
+Ads by EthicalAds
+Close Ad
+ API Reference lean_dojo.constants Edit on GitHub
+lean_dojo.constants
+Constants controlling LeanDojo’s behaviors. Many of them are configurable via Environment Variables.
+
+lean_dojo.constants.CACHE_DIR= PosixPath('/home/docs/.cache/lean_dojo')
+Cache directory for storing traced repos (see Caching).
+
+lean_dojo.constants.DISABLE_REMOTE_CACHE= False
+Whether to disable remote caching (see Caching) and build all repos locally.
+
+lean_dojo.constants.LEAN4_PACKAGES_DIR= PosixPath('.lake/packages')
+The directory where Lean 4 dependencies are stored (since v4.3.0-rc2).
+
+lean_dojo.constants.LEAN4_URL= 'https://github.com/leanprover/lean4'
+The URL of the Lean 4 repo.
+
+lean_dojo.constants.LOAD_USED_PACKAGES_ONLY= False
+Only load depdendency files that are actually used by the target repo.
+
+lean_dojo.constants.NUM_PROCS= 2
+Number of processes to use
+
+lean_dojo.constants.REMOTE_CACHE_URL= 'https://dl.fbaipublicfiles.com/lean-dojo'
+URL of the remote cache (see Caching).
+
+lean_dojo.constants.TACTIC_CPU_LIMIT= 1
+Number of CPUs for executing tactics when interacting with Lean.
+
+lean_dojo.constants.TACTIC_MEMORY_LIMIT= '32g'
+Maximum memory when interacting with Lean.
+
+lean_dojo.constants.TMP_DIR= None
+Temporary directory used by LeanDojo for storing intermediate files
+
+lean_dojo.constants.check_git_version(min_version: Tuple[int, int, int])→ None[source]
+Check the version of Git installed on the system.
+
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.interaction.dojo
+lean_dojo.interaction.parse_goals
+Declaration
+Goal
+parse_goals()
+lean_dojo.constants
+Sponsored: EthicalAds
+AI-powered ad network for devs. Get your message in front of the right developers with EthicalAds.
+Ad by EthicalAds   ·   ℹ️
+ API Reference lean_dojo.interaction lean_dojo.interaction.parse_goals Edit on GitHub
+lean_dojo.interaction.parse_goals
+Utilities for parsing Lean’s pretty-printed proof goals.
+
+classlean_dojo.interaction.parse_goals.Declaration(ident: str, lean_type: str)[source]
+Bases: object
+
+A declaration in the local context.
+
+ident: str
+lean_type: str
+classlean_dojo.interaction.parse_goals.Goal(assumptions: List[Declaration], conclusion: str)[source]
+Bases: object
+
+A goal in Lean.
+
+assumptions: List[Declaration]
+conclusion: str
+classmethodfrom_pp(pp: str)→ Goal[source]
+Parse a pretty-printed goal.
+
+lean_dojo.interaction.parse_goals.parse_goals(pp: str)→ List[Goal][source]
+Parse a list of pretty-printed goals.
+
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.constants
+CACHE_DIR
+DISABLE_REMOTE_CACHE
+LEAN4_PACKAGES_DIR
+LEAN4_URL
+LOAD_USED_PACKAGES_ONLY
+NUM_PROCS
+REMOTE_CACHE_URL
+TACTIC_CPU_LIMIT
+TACTIC_MEMORY_LIMIT
+TMP_DIR
+check_git_version()
+AI-powered ad network for devs. Get your message in front of the right developers with EthicalAds.
+Ads by EthicalAds
+Close Ad
+ API Reference lean_dojo.constants Edit on GitHub
+lean_dojo.constants
+Constants controlling LeanDojo’s behaviors. Many of them are configurable via Environment Variables.
+
+lean_dojo.constants.CACHE_DIR= PosixPath('/home/docs/.cache/lean_dojo')
+Cache directory for storing traced repos (see Caching).
+
+lean_dojo.constants.DISABLE_REMOTE_CACHE= False
+Whether to disable remote caching (see Caching) and build all repos locally.
+
+lean_dojo.constants.LEAN4_PACKAGES_DIR= PosixPath('.lake/packages')
+The directory where Lean 4 dependencies are stored (since v4.3.0-rc2).
+
+lean_dojo.constants.LEAN4_URL= 'https://github.com/leanprover/lean4'
+The URL of the Lean 4 repo.
+
+lean_dojo.constants.LOAD_USED_PACKAGES_ONLY= False
+Only load depdendency files that are actually used by the target repo.
+
+lean_dojo.constants.NUM_PROCS= 2
+Number of processes to use
+
+lean_dojo.constants.REMOTE_CACHE_URL= 'https://dl.fbaipublicfiles.com/lean-dojo'
+URL of the remote cache (see Caching).
+
+lean_dojo.constants.TACTIC_CPU_LIMIT= 1
+Number of CPUs for executing tactics when interacting with Lean.
+
+lean_dojo.constants.TACTIC_MEMORY_LIMIT= '32g'
+Maximum memory when interacting with Lean.
+
+lean_dojo.constants.TMP_DIR= None
+Temporary directory used by LeanDojo for storing intermediate files
+
+lean_dojo.constants.check_git_version(min_version: Tuple[int, int, int])→ None[source]
+Check the version of Git installed on the system.
+
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.interaction.dojo
+lean_dojo.interaction.parse_goals
+Declaration
+Goal
+parse_goals()
+lean_dojo.constants
+Sponsored: EthicalAds
+AI-powered ad network for devs. Get your message in front of the right developers with EthicalAds.
+Ad by EthicalAds   ·   ℹ️
+ API Reference lean_dojo.interaction lean_dojo.interaction.parse_goals Edit on GitHub
+lean_dojo.interaction.parse_goals
+Utilities for parsing Lean’s pretty-printed proof goals.
+
+classlean_dojo.interaction.parse_goals.Declaration(ident: str, lean_type: str)[source]
+Bases: object
+
+A declaration in the local context.
+
+ident: str
+lean_type: str
+classlean_dojo.interaction.parse_goals.Goal(assumptions: List[Declaration], conclusion: str)[source]
+Bases: object
+
+A goal in Lean.
+
+assumptions: List[Declaration]
+conclusion: str
+classmethodfrom_pp(pp: str)→ Goal[source]
+Parse a pretty-printed goal.
+
+lean_dojo.interaction.parse_goals.parse_goals(pp: str)→ List[Goal][source]
+Parse a list of pretty-printed goals.
+
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.constants
+CACHE_DIR
+DISABLE_REMOTE_CACHE
+LEAN4_PACKAGES_DIR
+LEAN4_URL
+LOAD_USED_PACKAGES_ONLY
+NUM_PROCS
+REMOTE_CACHE_URL
+TACTIC_CPU_LIMIT
+TACTIC_MEMORY_LIMIT
+TMP_DIR
+check_git_version()
+AI-powered ad network for devs. Get your message in front of the right developers with EthicalAds.
+Ads by EthicalAds
+Close Ad
+ API Reference lean_dojo.constants Edit on GitHub
+lean_dojo.constants
+Constants controlling LeanDojo’s behaviors. Many of them are configurable via Environment Variables.
+
+lean_dojo.constants.CACHE_DIR= PosixPath('/home/docs/.cache/lean_dojo')
+Cache directory for storing traced repos (see Caching).
+
+lean_dojo.constants.DISABLE_REMOTE_CACHE= False
+Whether to disable remote caching (see Caching) and build all repos locally.
+
+lean_dojo.constants.LEAN4_PACKAGES_DIR= PosixPath('.lake/packages')
+The directory where Lean 4 dependencies are stored (since v4.3.0-rc2).
+
+lean_dojo.constants.LEAN4_URL= 'https://github.com/leanprover/lean4'
+The URL of the Lean 4 repo.
+
+lean_dojo.constants.LOAD_USED_PACKAGES_ONLY= False
+Only load depdendency files that are actually used by the target repo.
+
+lean_dojo.constants.NUM_PROCS= 2
+Number of processes to use
+
+lean_dojo.constants.REMOTE_CACHE_URL= 'https://dl.fbaipublicfiles.com/lean-dojo'
+URL of the remote cache (see Caching).
+
+lean_dojo.constants.TACTIC_CPU_LIMIT= 1
+Number of CPUs for executing tactics when interacting with Lean.
+
+lean_dojo.constants.TACTIC_MEMORY_LIMIT= '32g'
+Maximum memory when interacting with Lean.
+
+lean_dojo.constants.TMP_DIR= None
+Temporary directory used by LeanDojo for storing intermediate files
+
+lean_dojo.constants.check_git_version(min_version: Tuple[int, int, int])→ None[source]
+Check the version of Git installed on the system.
+
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.interaction.dojo
+lean_dojo.interaction.parse_goals
+Declaration
+Goal
+parse_goals()
+lean_dojo.constants
+Sponsored: EthicalAds
+AI-powered ad network for devs. Get your message in front of the right developers with EthicalAds.
+Ad by EthicalAds   ·   ℹ️
+ API Reference lean_dojo.interaction lean_dojo.interaction.parse_goals Edit on GitHub
+lean_dojo.interaction.parse_goals
+Utilities for parsing Lean’s pretty-printed proof goals.
+
+classlean_dojo.interaction.parse_goals.Declaration(ident: str, lean_type: str)[source]
+Bases: object
+
+A declaration in the local context.
+
+ident: str
+lean_type: str
+classlean_dojo.interaction.parse_goals.Goal(assumptions: List[Declaration], conclusion: str)[source]
+Bases: object
+
+A goal in Lean.
+
+assumptions: List[Declaration]
+conclusion: str
+classmethodfrom_pp(pp: str)→ Goal[source]
+Parse a pretty-printed goal.
+
+lean_dojo.interaction.parse_goals.parse_goals(pp: str)→ List[Goal][source]
+Parse a list of pretty-printed goals.
+
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.constants
+CACHE_DIR
+DISABLE_REMOTE_CACHE
+LEAN4_PACKAGES_DIR
+LEAN4_URL
+LOAD_USED_PACKAGES_ONLY
+NUM_PROCS
+REMOTE_CACHE_URL
+TACTIC_CPU_LIMIT
+TACTIC_MEMORY_LIMIT
+TMP_DIR
+check_git_version()
+AI-powered ad network for devs. Get your message in front of the right developers with EthicalAds.
+Ads by EthicalAds
+Close Ad
+ API Reference lean_dojo.constants Edit on GitHub
+lean_dojo.constants
+Constants controlling LeanDojo’s behaviors. Many of them are configurable via Environment Variables.
+
+lean_dojo.constants.CACHE_DIR= PosixPath('/home/docs/.cache/lean_dojo')
+Cache directory for storing traced repos (see Caching).
+
+lean_dojo.constants.DISABLE_REMOTE_CACHE= False
+Whether to disable remote caching (see Caching) and build all repos locally.
+
+lean_dojo.constants.LEAN4_PACKAGES_DIR= PosixPath('.lake/packages')
+The directory where Lean 4 dependencies are stored (since v4.3.0-rc2).
+
+lean_dojo.constants.LEAN4_URL= 'https://github.com/leanprover/lean4'
+The URL of the Lean 4 repo.
+
+lean_dojo.constants.LOAD_USED_PACKAGES_ONLY= False
+Only load depdendency files that are actually used by the target repo.
+
+lean_dojo.constants.NUM_PROCS= 2
+Number of processes to use
+
+lean_dojo.constants.REMOTE_CACHE_URL= 'https://dl.fbaipublicfiles.com/lean-dojo'
+URL of the remote cache (see Caching).
+
+lean_dojo.constants.TACTIC_CPU_LIMIT= 1
+Number of CPUs for executing tactics when interacting with Lean.
+
+lean_dojo.constants.TACTIC_MEMORY_LIMIT= '32g'
+Maximum memory when interacting with Lean.
+
+lean_dojo.constants.TMP_DIR= None
+Temporary directory used by LeanDojo for storing intermediate files
+
+lean_dojo.constants.check_git_version(min_version: Tuple[int, int, int])→ None[source]
+Check the version of Git installed on the system.
+
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.data_extraction.lean
+lean_dojo.data_extraction.trace
+lean_dojo.data_extraction.traced_data
+lean_dojo.data_extraction.ast
+lean_dojo.interaction
+lean_dojo.constants
+Sponsored: EthicalAds
+AI-powered ad network for devs. Get your message in front of the right developers with EthicalAds.
+Ad by EthicalAds   ·   ℹ️
+ API Reference lean_dojo.data_extraction Edit on GitHub
+lean_dojo.data_extraction
+lean_dojo.data_extraction.lean
+GITHUB_ACCESS_TOKEN
+LEAN4_NIGHTLY_REPO
+LEAN4_REPO
+LeanFile
+LeanGitRepo
+Pos
+RepoInfoCache
+RepoType
+Theorem
+cleanse_string()
+get_latest_commit()
+get_lean4_commit_from_config()
+get_lean4_version_from_config()
+get_repo_type()
+is_commit_hash()
+is_supported_version()
+normalize_url()
+ssh_to_https()
+url_to_repo()
+lean_dojo.data_extraction.trace
+check_files()
+get_lean_version()
+get_traced_repo_path()
+is_available_in_cache()
+is_new_version()
+launch_progressbar()
+trace()
+lean_dojo.data_extraction.traced_data
+Comment
+TracedFile
+TracedRepo
+TracedTactic
+TracedTheorem
+get_code_without_comments()
+lean_dojo.data_extraction.ast
+lean_dojo.data_extraction.ast
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.data_extraction.lean
+GITHUB_ACCESS_TOKEN
+LEAN4_NIGHTLY_REPO
+LEAN4_REPO
+LeanFile
+LeanGitRepo
+Pos
+RepoInfoCache
+RepoType
+Theorem
+cleanse_string()
+get_latest_commit()
+get_lean4_commit_from_config()
+get_lean4_version_from_config()
+get_repo_type()
+is_commit_hash()
+is_supported_version()
+normalize_url()
+ssh_to_https()
+url_to_repo()
+lean_dojo.data_extraction.trace
+lean_dojo.data_extraction.traced_data
+lean_dojo.data_extraction.ast
+lean_dojo.interaction
+lean_dojo.constants
+Reach the right audience on a privacy-first ad network only for software devs: EthicalAds
+Ads by EthicalAds
+Close Ad
+ API Reference lean_dojo.data_extraction lean_dojo.data_extraction.lean Edit on GitHub
+lean_dojo.data_extraction.lean
+This module define classes for repos, files, and theorems in Lean. Objects of these classes contain only surface information, without extracting any trace.
+
+lean_dojo.data_extraction.lean.GITHUB_ACCESS_TOKEN= None
+GiHub personal access token is optional. If provided, it can increase the rate limit for GitHub API calls.
+
+lean_dojo.data_extraction.lean.LEAN4_NIGHTLY_REPO= None
+The GitHub Repo for Lean 4 nightly releases.
+
+lean_dojo.data_extraction.lean.LEAN4_REPO= None
+The GitHub Repo for Lean 4 itself.
+
+classlean_dojo.data_extraction.lean.LeanFile(root_dir: Path, path: Path)[source]
+Bases: object
+
+A Lean source file (*.lean).
+
+__getitem__(key)→ str[source]
+Return a code segment given its start/end positions.
+
+This enables lean_file[start:end].
+
+Parameters
+:
+key (slice) – A slice of two Pos objects for the start/end of the code segment.
+
+propertyabs_path: Path
+Absolute path of a LeanFile object.
+
+E.g., /home/kaiyu/traced_lean-example/lean-example/src/example.lean
+
+code: List[str]
+Raw source code as a list of lines.
+
+convert_pos(byte_idx: int)→ Pos[source]
+Convert a byte index (String.Pos in Lean 4) to a Pos object.
+
+propertyend_pos: Pos
+Return the end position of a source file.
+
+Returns
+:
+A Pos object representing the end of this file.
+
+Return type
+:
+Pos
+
+endwith_newline: bool
+Whether the last line ends with a newline.
+
+get_line(line_nb: int)→ str[source]
+Return a given line of the source file.
+
+Parameters
+:
+line_nb (int) – Line number (1-indexed).
+
+is_empty()→ bool[source]
+num_bytes: List[int]
+The number of UTF-8 bytes of each line, including newlines.
+
+num_columns(line_nb: int)→ int[source]
+Number of columns in a source file.
+
+propertynum_lines: int
+Number of lines in a source file.
+
+offset(pos: Pos, delta: int)→ Pos[source]
+Off set a position by a given number.
+
+path: Path
+Relative path w.r.t. root_dir
+
+E.g., lean-example/src/example.lean
+
+root_dir: Path
+Root directory of the traced repo this LeanFile object belongs to.
+
+root_dir must be an absolute path, e.g., /home/kaiyu/traced_lean-example/lean-example
+
+propertystart_pos: Pos
+Return the start position of a source file.
+
+Returns
+:
+A Pos object representing the start of this file.
+
+Return type
+:
+Pos
+
+classlean_dojo.data_extraction.lean.LeanGitRepo(url: str, commit: str)[source]
+Bases: object
+
+Git repo of a Lean project.
+
+clone_and_checkout()→ None[source]
+Clone the repo to the current working directory and checkout a specific commit.
+
+commit: str
+The repo’s commit hash.
+
+You can also use tags such as v3.5.0. They will be converted to commit hashes.
+
+propertycommit_url: str
+exists()→ bool[source]
+classmethodfrom_path(path: Path | str)→ LeanGitRepo[source]
+Construct a LeanGitRepo object from the path to a local Git repo.
+
+get_cache_dirname()→ Path[source]
+Return the formatted cache directory name
+
+get_config(filename: str, num_retries: int = 2)→ Dict[str, Any][source]
+Return the repo’s files.
+
+get_dependencies(path: str | Path | None = None)→ Dict[str, LeanGitRepo][source]
+Return the dependencies required by the target repo.
+
+Parameters
+:
+path (Union[str, Path, None], optional) – Root directory of the repo if it is on the disk.
+
+Returns
+:
+A dictionary mapping the name of each dependency to its LeanGitRepo object.
+
+Return type
+:
+Dict[str, LeanGitRepo]
+
+get_license()→ str | None[source]
+Return the content of the LICENSE file.
+
+propertyis_lean4: bool
+lean_version: str
+Required Lean version.
+
+propertyname: str
+repo: Repository | Repo
+A github.Repository object for GitHub repos or a git.Repo object for local or remote Git repos.
+
+repo_type: RepoType
+Type of the repo. It can be GITHUB, LOCAL or REMOTE.
+
+show()→ None[source]
+Show the repo in the default browser.
+
+url: str
+The repo’s URL.
+
+It can be a GitHub URL that starts with https:// or git@github.com, a local path, or any other valid Git URL.
+
+uses_lakefile_lean()→ bool[source]
+Check if the repo uses a lakefile.lean.
+
+uses_lakefile_toml()→ bool[source]
+Check if the repo uses a lakefile.toml.
+
+classlean_dojo.data_extraction.lean.Pos(line_nb: int, column_nb: int)[source]
+Bases: object
+
+Position in source files.
+
+We use 1-index to keep it consistent with code editors such as Visual Studio Code.
+
+column_nb: int
+Column number
+
+classmethodfrom_str(s: str)→ Pos[source]
+Construct a Pos object from its string representation, e.g., "(323, 1109)".
+
+line_nb: int
+Line number
+
+classlean_dojo.data_extraction.lean.RepoInfoCache(tag2commit: ~typing.Dict[~typing.Tuple[str, str], str] = <factory>, lean_version: ~typing.Dict[~typing.Tuple[str, str], str] = <factory>)[source]
+Bases: object
+
+To minize the number of network requests, we cache and re-use the info of all repos, assuming it does not change during the execution of LeanDojo.
+
+lean_version: Dict[Tuple[str, str], str]
+tag2commit: Dict[Tuple[str, str], str]
+classlean_dojo.data_extraction.lean.RepoType(value)[source]
+Bases: Enum
+
+An enumeration.
+
+GITHUB= 0
+LOCAL= 2
+REMOTE= 1
+classlean_dojo.data_extraction.lean.Theorem(repo: LeanGitRepo, file_path: Path, full_name: str)[source]
+Bases: object
+
+Theorem in Lean.
+
+Theorems are named constants of type Prop. They are typically defined using the keywords theorem or lemma, but it’s possible to use other keywords such as def or instance
+
+file_path: Path
+Lean source file the theorem comes from.
+
+full_name: str
+Fully qualified name of the theorem.
+
+repo: LeanGitRepo
+Lean repo the theorem comes from.
+
+propertyuhash: str
+Unique hash of the theorem.
+
+ 
+propertyuid: str
+Unique identifier of the theorem.
+
+lean_dojo.data_extraction.lean.cleanse_string(s: str | Path)→ str[source]
+Replace : and / with _ in a string.
+
+lean_dojo.data_extraction.lean.get_latest_commit(url: str)→ str[source]
+Get the hash of the latest commit of the Git repo at url.
+
+lean_dojo.data_extraction.lean.get_lean4_commit_from_config(config_dict: Dict[str, Any])→ str[source]
+Return the required Lean commit given a lean-toolchain config.
+
+lean_dojo.data_extraction.lean.get_lean4_version_from_config(toolchain: str)→ str[source]
+Return the required Lean version given a lean-toolchain config.
+
+lean_dojo.data_extraction.lean.get_repo_type(url: str)→ RepoType | None[source]
+Get the type of the repository.
+
+Parameters
+:
+url (str) – The URL of the repository.
+
+Returns
+:
+The type of the repository (None if the repo cannot be found).
+
+Return type
+:
+Optional[str]
+
+lean_dojo.data_extraction.lean.is_commit_hash(s: str)[source]
+Check if a string is a valid commit hash.
+
+lean_dojo.data_extraction.lean.is_supported_version(v)→ bool[source]
+Check if v is at least v4.3.0-rc2.
+
+lean_dojo.data_extraction.lean.normalize_url(url: str, repo_type: RepoType = RepoType.GITHUB)→ str[source]
+lean_dojo.data_extraction.lean.ssh_to_https(url: str)→ str[source]
+lean_dojo.data_extraction.lean.url_to_repo(url: str, num_retries: int = 2, repo_type: RepoType | None = None, tmp_dir: Path | None = None)→ Repo | Repository[source]
+Convert a URL to a Repo object.
+
+Parameters
+:
+url (str) – The URL of the repository.
+
+num_retries (int) – Number of retries in case of failure.
+
+repo_type (Optional[RepoType]) – The type of the repository. Defaults to None.
+
+tmp_dir (Optional[Path]) – The temporary directory to clone the repo to. Defaults to None.
+
+Returns
+:
+A Git Repo object.
+
+Return type
+:
+Repo
+
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.data_extraction.lean
+lean_dojo.data_extraction.trace
+check_files()
+get_lean_version()
+get_traced_repo_path()
+is_available_in_cache()
+is_new_version()
+launch_progressbar()
+trace()
+lean_dojo.data_extraction.traced_data
+lean_dojo.data_extraction.ast
+lean_dojo.interaction
+lean_dojo.constants
+Reach the right audience on a privacy-first ad network only for software devs: EthicalAds
+Ads by EthicalAds
+Close Ad
+ API Reference lean_dojo.data_extraction lean_dojo.data_extraction.trace Edit on GitHub
+lean_dojo.data_extraction.trace
+This module provides the main interfaces for tracing Lean repos, i.e., extracting data from them. To estimate the time for tracing a repo, a good rule of thumb is 1.5x the time for compiling the repo using leanpkg build. A repo has to be traced only once, and the traced repo will be stored in a cache for fast access in the future.
+
+lean_dojo.data_extraction.trace.check_files(packages_path: Path, no_deps: bool)→ None[source]
+Check if all *.lean files have been processed to produce *.ast.json and *.dep_paths files.
+
+lean_dojo.data_extraction.trace.get_lean_version()→ str[source]
+Get the version of Lean.
+
+lean_dojo.data_extraction.trace.get_traced_repo_path(repo: LeanGitRepo, build_deps: bool = True)→ Path[source]
+Return the path of a traced repo in the cache.
+
+The function will trace a repo if it is not available in the cache. See Caching for details.
+
+Parameters
+:
+repo (LeanGitRepo) – The Lean repo to trace.
+
+build_deps (bool) – Whether to build the dependencies of repo. Defaults to True.
+
+Returns
+:
+The path of the traced repo in the cache, e.g. /home/kaiyu/.cache/lean_dojo/leanprover-community-mathlib-2196ab363eb097c008d4497125e0dde23fb36db2
+
+Return type
+:
+Path
+
+lean_dojo.data_extraction.trace.is_available_in_cache(repo: LeanGitRepo)→ bool[source]
+Check if repo has a traced repo available in the cache (including the remote cache).
+
+lean_dojo.data_extraction.trace.is_new_version(v: str)→ bool[source]
+Check if v is at least 4.3.0-rc2.
+
+lean_dojo.data_extraction.trace.launch_progressbar(paths: List[Path])→ Generator[None, None, None][source]
+Launch an async progressbar to monitor the progress of tracing the repo.
+
+lean_dojo.data_extraction.trace.trace(repo: LeanGitRepo, dst_dir: str | Path | None = None, build_deps: bool = True)→ TracedRepo[source]
+Trace a repo (and its dependencies), saving the results to dst_dir.
+
+The function only traces the repo when it’s not available in the cache. Otherwise, it directly copies the traced repo from the cache to dst_dir. See Caching for details.
+
+Parameters
+:
+repo (LeanGitRepo) – The Lean repo to trace.
+
+dst_dir (Union[str, Path]) – The directory for saving the traced repo. If None, the traced repo is only saved in the cahe.
+
+build_deps (bool) – Whether to build the dependencies of repo. Defaults to True.
+
+Returns
+:
+A TracedRepo object corresponding to the files at dst_dir.
+
+Return type
+:
+TracedRepo
+
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.data_extraction.lean
+lean_dojo.data_extraction.trace
+lean_dojo.data_extraction.traced_data
+Comment
+TracedFile
+TracedRepo
+TracedTactic
+TracedTheorem
+get_code_without_comments()
+lean_dojo.data_extraction.ast
+lean_dojo.interaction
+lean_dojo.constants
+AI-powered ad network for devs. Get your message in front of the right developers with EthicalAds.
+Ads by EthicalAds
+Close Ad
+ API Reference lean_dojo.data_extraction lean_dojo.data_extraction.traced_data Edit on GitHub
+lean_dojo.data_extraction.traced_data
+This module defines traced repos/files/theorems.
+
+classlean_dojo.data_extraction.traced_data.Comment(start: Pos, end: Pos, text: str)[source]
+Bases: object
+
+A comment in a Lean file.
+
+end: Pos
+classmethodfrom_xml(tree: Element)→ Comment[source]
+start: Pos
+text: str
+to_xml(parent: Element)→ None[source]
+classlean_dojo.data_extraction.traced_data.TracedFile(root_dir: Path, repo: LeanGitRepo, lean_file: LeanFile, ast: FileNode, comments: List[Comment], traced_repo: TracedRepo | None = None)[source]
+Bases: object
+
+A traced file is a Lean source file annotated with syntactic/semantic information such as tactic states, Lean expressions, and abstract syntax trees (ASTs).
+
+propertyabs_path: Path
+Absolute path of the *.lean file.
+
+ast: FileNode
+Abstract syntax tree (AST) of the entire *.lean file.
+
+AST nodes are defined in lean_dojo.data_extraction.ast.
+
+check_sanity()→ None[source]
+Perform some basic sanity checks.
+
+The function raises exceptions in case of unsuccessful checks.
+
+comments: List[Comment]
+All comments in the *.lean file.
+
+classmethodfrom_traced_file(root_dir: str | Path, json_path: Path, repo: LeanGitRepo)→ TracedFile[source]
+Construct a TracedFile object by parsing a *.ast.json file produced by lean --ast --tsast --tspp (Lean 3) or ExtractData.lean (Lean 4).
+
+Parameters
+:
+root_dir (Union[str, Path]) – Root directory of the traced repo.
+
+json_path (Path) – Path of the *.ast.json file relative to root_dir.
+
+classmethodfrom_xml(root_dir: str | Path, path: str | Path, repo: LeanGitRepo)→ TracedFile[source]
+Load a TracedFile object from its *.trace.xml file.
+
+Parameters
+:
+root_dir (Union[str, Path]) – Root directory of the traced repo.
+
+path (Union[str, Path]) – Path of the *.trace.xml file relative to root_dir.
+
+repo (LeanGitRepo) – The repo to which the traced file belongs.
+
+get_direct_dependencies(repo: LeanGitRepo)→ List[Tuple[str, Path]][source]
+Return the names and paths of all modules imported by the current *.lean file.
+
+get_premise_definitions()→ List[Dict[str, Any]][source]
+Return all theorems and definitions defined in the current file that can be potentially used as premises, including the premises in the theorem statement and premises in the tactics used to prove the theorem.
+
+Returns
+:
+_description_
+
+Return type
+:
+List[Dict[str, Any]]
+
+get_traced_theorem(thm_or_name: Theorem | str)→ TracedTheorem | None[source]
+Return a TracedTheorem object given an Theorem object or its fully-qualified name.
+
+get_traced_theorems()→ List[TracedTheorem][source]
+Return a list of traced theorem in this traced file.
+
+propertyhas_prelude: bool
+Check whether the file starts with :code:prelude.
+
+:code:prelude instructs Lean NOT to include its built-in library automatically.
+
+lean_file: LeanFile
+Lean source file of this traced file.
+
+propertypath: Path
+Path of the *.lean file relative to the root directory.
+
+repo: LeanGitRepo
+The Lean repo this traced file belongs to.
+
+root_dir: Path
+Root directory (in absolute path) of the corresponding traced repo.
+
+to_xml()→ str[source]
+Serialize a TracedFile object to XML.
+
+traced_repo: TracedRepo | None= None
+The traced repo this traced file belongs to.
+
+Note that traced_repo will become None after the traced file is serialized/deserialized on its own.
+
+traverse_preorder(callback, node_cls: type | None = None)[source]
+Traverse the AST in preorder.
+
+Parameters
+:
+callback (function) – Callback function for visiting AST nodes.
+
+node_cls (Optional[type], optional) – Restrict the application of callback to only nodes of type node_cls. Defaults to None, which means applying callback to all.
+
+classlean_dojo.data_extraction.traced_data.TracedRepo(repo: LeanGitRepo, dependencies: Dict[str, LeanGitRepo], root_dir: Path, traced_files: List[TracedFile], traced_files_graph: DiGraph | None)[source]
+Bases: object
+
+A traced repo is a Lean repo of traced files and additional information, such as other repos it depends on, as well as the dependency graph between files.
+
+check_sanity()→ None[source]
+Perform some basic sanity checks.
+
+The function raises exceptions in case of unsuccessful checks.
+
+dependencies: Dict[str, LeanGitRepo]
+Dictionary mapping the name of each dependency to a LeanGitRepo object.
+
+classmethodfrom_traced_files(root_dir: str | Path, build_deps: bool = True)→ TracedRepo[source]
+Construct a TracedRepo object by parsing *.ast.json and *.path files
+produced by lean --ast --tsast --tspp (Lean 3) or ExtractData.lean (Lean 4).
+
+Parameters
+:
+root_dir (Union[str, Path]) – Root directory of the traced repo.
+
+build_deps (bool, optional) – Whether to build the dependency graph between files.
+
+get_traced_file(path: str | Path)→ TracedFile[source]
+Return a traced file by its path.
+
+get_traced_theorem(thm: Theorem)→ TracedTheorem | None[source]
+Return a TracedTheorem object corresponding to thm
+
+get_traced_theorems()→ List[TracedTheorem][source]
+Return all traced theorems in the repo.
+
+classmethodload_from_disk(root_dir: str | Path, build_deps: bool = True)→ TracedRepo[source]
+Load a traced repo from *.trace.xml files.
+
+propertyname: str
+Name of the repo.
+
+repo: LeanGitRepo
+The corresponding Lean repo.
+
+root_dir: Path
+Root directory of the traced repo.
+
+save_to_disk()→ None[source]
+Save all traced files in the repo to the disk as *.trace.xml files.
+
+show()→ None[source]
+Show the repo in the default browser.
+
+traced_files: List[TracedFile]
+List of traced files in the repo.
+
+traced_files_graph: DiGraph | None
+Dependency graph between files in the repo.
+
+The graph is a DAG, and there is an edge from file X to file Y if and only if X imports Y
+
+classlean_dojo.data_extraction.traced_data.TracedTactic(ast: Node, traced_theorem: TracedTheorem | None = None)[source]
+Bases: object
+
+A traced tactic is a tactic annotated with additional information including its AST and the states before/after the tactic.
+
+ast: Node
+AST of the tactic.
+
+propertyend: Pos
+End position in *.lean file.
+
+get_annotated_tactic()→ Tuple[str, List[Dict[str, Any]]][source]
+Return the tactic annotated with premise information.
+
+Premises in the tactic are marked by <a> ... </a>. For example, rw [add_comm b] contains a premise add_comm and therefore becomes rw [<a>add_comm</a> b]. In addition, the function returns the provenance (full name, file path, line/column numbers) of all premises.
+
+Returns
+:
+The first return value is the tactic string marked by <a> ... </a>. The second return value is a list of provenances.
+
+Return type
+:
+Tuple[str, List[Dict[str, Any]]]
+
+propertystart: Pos
+Start position in *.lean file.
+
+ 
+propertystate_after: str
+Pretty-printed state after applying the tactic.
+
+ 
+propertystate_before: str
+Pretty-printed state before applying the tactic.
+
+ 
+propertytactic: str
+The raw tactic string.
+
+to_string()→ str[source]
+traced_theorem: TracedTheorem | None= None
+The traced theorem this tactic belongs to.
+
+classlean_dojo.data_extraction.traced_data.TracedTheorem(root_dir: Path, theorem: Theorem, ast: CommandTheoremNode | LemmaNode | MathlibTacticLemmaNode, comments: List[Comment], traced_file: TracedFile | None = None)[source]
+Bases: object
+
+A traced theorem is a theorem with additional information such as the AST.
+
+ast: CommandTheoremNode | LemmaNode | MathlibTacticLemmaNode
+AST of the theorem.
+
+comments: List[Comment]
+All comments in the theorem/proof.
+
+propertyend: Pos
+End position in *.lean file.
+
+ 
+propertyfile_path: Path
+The theorem’s file path (relative to the root directory).
+
+get_num_tactics()→ int[source]
+Return the number of tactics in the proof.
+
+get_premise_full_names()→ List[str][source]
+Return the fully qualified names of all premises used in the proof.
+
+get_proof_node()→ Node[source]
+Return the AST of the theorem’s proof.
+
+get_tactic_proof()→ str | None[source]
+Return the tactic-style proof (if any).
+
+get_theorem_statement()→ str[source]
+Return the theorem statement.
+
+get_traced_tactics(atomic_only: bool = False)→ List[TracedTactic][source]
+Return a list of traced tactics in the proof.
+
+has_tactic_proof()→ bool[source]
+Check if the theorem has a tactic-style proof.
+
+propertyis_private: bool
+Check if the theorem is private.
+
+locate_proof()→ Tuple[Pos, Pos][source]
+Return the start/end positions of the proof.
+
+propertyrepo: LeanGitRepo
+The Lean repo this theorem belongs to.
+
+root_dir: Path
+Root directory of the corresponding traced repo.
+
+show()→ None[source]
+Show the theorem in the default browser.
+
+propertystart: Pos
+Start position in *.lean file.
+
+theorem: Theorem
+The corresponding Theorem object.
+
+traced_file: TracedFile | None= None
+The traced file this theorem belongs to.
+
+propertytraced_repo: TracedRepo | None
+The traced repo this theorem belongs to.
+
+lean_dojo.data_extraction.traced_data.get_code_without_comments(lean_file: LeanFile, start: Pos, end: Pos, comments: List[Comment])→ str[source]
+Return the code in lean_file from start to end with comments removed.
+
+Parameters
+:
+lean_file (LeanFile) – The lean source file.
+
+start (Pos) – The start position.
+
+end (Pos) – The end position.
+
+comments (List[Comment]) – A list of Comment objects.
+
+Returns
+:
+Human-written code with comments removed.
+
+Return type
+:
+str
+
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.data_extraction.lean
+lean_dojo.data_extraction.trace
+lean_dojo.data_extraction.traced_data
+lean_dojo.data_extraction.ast
+lean_dojo.data_extraction.ast
+lean_dojo.interaction
+lean_dojo.constants
+Sponsored: EthicalAds
+Reach the right audience on a privacy-first ad network only for software devs:
+EthicalAds
+Ad by EthicalAds   ·   ℹ️
+ API Reference lean_dojo.data_extraction lean_dojo.data_extraction.ast Edit on GitHub
+lean_dojo.data_extraction.ast
+lean_dojo.data_extraction.ast
+classlean_dojo.data_extraction.ast.AtomNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')], leading: str, trailing: str, val: str)[source]
+Bases: Node
+
+classmethodfrom_data(atom_data: Dict[str, Any], lean_file: LeanFile)→ AtomNode | None[source]
+leading: str
+trailing: str
+val: str
+classlean_dojo.data_extraction.ast.CommandAbbrevNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')], name: str)[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ CommandAbbrevNode[source]
+name: str
+classlean_dojo.data_extraction.ast.CommandAxiomNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')], name: str)[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ CommandAxiomNode[source]
+name: str
+classlean_dojo.data_extraction.ast.CommandClassinductiveNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')], name: str)[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ CommandClassinductiveNode[source]
+name: str
+classlean_dojo.data_extraction.ast.CommandClasstkNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')])[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ CommandClasstkNode[source]
+classlean_dojo.data_extraction.ast.CommandDeclarationNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')], name: str, full_name: str | None = None)[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ CommandDeclarationNode[source]
+full_name: str | None= None
+get_theorem_node()→ CommandTheoremNode[source]
+propertyis_example: bool
+ 
+propertyis_theorem: bool
+name: str
+classlean_dojo.data_extraction.ast.CommandDeclidAntiquotNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')])[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ CommandDeclidAntiquotNode[source]
+classlean_dojo.data_extraction.ast.CommandDeclidNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')])[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ CommandDeclidNode[source]
+classlean_dojo.data_extraction.ast.CommandDeclmodifiersAntiquotNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')])[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ CommandDeclmodifiersAntiquotNode[source]
+classlean_dojo.data_extraction.ast.CommandDeclmodifiersNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')])[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ CommandDeclmodifiersNode[source]
+is_private()→ bool[source]
+classlean_dojo.data_extraction.ast.CommandDeclsigNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')])[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ CommandDeclsigNode[source]
+classlean_dojo.data_extraction.ast.CommandDeclvaleqnsNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')])[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ CommandDeclvaleqnsNode[source]
+classlean_dojo.data_extraction.ast.CommandDeclvalsimpleNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')])[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ CommandDeclvalsimpleNode[source]
+classlean_dojo.data_extraction.ast.CommandDefNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')], name: str)[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ CommandDefNode[source]
+name: str
+classlean_dojo.data_extraction.ast.CommandDefinitionNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')], name: str)[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ CommandDefinitionNode[source]
+name: str
+classlean_dojo.data_extraction.ast.CommandDoccommentNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')], comment: str)[source]
+Bases: Node
+
+comment: str
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ CommandDoccommentNode[source]
+classlean_dojo.data_extraction.ast.CommandEndNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')], name: str | None)[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ CommandEndNode[source]
+name: str | None
+classlean_dojo.data_extraction.ast.CommandExampleNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')], name: str)[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ CommandExampleNode[source]
+name: str
+classlean_dojo.data_extraction.ast.CommandInductiveNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')], name: str | None)[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ CommandInductiveNode[source]
+name: str | None
+classlean_dojo.data_extraction.ast.CommandInstanceNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')], name: str)[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ CommandInstanceNode[source]
+name: str
+classlean_dojo.data_extraction.ast.CommandModuledocNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')], comment: str)[source]
+Bases: Node
+
+comment: str
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ CommandModuledocNode[source]
+classlean_dojo.data_extraction.ast.CommandNamespaceNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')], name: str)[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ CommandNamespaceNode[source]
+name: str
+classlean_dojo.data_extraction.ast.CommandNoncomputablesectionNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')], name: str | None)[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ CommandNoncomputablesectionNode[source]
+name: str | None
+classlean_dojo.data_extraction.ast.CommandOpaqueNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')], name: str)[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ CommandOpaqueNode[source]
+name: str
+classlean_dojo.data_extraction.ast.CommandOpenNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')])[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ CommandOpenNode[source]
+classlean_dojo.data_extraction.ast.CommandOpenonlyNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')])[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ CommandOpenonlyNode[source]
+classlean_dojo.data_extraction.ast.CommandPrivateNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')])[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ CommandPrivateNode[source]
+classlean_dojo.data_extraction.ast.CommandSectionNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')], name: str | None)[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ CommandNamespaceNode[source]
+name: str | None
+classlean_dojo.data_extraction.ast.CommandStructureNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')], name: str)[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ CommandStructureNode[source]
+name: str
+classlean_dojo.data_extraction.ast.CommandStructuretkNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')])[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ CommandStructuretkNode[source]
+classlean_dojo.data_extraction.ast.CommandTheoremNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')], name: str, full_name: str | None = None, _is_private_decl: bool | None = False)[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ CommandTheoremNode[source]
+full_name: str | None= None
+get_proof_node()→ Node[source]
+has_tactic_proof()→ bool[source]
+propertyis_mutual: bool
+is_private()→ bool[source]
+name: str
+classlean_dojo.data_extraction.ast.CommandWherestructinstNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')])[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ CommandWherestructinstNode[source]
+classlean_dojo.data_extraction.ast.FileNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')])[source]
+Bases: Node
+
+classmethodfrom_data(data: Dict[str, Any], lean_file: LeanFile)→ FileNode[source]
+classlean_dojo.data_extraction.ast.GroupNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')])[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ GroupNode[source]
+classlean_dojo.data_extraction.ast.IdentAntiquotNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')])[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ IdentAntiquotNode[source]
+get_ident()→ str[source]
+classlean_dojo.data_extraction.ast.IdentNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')], leading: str, trailing: str, raw_val: str, val: str, full_name: str | None = None, mod_name: str | None = None, def_path: str | None = None, def_start: lean_dojo.data_extraction.lean.Pos | None = None, def_end: lean_dojo.data_extraction.lean.Pos | None = None)[source]
+Bases: Node
+
+def_end: Pos | None= None
+def_path: str | None= None
+def_start: Pos | None= None
+classmethodfrom_data(ident_data: Dict[str, Any], lean_file: LeanFile)→ IdentNode | None[source]
+full_name: str | None= None
+propertyis_mutual: bool
+leading: str
+mod_name: str | None= None
+raw_val: str
+trailing: str
+val: str
+classlean_dojo.data_extraction.ast.LeanBinderidentAntiquotNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')])[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ LeanBinderidentAntiquotNode[source]
+get_ident()→ str | None[source]
+classlean_dojo.data_extraction.ast.LeanBinderidentNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')])[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ LeanBinderidentNode[source]
+get_ident()→ str | None[source]
+classlean_dojo.data_extraction.ast.LeanElabCommandCommandIrreducibleDefNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')], name: str | None, full_name: str | None = None)[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ LeanElabCommandCommandIrreducibleDefNode[source]
+full_name: str | None= None
+name: str | None
+classlean_dojo.data_extraction.ast.LemmaNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')], name: str, full_name: str | None = None, _is_private_decl: bool | None = False)[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ LemmaNode[source]
+full_name: str | None= None
+get_proof_node()→ Node[source]
+has_tactic_proof()→ bool[source]
+propertyis_mutual: bool
+is_private()→ bool[source]
+name: str
+classlean_dojo.data_extraction.ast.MathlibTacticLemmaNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')], name: str, full_name: str | None = None, _is_private_decl: bool | None = False)[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ MathlibTacticLemmaNode[source]
+full_name: str | None= None
+get_proof_node()→ Node[source]
+has_tactic_proof()→ bool[source]
+propertyis_mutual: bool
+is_private()→ bool[source]
+name: str
+classlean_dojo.data_extraction.ast.ModuleHeaderNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')])[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ ModuleHeaderNode[source]
+classlean_dojo.data_extraction.ast.ModuleImportNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')], module: str | None, path: pathlib.Path | None = None)[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ ModuleImportNode[source]
+module: str | None
+path: Path | None= None
+classlean_dojo.data_extraction.ast.ModulePreludeNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')])[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ ModulePreludeNode[source]
+classlean_dojo.data_extraction.ast.Node(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')])[source]
+Bases: object
+
+children: List[Node]
+end: Pos | None
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ Node[source]
+classmethodfrom_xml(tree: Element, lean_file: LeanFile)→ Node[source]
+get_closure()→ Tuple[Pos | None, Pos | None][source]
+classmethodkind()→ str[source]
+lean_file: LeanFile
+start: Pos | None
+to_xml(parent: Element)→ None[source]
+traverse_postorder(callback: Callable[[Node, List[Any]], Any])→ Any[source]
+traverse_preorder(callback: Callable[[Node, List[Node]], Any], node_cls: type | None, parents: List[Node] = [])→ None[source]
+classlean_dojo.data_extraction.ast.NullNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')])[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ NullNode[source]
+classlean_dojo.data_extraction.ast.OtherNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: Optional[lean_dojo.data_extraction.lean.Pos], end: Optional[lean_dojo.data_extraction.lean.Pos], children: List[ForwardRef('Node')], kind: str = <bound method Node.kind of <class 'lean_dojo.data_extraction.ast.OtherNode'>>, state_before: Optional[str] = None, state_after: Optional[str] = None, tactic: Optional[str] = None)[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ OtherNode[source]
+state_after: str | None= None
+state_before: str | None= None
+tactic: str | None= None
+classlean_dojo.data_extraction.ast.StdTacticAliasAliasNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')], name: str, full_name: str | None = None)[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ StdTacticAliasAliasNode[source]
+full_name: str | None= None
+name: str
+classlean_dojo.data_extraction.ast.StdTacticAliasAliaslrNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')], name: List[str], full_name: List[str] | None = None)[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ StdTacticAliasAliaslrNode[source]
+full_name: List[str] | None= None
+propertyis_mutual: bool
+name: List[str]
+classlean_dojo.data_extraction.ast.TacticTacticseq1IndentedAntiquotNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')])[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ TacticTacticseq1IndentedAntiquotNode[source]
+get_tactic_nodes(atomic_only: bool = False)→ Generator[Node, None, None][source]
+classlean_dojo.data_extraction.ast.TacticTacticseq1IndentedNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')])[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ TacticTacticseq1IndentedNode[source]
+get_tactic_nodes(atomic_only: bool = False)→ Generator[Node, None, None][source]
+classlean_dojo.data_extraction.ast.TacticTacticseqNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')])[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ TacticTacticseqNode[source]
+get_tactic_nodes(atomic_only: bool = False)→ Generator[Node, None, None][source]
+classlean_dojo.data_extraction.ast.TacticTacticseqbracketedNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')], state_before: str | None = None, state_after: str | None = None, tactic: str | None = None)[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ TacticTacticseqbracketedNode[source]
+get_tactic_nodes(atomic_only: bool = False)→ Generator[Node, None, None][source]
+state_after: str | None= None
+state_before: str | None= None
+tactic: str | None= None
+propertytactic_nodes: List[Node]
+classlean_dojo.data_extraction.ast.TermAttrkindAntiquotNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')])[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ TermAttrkindAntiquotNode[source]
+classlean_dojo.data_extraction.ast.TermAttrkindNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')])[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ TermAttrkindNode[source]
+classlean_dojo.data_extraction.ast.TermBytacticNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')])[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ TermBytacticNode[source]
+classlean_dojo.data_extraction.ast.TermExplicitbinderNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')])[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ TermExplicitbinderNode[source]
+classlean_dojo.data_extraction.ast.TermHoleNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')])[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ TermHoleNode[source]
+classlean_dojo.data_extraction.ast.TermTypespecNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')])[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ TermTypespecNode[source]
+classlean_dojo.data_extraction.ast.TokenAntiquotNode(lean_file: lean_dojo.data_extraction.lean.LeanFile, start: lean_dojo.data_extraction.lean.Pos | None, end: lean_dojo.data_extraction.lean.Pos | None, children: List[ForwardRef('Node')])[source]
+Bases: Node
+
+classmethodfrom_data(node_data: Dict[str, Any], lean_file: LeanFile)→ TokenAntiquotNode[source]
+lean_dojo.data_extraction.ast.contains_tactic(node: Node)→ bool[source]
+lean_dojo.data_extraction.ast.is_leaf(node: Node)→ bool[source]
+lean_dojo.data_extraction.ast.is_mutual_lean4(node: Node)→ bool[source]
+lean_dojo.data_extraction.ast.is_potential_premise_lean4(node: Node)→ bool[source]
+Check if node is a theorem/definition that can be used as a premise.
+
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.interaction.dojo
+lean_dojo.interaction.parse_goals
+lean_dojo.constants
+Sponsored: EthicalAds
+Reach the right audience on a privacy-first ad network only for software devs:
+EthicalAds
+Ad by EthicalAds   ·   ℹ️
+ API Reference lean_dojo.interaction Edit on GitHub
+lean_dojo.interaction
+lean_dojo.interaction.dojo
+CommandState
+Dojo
+DojoCrashError
+DojoInitError
+DojoTacticTimeoutError
+LeanError
+ProofFinished
+ProofGivenUp
+TacticState
+check_proof()
+kill_descendants()
+lean_dojo.interaction.parse_goals
+Declaration
+Goal
+parse_goals()
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.interaction.dojo
+CommandState
+Dojo
+DojoCrashError
+DojoInitError
+DojoTacticTimeoutError
+LeanError
+ProofFinished
+ProofGivenUp
+TacticState
+check_proof()
+kill_descendants()
+lean_dojo.interaction.parse_goals
+lean_dojo.constants
+Reach the right audience on a privacy-first ad network only for software devs: EthicalAds
+Ads by EthicalAds
+Close Ad
+ API Reference lean_dojo.interaction lean_dojo.interaction.dojo Edit on GitHub
+lean_dojo.interaction.dojo
+classlean_dojo.interaction.dojo.CommandState(id: int, message: str | None = None)[source]
+Bases: object
+
+id: int
+message: str | None= None
+classlean_dojo.interaction.dojo.Dojo(entry: Theorem | Tuple[LeanGitRepo, Path, int], timeout: int = 600, additional_imports: List[str] = [], build_deps: bool = True)[source]
+Bases: object
+
+Gym-like environment for programmatic interaction with Lean through tactics or commands.
+
+additional_imports: List[str]
+entry: Theorem | Tuple[LeanGitRepo, Path, int]
+file_path: Path
+has_timedout: bool= False
+is_crashed: bool= False
+is_successful: bool | None= None
+modified_file: TextIO
+repo: LeanGitRepo
+run_cmd(state: CommandState, command: str)→ CommandState | LeanError[source]
+run_tac(state: TacticState, tactic: str)→ TacticState | ProofFinished | LeanError | ProofGivenUp[source]
+propertyuses_commands: bool
+ 
+propertyuses_tactics: bool
+exceptionlean_dojo.interaction.dojo.DojoCrashError[source]
+Bases: Exception
+
+propertyis_out_of_memory: bool
+exceptionlean_dojo.interaction.dojo.DojoInitError[source]
+Bases: Exception
+
+exceptionlean_dojo.interaction.dojo.DojoTacticTimeoutError[source]
+Bases: Exception
+
+classlean_dojo.interaction.dojo.LeanError(error: str)[source]
+Bases: object
+
+error: str
+classlean_dojo.interaction.dojo.ProofFinished(tactic_state_id: int, message: str | None = None)[source]
+Bases: object
+
+message: str | None= None
+tactic_state_id: int
+classlean_dojo.interaction.dojo.ProofGivenUp[source]
+Bases: object
+
+classlean_dojo.interaction.dojo.TacticState(pp: str, id: int, message: str | None = None)[source]
+Bases: object
+
+goals: List[Goal]
+id: int
+message: str | None= None
+propertynum_goals: int
+pp: str
+lean_dojo.interaction.dojo.check_proof(thm: Theorem, proof: str)→ bool[source]
+Check if a proof is correct.
+
+Parameters
+:
+thm (Theorem) – The theorem statement.
+
+proof (str) – The proof to check.
+
+lean_dojo.interaction.dojo.kill_descendants(pid: int)→ None[source]
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.interaction.dojo
+lean_dojo.interaction.parse_goals
+Declaration
+Goal
+parse_goals()
+lean_dojo.constants
+Sponsored: EthicalAds
+AI-powered ad network for devs. Get your message in front of the right developers with EthicalAds.
+Ad by EthicalAds   ·   ℹ️
+ API Reference lean_dojo.interaction lean_dojo.interaction.parse_goals Edit on GitHub
+lean_dojo.interaction.parse_goals
+Utilities for parsing Lean’s pretty-printed proof goals.
+
+classlean_dojo.interaction.parse_goals.Declaration(ident: str, lean_type: str)[source]
+Bases: object
+
+A declaration in the local context.
+
+ident: str
+lean_type: str
+classlean_dojo.interaction.parse_goals.Goal(assumptions: List[Declaration], conclusion: str)[source]
+Bases: object
+
+A goal in Lean.
+
+assumptions: List[Declaration]
+conclusion: str
+classmethodfrom_pp(pp: str)→ Goal[source]
+Parse a pretty-printed goal.
+
+lean_dojo.interaction.parse_goals.parse_goals(pp: str)→ List[Goal][source]
+Parse a list of pretty-printed goals.
+
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.constants
+CACHE_DIR
+DISABLE_REMOTE_CACHE
+LEAN4_PACKAGES_DIR
+LEAN4_URL
+LOAD_USED_PACKAGES_ONLY
+NUM_PROCS
+REMOTE_CACHE_URL
+TACTIC_CPU_LIMIT
+TACTIC_MEMORY_LIMIT
+TMP_DIR
+check_git_version()
+Reach the right audience on a privacy-first ad network only for software devs: EthicalAds
+Ads by EthicalAds
+Close Ad
+ API Reference lean_dojo.constants Edit on GitHub
+lean_dojo.constants
+Constants controlling LeanDojo’s behaviors. Many of them are configurable via Environment Variables.
+
+lean_dojo.constants.CACHE_DIR= PosixPath('/home/docs/.cache/lean_dojo')
+Cache directory for storing traced repos (see Caching).
+
+lean_dojo.constants.DISABLE_REMOTE_CACHE= False
+Whether to disable remote caching (see Caching) and build all repos locally.
+
+lean_dojo.constants.LEAN4_PACKAGES_DIR= PosixPath('.lake/packages')
+The directory where Lean 4 dependencies are stored (since v4.3.0-rc2).
+
+lean_dojo.constants.LEAN4_URL= 'https://github.com/leanprover/lean4'
+The URL of the Lean 4 repo.
+
+lean_dojo.constants.LOAD_USED_PACKAGES_ONLY= False
+Only load depdendency files that are actually used by the target repo.
+
+lean_dojo.constants.NUM_PROCS= 2
+Number of processes to use
+
+lean_dojo.constants.REMOTE_CACHE_URL= 'https://dl.fbaipublicfiles.com/lean-dojo'
+URL of the remote cache (see Caching).
+
+lean_dojo.constants.TACTIC_CPU_LIMIT= 1
+Number of CPUs for executing tactics when interacting with Lean.
+
+lean_dojo.constants.TACTIC_MEMORY_LIMIT= '32g'
+Maximum memory when interacting with Lean.
+
+lean_dojo.constants.TMP_DIR= None
+Temporary directory used by LeanDojo for storing intermediate files
+
+lean_dojo.constants.check_git_version(min_version: Tuple[int, int, int])→ None[source]
+Check the version of Git installed on the system.
+
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.interaction.dojo
+lean_dojo.interaction.parse_goals
+lean_dojo.constants
+Sponsored: EthicalAds
+AI-powered ad network for devs. Get your message in front of the right developers with EthicalAds.
+Ad by EthicalAds   ·   ℹ️
+ API Reference lean_dojo.interaction Edit on GitHub
+lean_dojo.interaction
+lean_dojo.interaction.dojo
+CommandState
+Dojo
+DojoCrashError
+DojoInitError
+DojoTacticTimeoutError
+LeanError
+ProofFinished
+ProofGivenUp
+TacticState
+check_proof()
+kill_descendants()
+lean_dojo.interaction.parse_goals
+Declaration
+Goal
+parse_goals()
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.interaction.dojo
+CommandState
+Dojo
+DojoCrashError
+DojoInitError
+DojoTacticTimeoutError
+LeanError
+ProofFinished
+ProofGivenUp
+TacticState
+check_proof()
+kill_descendants()
+lean_dojo.interaction.parse_goals
+lean_dojo.constants
+Reach the right audience on a privacy-first ad network only for software devs: EthicalAds
+Ads by EthicalAds
+Close Ad
+ API Reference lean_dojo.interaction lean_dojo.interaction.dojo Edit on GitHub
+lean_dojo.interaction.dojo
+classlean_dojo.interaction.dojo.CommandState(id: int, message: str | None = None)[source]
+Bases: object
+
+id: int
+message: str | None= None
+classlean_dojo.interaction.dojo.Dojo(entry: Theorem | Tuple[LeanGitRepo, Path, int], timeout: int = 600, additional_imports: List[str] = [], build_deps: bool = True)[source]
+Bases: object
+
+Gym-like environment for programmatic interaction with Lean through tactics or commands.
+
+additional_imports: List[str]
+entry: Theorem | Tuple[LeanGitRepo, Path, int]
+file_path: Path
+has_timedout: bool= False
+is_crashed: bool= False
+is_successful: bool | None= None
+modified_file: TextIO
+repo: LeanGitRepo
+run_cmd(state: CommandState, command: str)→ CommandState | LeanError[source]
+run_tac(state: TacticState, tactic: str)→ TacticState | ProofFinished | LeanError | ProofGivenUp[source]
+propertyuses_commands: bool
+ 
+propertyuses_tactics: bool
+exceptionlean_dojo.interaction.dojo.DojoCrashError[source]
+Bases: Exception
+
+propertyis_out_of_memory: bool
+exceptionlean_dojo.interaction.dojo.DojoInitError[source]
+Bases: Exception
+
+exceptionlean_dojo.interaction.dojo.DojoTacticTimeoutError[source]
+Bases: Exception
+
+classlean_dojo.interaction.dojo.LeanError(error: str)[source]
+Bases: object
+
+error: str
+classlean_dojo.interaction.dojo.ProofFinished(tactic_state_id: int, message: str | None = None)[source]
+Bases: object
+
+message: str | None= None
+tactic_state_id: int
+classlean_dojo.interaction.dojo.ProofGivenUp[source]
+Bases: object
+
+classlean_dojo.interaction.dojo.TacticState(pp: str, id: int, message: str | None = None)[source]
+Bases: object
+
+goals: List[Goal]
+id: int
+message: str | None= None
+propertynum_goals: int
+pp: str
+lean_dojo.interaction.dojo.check_proof(thm: Theorem, proof: str)→ bool[source]
+Check if a proof is correct.
+
+Parameters
+:
+thm (Theorem) – The theorem statement.
+
+proof (str) – The proof to check.
+
+lean_dojo.interaction.dojo.kill_descendants(pid: int)→ None[source]
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.interaction.dojo
+lean_dojo.interaction.parse_goals
+Declaration
+Goal
+parse_goals()
+lean_dojo.constants
+Sponsored: EthicalAds
+Reach the right audience on a privacy-first ad network only for software devs:
+EthicalAds
+Ad by EthicalAds   ·   ℹ️
+ API Reference lean_dojo.interaction lean_dojo.interaction.parse_goals Edit on GitHub
+lean_dojo.interaction.parse_goals
+Utilities for parsing Lean’s pretty-printed proof goals.
+
+classlean_dojo.interaction.parse_goals.Declaration(ident: str, lean_type: str)[source]
+Bases: object
+
+A declaration in the local context.
+
+ident: str
+lean_type: str
+classlean_dojo.interaction.parse_goals.Goal(assumptions: List[Declaration], conclusion: str)[source]
+Bases: object
+
+A goal in Lean.
+
+assumptions: List[Declaration]
+conclusion: str
+classmethodfrom_pp(pp: str)→ Goal[source]
+Parse a pretty-printed goal.
+
+lean_dojo.interaction.parse_goals.parse_goals(pp: str)→ List[Goal][source]
+Parse a list of pretty-printed goals.
+
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.constants
+CACHE_DIR
+DISABLE_REMOTE_CACHE
+LEAN4_PACKAGES_DIR
+LEAN4_URL
+LOAD_USED_PACKAGES_ONLY
+NUM_PROCS
+REMOTE_CACHE_URL
+TACTIC_CPU_LIMIT
+TACTIC_MEMORY_LIMIT
+TMP_DIR
+check_git_version()
+Reach the right audience on a privacy-first ad network only for software devs: EthicalAds
+Ads by EthicalAds
+Close Ad
+ API Reference lean_dojo.constants Edit on GitHub
+lean_dojo.constants
+Constants controlling LeanDojo’s behaviors. Many of them are configurable via Environment Variables.
+
+lean_dojo.constants.CACHE_DIR= PosixPath('/home/docs/.cache/lean_dojo')
+Cache directory for storing traced repos (see Caching).
+
+lean_dojo.constants.DISABLE_REMOTE_CACHE= False
+Whether to disable remote caching (see Caching) and build all repos locally.
+
+lean_dojo.constants.LEAN4_PACKAGES_DIR= PosixPath('.lake/packages')
+The directory where Lean 4 dependencies are stored (since v4.3.0-rc2).
+
+lean_dojo.constants.LEAN4_URL= 'https://github.com/leanprover/lean4'
+The URL of the Lean 4 repo.
+
+lean_dojo.constants.LOAD_USED_PACKAGES_ONLY= False
+Only load depdendency files that are actually used by the target repo.
+
+lean_dojo.constants.NUM_PROCS= 2
+Number of processes to use
+
+lean_dojo.constants.REMOTE_CACHE_URL= 'https://dl.fbaipublicfiles.com/lean-dojo'
+URL of the remote cache (see Caching).
+
+lean_dojo.constants.TACTIC_CPU_LIMIT= 1
+Number of CPUs for executing tactics when interacting with Lean.
+
+lean_dojo.constants.TACTIC_MEMORY_LIMIT= '32g'
+Maximum memory when interacting with Lean.
+
+lean_dojo.constants.TMP_DIR= None
+Temporary directory used by LeanDojo for storing intermediate files
+
+lean_dojo.constants.check_git_version(min_version: Tuple[int, int, int])→ None[source]
+Check the version of Git installed on the system.
+
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.interaction
+lean_dojo.constants
+CACHE_DIR
+DISABLE_REMOTE_CACHE
+LEAN4_PACKAGES_DIR
+LEAN4_URL
+LOAD_USED_PACKAGES_ONLY
+NUM_PROCS
+REMOTE_CACHE_URL
+TACTIC_CPU_LIMIT
+TACTIC_MEMORY_LIMIT
+TMP_DIR
+check_git_version()
+Reach the right audience on a privacy-first ad network only for software devs: EthicalAds
+Ads by EthicalAds
+Close Ad
+ API Reference lean_dojo.constants Edit on GitHub
+lean_dojo.constants
+Constants controlling LeanDojo’s behaviors. Many of them are configurable via Environment Variables.
+
+lean_dojo.constants.CACHE_DIR= PosixPath('/home/docs/.cache/lean_dojo')
+Cache directory for storing traced repos (see Caching).
+
+lean_dojo.constants.DISABLE_REMOTE_CACHE= False
+Whether to disable remote caching (see Caching) and build all repos locally.
+
+lean_dojo.constants.LEAN4_PACKAGES_DIR= PosixPath('.lake/packages')
+The directory where Lean 4 dependencies are stored (since v4.3.0-rc2).
+
+lean_dojo.constants.LEAN4_URL= 'https://github.com/leanprover/lean4'
+The URL of the Lean 4 repo.
+
+lean_dojo.constants.LOAD_USED_PACKAGES_ONLY= False
+Only load depdendency files that are actually used by the target repo.
+
+lean_dojo.constants.NUM_PROCS= 2
+Number of processes to use
+
+lean_dojo.constants.REMOTE_CACHE_URL= 'https://dl.fbaipublicfiles.com/lean-dojo'
+URL of the remote cache (see Caching).
+
+lean_dojo.constants.TACTIC_CPU_LIMIT= 1
+Number of CPUs for executing tactics when interacting with Lean.
+
+lean_dojo.constants.TACTIC_MEMORY_LIMIT= '32g'
+Maximum memory when interacting with Lean.
+
+lean_dojo.constants.TMP_DIR= None
+Temporary directory used by LeanDojo for storing intermediate files
+
+lean_dojo.constants.check_git_version(min_version: Tuple[int, int, int])→ None[source]
+Check the version of Git installed on the system.
+
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+lean_dojo.data_extraction
+lean_dojo.data_extraction.lean
+lean_dojo.data_extraction.trace
+lean_dojo.data_extraction.traced_data
+lean_dojo.data_extraction.ast
+lean_dojo.interaction
+lean_dojo.constants
+Sponsored: EthicalAds
+Reach the right audience on a privacy-first ad network only for software devs:
+EthicalAds
+Ad by EthicalAds   ·   ℹ️
+ API Reference lean_dojo.data_extraction Edit on GitHub
+lean_dojo.data_extraction
+lean_dojo.data_extraction.lean
+GITHUB_ACCESS_TOKEN
+LEAN4_NIGHTLY_REPO
+LEAN4_REPO
+LeanFile
+LeanGitRepo
+Pos
+RepoInfoCache
+RepoType
+Theorem
+cleanse_string()
+get_latest_commit()
+get_lean4_commit_from_config()
+get_lean4_version_from_config()
+get_repo_type()
+is_commit_hash()
+is_supported_version()
+normalize_url()
+ssh_to_https()
+url_to_repo()
+lean_dojo.data_extraction.trace
+check_files()
+get_lean_version()
+get_traced_repo_path()
+is_available_in_cache()
+is_new_version()
+launch_progressbar()
+trace()
+lean_dojo.data_extraction.traced_data
+Comment
+TracedFile
+TracedRepo
+TracedTactic
+TracedTheorem
+get_code_without_comments()
+lean_dojo.data_extraction.ast
+lean_dojo.data_extraction.ast
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
+
+
+ LeanDojo
+
+latest
+ 
+Search docs
+Getting Started
+User Guide
+Troubleshooting
+Developer Guide
+Limitations
+Credits and Acknowledgements
+API Reference
+Sponsored: EthicalAds
+Reach the right audience on a privacy-first ad network only for software devs:
+EthicalAds
+Ad by EthicalAds   ·   ℹ️
+ Limitations Edit on GitHub
+Limitations
+LeanDojo has the following limitations. Addressing them won’t be our priority in the near future, but we welcome contributions:
+
+LeanDojo cannot extract data from the lean4 repo itself nor interact with theorems in it.
+
+Currently, LeanDojo cannot process Lean repos that use FFI, e.g., [LeanCopilot](https://github.com/lean-dojo/LeanCopilot).
+
+LeanDojo does not support term-based proofs or proofs that mix tactics and terms.
+
+Theorems extracted by LeanDojo are “syntactic theorems”, i.e., they are Lean constants defined using keywords theorem or lemma. First, they are not guaranteed to be real theorems (Lean constants of type Prop). Second, theorems defined in other ways (e.g., using def) are not extracted.
+
+© Copyright 2023, LeanDojo Team.
+
+Built with Sphinx using a theme provided by Read the Docs.
+Read the Docs
+ latest
