@@ -1,0 +1,539 @@
+SAT Minimal Ontology and Symmetry Axioms
+Ontology Axioms (Objects)
+O1. Fundamental Fields
+SAT is constructed from the following primitive fields:
+
+O1.1: A normalized, timelike vector field 
+𝑢
+𝜇
+(
+𝑥
+)
+u 
+μ
+ (x), satisfying:
+
+𝑢
+𝜇
+𝑢
+𝜇
+=
+−
+1
+,
+u 
+μ
+ u 
+μ
+​
+ =−1,
+which defines a local preferred direction of time and provides a foliation of spacetime.
+
+O1.2: A scalar field 
+𝜃
+4
+(
+𝑥
+)
+θ 
+4
+​
+ (x) called the misalignment angle, valued in:
+
+𝜃
+4
+(
+𝑥
+)
+∈
+𝑅
+/
+2
+𝜋
+,
+θ 
+4
+​
+ (x)∈R/2π,
+encoding the misalignment of local frames relative to a global reference.
+
+O1.3: A scalar phase field 
+𝜓
+(
+𝑥
+)
+ψ(x) compactified on:
+
+𝜓
+(
+𝑥
+)
+∼
+𝜓
+(
+𝑥
+)
++
+2
+𝜋
+,
+ψ(x)∼ψ(x)+2π,
+interpreted as an internal clock phase.
+
+O1.4: A discrete topological twist field 
+𝜏
+(
+𝑥
+)
+τ(x), taking values in the finite group:
+
+𝜏
+(
+𝑥
+)
+∈
+𝑍
+3
+,
+τ(x)∈Z 
+3
+​
+ ,
+representing topological sector labels.
+
+O2. Derived Structures
+O2.1: A strain tensor constructed from 
+𝑢
+𝜇
+u 
+μ
+ :
+
+𝑆
+𝜇
+𝜈
+=
+∇
+𝜇
+𝑢
+𝜈
+.
+S 
+μν
+​
+ =∇ 
+μ
+​
+ u 
+ν
+​
+ .
+O2.2: An emergent metric tensor 
+𝑔
+𝜇
+𝜈
+(
+𝑥
+)
+g 
+μν
+​
+ (x) defined via:
+
+𝑔
+𝜇
+𝜈
+(
+𝑥
+)
+=
+𝑓
+1
+(
+𝜃
+4
+(
+𝑥
+)
+)
+𝜂
+𝜇
+𝜈
++
+𝑓
+2
+(
+𝜃
+4
+(
+𝑥
+)
+)
+𝑢
+𝜇
+(
+𝑥
+)
+𝑢
+𝜈
+(
+𝑥
+)
+,
+g 
+μν
+​
+ (x)=f 
+1
+​
+ (θ 
+4
+​
+ (x))η 
+μν
+​
+ +f 
+2
+​
+ (θ 
+4
+​
+ (x))u 
+μ
+​
+ (x)u 
+ν
+​
+ (x),
+where 
+𝑓
+1
+f 
+1
+​
+  and 
+𝑓
+2
+f 
+2
+​
+  are real-valued functions to be specified by action minimization and vacuum boundary conditions.
+
+Symmetry Axioms
+S1. Fundamental Symmetries
+S1.1: Foliation-preserving diffeomorphism invariance:
+SAT is invariant under diffeomorphisms that preserve the foliation structure defined by 
+𝑢
+𝜇
+(
+𝑥
+)
+u 
+μ
+ (x). Formally:
+
+𝑥
+𝜇
+→
+𝑥
+𝜇
+′
+(
+𝑥
+𝜈
+)
+with
+𝐿
+𝜉
+𝑢
+𝜇
+=
+0
+,
+x 
+μ
+ →x 
+μ 
+′
+ 
+ (x 
+ν
+ )withL 
+ξ
+​
+ u 
+μ
+ =0,
+where 
+𝐿
+𝜉
+L 
+ξ
+​
+  is the Lie derivative along vector field 
+𝜉
+ξ.
+
+S1.2: Internal 
+𝑈
+(
+1
+)
+U(1) gauge symmetry:
+The phase field 
+𝜓
+ψ is invariant under:
+
+𝜓
+(
+𝑥
+)
+→
+𝜓
+(
+𝑥
+)
++
+𝜒
+(
+𝑥
+)
+,
+𝜒
+(
+𝑥
+)
+∈
+𝑈
+(
+1
+)
+.
+ψ(x)→ψ(x)+χ(x),χ(x)∈U(1).
+S1.3: Topological Discreteness:
+The twist field 
+𝜏
+τ obeys a discrete global symmetry:
+
+𝜏
+(
+𝑥
+)
+→
+𝜏
+(
+𝑥
+)
++
+𝑛
+,
+𝑛
+∈
+𝑍
+3
+,
+τ(x)→τ(x)+n,n∈Z 
+3
+​
+ ,
+with no continuous deformation allowed between distinct 
+𝑍
+3
+Z 
+3
+​
+  sectors.
+
+S1.4: Gauge Invariance of Couplings:
+Couplings involving 
+𝜓
+ψ must respect local 
+𝑈
+(
+1
+)
+U(1) gauge invariance. All gauge fields must transform under standard gauge transformations:
+
+𝐴
+𝜇
+(
+𝑥
+)
+→
+𝐴
+𝜇
+(
+𝑥
+)
++
+∂
+𝜇
+𝜒
+(
+𝑥
+)
+.
+A 
+μ
+​
+ (x)→A 
+μ
+​
+ (x)+∂ 
+μ
+​
+ χ(x).
+S1.5: Vacuum Stability and Lorentzian Signature:
+The emergent metric 
+𝑔
+𝜇
+𝜈
+(
+𝑥
+)
+g 
+μν
+​
+ (x) must have Lorentzian signature 
+(
+−
++
++
++
+)
+(−+++) in the vacuum configuration, enforced by the functional form of 
+𝑓
+1
+(
+𝜃
+4
+)
+f 
+1
+​
+ (θ 
+4
+​
+ ), 
+𝑓
+2
+(
+𝜃
+4
+)
+f 
+2
+​
+ (θ 
+4
+​
+ ), and the ground state values of 
+𝜃
+4
+θ 
+4
+​
+  and 
+𝑢
+𝜇
+u 
+μ
+ .
+
+S2. Dynamical Assumptions
+S2.1: Action Minimization Principle:
+Dynamics are determined by extremization of a scalar action 
+𝑆
+S under variations of 
+𝜃
+4
+θ 
+4
+​
+ , 
+𝜓
+ψ, 
+𝜏
+τ, and 
+𝑢
+𝜇
+u 
+μ
+ , subject to the normalization constraint on 
+𝑢
+𝜇
+u 
+μ
+ .
+
+S2.2: Minimal Derivative Order:
+The action involves at most second derivatives of the fundamental fields, ensuring that field equations are second-order PDEs (no Ostrogradsky instabilities).
+
+S2.3: Compactness of 
+𝜓
+ψ:
+The phase field 
+𝜓
+ψ has strictly compact domain, implying quantization of conjugate momenta and the existence of a fundamental action scale 
+ℏ
+ℏ.
+
+Summary: What is Assumed — and What is Not
+Assumed:
+
+Existence and normalization of 
+𝑢
+𝜇
+u 
+μ
+ .
+
+Periodicity and compactness of 
+𝜃
+4
+θ 
+4
+​
+  and 
+𝜓
+ψ.
+
+Discreteness of 
+𝜏
+τ.
+
+Foliation-preserving diffeomorphism invariance (not full spacetime diffeomorphism invariance).
+
+Internal 
+𝑈
+(
+1
+)
+U(1) gauge symmetry.
+
+Lorentzian signature preservation in vacuum.
+
+Not Assumed:
+
+No prior metric structure — the metric is emergent.
+
+No explicit curvature tensors or Christoffel symbols — derived from the emergent 
+𝑔
+𝜇
+𝜈
+g 
+μν
+​
+ .
+
+No explicit Planck units — 
+ℏ
+ℏ, 
+𝑐
+c, 
+𝐺
+G must emerge naturally.
+
+No insertion of gravitational or gauge coupling constants — their emergence must be shown.
+
+End of SAT Minimal Ontology and Symmetry Axiom Set
