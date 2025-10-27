@@ -1,0 +1,89 @@
+The Scalar–Angular Theory (SAT) framework is built upon a foundation of mathematical relationships and concepts derived from its core ontological commitment to physical worldlines, termed "filaments". Below are the key mathematical elements and formulas present in the sources:
+
+### I. Foundational Constants and Variables
+The SAT framework depends on **exactly two fundamental dimensional constants**:
+*   **Filament tension (T)**: [M][L]⁻¹ (primitive postulate).
+*   **Fundamental length (ℓ)**: [L] (derived from 2A/ℓ, primitive).
+    *   The universal transverse filament scale is **ℓf = (2A/T)¹/³**.
+
+### II. Filament Geometry and Kinematics
+*   **Filament definition**: Filaments are smooth one-dimensional structures embedded in a four-dimensional manifold M, represented as **γ : R → M**.
+*   **Tangent vector**: The velocity of a filament with respect to its affine parameter λ is **vµ(λ) = dγµ/dλ**.
+*   **Hyperhelical embedding**: A filament's 4D hyperhelical form is given by **γµ(λ) = (λ, Ax sin(kxλ+ ϕx), Ay sin(kyλ+ ϕy), Az sin(kzλ+ ϕz))**.
+*   **Transverse perturbations and conjugate momenta**: Transverse perturbations are ξµ(λ), and their conjugate momenta are **πµ(λ) = m ξ̇µ(λ)**.
+*   **Canonical Hamiltonian**: The Hamiltonian for filament dynamics is **H = ∫ dλ (1/2m πµπµ + Vtension[ξµ])**.
+
+### III. Core Axioms and Path Integral
+*   **Axiom A1 (Manifold)**: Spacetime is a smooth 4-manifold M with no a priori metric.
+*   **Axiom A2 (Filament Set)**: The filament set F is defined as **F = {γ ∈ C∞(R,M) | limλ→±∞ ∥γ̇∥ < ∞} / ∼**, where ∥·∥ is with respect to an auxiliary flat background metric and ∼ is ambient isotopy.
+*   **Axiom A3/A5 (Energy Measure / Path Integral)**: The curvature-weighted Boltzmann measure for a filament is **µ[γ] ∝ exp [ −T/2 ∫ λf λi ∥γ̈(λ)∥² dλ ]**. The full quantum amplitude is given by the path integral **Z = ∫F/∼ Dγ exp [ −T/2 ∫ +∞ −∞ ∥γ̈(λ)∥² dλ ]**.
+*   **Axiom A4 (Bundle Observables)**: Bundles are classified by **(Q,w, link, φ)**, where Q ∈ Z>0, w ∈ ⅓Z, etc..
+
+### IV. Emergent Spacetime Geometry
+*   **Emergent co-metric**: The emergent co-metric is defined via ensemble averaging of filament tangent vectors: **g̃µν(x) = ⟨vµvν⟩F (x)**.
+*   **Emergent Lorentzian metric**: The emergent metric is the inverse of the co-metric: **gµν(x) = (g̃µν(x))⁻¹**.
+*   **Levi-Civita connection**: This connection emerges from the metric: **Γλ µν(x) = ½ gλρ (∂µgρν + ∂νgρµ − ∂ρgµν)**.
+*   **Ricci Tensor and Scalar**: The Ricci tensor is **Rµν(x) = Rρ µρν** and the Ricci scalar is **R(x) = gµνRµν**.
+*   **Emergent Stress-Energy Tensor**: Defined from local filament vibrational energy density (Evib) and topological linking density (Llink): **Tµν(x) = ⟨Evib(x), Llink(x)⟩F (x)**.
+*   **Emergent Einstein Equations**: The emergent Einstein Field Equations are **⟨ Rµν − ½ gµνR ⟩F = κTµν**, where **κ = 8π/T**.
+    *   *Note*: Derivation D4 also states **κ = 8πℓf²**, and that G/c⁴ is replaced by ℓf².
+*   **Einstein-Hilbert Action**: The emergent gravitational action takes the form **Sgrav = 1/(2κ) ∫ d⁴x √−g R(x)**.
+*   **Emergent Gravitational Potential**: For a Q=3 bundle, the static weak-field potential is **Φ(r) = − GM / √(r² + ε²)**, where ε is the minimal filament curvature radius.
+
+### V. Gauge Sector and Coupling Constants
+*   **Phase-defined binding conditions**: Filaments bind when **ϕi − ϕj = 2πk/n** (for integers k, n).
+*   **Saddle-point gauge coupling**: The gauge coupling is **g⁻²G = ρG ℓf²**, where ρG is the topological mode density for gauge group G.
+    *   Explicitly: **gG = 1 / (ℓf √ρG)**.
+    *   Gauge groups emerge from phase symmetry: U(1) from one-filament phase rotations, SU(2) from two-filament exchange, SU(3) from three-filament phase permutations.
+*   **One-loop β-function**: The running of gauge couplings is described by **µ dgG/dµ = − bG/(16π²) g³G**, where bG are group-dependent coefficients.
+*   **RG evolution**: Integrating the β-function gives **g⁻²G(µ) = g⁻²G(µ0) + bG/(8π²) ln (µ/µ0)**, with µ0 = ℓ⁻¹.
+*   **Scale-dependent mode densities**: To reproduce running couplings, topological mode densities are promoted to **ρi(µ) = ρ(∞)i ( 1− Λ²i/(µ² + Λ²i) )**.
+*   **Effective coupling flow**: **dαi/d log µ ∝ 2ρi(µ) dρi/d log µ**.
+*   **Unified Action**: **Sunified = ∫ d⁴x √−g(x) [ ½κ R(x) + ∑G ¼g⁻²G Tr(Fµν(G)F(G)µν) + Λ(x) ]**.
+
+### VI. Mass and Flavor Sector
+*   **Chiral charge operator**: Defined as **Q̂± = ½ (Q̂± γ5Q̂γ5)**.
+*   **Mass matrix**: **M̂ = κ ( Q̂⁻¹ + ) ⊗ Ŵ**, where **κ = π T ℓf**.
+*   **Tree-level fermion mass**: **m⁽⁰⁾f = π T ℓf q⁻¹ff wff**.
+*   **Loop-induced masses**: **∆M̂(1-loop)ij = κ/(16π²) ∑G,G′ g²G g²G′ c(GG′)ij**.
+*   **Topological invariant Q**: Defined as **Q = Lwind + Llink +Wwrithe**, normalized for different particle classes (e.g., Qneutrino=1, Qmeson=2, Qbaryon=3).
+*   **Mass suppression formula**: The effective 3D inertial mass is suppressed by Q: **meff = m0/Q**, where m0 ∼ Tℓf is the bare vibrational mass scale.
+*   **Corrections to mass suppression**: **meff ≈ m0/Q ( 1 + αshape/Q )**.
+*   **Confinement area law / String tension**: **⟨ W(C) ⟩ = exp [ −σ A(C) ]**, with **σ = κT**.
+*   **Baryon mass sum rules**: **MB = ∑i=1 meff qi + 5π/4 √σ/6**.
+*   **Meson Regge slope**: The universal Regge slope is **α′ = 1/(2πσ)**.
+*   **Mass-squared relation (Module O9)**: **m² = k (N + βQ² − a)**, where N is the oscillator level, Q is the topological charge, k is the energy scale, β controls topological complexity amplification, and a is an offset. This formula is implemented by the `mass_squared` function: `k * (N + beta*Q**2 - a)`.
+*   **Chiral–Defect Mass Suppression (Module O10)**: **m(Q, τχ) = m0/Q exp[−γχ τχ]**, where τχ is a discrete chiral torsion invariant and γχ is a universal coupling.
+*   **Emergent Gauge Boson Masses**: Squared mass of gauge bundle: **m²i = λ²i ⟨χ²⟩**, where χ(x) is the vacuum strain field.
+*   **Hadronic Excitations**: Orbital quantum number L contributes **EL = γL · L(L+1)**. Spin-orbit coupling **∆mLS = γLS · (L⃗ · S⃗)**. Isospin multiplets have shifts **∆mI ∼ δI**.
+*   **Complete bundle mass formula (Extended)**: **m = m0/Q + βw + δf +B(Q) + γLL(L+1) + γLS(L⃗ · S⃗) + δI**.
+*   **Borromean binding term for baryons**: **B(Q) = η · 3 / (Q(Q−1)) if Q ≥ 3**, else 0, where η is a fitted constant.
+*   **Lepton Mass Hierarchy (Module O13)**: The mass-squared of a filament is **m²[φ⃗] = k1 ∑i=1 sin²(niφi) + k2 S[φ⃗]**.
+*   **Charged-lepton mass matrix (A4 Flavor Sector)**: **Mℓ = m0 U k T**, where T is a canonical generator of A4 and k ∈ {0, 1, 2}.
+*   **Neutrino masses**: **Mν = mν US**.
+
+### VII. Quantum Completion and Renormalization
+*   **Canonical commutation relation**: **[ξ̂µ(λ), π̂ν(λ′)] = iℏ δµν δ(λ− λ′)**.
+*   **Action for path integral**: **S = ∑i ∫γi dτ ( T ℓi + Aki + λ θi )**.
+*   **Superficial degree of divergence**: **ω = 1− E/2**.
+*   **One-loop beta functions**: **βT = − 1/(2π²) T²R +O(T³R)**, **βA = 0 +O(T²R)**, **βλ = − 1/(2π²) λRTR +O(T²R)**.
+
+### VIII. Cosmology and Phenomenology
+*   **Hubble expansion function**: **HSAT(t) = 1/R(t) · dR/dt = 1/R(t) · 1/R(R(t))**.
+*   **Projective resistance**: **R(r) = ρlink(r) · 1/(|cos θ4(r)|+ ε · (1 + ατ(r)))**.
+*   **Cumulative Intersection Count**: **I(R) = ∫R₀ ρlink(r) · 4πr² dr**.
+*   **Cumulative Angular Work**: **W(R) = ∫R₀ ρlink(r) · θ4(r) · 4πr² dr**.
+*   **Tensor-to-scalar ratio**: **r = ∫lateral (δρlink)² dΩ / ∫radial (δθ4)² dΩ**.
+*   **Primordial Power Spectrum**: **PΣ(k) = H²/(8π²ϵ) ( k/k∗ )ⁿˢ⁻¹**, where **ns = 1− 4ϵ** and **ϵ = ½ 2 H²**.
+*   **Tensor–Scalar Consistency Relation**: **r = 4(1− ns)**.
+*   **Effective Topological Barrier**: **αtop(x) = β1 S(x) + β2 ℓf³ ρlink(x) + β3 ℓf |∇θ4(x)|**.
+*   **Emergent Interaction Amplitude**: **AΓout,Γin = ∑π exp [ − ∑e∈π ( T ℓf²∆C(e) + αtop(xe) ) ]**.
+*   **Meson Decay Width (Module O12)**: **Γ = Λ′ e−α²top ∆E ( p/p0 )²ᴸ⁺¹ e−β (Ndisc−1)**.
+*   **Projected Decay Width for Exotic States**: **Γ ≃ Λ exp [ −Stop ]**, where **Stop ≃ α²top/Econf**.
+*   **Revised Width Formula**: **Γ = Λ exp ( − α²eff/∆E ) · fPS · ftopo**.
+
+### IX. Other Important Mathematical Quantities / Definitions
+*   **Misalignment Angle (θ4(x))**: The angle between a filament’s tangent vector vµ and the foliation normal uµ: **cos(θ4(x)) = vµuµ / (∥vµ∥ ∥uµ∥)**.
+*   **Strain Tensor (Sµν(x))**: The local geometric distortion, defined as **Sµν(x) = ∇µuν +∇νuµ**. The strain scalar is **S(x) = √SµνSµν**.
+*   **Axial Current Anomaly (SAT Interpretation)**: **∆Q5 = Nw · Aunit**, with **Aunit = g²/(16π²) · E⃗ · B⃗**.
+*   **Gravitational Force Hierarchy**: Interaction strength scales as the squared density of topological modes: **αi ∼ ρ²i**.

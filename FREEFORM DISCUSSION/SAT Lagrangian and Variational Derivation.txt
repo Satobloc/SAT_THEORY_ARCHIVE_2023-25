@@ -1,0 +1,79 @@
+✅ I. SAT Lagrangian and Variational Derivation
+✔ Full Symbolic Lagrangian (θ₄, uᵘ, τ):
+plaintext
+Copy
+Edit
+L(θ₄, uᵘ, τ) = 
+  + ½ (∂μ θ₄)(∂^μ θ₄)
+  − μ² cos(3θ₄)
+  + λ (uμ u^μ + 1)
+  + α (∇μ uν)(∇^μ u^ν)
+  + β (∂μ θ₄)(∇^μ u^ν) u_ν
+Note: τ not explicitly in Lagrangian yet—only enforced via constraint or external simulation logic. Needs formal lifting (see below).
+
+✔ Euler–Lagrange Derivations (summary form):
+δL / δθ₄:
+
+plaintext
+Copy
+Edit
+□θ₄ + 3μ² sin(3θ₄) 
+− β ∇μ(∇^μ u^ν u_ν) = 0
+δL / δuᵘ:
+
+plaintext
+Copy
+Edit
+2λ u_μ 
+− α ∇ν∇^ν u_μ 
++ β (∂ν θ₄ ∇_μ u^ν + ∂ν θ₄ ∇^ν u_μ) = 0
+Full symbolic derivation (with index symmetries) available — can compile for NotebookLM or Mathematica.
+
+✔ Constraint List:
+φ₁(x) = u_μ u^μ + 1 ≈ 0 (primary, normalization)
+
+φ₂(x) = time derivative of φ₁ (secondary)
+
+From LAB 2:
+
+plaintext
+Copy
+Edit
+φ₂(x) = −2u⁰∂ₜu⁰ + 2u¹∂ₜu¹
+❗ Dirac Bracket / Poisson Matrix (simplified):
+φ₁	φ₂
+φ₁	0	≠0
+φ₂	–≠0	0
+
+→ φ₁, φ₂ are second-class. Full matrix not yet computed; still needed.
+
+✅ I can assemble this entire block (Lagrangian + derivations + φ₁/φ₂ structure) into plain text or symbolic kernel.
+
+✅ II. Stress–Energy Tensor Derivation
+✔ Canonical Noether Expression:
+plaintext
+Copy
+Edit
+T^{μν} = ∂L / ∂(∂_μ φ) ∂^ν φ − η^{μν} L
+✔ θ₄ Sector:
+For kink profile:
+
+plaintext
+Copy
+Edit
+θ₄(x) = (2π/3)(1 + tanh(μx))/2
+Energy density T^{00}:
+
+plaintext
+Copy
+Edit
+T^{00} = ½ (∂ₜ θ₄)² + ½ (∂ₓ θ₄)² + μ² cos(3θ₄)
+Assuming static kink (∂ₜ θ₄ = 0), you get a localized bump in T^{00}, falling off away from x = 0.
+
+✔ uᵘ Sector (schematic form):
+plaintext
+Copy
+Edit
+T^{μν}_u = α [ ∇^μ u^λ ∇^ν u_λ + ∇^λ u^μ ∇_λ u^ν − ½ η^{μν} (∇_α u_β)(∇^α u^β) ]
+➡ I can reconstruct and provide the symbolic expressions. For the T^{00}(x) numerical values or plots, request from LAB 2 unless you’ve already archived a CSV or image.
+
