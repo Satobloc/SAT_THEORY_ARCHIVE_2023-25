@@ -1,2 +1,197 @@
-# SAT_THEORY_ARCHIVE_2023-25
-This is an attempt to gather together the voluminous materials that have gone into developing the Satobloc Theory for reference, history, and analysis just as we enter our into our first Lean-Locked rebuild.
+This is basically a personal archive and indexing system for my own use, so that I can access my files more conveniently. 
+That said, it's also an idea that anybody is welcome to consider, share, and work with.
+Started very small, and only grew because once the original ontological commitments were established, so many other things fell into place. Naturally, intuitively. 
+If you decide to make use of this material, feel free to strike up a conversation. It's been a lot to work on for a long time, and it's about time it had a public face. 
+This is the start. 
+
+
+
+
+VERSIONING INDEX
+
+NotebookLM Logo
+SATO/BLOCKWAVE
+Sources
+Scalar-Angular Theory: Versioning and Modules
+Source guide
+This document meticulously catalogs the versioning and modular architecture of the Scalar–Angular Theory (SAT), often referred to as the Scalar–Angular Torsion Theory. It clearly distinguishes between the theory's formal historical versions and its internal organizational concepts, excluding meta-theoretical elements like workflow Phases or Interpretive Modes. The structure organizes the theory’s evolution into four distinct stages: a conceptual proto-theory stage, a transitional period using sequential numerical or Roman numeral labels like SAT 2.0 or SAT II, and the current Core Modular Framework identified by SAT O and SAT 4D. Crucially, the final section details the specific, numbered Internal Architectural Modules (e.g., SAT.O1, SAT.O3) that comprise the theory's structural components, covering diverse topics from hyperhelical filament dynamics to topological mass suppression and the derivation of gauge symmetries.
+
+
+
+Scalar-Angular Theory: Versioning and Modules
+This analysis adopts your strict convention for cataloging the formal theory versions and internal architectural components of the Scalar–Angular Theory (SAT) [Query]. Accordingly, meta-theoretical concepts such as workflow Phases (I–IX), Interpretive Modes (True Block, Semi-Dynamic), and specific cosmological interpretations like PGCU are excluded, as they represent the "gears and habits" of theory maintenance rather than its historical versioning or core modular architecture [Query].
+The official name of the theory is Scalar–Angular Theory or Scalar–Angular Torsion Theory [Query, 105, 113, 118, 294, 297, 302, 496, 499, 570, 595].
+--------------------------------------------------------------------------------
+Compiled SAT Versioning Structure
+I. Conceptual and Proto-Theory Stage (Pre-Formalization)
+This stage includes the origins and experimental organizational labels used before the theory adopted the explicit numerical modular framework.
+Version Label
+Context and Source Basis
+Moleskin Sketches
+The earliest, unnamed conceptual versions [Query].
+Filament Hypothesis
+Structured hypotheses developed when the term "filament" was introduced (c. 2022) [Query].
+Stringing-Along Theory
+The joking nickname that originally led to the SAT acronym [Query].
+Chronophysical Structure
+An alternate name proposed during early formalization [Query].
+Module A, Module B, Module 0A, Module 0B
+Recalled or hypothesized earliest module formats [Query].
+II. Numbered, Roman, and Transitional Versions
+These were explicit, standalone versions of the overall theory used sequentially throughout development.
+Version Label
+Context and Source Basis
+SAT 2.0
+The first explicit "new version" [Query, 93, 414, 464, 484]. The theory document refers to elements within the framework as SAT O 2.0 [1-3].
+SAT 2.5
+An intermediate numerical version [Query].
+SAT II, SAT III.5, SAT V.5
+Versions using Roman numeral conventions [Query].
+SAT 20
+A formal version variant that constructed geometry and gauge structures from minimal assumptions [Query, 414, 557, 558].
+SAT X
+An arbitrary sequence label adopted when the precise version count was lost; not strictly an experimental version [Query, 235].
+SAT XY, SAT Y
+Arbitrary sequential labels [Query].
+SAT Next, SAT Edge
+Descriptive transitional versions [Query].
+SAT Rev
+A referenced placeholder label [Query].
+III. Core Modular Framework (SAT O and SAT 4D)
+SAT O is the core version variant encompassing the development philosophy and initial set of foundational modules. SAT 4D refers to the architecture's commitment to a strictly 4D-native geometric framework [Query, 3, 4, 34, 420, 453, 477].
+Version/Build Label
+Context and Source Basis
+SAT O
+The collective name for the previous variant of the theory, encompassing the modules SAT.O0 onward [Query, 33, 439, 447, 559]. The theory operates within the SAT O Glossary definition standard [4, 5].
+SAT 4D
+The fundamental framework built on the necessity of a four-dimensional architecture [Query, 86, 418, 453, 477].
+SATO 4D
+A common synonym or project name for the current coherent development [6-12].
+SAT Blockwave
+The current build designation [Query, 568].
+ST
+Shorthand for String Theory when treated as geometric constraints within SAT 4D [13, 14].
+IV. Internal Architectural Modules and Derivations
+These labels designate specific, definitional components of the theory's structure, organized hierarchically under the SAT O umbrella. They are not independent versions of the theory, but modules within it [Query].
+Module/Component Label
+Description and Context
+Citation Basis
+SAT.O0
+Foundations Sanity Pass; focuses on locking axioms and dimensional constants [15-17].
+[15-17]
+SAT.O0-A
+Interpretive Modes and Development Road-Map (metadata) [17-19].
+[17, 18]
+SAT.O1
+4D Hyperhelical Filament Dynamics; foundational module [7, 20, 21].
+[7, 20, 21]
+SAT.O1.4D
+Explicitly rewritten full 4D draft of Module 1 [22, 23].
+[22, 23]
+SAT.O2
+Emergent Gravitational Action; currently pending rewrite [8, 20, 24, 25].
+[8, 20, 24]
+SAT.O3
+Gauge Symmetries from Topology; derives U(1), SU(2), SU(3) [20, 25, 26].
+[20, 25, 26]
+SAT.O3-B
+Quantisation Framework [27, 28].
+[27, 28]
+SAT.O3-C
+Regularity & Renormalisability [29].
+[29]
+SAT.O3-D
+Dynamics of the Resolving Surface
+Sigmat [28, 30].
+[28, 30]
+SAT.O3.4D
+Rewritten Module (4D thinking) [22, 23].
+[22, 23]
+SAT.O4
+Predictive Falsifiability of Particle Stability (n
+le 3 constraint) [20, 25, 31-35].
+[20, 25, 31-35]
+SAT.O4.4D
+Rewritten Module (4D thinking) [22, 23].
+[22, 23]
+SAT.O5
+Emergent Gauge Couplings; currently pending rewrite [20, 25, 36-38].
+[20, 25, 36-38]
+SAT.O5.v2
+Precision Mass Hierarchy Update (Recap of the 1/Q Law) [39, 40].
+[39, 40]
+SAT.O5-B
+Competitive Benchmarks in the Mass Hierarchy [41, 42].
+[41, 42]
+SAT.O6
+Unified Action (Gravity + Gauge); currently pending rewrite [20, 25, 43-45].
+[20, 25, 43-45]
+SAT.O7
+Temporal Field
+theta_4(x); needs full redevelopment [20, 25, 46].
+[20, 25, 46]
+SAT.O7.4D
+Redefinition of
+theta_4(x) under Active Wavefront Interaction [23, 47, 48].
+[23, 47, 48]
+SAT.O7-C
+Exotic Hadron Projections and Rapid Decay [49, 50].
+[49, 50]
+SAT.O8
+Topological Mass Suppression [20, 25, 51, 52].
+[20, 25, 51, 52]
+SAT.O8.4D
+Rewritten Module (4D thinking) [22, 23, 53].
+[22, 23, 53]
+SAT.O9
+4D-Only String Embedding (Mass Formula) [54-57].
+[54-57]
+SAT.O10
+Chiral–Defect Mass Suppression via Discrete Torsion
+tau
+chi [54, 55, 58-60].
+[54, 55, 58-60]
+SAT.O11
+Supersymmetry as Topological Duality; provides the topological action cost
+alpha_top(x) [61-63].
+[61-63]
+SAT.O12
+Topology–Conditioned Decay Widths of Q=2 Filament Bundles [64-66].
+[64-66]
+SAT.O13
+Intrinsic Flavor Topology (addresses lepton flavor structure) [67-69].
+[67-69]
+SAT.O13 [Updated]
+Discrete
+Gamma=A4 Flavour Sector (formalization) [58, 60].
+[58, 60]
+SAT.O14
+Topological Quantization of Charge, Spin, and Flavor [68].
+[68]
+SAT.O18, SAT.O21, SAT.O22
+Modules focused on Exotic Particle States (O18, O22) and Cosmology (O21) [70-75].
+[70-75]
+Chat
+🤔
+SATO/BLOCKWAVE
+49 sources
+These documents outline the Scalar–Angular–Torsion (SAT) framework, a theoretical physics model proposing that all physical phenomena, including gravity, quantum mechanics, and the Standard Model, emerge from the topology and geometry of one-dimensional "filaments" embedded in a static, four-dimensional manifold called the Zottenwelt. Observable dynamics arise when a propagating time surface ($\Sigma_t$) intersects these filaments, where particle properties like mass and charge are determined by topological invariants such as linking and winding numbers ($Q$). The theory provides quantitative constraints on cosmological coupling using observational data (like CMB and INTEGRAL results) and defines how particle masses are suppressed by topological complexity ($Q$), with stability limited to bundles of three or fewer filaments. Furthermore, SAT reinterprets phenomena like Hawking radiation as topological reconnections and derives emergent gauge symmetries and the metric from filament statistics, aiming to be a fully self-consistent and testable framework with no imposed fields or extra dimensions.
+
+You have reached your daily chat limits, come back later. Or upgrade.
+49 sources
+Differentiate the scope of theory versions
+versus internal architectural modules.
+What names did the Scalar-Angular
+Theory use early on?
+Identify what meta-theoretical concepts
+are excluded from SAT versioning.
+Studio
+🍌 Nano Banana now in Video Overviews! Try the new styles!
+Audio Overview
+Video Overview
+Mind Map
+Reports
+Flashcards
+Quiz
+NotebookLM can be inaccurate; please double check its responses.
+Reply ready.
