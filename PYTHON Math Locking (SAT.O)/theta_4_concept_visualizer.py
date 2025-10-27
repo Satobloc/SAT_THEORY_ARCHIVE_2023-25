@@ -1,0 +1,88 @@
+# Run this cell to install packages if not already installed
+# !pip install matplotlib numpy
+
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+
+# Parameters for the filament
+A = 1.0       # Amplitude of vibration
+omega = 2.0   # Angular frequency
+k = 2 * np.pi / 10  # Wavenumber (controls spatial frequency)
+
+# Space and time parameters
+x = np.linspace(0, 20, 500)    # Spatial extent of filament
+t_max = 20                     # Total simulation time
+dt = 0.2                       # Time step for animation
+v_wavefront = 1.0               # Speed of wavefront
+
+# Theta arrow parameters
+num_theta_arrows = 20
+arrow_positions = np.linspace(0, 20, num_theta_arrows)
+arrow_length = 0.5
+
+# Function for the filament vibration
+def filament_vibration(x, t):
+    return A * np.sin(k * x - omega * t)
+
+# Function to calculate local angle theta_4
+def theta_4(x, t):
+    dy_dx = A * k * np.cos(k * x - omega * t)
+    return np.arctan(dy_dx)
+
+# Set up the figure
+fig, ax = plt.subplots(figsize=(12, 6))
+line, = ax.plot([], [], lw=2)
+wavefront_line, = ax.plot([], [], 'r--', lw=1)
+scar_plot, = ax.plot([], [], 'k.', markersize=2)
+
+# Initialize theta_quiver with zero-length arrows but correct positions
+U_init = np.zeros(num_theta_arrows)
+V_init = np.zeros(num_theta_arrows)
+theta_quiver = ax.quiver(arrow_positions, np.zeros_like(arrow_positions), U_init, V_init,
+                         angles='xy', scale_units='xy', scale=1, color='green')
+
+scar_x = []
+scar_y = []
+
+def init():
+    ax.set_xlim(0, 20)
+    ax.set_ylim(-3, 3)
+    return line, wavefront_line, scar_plot, theta_quiver
+
+def animate(t_step):
+    t = t_step * dt
+    y = filament_vibration(x, t)
+
+    # Update filament
+    line.set_data(x, y)
+    line.set_color('blue')
+
+    # Update wavefront
+    wavefront_x = [v_wavefront * t, v_wavefront * t]
+    wavefront_y = [-3, 3]
+    wavefront_line.set_data(wavefront_x, wavefront_y)
+
+    # Update scars
+    indices = np.where(np.abs(x - v_wavefront * t) < 0.05)[0]
+    for idx in indices:
+        scar_x.append(x[idx])
+        scar_y.append(y[idx])
+    scar_plot.set_data(scar_x, scar_y)
+
+    # Calculate theta arrows
+    theta_vals = theta_4(arrow_positions, t)
+    U = arrow_length * np.cos(theta_vals)
+    V = arrow_length * np.sin(theta_vals)
+    theta_quiver.set_UVC(U, V)
+
+    return line, wavefront_line, scar_plot, theta_quiver
+
+ani = animation.FuncAnimation(fig, animate, frames=int(t_max/dt), init_func=init,
+                              blit=True, interval=100, repeat=False)
+
+plt.close(fig)
+
+# Display animation in Colab
+from IPython.display import HTML
+HTML(ani.to_jshtml())

@@ -1,0 +1,74 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+import matplotlib.animation as animation
+
+# Meson Parameters
+A = 1.0        # Amplitude (radius) in X-Y
+omega = 2.0    # Angular frequency
+Z_amp = 0.5    # Amplitude for Z oscillation (optional complexity)
+phase_quark = 0                # Phase of quark (Red)
+phase_anti_quark = np.pi        # 180° phase shift for anti-quark (Cyan)
+
+# Time parameters
+t_max = 60
+dt = 0.1
+times = np.arange(0, t_max, dt)
+
+# Set up the figure
+fig = plt.figure(figsize=(10, 8))
+ax = fig.add_subplot(111, projection='3d')
+trace_line_quark, = ax.plot([], [], [], lw=2, color='red', label='Quark (Red)')
+trace_line_anti_quark, = ax.plot([], [], [], lw=2, color='cyan', label='Anti-Quark (Cyan)')
+
+# Storage for traces
+trace_quark = {'x': [], 'y': [], 'z': []}
+trace_anti_quark = {'x': [], 'y': [], 'z': []}
+
+def init():
+    ax.set_xlim(-1.5 * A, 1.5 * A)
+    ax.set_ylim(-1.5 * A, 1.5 * A)
+    ax.set_zlim(-1.5 * Z_amp, 1.5 * Z_amp)
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    ax.set_zlabel('Z')
+    ax.set_title('Meson Model: Quark + Anti-Quark Helices')
+    ax.legend()
+    return trace_line_quark, trace_line_anti_quark
+
+def animate(i):
+    t = times[i]
+
+    # Quark helix
+    x_q = A * np.sin(omega * t + phase_quark)
+    y_q = A * np.cos(omega * t + phase_quark)
+    z_q = Z_amp * np.sin(3 * t)
+
+    # Anti-quark helix (180° phase shift)
+    x_aq = A * np.sin(omega * t + phase_anti_quark)
+    y_aq = A * np.cos(omega * t + phase_anti_quark)
+    z_aq = Z_amp * np.sin(3 * t)
+
+    trace_quark['x'].append(x_q)
+    trace_quark['y'].append(y_q)
+    trace_quark['z'].append(z_q)
+
+    trace_anti_quark['x'].append(x_aq)
+    trace_anti_quark['y'].append(y_aq)
+    trace_anti_quark['z'].append(z_aq)
+
+    trace_line_quark.set_data(trace_quark['x'], trace_quark['y'])
+    trace_line_quark.set_3d_properties(trace_quark['z'])
+
+    trace_line_anti_quark.set_data(trace_anti_quark['x'], trace_anti_quark['y'])
+    trace_line_anti_quark.set_3d_properties(trace_anti_quark['z'])
+
+    return trace_line_quark, trace_line_anti_quark
+
+ani = animation.FuncAnimation(fig, animate, frames=len(times), init_func=init,
+                              blit=True, interval=50, repeat=False)
+
+plt.close(fig)
+
+from IPython.display import HTML
+HTML(ani.to_jshtml())
