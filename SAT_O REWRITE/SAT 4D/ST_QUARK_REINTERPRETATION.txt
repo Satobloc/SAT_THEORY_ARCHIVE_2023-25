@@ -1,0 +1,80 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+import matplotlib.animation as animation
+
+# Helix Parameters
+A = 1.0        # Amplitude (radius) in X-Y
+omega = 2.0    # Angular frequency for the helix rotation
+Z_amp = 0.5    # Amplitude for Z oscillation (optional complexity)
+
+# Time parameters
+t_max = 500
+dt = 0.1
+times = np.arange(0, t_max, dt)
+
+# Define the phase shifts for R, G, B (0°, 120°, 240°) and coordinate shifts
+phase_shifts = {
+    'R': 0,
+    'G': 2 * np.pi / 3,
+    'B': 4 * np.pi / 3
+}
+
+coordinate_shifts = {
+    'R': (0.0, 0.0, 0.0),  # Shift X by 0.01 for Red if output for human interpretation
+    'G': (0.0, 0.0, 0.0),  # Shift Y by 0.01 for Green if output for human interpretation
+    'B': (0.0, 0.0, 0.0)   # Shift Z by 0.01 for Blue if output for human interpretation
+}
+
+colors = {
+    'R': 'red',
+    'G': 'green',
+    'B': 'blue'
+}
+
+# Set up the figure
+fig = plt.figure(figsize=(10, 8))
+ax = fig.add_subplot(111, projection='3d')
+trace_lines = {}
+
+# Initialize plot lines for each color
+for color_key in phase_shifts.keys():
+    trace_lines[color_key], = ax.plot([], [], [], lw=2, color=colors[color_key])
+
+# Storage for traces
+traces = {key: {'x': [], 'y': [], 'z': []} for key in phase_shifts.keys()}
+
+def init():
+    ax.set_xlim(-1.5 * A, 1.5 * A)
+    ax.set_ylim(-1.5 * A, 1.5 * A)
+    ax.set_zlim(-1.5 * Z_amp, 1.5 * Z_amp)
+    ax.set_xlabel('X')
+    ax.set_ylabel('Y')
+    ax.set_zlabel('Z')
+    ax.set_title('Three 4D Helices with Phase Shifts and Coordinate Offsets (R, G, B)')
+    return list(trace_lines.values())
+
+def animate(i):
+    t = times[i]
+    for key, phi in phase_shifts.items():
+        shift_x, shift_y, shift_z = coordinate_shifts[key]
+        x_t = A * np.sin(omega * t + phi) + shift_x
+        y_t = A * np.cos(omega * t + phi) + shift_y
+        z_t = Z_amp * np.sin(3 * t) + shift_z  # Optional complexity in Z
+        
+        traces[key]['x'].append(x_t)
+        traces[key]['y'].append(y_t)
+        traces[key]['z'].append(z_t)
+        
+        trace_lines[key].set_data(traces[key]['x'], traces[key]['y'])
+        trace_lines[key].set_3d_properties(traces[key]['z'])
+    
+    return list(trace_lines.values())
+
+ani = animation.FuncAnimation(fig, animate, frames=len(times), init_func=init,
+                              blit=True, interval=50, repeat=False)
+
+plt.close(fig)
+
+from IPython.display import HTML
+HTML(ani.to_jshtml())
