@@ -1,0 +1,47 @@
+✅ IV. θ₄–τ Composite Logic
+✔ Binding Summary:
+θ₄ domain walls (kinks) can stabilize τ triplets (τ₀+τ₁+τ₂ ≡ 0)
+
+Coupling logic:
+
+plaintext
+Copy
+Edit
+E_bind ∼ δ(θ_i − θ_{i+1}) · δ_{(τ_i + τ_{i+1} + τ_{i+2}), 0}
+→ Energy minimized when τ triplet fusion aligns with θ₄ gradient.
+
+✔ EFT Sketch (simplified 1+1D action):
+plaintext
+Copy
+Edit
+S = ∫ dt dx [
+  ½ (∂_μ θ₄)² − μ² cos(3θ₄) 
+  + δ(x − x₀) (ε_f [1 − δ_{∑τ, 0}] + κ (θ₄')² δ_{∑τ, 0})
+]
+➡ I can package this immediately.
+
+✅ V. Constraint Tree Diagram
+Here’s a ready-to-go YAML-style tree:
+
+yaml
+Copy
+Edit
+Constraint Tree:
+  Primary:
+    φ₁(x): uᵘ uᵘ + 1 ≈ 0
+      ↓ time evolution
+  Secondary:
+    φ₂(x): −2u⁰∂ₜu⁰ + 2u¹∂ₜu¹ ≈ 0
+      ↓
+  Bracket:
+    {φ₁, φ₂} ≠ 0 → second-class
+  Closure:
+    No φ₃ detected (in flat 1+1D)
+Classification:
+
+φ₁: Primary, Second-class
+
+φ₂: Secondary, Second-class
+
+Quantization: Dirac bracket formalism required
+

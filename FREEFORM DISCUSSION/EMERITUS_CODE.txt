@@ -1,0 +1,203 @@
+CODE FROM FORMER ActiveEdgeGPT (now TheorizerEmeritusGPT)
+
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Define wavelength (in nm) and sample thickness (in micrometers)
+wavelength = 550  # nm (green light)
+d = 10  # micrometers
+
+# Define intrinsic birefringence and angular modulation
+delta_n0 = 0.1  # maximum birefringence
+theta_vals = np.linspace(-np.pi, np.pi, 500)
+
+# Compute theta-dependent birefringence and retardance
+delta_n_theta = delta_n0 * np.sin(theta_vals)**2
+retardance = (2 * np.pi / wavelength) * delta_n_theta * d * 1e3  # convert microns to nm
+
+# Normalize retardance for comparison
+retardance_mod_2pi = np.mod(retardance, 2 * np.pi)
+
+# Plot results
+plt.figure(figsize=(10, 5))
+plt.plot(theta_vals, retardance_mod_2pi, label=r'$\delta(\theta_4)$ mod $2\pi$')
+plt.xlabel(r'$\theta_4$ (radians)')
+plt.ylabel('Retardance (radians)')
+plt.title('Angular Dependence of Optical Retardance via $\sin^2(\theta_4)$')
+plt.grid(True)
+plt.axvline(0, color='gray', linestyle='--')
+plt.axvline(2*np.pi/3, color='gray', linestyle='--', label=r'$\tau_1$ sector')
+plt.axvline(-2*np.pi/3, color='gray', linestyle='--', label=r'$\tau_2$ sector')
+plt.legend()
+plt.tight_layout()
+plt.show()
+
+
+CODE:
+
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.constants import c, pi
+
+# Define parameters
+wavelengths = np.linspace(400, 700, 300)  # visible spectrum (nm)
+d_total = 10  # total thickness in microns
+num_layers = 200  # number of sub-layers in the stack
+layer_thickness = d_total / num_layers  # microns per layer
+
+# Create spatial θ₄ profile across domain wall (as in kink solution)
+x_vals = np.linspace(-10, 10, num_layers)
+theta4_profile = (2 * np.pi / 3) * (1 + np.tanh(x_vals)) / 2  # smooth transition: τ₀ to τ₁
+
+# Calculate Δn(θ₄) = Δn₀ * sin²(θ₄)
+delta_n0 = 0.1
+delta_n_profile = delta_n0 * np.sin(theta4_profile)**2
+
+# Calculate phase delay per layer for each wavelength
+# Retardance per layer: δ = (2π/λ) * Δn * d
+retardance_matrix = np.zeros((len(wavelengths), num_layers))
+
+for i, λ in enumerate(wavelengths):
+    δ = (2 * pi / λ) * delta_n_profile * layer_thickness * 1e3  # convert microns to nm
+    retardance_matrix[i] = δ
+
+# Compute total phase accumulation across stack
+total_retardance = np.sum(retardance_matrix, axis=1)
+transmission = np.cos(total_retardance)**2  # simplified polarization-based model
+
+# Plot transmission spectrum
+plt.figure(figsize=(10, 5))
+plt.plot(wavelengths, transmission, label='SAT θ₄-domain wall stack')
+plt.xlabel('Wavelength (nm)')
+plt.ylabel('Relative Transmission')
+plt.title('Predicted Optical Transmission Through SAT-Structured θ₄ Domain Wall')
+plt.grid(True)
+plt.legend()
+plt.tight_layout()
+plt.show()
+
+
+CODE:
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Parameters for theta4 kink
+x = np.linspace(-10, 10, 1000)
+mu = 1.0   # Controls steepness of kink
+theta0 = 2 * np.pi / 3
+theta_kink = theta0 * (1 + np.tanh(mu * x)) / 2
+
+# Compute delta_n(x) = eta * sin^2(theta4(x))
+eta = 0.02  # small modulation factor for refractive index
+delta_n = eta * np.sin(theta_kink)**2
+
+# Compute phase shift: integral of delta_n(x) across x
+delta_phi = np.trapz(delta_n, x)
+
+# Plotting
+fig, ax = plt.subplots(2, 1, figsize=(10, 6), sharex=True)
+
+ax[0].plot(x, theta_kink, label=r'$\theta_4(x)$ (kink profile)')
+ax[0].set_ylabel(r'$\theta_4(x)$')
+ax[0].legend()
+
+ax[1].plot(x, delta_n, label=r'$\Delta n(x) = \eta \sin^2(\theta_4(x))$', color='orange')
+ax[1].set_xlabel('x (arbitrary units)')
+ax[1].set_ylabel(r'$\Delta n(x)$')
+ax[1].legend()
+
+fig.suptitle(f'Theta_4 Kink and Induced Refractive Index\nTotal Phase Shift Δφ ≈ {delta_phi:.4f} radians', fontsize=14)
+plt.tight_layout()
+plt.subplots_adjust(top=0.88)
+plt.show()
+
+
+CODE:
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Lattice size and twist states
+L = 50
+tau_states = [0, 1, 2]
+
+# Initialize random tau lattice
+tau_lattice = np.random.choice(tau_states, size=(L, L))
+
+# Function to check if a 3-site corner sum is allowed
+def is_allowed_triplet(t1, t2, t3):
+    return (t1 + t2 + t3) % 3 == 0
+
+# Scan lattice for 3-point junctions (right-angled triplets)
+allowed = 0
+for i in range(L-1):
+    for j in range(L-1):
+        triplets = [
+            (tau_lattice[i, j], tau_lattice[i+1, j], tau_lattice[i, j+1]),
+            (tau_lattice[i+1, j], tau_lattice[i+1, j+1], tau_lattice[i, j+1]),
+            (tau_lattice[i, j+1], tau_lattice[i+1, j+1], tau_lattice[i, j]),
+            (tau_lattice[i+1, j+1], tau_lattice[i, j], tau_lattice[i+1, j])
+        ]
+        allowed += sum(is_allowed_triplet(*t) for t in triplets)
+
+# Total number of triplets checked
+total_triplets = 4 * (L - 1)**2
+fraction_allowed = allowed / total_triplets
+
+# Visualization
+cmap = plt.cm.get_cmap('Set1', 3)
+plt.figure(figsize=(6, 6))
+plt.imshow(tau_lattice, cmap=cmap, vmin=0, vmax=2)
+plt.colorbar(ticks=[0, 1, 2], label='τ state')
+plt.title(f'Random τ Lattice\nAllowed Triplets: {fraction_allowed:.3f}')
+plt.axis('off')
+plt.show()
+
+CODE:
+# Re-import necessary libraries after code execution state reset
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Set up lattice size and parameters
+lattice_size = (50, 50)  # 2D lattice
+steps = 100  # Number of simulation steps
+tau_values = [0, 1, 2]  # Z3 twist states
+
+# Initialize random tau lattice
+np.random.seed(42)
+lattice = np.random.choice(tau_values, size=lattice_size)
+
+# Storage for evolution snapshots
+evolution = [lattice.copy()]
+
+# Define the fusion rule: only triplets summing to 0 mod 3 can bind
+def is_valid_triplet(a, b, c):
+    return (a + b + c) % 3 == 0
+
+# Simulate fusion dynamics: iteratively remove forbidden triplets
+for step in range(steps):
+    new_lattice = lattice.copy()
+    for i in range(1, lattice_size[0] - 1):
+        for j in range(1, lattice_size[1] - 1):
+            # Check 3-site vertical and horizontal triplets
+            triplets = [
+                (lattice[i-1][j], lattice[i][j], lattice[i+1][j]),
+                (lattice[i][j-1], lattice[i][j], lattice[i][j+1])
+            ]
+            for triplet in triplets:
+                if not is_valid_triplet(*triplet):
+                    # Randomly mutate the center site to encourage decay of invalid triplets
+                    new_lattice[i][j] = np.random.choice(tau_values)
+                    break
+    lattice = new_lattice
+    evolution.append(lattice.copy())
+
+# Plot the final lattice configuration
+plt.figure(figsize=(6, 6))
+plt.imshow(evolution[-1], cmap='viridis', interpolation='nearest')
+plt.title("Final τ Lattice After Fusion Evolution")
+plt.colorbar(label='τ State')
+plt.axis('off')
+plt.show()
+
+
