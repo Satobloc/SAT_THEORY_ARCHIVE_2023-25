@@ -1,0 +1,81 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+# =================== Adjustable Parameters ===================
+wavefront_z = wavefront_zset   # Position of the time wavefront plane
+helix_radius = helix_radiusset  # Radius of the helix
+helix_pitch = helix_pitchset   # Pitch (vertical rise per turn) of the helix
+theta_4_deg = theta_4_degset    # Theta_4 angle in degrees
+# ===============================================================
+
+theta_4_rad = np.deg2rad(theta_4_deg)
+
+# Create figure and 3D axis
+fig = plt.figure(figsize=(10, 8))
+ax = fig.add_subplot(111, projection='3d')
+
+# Define the stationary origin
+origin = np.array([0, 0, 0])
+
+# Define the u^mu vector (time-flow vector)
+u_mu = np.array([0, 0, 1])
+
+# Create a helix along the z-axis
+t = np.linspace(-6 * np.pi, 6 * np.pi, 1000)  # Extend above and below
+x_helix = helix_radius * np.cos(t)
+y_helix = helix_radius * np.sin(t)
+z_helix = helix_pitch * t / (2 * np.pi)
+
+# Translate helix to origin
+helix_points = np.vstack((x_helix, y_helix, z_helix))
+
+# Plot the helix
+ax.plot3D(helix_points[0], helix_points[1], helix_points[2], color='red', label=r'$\varphi$ (Filament as Helix)')
+
+# Plot the u^mu vector (vertical)
+extend_length = 1.0
+ax.quiver(*origin, *u_mu, length=extend_length, color='blue', label=r'$u^\mu$ (Time-flow)', arrow_length_ratio=0.1)
+# Negative direction
+ax.quiver(*origin, *-u_mu, length=extend_length, color='blue', arrow_length_ratio=0.1, linestyle='dashed')
+
+# Plot the time wavefront as a plane (XY plane at z = wavefront_z)
+xx, yy = np.meshgrid(np.linspace(-2, 2, 20), np.linspace(-2, 2, 20))
+zz = np.ones_like(xx) * wavefront_z
+ax.plot_surface(xx, yy, zz, alpha=0.3, color='cyan')
+
+# Plot a dot at the intersection of the helix with the wavefront
+z_cross_indices = np.where(np.diff(np.sign(helix_points[2] - wavefront_z)))[0]
+if z_cross_indices.size > 0:
+    idx = z_cross_indices[0]
+    ax.scatter(helix_points[0, idx], helix_points[1, idx], helix_points[2, idx], color='black', s=50)
+
+# Draw an arc to indicate theta_4 at the origin
+arc = np.linspace(0, theta_4_rad, 100)
+arc_radius = 0.5
+arc_x = arc_radius * np.sin(arc)
+arc_y = np.zeros_like(arc)
+arc_z = arc_radius * np.cos(arc)
+ax.plot(arc_x, arc_y, arc_z, color='black')
+
+# Annotate theta_4 angle with value
+ax.text(0.5, 0, 0.2, fr'$\theta_4={theta_4_deg}^\circ$', fontsize=14, color='black')
+
+# Set axis labels
+ax.set_xlabel('X (Spatial)')
+ax.set_ylabel('Y (Spatial)')
+ax.set_zlabel('Time')
+
+# Set limits
+ax.set_xlim([-2, 2])
+ax.set_ylim([-2, 2])
+ax.set_zlim([-2, 2])
+
+# Add a legend
+ax.legend()
+
+# Set title
+ax.set_title(r'3D Geometric Relationship: $\theta_4$ (Helix Intersection Angle with Time Plane)')
+
+# Show plot
+plt.show()

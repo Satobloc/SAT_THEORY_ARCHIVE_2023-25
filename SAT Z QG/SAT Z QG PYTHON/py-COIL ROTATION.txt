@@ -1,0 +1,79 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# ------------------------------------------------------------
+# PARAMETERS
+# ------------------------------------------------------------
+theta4_deg      = 30                       # each short segment's tilt (degrees)
+global_angles   = [0, 30, 60, 90]          # coil-axis rotations to display
+segment_zs      = [-1.0, 0.0, +1.0]         # z‐positions of the three segments
+segment_length  = 1.0                       # length of each short segment (m)
+axis_half_len   = 2.0                       # coil axis from z = -2 to +2
+
+# Convert θ₄ to radians
+theta4 = np.deg2rad(theta4_deg)
+
+# ------------------------------------------------------------
+# CREATE 2×2 SUBPLOTS
+# ------------------------------------------------------------
+fig, axs = plt.subplots(2, 2, figsize=(10, 10))
+axs = axs.flatten()
+
+for ax, ang_deg in zip(axs, global_angles):
+    # Convert global rotation to radians
+    ang = np.deg2rad(ang_deg)
+    c, s = np.cos(ang), np.sin(ang)
+
+    # Rotation matrix for rotating (x, z) by +ang about the origin:
+    R = np.array([[ c, -s ],
+                  [ s,  c ]])
+
+    # --------------------------------------------------------
+    # 1) DRAW THE COIL AXIS (vertical line x=0, z∈[-2, +2])
+    # --------------------------------------------------------
+    z_vals = np.linspace(-axis_half_len, +axis_half_len, 2)
+    x_vals = np.zeros_like(z_vals)
+    pts_axis = np.vstack((x_vals, z_vals))        # shape: (2,2)
+    rot_axis = R @ pts_axis                       # rotate both endpoints
+
+    ax.plot(rot_axis[0], rot_axis[1],
+            color='black', linewidth=2, zorder=1)
+
+    # --------------------------------------------------------
+    # 2) DRAW THE SHORT "HELIX PITCH" SEGMENTS
+    #    - Each segment is centered at (0, z0) before rotation
+    #    - Each segment has direction (sinθ₄, cosθ₄) in (x,z)-plane
+    # --------------------------------------------------------
+    half = segment_length / 2.0
+    dir_unrot = np.array([ np.sin(theta4), np.cos(theta4) ])  # (dx, dz)
+
+    for z0 in segment_zs:
+        mid_pt = np.array([0.0, z0])
+        end1   = mid_pt + half * dir_unrot
+        end2   = mid_pt - half * dir_unrot
+
+        # Rotate both endpoints by the same global angle
+        r_end1 = R @ end1
+        r_end2 = R @ end2
+
+        ax.plot([r_end1[0], r_end2[0]],
+                [r_end1[1], r_end2[1]],
+                color='blue', linewidth=2, zorder=2)
+
+    # --------------------------------------------------------
+    # 3) FORMAT THE AXIS, GRID, AND LABELS
+    # --------------------------------------------------------
+    ax.set_title(f'Coil Axis {ang_deg}°, θ₄={theta4_deg}°', fontsize=14)
+    ax.set_xlabel('X (m)', fontsize=12)
+    ax.set_ylabel('Z (m)', fontsize=12)
+
+    # Make sure the plot is square, with origin at center
+    ax.set_aspect('equal', 'box')
+    ax.axhline(0, color='gray', linewidth=0.5)
+    ax.axvline(0, color='gray', linewidth=0.5)
+    ax.set_xlim(-3, 3)
+    ax.set_ylim(-3, 3)
+    ax.grid(True, linestyle='--', linewidth=0.5, color='lightgray')
+
+plt.tight_layout()
+plt.show()

@@ -1,0 +1,156 @@
+1. Core Theory & Foundations
+Finalize Ontology Z
+• Decide on any extra Z-only fields (ϕ_Z) and select any extended discrete/higher-form symmetry beyond ℤ₃.
+• Commit “Ontology_Z_v1.txt” as the canonical version.
+
+Yukawa Sector & Full Lagrangian
+• Write out the complete Yukawa interactions—including exotic fermions, gauge–fermion couplings, and θ₄·F·F̃ terms.
+• Systematically assemble every kinetic, potential, and interaction term for θ₄, ψ, τ, all emergent gauge fields, and the embedded SM fields.
+• Finalize any Lagrangian pieces associated with “Z-only” fields (still open).
+
+Lock Ontology QG (Metric Decision)
+• Choose between “Fundamental g_{μν}” vs. “Emergent g_{μν}” and prepare the corresponding action. (Write “Ontology_QG_v1.txt” and establish branches for both alternatives.)
+• Decide whether uᵘ will be treated as an operator or held classical in our quantization.
+• Choose between full diffeomorphism invariance vs. a Horava-like preferred foliation.
+• Settle the τ­sector treatment: either sum over ℤ₃ flat connections or “freeze” τ everywhere.
+
+Reproduce Newtonian/GR Physics (Derive Emergent Schwarzschild)
+• Complete the derivation of the Newtonian (weak-field) limit from θ₄ ∇·u.
+• Explicitly solve for the emergent Schwarzschild metric from the full SAT strain tensor.
+• (Item “Derive the emergent Schwarzschild metric” remains open.) ACTION PLAN JUNE ADDEND…
+
+2. Quantization
+Quant Z
+• Write down the Wheeler–DeWitt equation for the chosen QG ontology.
+• Construct the full path-integral formulation and show equivalence to canonical quantization.
+• Compute one-loop β-functions and investigate asymptotic safety scenarios.
+
+Quant QG
+• Finalize the canonical vs. path-integral split for Quantum Gravity.
+• Provide explicit 1-loop renormalizability proof (Item 19).
+• (All of these are still “Planned” and need to be slotted into our Quant roadmap.) ACTION PLAN JUNE ADDEND…
+
+3. Standard Model & Bridge
+Higgs-Analog & Neutrino Sector
+• Flesh out the Higgs-mechanism analog: show how ψ or θ₄ plays the role of electroweak symmetry breaking.
+• Complete the mapping of neutrino masses/mixings via ψ-holonomy.
+• Fully demonstrate B–L symmetry and incorporate any SAT-specific “chiral EFT → NN potential” pieces.
+
+pp-Fusion S-Factor (Due Aug 15, 2025)
+• Compute the ψ-sector contribution to the p + p → D + e⁺ + ν cross-section, including Gamow-peak corrections from θ₄ mixing.
+• Integrate into our astrophysical prediction modules. ACTION PLAN JUNE ADDEND…
+
+NN Phase Shifts & Fusion S-Factors
+• Build a submodule for proton–proton and nucleon–nucleon scattering (“Chiral EFT → NN potential”).
+• Derive all relevant ⟨σv⟩ for CNO cycle reactions and D-burning.
+
+Fission PES & GUT Benchmark (Item 20)
+• Construct the first-principles potential-energy surfaces for nuclear fission processes.
+• Draft a “GUT Benchmark” report comparing SAT’s unification predictions to conventional GUTs. ACTION PLAN JUNE ADDEND…
+
+4. Phenomenology & Predictions
+Clock-Drift vs. ∇θ₄ (Due Jul 15, 2025)
+• Derive explicit formulas for fractional frequency shifts (Δf/f) in optical-lattice clocks as a function of ∇θ₄.
+• Prepare ready-to-publish prediction sheets so these can be timestamped before the next NIST/JILA clock comparisons. ACTION PLAN JUNE ADDEND…
+
+Domain-Wall Interferometer Phase Shift (Due Jul 20, 2025)
+• Map out the predicted fixed 0.24 rad phase shift across a θ₄ domain wall for tabletop interferometry.
+• Specify wavelength-independence and design parameters for liquid-crystal/q-plate experiments. ACTION PLAN JUNE ADDEND…
+
+uᵘ-Strain Signatures in Pulsar Timing (Due Aug 1, 2025)
+• Compute the template for strain-induced pulse-arrival time residuals expected in NANOGrav/SKA.
+• Deliver ready-to-use timing templates so we can compare against 2025 data releases. ACTION PLAN JUNE ADDEND…
+
+Z-Sector Collider Signatures & ℤ₃ Confinement
+• Predict toron and τ-ghost production cross sections at the LHC/HL-LHC.
+• Compute any rare decays or displaced-vertex signatures that would signal ℤ₃ confinement.
+
+GWB Templates & GUP
+• Derive modifications ω(k) for gravitational waves (GWB templates) from SAT’s GUP.
+• Compute black-hole entropy shifts ΔS_SAT and the dimensionless GUP coefficient β′.
+
+Inflation & CMB Corrections
+• Develop SAT-specific isocurvature spectra and TB/EB correlations induced by θ₄ CP violation.
+• Construct a full SAT-based inflationary model (Item 15) and predict any unique CMB signatures.
+
+Cosmological Constant / Dark Sector
+• Finalize a SAT-based solution to the cosmological constant problem, or provide inflationary alternatives.
+
+Low-Energy EDMs & UHECRs
+• Compute rates for CP-odd observables (e.g., electron EDM, neutron EDM) arising from residual θ₄ CPV.
+• Investigate possible UHE cosmic-ray signatures from τ-bound states.
+
+Light-Shining-Through-Walls Experiments
+• Predict any photon ↔ θ₄ or ψ oscillations that could be tested in LSW setups.
+
+Complete θ₄–Mass Curves & Uncertainty Analysis
+• Produce tables/plots of θ₄ values vs. all Standard-Model particle masses, including electrons, neutrinos, quarks, etc.
+• Add uncertainty bands for quark masses and show how Helical Resonance levels map onto the lepton mass ladder. ACTION PLAN JUNE ADDEND…
+
+Baryogenesis & CPV Modeling
+• Flesh out the outline for θ₄–ψ–τ coupling as the origin of CP violation and baryon asymmetry.
+• Compute any relevant Sakharov-criteria parameters from SAT fields. ACTION PLAN JUNE ADDEND…
+
+5. Simulations & Visualization
+3 + 1 D Lattice Code for θ₄, u, ϕ_Z (Sim Z)
+• Build a minimal grid solver for θ₄ and uᵘ (and any ϕ_Z if introduced), including discretized update equations and boundary conditions.
+• Validate static domain-wall solutions and early filament–time-surface interaction.
+
+Graph Monte Carlo Sampler & AMR (Sim Z)
+• Implement a Monte Carlo sampler for random ℤ₃ configurations and domain-wall networks.
+• Develop an adaptive-mesh-refinement (AMR) scheme for tracking collapse or coalescence of θ₄ kinks.
+
+Emergent Metric Reconstruction
+• Write routines that reconstruct g_{μν}(x) from simulated θ₄ and uᵘ fields, to compare directly against GR metrics.
+
+Sphere Solver for θ₄ + uᵘ (Item 1, Due Aug 30, 2025)
+• Solve static Sun-like boundary conditions: reduce the full field equations to a pair of ODEs and find θ₄(r), uᵘ(r).
+• Provide a publicly documented code module so anyone can reproduce our Solar solution. ACTION PLAN JUNE ADDEND…
+
+Opacity/EoS Table Verification (Item 5, Due Sept 30, 2025)
+• Generate SAT-consistent Rosseland-mean opacities κ(ρ,T,X) and compare to OPAL/OP tables; verify any subtle corrections from θ₄ mixing in low-density plasmas.
+
+Simulated Stellar-Stream Pipeline
+• Complete stellar-stream/stellar-gap mock simulations (SimMode), using θ₄–uᵘ fields to generate faint substructure predictions that can be compared to Gaia/LSST.
+
+Criteria for Data Comparison & Forecast Plots
+• Define clear metrics (e.g., residual maps, statistical χ² tests) for comparing simulation outputs to astrophysical surveys.
+• Produce a set of forecast plots (e.g., stellar-stream gap profiles, dark-matter halo substructure) for upcoming observational proposals. ACTION PLAN JUNE ADDEND…
+
+6. Project Management, Documentation & Modes
+Finalize SAT Z Module Outlines
+• Flesh out each Z-module (Ontology Z, Mecha Z, Bridge Z, Quant Z, Critic Z, Pheno Z, Sim Z, Extension Z, Meta Z, Outreach Z) with concrete deliverables and cross-links in our index.
+
+Meta Z: Automations & Folder Skeleton
+• Configure automated reminders (via our task scheduler) and establish the repository branch structure.
+• Populate the “SATxy Index” so that every file, mode, and deliverable is discoverable.
+
+Critic Z (Red-Team Review)
+• Complete an adversarial review: check for ghost/tachyon instabilities (including gravity), verify constraint algebras (diffeo vs. foliation), and calculate any bounce/instanton actions.
+
+Outreach Z (NarrMode)
+• Draft a public-friendly executive summary, concise diagrams, and Jupyter notebooks that showcase core SAT ideas.
+• Produce a slide deck explaining θ₄-mass curves, emergent curvature, and key observational predictions.
+
+Meta QG & Outreach QG
+• Sketch and populate pages that explain SAT’s quantum-gravity program for both technical and non-technical audiences. ACTION PLAN JUNE ADDEND…
+
+Incorporation Recommendations
+Immediate Deadlines (Jul – Aug 2025)
+• Lock Ontology Z and QG decisions (write Ontology_Z_v1.txt and Ontology_QG_v1.txt).
+• Deliver clock-drift formulas (Jul 15) and domain-wall interferometer maps (Jul 20).
+• Submit uᵘ-strain pulsar-timing templates (Aug 1).
+• Begin the static Sun solver (due Aug 30).
+
+Mid-Term Priorities (Sept 2025 – Early 2026)
+• Verify opacity/EoS tables by Sept 30.
+• Compute pp-fusion S-factor (Aug 15), chiral EFT → NN potentials, and fission PES.
+• Launch the 3 + 1 D lattice code and SimCore modules.
+
+Longer-Term Goals (2026 and beyond)
+• Complete full quantization modules (Wheeler–DeWitt, 1-loop proofs, asymptotic-safety).
+• Finish the SM embedding (Higgs analog, neutrino sector, full Yukawa map).
+• Finalize all phenomenological forecasts (ℤ₃ signatures, GWB templates, inflation/CMB corrections).
+• Populate outreach deliverables (Slide decks, notebooks, public narrative).
+
+By folding these addendum items into the existing action plan—especially those with near-term deadlines—we ensure that nothing falls through the cracks. Whenever you assign a new task in our master tracker, reference the relevant deadline and the original June addendum line (e.g., “Clock-drift formula (Item 17, due Jul 15, 2025)

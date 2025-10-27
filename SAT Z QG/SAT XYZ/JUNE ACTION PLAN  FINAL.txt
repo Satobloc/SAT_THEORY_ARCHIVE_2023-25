@@ -1,0 +1,111 @@
+First Priorities
+(These tasks directly enable new, testable predictions in the next few months.)
+
+Clock-Drift Formula (due Jul 15, 2025)
+
+Derive a closed-form expression for fractional frequency shifts Δf/f in optical-lattice clocks as a function of local ∇θ₄ under Earth’s weak field.
+
+Produce a one-page “Clock-Drift_SAT” note with Δf/f ≈ η·sin²θ₄·(∇·u) and error estimates.
+
+Domain-Wall Interferometer Phase (due Jul 20, 2025)
+
+Compute the fixed, wavelength-independent 0.24 rad phase shift across a θ₄ domain wall.
+
+Deliver a “DomainWallPhase_SAT” memo showing δϕ(λ, wall thickness δ).
+
+Pulsar-Timing Templates (due Aug 1, 2025)
+
+Calculate timing‐residual templates δt(t) induced by SAT’s uᵘ-strain for millisecond pulsars.
+
+Produce a “PulsarTiming_SAT” set of δt vs. frequency/time curves for NANOGrav/SKA.
+
+pp-Fusion S-Factor from ψ-Sector (due Aug 15, 2025)
+
+Derive the ψ-sector contribution to S_pp(0 keV) with ±1 % accuracy, including Gamow-peak corrections from θ₄ mixing.
+
+Issue a “Spp_SAT” brief comparing S_pp⁽SAT⁾ to the PDG value.
+
+Other Priorities
+(These tasks strengthen SAT’s foundations and extend its modeling capabilities; they can follow once first priorities are underway.)
+
+A. Scientific-Validation Tasks
+
+Static Sun Field Equations (due Aug 30, 2025)
+
+Solve SAT-Z’s PDEs for a spherically symmetric “Sun” (θ₄(r), uᵘ(r), ψ constant, τ = 0).
+
+Publish “SunField_SAT” tables of δθ₄(r) and ϕ(r).
+
+Mercury Perihelion Precession (due Sept 15, 2025)
+
+Extract g_{μν}(r) to 1 PN from “SunField_SAT,” integrate Mercury’s geodesic over 100 years, and confirm Δϕ≈ 43″/century ± 0.1″.
+
+Deliver “MercuryOrbit_SAT” simulation log.
+
+Opacity-Table Verification (due Sept 30, 2025)
+
+Compute Rosseland-mean opacities κ(ρ,T,X) from SAT’s emergent QED and confirm agreement with OPAL/OP to high precision.
+
+Provide “Opacity_SAT” comparison tables.
+
+τ-Ghosts & θ_QCD Anomaly Cancellation
+
+Show that SAT’s topological τ-ghost terms cancel any would-be θ_QCD contributions, preserving QCD consistency.
+
+Quantization on Curved Backgrounds
+
+Extend SAT’s BRST quantization to cosmological/black-hole backgrounds and ensure no hidden inconsistencies.
+
+Path-Integral 1-Loop β-Functions
+
+Compute 1-loop corrections (κ, α, β, μ, …) in SAT’s canonical/path-integral framework and check for asymptotic safety or new divergences.
+
+Full Yukawa Sector & Neutrino Mapping
+
+Embed ψ-windings into explicit Yukawa couplings to reproduce all quark/lepton masses and CKM mixings.
+
+Map ψ-holonomy onto neutrino-mass textures and mixing angles; verify consistency with oscillation data.
+
+B–L Symmetry & Proton Stability
+
+Demonstrate how SAT enforces or breaks global B and L (e.g., why proton decay is suppressed).
+
+Prediction Scaffolding & Constants Unification
+
+Finalize SAT’s unified set of fundamental constants (θ₄₀, Λ, etc.), ensure internal consistency of mass hierarchies, and confirm no residual contradictions.
+
+B. Simulation & Modeling Tasks
+
+3+1 D Lattice Code for θ₄, uᵘ, ϕ_Z
+
+Build a grid solver with appropriate boundary conditions, validate static domain-wall and filament solutions, and begin early β-testing.
+
+Sim Mercury: Geodesic Integrator
+
+(Follows 1 B2) Implement a numerical geodesic solver in the SAT-corrected metric to support Mercury’s orbit validation.
+
+Sim Stellar: 1D Hydrostatic Solver (e.g., SAT-MESA)
+
+Integrate SAT’s hydrostatic equilibrium (dP/dr=–ρ G_eff M/r²), reaction rates from ψ-sector, and SAT opacities into a MESA-style code to produce HR tracks for 1 M_⊙.
+
+SAT-Driven Nuclear Reaction Network
+
+Create a reaction-network solver using SAT’s ψ-sector cross sections (pp chain, CNO, triple-α, etc.) and couple it to the 1D solver.
+
+Sim Z: Monte Carlo Sampler & AMR
+
+Implement a Monte Carlo sampler for random ℤ₃ τ-configurations, then develop adaptive mesh refinement for tracking θ₄ kink dynamics and collapse.
+
+Emergent Metric Reconstruction Routines
+
+Write code that reconstructs g_{μν}(x) from simulated θ₄ and uᵘ fields, enabling direct comparison to known GR metrics in various scenarios (e.g., black holes, cosmology).
+
+Sphere Solver for θ₄ + uᵘ (due Aug 30, 2025)
+
+Reduce the static Sun problem to two ordinary differential equations for θ₄(r) and uᵘ(r) and package a publicly documented code module for Solar solutions.
+
+Simulated Stellar-Stream Pipeline
+
+Complete a pipeline for mock stellar-stream/stellar-gap simulations using θ₄–uᵘ fields to predict faint substructures for Gaia/LSST comparisons.
+
+By focusing first on the four “Falsifiable-Prediction” tasks in Section 1, we directly enable timely comparisons with summer/fall 2025 data (optical clocks, tabletop interferometry, NANOGrav). Once those are launched, we shift to “Scientific-Validation” work (Section 2 A) to cement SAT’s reproduction of known physics, and then build out the “Simulation & Modeling” infrastructure (Section 2 B) to support broader numerical tests and future predictions.

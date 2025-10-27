@@ -1,0 +1,83 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# ─────────────────────────────────────────────────────
+# 1) Filament (helix) parameters
+# ─────────────────────────────────────────────────────
+r = 1.0                 # radius of the coil
+p = 2.0                 # pitch: advance along z per 2π in t
+t_max = 10 * 2 * np.pi  # parameter range for the helix (10 turns)
+t_vals = np.linspace(0, t_max, 1000)
+
+# Parametric helix (unrotated):
+x = r * np.cos(t_vals)
+y = r * np.sin(t_vals)
+z = p * t_vals
+
+# ─────────────────────────────────────────────────────
+# 2) Time‐surface setup
+# ─────────────────────────────────────────────────────
+time_surface_spacing = 2.0  # spacing between consecutive "time slices" along z
+
+# ─────────────────────────────────────────────────────
+# 3) Define rotation and intersection‐count functions
+# ─────────────────────────────────────────────────────
+def rotate_helix(x, y, z, theta):
+    """
+    Rotate a rigid helix (x,y,z) around the x‐axis by angle theta (radians).
+    Returns the new (x, y_rot, z_rot).
+    """
+    y_rot = y * np.cos(theta) - z * np.sin(theta)
+    z_rot = y * np.sin(theta) + z * np.cos(theta)
+    return x, y_rot, z_rot
+
+def count_intersections(z_rot):
+    """
+    Given the z‐coordinates of the rotated helix, count how many times
+    the curve crosses any of the horizontal planes defined by
+    z = n * time_surface_spacing.
+    """
+    z_min, z_max = np.min(z_rot), np.max(z_rot)
+    planes = np.arange(z_min, z_max, time_surface_spacing)
+    count = 0
+    for plane in planes:
+        # Check if any consecutive segment of z_rot straddles the plane
+        cross_mask = (z_rot[:-1] - plane) * (z_rot[1:] - plane) < 0
+        if np.any(cross_mask):
+            count += 1
+    return count
+
+# ─────────────────────────────────────────────────────
+# 4) Sweep θ from 0° to 360° and record intersections + mass
+# ─────────────────────────────────────────────────────
+theta_deg = np.linspace(0, 360, 360)
+theta_rad = np.deg2rad(theta_deg)
+
+intersections = np.zeros_like(theta_deg)
+mass = np.zeros_like(theta_deg)
+
+for i, theta in enumerate(theta_rad):
+    x_rot, y_rot, z_rot = rotate_helix(x, y, z, theta)
+    intersections[i] = count_intersections(z_rot)
+    mass[i] = np.sin(theta)**2  # SAT: m ∝ sin²(θ)
+
+# ─────────────────────────────────────────────────────
+# 5) Plot intersections (left axis) and mass (right axis)
+# ─────────────────────────────────────────────────────
+fig, ax1 = plt.subplots(figsize=(10, 6))
+
+color = 'tab:blue'
+ax1.set_xlabel('Rotation Angle θ (degrees)')
+ax1.set_ylabel('Number of Intersections', color=color)
+ax1.plot(theta_deg, intersections, color=color)
+ax1.tick_params(axis='y', labelcolor=color)
+ax1.grid(which='both', linestyle='--', alpha=0.5)
+
+ax2 = ax1.twinx()
+color = 'tab:red'
+ax2.set_ylabel('Mass (normalized: sin²θ)', color=color)
+ax2.plot(theta_deg, mass, color=color, linestyle='--')
+ax2.tick_params(axis='y', labelcolor=color)
+
+plt.title('Filament Rotation: Intersections and Mass vs. Tilt Angle θ')
+plt.show()
