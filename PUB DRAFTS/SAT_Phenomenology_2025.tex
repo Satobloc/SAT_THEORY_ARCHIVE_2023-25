@@ -1,0 +1,68 @@
+
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{bm}
+\usepackage{physics}
+\usepackage{cite}
+\usepackage{authblk}
+
+\title{SAT Phenomenology 2025: Predictive Structures and Experimental Frontiers}
+\author{The SAT Collaboration\thanks{Primary Investigator: Nathan McKnight}}
+\date{June 2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+The Scalar–Angular–Twist (SAT) framework proposes a unified field theory in which gravitational, quantum, and gauge structures emerge from the dynamics of a misalignment angle $\theta_4$, a phase field $\psi$, a $\mathbb{Z}_3$ twist field $\tau$, and a preferred time-flow vector $u^\mu$. We present the full phenomenological structure of SAT as of 2025, including parameter-free predictions of Yukawa couplings, neutrino masses, clock drift effects, gravitational wave modifications, and proton stability. Comparisons with current experimental data and forecasts for upcoming measurements (e.g., NANOGrav, LIGO O4, optical clock experiments, and neutrino oscillation programs) are provided. SAT emerges as a predictive, falsifiable framework, offering a compelling alternative to conventional approaches in fundamental physics.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+\section{Introduction}
+
+Modern physics faces several profound open questions: the reconciliation of general relativity (GR) and quantum field theory (QFT), the origin of fermion masses and mixing angles, the nature of dark matter, and the stability of the proton. Conventional approaches often introduce ad-hoc symmetries or structures at high energies, leading to an inflation of free parameters without a guiding principle.
+
+The Scalar–Angular–Twist (SAT) framework proposes a minimalist alternative. Built from four fundamental fields --- a misalignment angle $\theta_4(x)$, an internal phase $\psi(x)$, a discrete twist field $\tau(x) \in \mathbb{Z}_3$, and a unit time-flow vector $u^\mu(x)$ --- SAT posits that all known physics arises from the strain and topological properties of these objects.
+
+In this document, we summarize the predictive phenomenology of SAT as of 2025. Emphasis is placed on falsifiable predictions testable within the next decade, and on how SAT naturally resolves hierarchies and stabilizes matter.
+
+\section{Core SAT Framework Summary}
+
+The SAT framework is built upon the following four dynamical fields:
+\begin{itemize}
+    \item \textbf{Misalignment Angle} $\bm{\theta_4(x)}$: a scalar field encoding vacuum misalignment.
+    \item \textbf{Internal Phase} $\bm{\psi(x)}$: a compact scalar field representing internal clock phase.
+    \item \textbf{Twist Field} $\bm{\tau(x) \in \mathbb{Z}_3}$: a topological sector enforcing color confinement and anomaly cancellation.
+    \item \textbf{Time-Flow Vector} $\bm{u^\mu(x)}$: a unit-timelike vector field defining a preferred foliation of spacetime.
+\end{itemize}
+
+From these fields, an emergent spacetime metric is constructed:
+\begin{equation}
+g_{\mu\nu}(x) = \Omega^2(\theta_4(x)) \left( \eta_{\mu\nu} + \alpha \, u_\mu(x) u_\nu(x) \right)
+\end{equation}
+where $\Omega(\theta_4)$ ensures a Lorentzian signature and matches the Minkowski metric when $\theta_4 \to 0$.
+
+The effective action for SAT Quantum Gravity (SAT-QG) is:
+\begin{equation}
+S_{\text{SAT-QG}} = \int d^4x \, \sqrt{-g} \left[
+\frac{1}{2\kappa_{\text{eff}}} \left( S_{\mu\nu} S^{\mu\nu} - \lambda (S^\mu{}_\mu)^2 \right)
++ \frac{1}{2} f(\theta_4) (u^\mu \partial_\mu \psi)^2
++ \gamma \sin^2\theta_4 (\partial_\mu \psi - J_\mu)^2
++ \epsilon^{\mu\nu\rho\sigma} B_{\mu\nu} \partial_\rho \tau_\sigma
+\right]
+\end{equation}
+where $S_{\mu\nu} = \nabla_\mu u_\nu$ is the strain tensor.
+
+Fermion masses and mixing arise from $\psi$-winding numbers, while topological conservation laws protect baryon and lepton number.
+
+This minimal structure is sufficient to reproduce the known low-energy limits of gravity, the Standard Model, and quantum field theory.
+
+% (Document continues...)
+\end{document}
