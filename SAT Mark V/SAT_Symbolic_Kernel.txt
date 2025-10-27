@@ -1,0 +1,70 @@
+
+SAT SYMBOLIC KERNEL: CORE FORMAL STRUCTURE
+==========================================
+
+I. FIELD DEFINITIONS
+--------------------
+- θ₄(x): real scalar field on M, θ₄ ∈ ℝ / 2π, with Z₃ potential
+- u^μ(x): unit timelike vector field on M, constrained by u^μ u_μ = -1
+- τ(x): discrete twist variable, τ ∈ ℤ₃, defined on lattice or simplicial complex
+
+II. FULL CONTINUUM LAGRANGIAN (MARK IV.2)
+-----------------------------------------
+L_SAT =
+  + ½ (∂_μ θ₄)(∂^μ θ₄)
+  - μ² cos(3θ₄)
+  + λ (u^μ ∂_μ θ₄)²
+  + α (∇_μ u^ν)(∇^μ u_ν)
+  + β sin²(θ₄) ∇_μ u^μ
+  + ε_f Σ_Δ (1 - δ_{τ_i + τ_j + τ_k mod 3, 0})
+  + (3/2π) ∫ B ∪ δA
+  + ζ ∫ A ∪ dθ₄
+
+III. CONSTRAINTS AND PROJECTORS
+-------------------------------
+- Constraint: u^μ u_μ = -1
+- Projector: P_{μν} = g_{μν} + u_μ u_ν (projects orthogonal to u^μ)
+
+IV. VARIATIONAL STRUCTURE
+-------------------------
+- Euler–Lagrange Operator:
+  δ_EL L = (∂L/∂φ - ∂_μ(∂L/∂(∂_μ φ))) δφ
+
+- Presymplectic Potential:
+  Θ = (∂L/∂(∂_μ φ^a)) δφ^a ⊗ d^{n−1}x_μ
+
+- Presymplectic Form:
+  ω = δΘ (2-form on field space)
+
+V. NOETHER CHARGES
+-------------------
+- Energy–Momentum: T^μ_ν from translation symmetry
+- Z₃ Topological Charge: Q = (3/2π)[θ₄(∞) - θ₄(−∞)] mod 3
+- τ Flux: Q_τ(γ) = ∫_γ A ∈ ℤ₃ for loops γ in H₁(M)
+
+VI. QUANTIZATION STRUCTURE
+--------------------------
+- θ₄: canonical quantization (sine-Gordon regime)
+- u^μ: constrained quantization (Dirac brackets)
+- τ: discrete gauge quantization via BF path integral
+
+VII. RG FLOW STRUCTURE (2D)
+---------------------------
+- β_μ² = (2 - 9/2 K) μ² + higher terms
+- τ and u^μ couplings modify critical point (KT-type)
+
+VIII. COHOMOLOGY AND TOPOLOGY
+-----------------------------
+- τ sector lives in H¹(M, ℤ₃), with flatness δA = 0
+- BF term enforces topological flatness
+- A ∪ dθ₄ term binds scalar kinks to τ flux
+
+IX. EFFECTIVE ACTION TIERS
+--------------------------
+1. Optics EFT: θ₄ only → phase shift
+2. CM EFT: θ₄ + τ → defect statistics
+3. Foliated Optics EFT: θ₄ + u^μ → directional effects
+4. Thermal EFT: τ + u^μ → entropy transport
+5. Cosmology EFT: θ₄ + τ + u^μ → Δα, GPS drift
+
+END OF SYMBOLIC KERNEL

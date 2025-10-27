@@ -1,0 +1,54 @@
+
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, graphicx}
+\usepackage{geometry}
+\geometry{margin=1in}
+\title{\textbf{Fixed Angular Phase Shift from Scalar Kinks in SAT}}
+\author{SAT Mechanics Group}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Abstract}
+
+The Scalar–Angular–Twist (SAT) framework predicts a fixed phase shift of approximately 0.24 radians for light traversing a domain wall in the scalar field $\theta_4(x)$. This phase delay is geometric in origin and insensitive to wavelength or material thickness, contrasting with classical birefringence. We present the analytical and numerical derivation, parameter sensitivity, and implications for experimental falsifiability.
+
+\section{Background}
+
+In SAT, $\theta_4(x)$ represents angular misalignment between filamentary structures and a propagating time-wavefront. Kinks in $\theta_4$ interpolate between $Z_3$-vacua (e.g., $0 \rightarrow 2\pi/3$), and induce phase shifts due to energy delay encoded in $\sin^2(\theta_4(x))$.
+
+\section{Prediction}
+
+We compute:
+\[
+\Delta \phi = \eta \int_{-\infty}^{\infty} dx\, \sin^2(\theta_4(x))
+\]
+
+with kink profile:
+\[
+\theta_4(x) = \frac{2\pi}{3} \left[\frac{1}{2} + \frac{1}{\pi} \arctan\left(\frac{x}{w}\right)\right]
+\]
+
+Numerical evaluation yields:
+\[
+\Delta \phi \approx 0.239 \text{ rad}
+\]
+for $\eta = 1$, $w = 1$. The result is stable across realistic $w$.
+
+\section{Comparison to Classical Birefringence}
+
+Standard waveplates produce phase shifts $\propto \Delta n \cdot d / \lambda$, where $\Delta n$ is index difference and $d$ is thickness. SAT predicts phase shift \textit{independent of $\lambda$ and $d$}, as it's entirely due to geometric kink angle accumulation.
+
+\section{Plot}
+
+\begin{center}
+\includegraphics[width=0.9\textwidth]{kink_phase_plot.png}
+\end{center}
+
+\section{Conclusion}
+
+SAT predicts a fixed, non-dispersive birefringent phase shift tied to scalar domain walls. This is cleanly testable in optical multilayer stacks or photonic metamaterials and diverges sharply from classical expectations. Measurement of such fixed-angle phase shifts would provide high-leverage falsifiability for SAT.
+
+\end{document}

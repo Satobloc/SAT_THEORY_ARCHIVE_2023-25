@@ -1,0 +1,82 @@
+
+SAT MODULI–TOPOLOGY–QUANTIZATION TRIAD
+======================================
+
+I. STRUCTURE OF THE TRIAD
+--------------------------
+Topology --> Moduli Space --> Quantization --> Spectra & Observables
+
+Each SAT sector passes through this pipeline to produce quantized, testable structures.
+
+II. θ₄ SECTOR: ANGULAR SCALAR FIELD
+------------------------------------
+- Topology:
+  - Maps θ₄: M → S¹/Z₃
+  - Classified by π₀(S¹/Z₃) = ℤ₃
+  - Topological charge: Q = (3/2π)[θ₄(∞) − θ₄(−∞)] mod 3
+
+- Moduli:
+  - Domain wall class: ℤ₃
+  - Kink moduli: position X₀ ∈ ℝ
+  - Moduli space: ℳ_θ₄^(k) ≅ ℝ
+
+- Quantization:
+  - Wavefunction on kink position
+  - Fluctuation spectrum, zero modes, soliton mass
+
+III. τ SECTOR: ℤ₃ DISCRETE GAUGE FIELD
+---------------------------------------
+- Topology:
+  - A ∈ C¹(M, ℤ₃), with δA = 0
+  - Equivalence: A ∼ A + δΛ
+  - Flat bundles: H¹(M, ℤ₃)
+
+- Moduli:
+  - Discrete set of flat gauge sectors
+  - On torus: ℳ_τ = ℤ₃ × ℤ₃
+
+- Quantization:
+  - Path integral over flat bundles
+  - Optional cocycle twist: ω₃ ∈ H³(ℤ₃, U(1))
+  - Discrete partition function
+
+IV. θ₄–τ COUPLED SECTOR
+-------------------------
+- Topology:
+  - Coupling term: A ∪ dθ₄
+  - Composite topological class: (Δθ₄, [A]) ∈ ℤ₃ × H¹(M, ℤ₃)
+
+- Moduli:
+  - Fiber bundle over kink moduli
+  - ℳ_SAT = ⨆ₖ (ℝ × ℱₖ), ℱₖ ⊆ H¹(M, ℤ₃)
+
+- Quantization:
+  - Wavefunctions: Ψₖ(X₀, [A])
+  - Bound state spectrum, multiplet structure
+  - Selection rules from topological sectors
+
+V. u^μ SECTOR: TIME FOLIATION FIELD
+------------------------------------
+- Topology:
+  - Homotopy class of unit timelike vector fields
+  - Foliation geometry (non-integrable)
+
+- Moduli:
+  - Constraint: u^μ u_μ = −1
+  - Space of constrained sections modulo diffeos
+
+- Quantization:
+  - Dirac bracket quantization
+  - Suppressed dynamical modes
+  - Observables: energy flux, anisotropy
+
+VI. SUMMARY TABLE
+-------------------
+| Sector    | Topology          | Moduli Space                  | Quantization Output              |
+|-----------|-------------------|-------------------------------|----------------------------------|
+| θ₄        | ℤ₃ winding        | Kink position X₀              | Soliton spectrum                 |
+| τ         | H¹(M, ℤ₃)         | Flat gauge sectors            | Topological state sum            |
+| θ₄–τ      | Composite pair    | Stratified moduli bundle      | Bound state wavefunctions        |
+| u^μ       | Foliation class   | Constraint-preserving vector fields | Reduced dynamics             |
+
+This triad provides the geometric backbone for SAT’s theoretical and computational framework.
