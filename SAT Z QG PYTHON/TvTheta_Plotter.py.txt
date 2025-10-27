@@ -1,0 +1,74 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+# Create figure and 3D axis
+fig = plt.figure(figsize=(10, 8))
+ax = fig.add_subplot(111, projection='3d')
+
+# Define the wavefront plane z-coordinate
+wavefront_z = 0.0  # You can adjust this value independently
+
+# Define the stationary origin at (0, 0, 0)
+origin = np.array([0, 0, 0])
+
+# Define the u^mu vector (time-flow vector) extending above and below
+u_mu = np.array([0, 0, 1])
+
+# Define theta_4 angle (12 degrees for illustration)
+theta_4_deg = 12
+theta_4_rad = np.deg2rad(theta_4_deg)
+
+# Define the misalignment vector in 3D (with tilt)
+misalignment_vector = np.array([np.sin(theta_4_rad), 0, np.cos(theta_4_rad)])
+
+# Extend vectors both above and below the origin
+extend_length = 1.0
+# Positive direction
+ax.quiver(*origin, *u_mu, length=extend_length, color='blue', label=r'$u^\mu$ (Time-flow)', arrow_length_ratio=0.1)
+ax.quiver(*origin, *misalignment_vector, length=extend_length, color='black', label=r'$\theta_4$ (Misalignment Vector)', arrow_length_ratio=0.1)
+ax.quiver(*origin, *misalignment_vector, length=extend_length, color='red', label=r'$\varphi$ (Filament)', arrow_length_ratio=0.1)
+# Negative direction
+ax.quiver(*origin, *-u_mu, length=extend_length, color='blue', arrow_length_ratio=0.1, linestyle='dashed')
+ax.quiver(*origin, *-misalignment_vector, length=extend_length, color='red', arrow_length_ratio=0.1, linestyle='dashed')
+
+# Plot the time wavefront as a plane (XY plane at z = wavefront_z)
+xx, yy = np.meshgrid(np.linspace(-1, 1, 10), np.linspace(-1, 1, 10))
+zz = np.ones_like(xx) * wavefront_z
+ax.plot_surface(xx, yy, zz, alpha=0.3, color='cyan')
+
+# Plot a dot at the intersection of the misalignment vector with the wavefront
+# Calculate the scalar t such that origin + t * misalignment_vector reaches z = wavefront_z
+t_intersect = wavefront_z / misalignment_vector[2]
+intersection_point = origin + t_intersect * misalignment_vector
+ax.scatter(*intersection_point, color='black', s=50)
+
+# Draw an arc to indicate theta_4 at the origin
+arc = np.linspace(0, theta_4_rad, 100)
+arc_radius = 0.3
+arc_x = arc_radius * np.sin(arc)
+arc_y = np.zeros_like(arc)
+arc_z = arc_radius * np.cos(arc)
+ax.plot(arc_x, arc_y, arc_z, color='black')
+
+# Annotate theta_4 angle with value
+ax.text(0.25, 0, 0.15, fr'$\theta_4={theta_4_deg}^\circ$', fontsize=14, color='black')
+
+# Set axis labels
+ax.set_xlabel('X (Spatial)')
+ax.set_ylabel('Y (Spatial)')
+ax.set_zlabel('Time')
+
+# Set limits
+ax.set_xlim([-1, 1])
+ax.set_ylim([-1, 1])
+ax.set_zlim([-1, 1])
+
+# Add a legend
+ax.legend()
+
+# Set title
+ax.set_title(r'3D Geometric Relationship: $\theta_4$ (Angle) and $\varphi$ (Misalignment Vector) with Movable Time Plane')
+
+# Show plot
+plt.show()
