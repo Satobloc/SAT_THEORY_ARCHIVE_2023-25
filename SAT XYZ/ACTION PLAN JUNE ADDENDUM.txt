@@ -1,0 +1,167 @@
+This list represents the areas requiring further work or development in the SATxy project, based on the information available:
+•
+Core Theory and Foundations
+◦
+No additional “Z-only” fields (ϕ_Z) have yet been introduced.
+◦
+Finalize Ontology Z: decide on any extra fields or symmetries, including deciding on ϕ_Z, choosing symmetry beyond ℤ₃, and committing the Ontology_Z_v1.txt file.
+◦
+Write full Yukawa sector (SM & exotic fermions). Finish writing out all couplings (including gauge fermions, Yukawa terms, topological θ₄ F F̃ terms).
+◦
+The complete SATxy Lagrangian (including terms beyond the core dynamical equations) needs to be finished. Systematically assemble kinetic, potential, and coupling terms for θ₄, ψ, τ, emergent gauge fields, and embedded SM fields.
+◦
+Lagrangian per Z-only fields remains open.
+◦
+Lock Ontology QG (Metric Decision): Choose between “Fundamental Metric” vs. “Emergent Metric,” prepare actions accordingly, write Ontology_QG_v1.txt, and commit QG branches.
+◦
+uᵘ Status: Decide between Operator vs. Classical approximation.
+◦
+Symmetry Choice: Decide between Full Diff invariance vs. Horava foliation.
+◦
+τ-Sector Treatment: Decide between Sum over ℤ₃ flat connections vs. freeze τ.
+◦
+Explicit field solutions remain open.
+◦
+Reproduction of Newtonian/GR Physics is Partial; the full derivation needs finalization, specifically deriving the Newtonian and GR limit from the SAT strain tensor. This includes the task to Derive the emergent Schwarzschild metric.
+•
+Quantization
+◦
+Quantization on curved backgrounds (e.g., cosmological or black hole spacetimes, specifically FLRW) is a proposed next theoretical task.
+◦
+Write Wheeler–DeWitt (Quant Z). (Status: Planned).
+◦
+Path integral 1-loop β-functions (Quant Z). (Status: Planned).
+◦
+Search Asymptotic Safety (Quant Z). (Status: Planned).
+◦
+Quant QG: Canonical vs. Path integral. Quant QG module status is Planned (outline).
+◦
+Path Integral Formulation is Pending or In Progress in various lists and needs explicit construction and showing equivalence to canonical quantization.
+◦
+1-loop renormalizability proof (Item 19).
+•
+Standard Model and Bridge
+◦
+Higgs Mechanism Analog is Not Yet complete; the structure for ψ or θ₄ to act as a Higgs-like condensate is not complete. Need deeper work on Higgs physics.
+◦
+Neutrino Sector is Not Yet complete; there is no full mapping of neutrino masses/mixing yet, and neutrino ψ-holonomy needs work.
+◦
+Baryon/Lepton Number is only a Sketch; the full B–L symmetry has not yet been shown.
+◦
+Building Yukawa-like effective couplings and predicting flavor violation probabilities are related tasks, and extending Yukawa couplings is mentioned.
+◦
+Sₚₚ calculation (#6a). Specifically, compute the ψ-Sector pp S-Factor (Due Aug 15, 2025), including extracting the effective Gamow peak formula and computing corrections from θ₄ mixing.
+◦
+ℏ and ε₀ conversion (#11/15 check).
+◦
+Chiral EFT → NN potential (Item 10).
+◦
+Proton–proton + NN phase shift submodule.
+◦
+Fusion S-factors (Item 11). Specifically, derive ⟨σv⟩ for p + p and CNO-cycle S-factors.
+◦
+Fission PES (Item 12).
+◦
+Final “GUT Benchmark” report (Item 20).
+•
+Predictions and Phenomenology
+◦
+The actual formulas, numerical forecasts, and error bars still need to be computed for some predictions (e.g., ℤ₃ confinement, weak-field GW deviations, neutrino-oscillation anomalies).
+◦
+Compute specific predictions like clock-drift vs. ∇θ₄, domain-wall interferometer phase maps, pulsar-timing templates, and neutrino-oscillation holonomy predictions. Clock-drift & lab interferometer design is specifically listed as Item 17.
+▪
+Derive explicit formulas for fractional frequency shifts (Δf/f) in optical lattice clocks. Due July 15, 2025.
+▪
+Map out the predicted fixed phase shift across a θ₄ domain wall in tabletop interferometry. Due July 20, 2025.
+▪
+Compute uᵘ-strain signatures on pulse arrival times for upcoming NANOGrav/SKA data. Due Aug 1, 2025.
+◦
+Compute cross sections & decays for Z-sector (Pheno Z), including predicting lab or collider signatures of ℤ₃ confinement (e.g., toron production, τ-ghost decays).
+◦
+Derive GWB Templates & GUP (Pheno Z/QG). Calculate ω(k) modifications for gravitational waves, GUP coefficient β′, and black-hole entropy shifts ΔS_SAT.
+◦
+Develop Inflationary & CMB corrections (Pheno Z/QG), including computing SAT-specific isocurvature spectra, TB/EB correlations from θ₄ CP violation.
+◦
+Develop a full SAT-based cosmological constant or inflationary model (listed as Item 15).
+◦
+Prediction Scaffolding and Constants Extraction is incomplete. Finalizing constants unification and mass hierarchies is a goal.
+◦
+Modeling low-energy signatures like Electric Dipole Moments (EDMs) from residual θ₄ CPV is a next step. Compute rates for CP-odd observables (e.g., electric dipole moments).
+◦
+Exploring Ultra-High-Energy Cosmic Ray (UHECR) signatures from rare τ-bound states is another task.
+◦
+Compute potentially observable lab signatures (e.g., light-shining-through-walls experiments).
+◦
+Additional cosmological observables (e.g., isocurvature, small-scale structure from τ sector) need completion.
+◦
+We haven't plotted the θ₄–mass curves for leptons or other particles (e.g., electrons, neutrinos).
+◦
+We haven’t generated a table of θ₄ values for all standard particles.
+◦
+No error margin analysis (e.g., uncertainty bands for quark mass estimates).
+◦
+Haven’t plotted the coil radius r and pitch p versus θ₄.
+◦
+The Attempted Full Particle Mass Curve had readability issues.
+◦
+Modeling CP-Violation & Baryogenesis via θ₄–ψ–τ coupling: outline started.
+•
+Simulations & Visualization
+◦
+Implement Lattice code for θ₄, u, ϕ_Z (Sim Z). Specifically, build a minimal 3+1D grid code, draft discretized update equations, implement boundary conditions, test static domain-wall solutions.
+◦
+Implement Graph MC sampler (Sim Z).
+◦
+Implement AMR for domain walls (Sim Z).
+◦
+Implement emergent metric reconstruction (Sim Z).
+◦
+Sim QG module outline is sketched/Planned (outline) and needs implementation.
+◦
+Simulation & Visualization is Minimal; Sim mode is light, Viz mode is underused.
+◦
+Specific simulation runs for parameter space scan are outlined.
+◦
+Defining criteria for comparing simulations to data and mapping out observational forecast plots are also key simulation/prediction goals.
+◦
+No full SAT dynamics simulation of field configurations (kinks, domain walls, ψ waves).
+◦
+Begin simulations of filament–time surface interactions.
+◦
+Sim (mock simulations of streams & gaps) is In progress. SimMode – Complete the simulated stellar-stream pipeline.
+◦
+θ₄ + uᵘ spherical solver (Item 1). This is the task to Solve Static Sun Field Equations (Due Aug 30, 2025), including writing down the ansatz and reducing to two ODEs.
+◦
+EOS & opacity tables (Item 5). Specifically, Verify Opacity Tables (Due Sept 30, 2025), including computing photon opacities κ(ρ,T,X) and setting up a Rosseland-mean calculation for H/He mixture.
+•
+Project Management, Documentation, and Modes
+◦
+Many pieces of the SAT Z Module Outline (Index & Core) are “drafted” but not yet finalized.
+◦
+Meta Z module is Planned (outline). Set up automated reminders, create folder skeleton, configure automated reminders, define repository branches.
+◦
+Complete SATxy Index is Skeleton Exists or To be fleshed out. It needs outline completion and cross-links filled.
+◦
+Final Review / Gap Analysis is Pending. It is slated to begin once the quantization and SM embedding tasks are complete.
+◦
+Outreach & Public Documentation is Early Drafts. It needs finishing touches and developing the public-facing narrative and metaphors. The Outreach Z module outline is sketched/Planned, with specific deliverables needed (Executive Summary, Formal Overview, Jupyter Notebooks, Slide Deck). NarrMode – Craft the public-facing narrative and concise diagrams. Outreach QG is planned with similar deliverables.
+◦
+Meta QG module is Planned (outline).
+◦
+Critic QG module is Planned (outline). Need to compute ghost/tachyon conditions including gravity; check diffeo/anomaly closure or foliation algebra; compute bounce actions & instantons (Critic QG).
+◦
+Red-Team Adversarial Review (Critic Mode) is marked as Pending. Need to run a thorough adversarial review.
+◦
+Total Systems Reintegration (Sage Mode) is marked as Pending. Need to integrate all predictions into a single, fractal map.
+◦
+Spectral Decomposition (Symmetries, Frequencies) is NOT Addressed or Not Started. Need full spectral analysis, assigned to [Prism] mode.
+◦
+Inverted/Alternative SAT Remapping (Twist Mode) is NOT Addressed or Not Started. Need alternative mappings. Explore inverted interpretations.
+◦
+Extension Mode for Quantum Gravity and Cosmology Remains Untouched or Not yet started.
+◦
+Operational Mode (apply pipelines to real data) is not yet started or pending. This involves beginning to apply the pipeline to real data once releases from Gaia DR5, LSST early science, LiteBIRD, CMB-S4, and NANOGrav results become available (circa 2025–2026).
+◦
+Interpretation Mode (post-data interpretation, parameter refinement or constraint) is a future step or not yet started. This involves interpreting detections or null results once data comes in.
+◦
+Insight (epiphanic metaphors) is Ready to generate further “aha” insights.
