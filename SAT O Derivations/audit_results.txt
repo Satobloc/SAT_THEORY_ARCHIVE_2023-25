@@ -1,0 +1,38 @@
+## 6  No logical leaps / hidden assumptions → Fail
+
+| Sub-assumption | Hidden leap & concrete risk | Why the auditor flagged it | How to extinguish the risk |
+|----------------|-----------------------------|---------------------------|-----------------------------|
+| #2  Context-hash stability | A single SHA-256 of an arbitrary string is used as the sole proof that the execution context is unchanged | Equality of a hash says nothing about *what* was hashed or whether the serialization order was canonical | Define an explicit schema for the context object; serialize with stable, sorted-key JSON dump; prefix the hash input with a version tag; reject hashes without expected version prefix |
+
+| #7  Single-writer discipline | `save_tracker` overwrites `TRACKER.json` unconditionally and without file-locking | Two processes (or one process interrupted mid-write) could corrupt or interleave writes | Write to a temp file with fsync and `os.replace`; use process-level locking; validate JSON on load; fallback to backup |
+
+## 12  Code itself verified (lint / doc) → Fail
+
+Finding: 9 of the 16 top-level functions lack docstrings.  
+Standard: Code must satisfy PEP-257 docstring coverage and pass static-analysis.  
+
+Remediation checklist:
+1. Add docstrings (purpose/parameters/raises/returns) to every public function.
+2. Wire a CI job to fail on flake8 errors and pydocstyle D4-series errors.
+3. Add type hints and run `mypy --strict`.
+
+## 15  Perturbation stability analysed → Fail
+
+Perturbations and recovery strategies:
+- Incomplete tracker: Validate JSON on startup; keep rolling `TRACKER.json.bak` and auto-restore if parse fails.
+- Concurrent writes: Use OS file locks and atomic rename (temp file + fsync + replace).
+- Hash mismatch: Surface mismatch as a blocker, forcing human re-validation.
+- NaN propagation: Extend `validate_numeric_output` with `math.isnan` check; add unit test injecting NaN.
+
+## 18  Observable predictions defined → Fail
+
+Design steps to add falsifiable invariants:
+1. Define explicit lifecycle events and post-conditions after `execute_module` (e.g., tracker entry `status` == 'complete' and `context_hash` matches current).
+2. Emit assertions immediately after execution; implement a `post_conditions` function that throws blockers on invariant violations.
+3. Expose metrics via logs or Prometheus gauges for invariant pass/fail.
+4. Add regression tests to make predictions observable to the audit harness.
+
+Putting it together:
+- Tackle criteria 6 and 15 jointly by hardening the tracker-write protocol and adding perturbation tests.
+- Address criterion 12 with docstrings, lint gating, and typing.
+- Fulfill criterion 18 by codifying invariants and checks in the codebase.

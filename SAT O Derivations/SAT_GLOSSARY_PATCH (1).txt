@@ -1,0 +1,57 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\usepackage{amsmath,amssymb}
+\geometry{margin=1in}
+
+\begin{document}
+
+% SAT.4D Glossary Patch for Modules O9 and O10
+
+\section*{Core String Parameters}
+\begin{description}
+  \item[\(\alpha'\)] Regge slope or inverse string tension, determined by the worldsheet action density on each compact cycle (\(\alpha' = L_{\rm cycle}^2\)).
+  \item[\(T\)] String tension, \(T = \frac{1}{2\pi \alpha'}\), controlling mass gaps of Regge trajectories.
+  \item[\(k\)] Parameter defined by \(k = \frac{4}{\alpha'}\), sets the slope of \(m^2\) vs.\ oscillator number \(N\).
+  \item[\(\beta\)] Geometry coupling parameter multiplying \(Q^2\) in the mass formula, encoding flux‐cycle volume effects.
+  \item[\(a\)] Intercept or zero‐point shift in the string mass formula \(m^2 = k(N + \beta Q^2 - a)\).
+  \item[\(N\)] Worldsheet oscillator level (Virasoro mode number).
+  \item[\(Q\)] Winding number around a compact cycle, corresponding to flux‐quantized topological class.
+\end{description}
+
+\section*{Module O9 Terms}
+\begin{description}
+  \item[\texttt{mass\_squared(N,Q,k,beta,a)}] Compute \(m^2 = k(N + \beta Q^2 - a)\).
+  \item[\texttt{mass\_spectrum(N\_range,Q\_range,k,beta,a)}] Generate a table of \(m^2\) values over specified \((N,Q)\) ranges.
+  \item[\texttt{calibrate\_from\_ground\_states(masses,Q\_vals,a\_fixed)}] Fit parameters \(k\) and \(\beta\) from a list of \(N=0\) masses and their windings \(Q\), using a fixed intercept \(a\).
+\end{description}
+
+\section*{Module O10 Terms}
+\begin{description}
+  \item[\emph{Sector I (Leptonic)}] Strings wrap the minimal \(S^1\) with unit hypercharge flux; fitted to \((e,\mu,\pi)\).
+  \item[\emph{Sector II (Hadronic)}] Strings wrap a 2‐cycle or 4‐cycle with multiple color‐flux quanta; fitted to \((\rho,K^*,\phi)\).
+  \item[\texttt{calibrate\_leptonic(masses,Q\_vals)}] Fit \(m^2 = p_2 Q^2 + p_1\) to leptonic ground states.
+  \item[\texttt{calibrate\_hadronic(masses,Q\_vals)}] Fit \(m^2 = p_2 Q^2 + p_1\) to hadronic ground states.
+  \item[\texttt{predict\_ground\_states(p2,p1,Q\_range)}] Compute predicted ground‐state masses \(\sqrt{p_2Q^2+p_1}\).
+  \item[\texttt{predict\_radial\_states(p2,p1,k\_rad,Q\_vals)}] Compute first radial excitations with additional shift \(k_{\rm rad}\).
+  \item[\texttt{plot\_trajectories(params\_lept,params\_had)}] Overlay both sectors’ \(m^2\) vs.\ \(Q\) plots with data points.
+  \item[\texttt{load\_particle\_ids()}] Reads \texttt{data/particle\_ids.txt} to map each \((N,Q)\) to its canonical PDG name.
+  \item[\texttt{get\_topology\_def()}] Returns raw cycle definitions and flux rules from \texttt{topo.py}.
+\end{description}
+
+\section*{Particle Geometry Definitions}
+\begin{description}
+  \item[Electron (\(e^-\))] \(N=0\), \(Q=1\) — minimal Hopf \(S^1\) cycle, unit \(B\)-flux.
+  \item[Muon (\(\mu\))] \(N=0\), \(Q=2\) — double‐linked 1‐cycle, 2 units \(B\)-flux.
+  \item[Pion (\(\pi\))] \(N=0\), \(Q=3\) — triple Hopf link, 3 units \(B\)-flux.
+  \item[Rho (\(\rho\))] \(N=1\), \(Q=3\) — vector mode on 2‐cycle, 3 units color‐flux.
+  \item[K$^*$] \(N=1\), \(Q=4\) — vector mode on 2‐cycle, 4 units color‐flux.
+  \item[Phi (\(\phi\))] \(N=1\), \(Q=6\) — vector mode on 2‐cycle, 6 units color‐flux.
+\end{description}
+
+\section*{Selection \& Flux Rules}
+\begin{itemize}
+  \item Allowed leptonic windings: \(Q \ge 1\) (effective from hypercharge cycle cohomology).
+  \item Allowed hadronic windings: \(Q \ge 3\) (from minimal color‐flux quantization on 2‐cycle).
+\end{itemize}
+
+\end{document}

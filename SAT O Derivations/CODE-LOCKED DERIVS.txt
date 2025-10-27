@@ -1,0 +1,448 @@
+\section{SAT.4D Derivations Master Document}
+
+\section*{D1 – Canonical Quantization of O1}
+We begin from the action for transverse vibrations on a filament:
+\[
+S = \int d\lambda \left( \frac{1}{2} m \left( \frac{d\xi^\mu}{d\lambda} \right)^2 - V(\xi^\mu) \right)
+\]
+Define canonical momentum:
+\[
+\pi^\mu = \frac{\partial L}{\partial \dot{\xi}_\mu}
+\]
+Hamiltonian density:
+\[
+\mathcal{H} = \frac{1}{2m} \pi^\mu \pi_\mu + V(\xi^\mu)
+\]
+Canonical quantization:
+\[
+[\xi^\mu, \pi^\nu] = i \hbar \delta^{\mu\nu}
+\]
+
+\section*{D2 – Normal Mode Expansion and Dispersion}
+For linearized tension potential \( V \sim T (\partial_\lambda \xi)^2 \), the normal mode decomposition yields:
+\[
+\xi^\mu(\lambda) = \sum_k a_k^\mu e^{ik\lambda}
+\]
+With dispersion:
+\[
+\omega_k \propto k
+\]
+
+\section*{D3 – Topological Mass Quantization}
+Define:
+\[
+\ell_f = \left( \frac{2A}{T} \right)^{1/3}, \quad m_0 = \frac{T}{\ell_f}, \quad m(Q) = \frac{m_0}{Q}
+\]
+Example values:
+\[
+Q = 2 \Rightarrow m \approx 0.3968 \cdot A^{-1/3} T^{4/3}, \quad Q = 3 \Rightarrow m \approx 0.2646 \cdot A^{-1/3} T^{4/3}
+\]
+
+\section*{D4 – Strain Tensor to Curvature}
+Define emergent metric \( g_{\mu\nu} \), strain tensor:
+\[
+S_{\mu\nu} = \nabla_\mu u_\nu + \nabla_\nu u_\mu
+\]
+Ricci scalar:
+\[
+R = g^{\mu\nu} R_{\mu\nu} \quad \text{(constructed from Levi-Civita connection)}
+\]
+
+\section*{D5 – Gauge Coupling from Linking Density}
+Filament scale:
+\[
+\ell_f = \left( \frac{2A}{T} \right)^{1/3}
+\]
+Coupling constants:
+\[
+g_G^{-2} = \rho_G \ell_f^2 \quad \Rightarrow \quad g_G = \frac{0.7937 \cdot T^{1/3}}{A^{1/3} \sqrt{\rho_G}}
+\]
+Ratios:
+\[
+\frac{g_{SU(2)}}{g_{U(1)}} = \sqrt{\frac{\rho_{\text{wind}}}{\rho_{\text{link}}}}, \quad
+\frac{g_{SU(3)}}{g_{SU(2)}} = \sqrt{\frac{\rho_{\text{link}}}{\rho_{\text{triplet}}}}
+\]
+
+\section*{D6 – Legacy Translation to SAT Action}
+\begin{itemize}
+  \item \( \bar\psi D_\mu \psi \rightarrow \) filament current alignment + phase topology
+  \item \( F_{\mu\nu} F^{\mu\nu} \rightarrow \rho_{\text{link}} \)
+  \item \( \text{Tr}(F_{\mu\nu} F^{\mu\nu}) \rightarrow \rho_{\text{link}}, \rho_{\text{triplet}} \) weighted by \( g_G \)
+\end{itemize}
+
+
+\section*{Derivation D2: Normal Mode Expansion and Dispersion Relation of O1}
+\subsection*{1. Linearization of the Tension Potential}
+Expanding \(V_{\rm tension}[\xi]\) to second order around the equilibrium \(\xi=0\),
+\[
+V_{\rm tension}[\xi] \approx \frac{1}{2} \int d\lambda\,d\lambda'\,\xi^\mu(\lambda)\,K_{\mu\nu}(\lambda,\lambda')\,\xi^\nu(\lambda'),
+\]
+where the quadratic kernel \(K_{\mu\nu}(\lambda,\lambda')\) defines the linearized tension operator.
+In many cases (e.g.\ for uniform tension \(T\) and periodic boundary conditions on a filament of length \(L\)),
+\[
+K_{\mu\nu}(\lambda,\lambda') = -T\,\delta_{\mu\nu}\,\frac{\partial^2}{\partial\lambda^2}\,\delta(\lambda-\lambda').
+\]
+
+\subsection*{2. Eigenvalue Problem}
+The normal modes \(\phi_n^\mu(\lambda)\) satisfy
+\[
+\int_0^L d\lambda'\,K_{\mu\nu}(\lambda,\lambda')\,\phi_n^\nu(\lambda')
+= m\,\omega_n^2\,\phi_n^\mu(\lambda).
+\]
+For periodic boundary conditions, plane-wave solutions
+\(\phi_n^\mu(\lambda)=\frac{1}{\sqrt{L}}\,\varepsilon^\mu\,e^{ik_n\lambda}\),
+with \(k_n=\frac{2\pi n}{L}\), yield the dispersion relation
+\[
+\omega_n = |k_n|\,\sqrt{\frac{T}{m}}.
+\]
+
+\subsection*{3. Mode Expansion of Field Operators}
+Using the orthonormality of modes, the operators are expanded as
+\[
+\hat{\xi}^\mu(\lambda) = \sum_n \frac{1}{\sqrt{2m\omega_n}}\Bigl(\hat{a}_n\,\phi_n^\mu(\lambda)
++\hat{a}_n^\dagger\,\phi_n^{\mu*}(\lambda)\Bigr),
+\]
+\[
+\hat{\pi}^\mu(\lambda) = -i\,\sum_n \sqrt{\frac{m\omega_n}{2}}\Bigl(\hat{a}_n\,\phi_n^\mu(\lambda)
+-\hat{a}_n^\dagger\,\phi_n^{\mu*}(\lambda)\Bigr).
+\]
+
+\subsection*{4. Commutation Relations}
+Imposing the canonical commutator
+\(\bigl[\hat{\xi}^\mu(\lambda),\hat{\pi}_\nu(\lambda')\bigr]
+= i\hbar\,\delta^\mu{}_\nu\,\delta(\lambda-\lambda')\)
+implies
+\[
+[\hat{a}_n,\hat{a}_m^\dagger] = \delta_{nm},\quad
+[\hat{a}_n,\hat{a}_m] = 0,\quad
+[\hat{a}_n^\dagger,\hat{a}_m^\dagger] = 0.
+\]
+\section*{Derivation D3: Topological Mass Quantization of Composite Filament Bundles}
+\subsection*{1. Topological Invariant \(Q\)}
+Define
+\[
+Q = L_{\rm wind} + L_{\rm link} + W_{\rm writhe},
+\]
+normalized such that for basic structures:
+\[
+Q_{\rm neutrino}=1,\quad
+Q_{\rm meson}=2,\quad
+Q_{\rm baryon}=3.
+\]
+Here \(L_{\rm link}\) is the pairwise linking number, and \(W_{\rm writhe}\) the self-writhe of a closed contour :contentReference[oaicite:0]{index=0}.
+
+\subsection*{2. Mass Suppression Formula}
+The effective 3D inertial mass is suppressed by \(Q\):
+\[
+m_{\rm eff} = \frac{m_0}{Q},
+\]
+with \(m_0 \sim \frac{T}{\ell_f}\) the bare vibrational mass scale of a single filament :contentReference[oaicite:1]{index=1}.
+
+\subsection*{3. Quantization of \(Q\) via Knot Invariants}
+For canonical topologies:
+\begin{itemize}
+  \item \textbf{Unbound filament (n=1):} \(Q=1\).
+  \item \textbf{Hopf link (n=2):} linking number \(=1\), minimal writhe \(=0\) \(\Rightarrow Q=2\).
+  \item \textbf{Borromean link (n=3):} triple-link invariants sum to 3 \(\Rightarrow Q=3\) :contentReference[oaicite:2]{index=2}.
+\end{itemize}
+Thus
+\[
+m_{\rm neutrino}\sim m_0,\quad
+m_{\rm meson}\sim \frac{m_0}{2},\quad
+m_{\rm baryon}\sim \frac{m_0}{3}.
+\]
+
+\subsection*{4. Particle Family Mass Steps}
+Correlate with observed families:
+\[
+\frac{m_{\rm meson}}{m_{\rm neutrino}}=\frac12,\quad
+\frac{m_{\rm baryon}}{m_{\rm meson}}=\frac23.
+\]
+Deviations from these ideal ratios point to higher-order geometric corrections (e.g.\ shape factor \(\alpha_{\rm shape}\)).
+
+\subsection*{5. Corrections and Extensions}
+Including additional invariants like self-writhe \(W\) and mutual twist \(\tau\):
+\[
+Q = L_{\rm wind} + L_{\rm link} + W + \tau,
+\]
+leads to small mass renormalizations:
+\[
+m_{\rm eff}\approx \frac{m_0}{Q}\Bigl(1 + \frac{\alpha_{\rm_shape}}{Q}\Bigr).
+\]
+\section*{Derivation D4: Strain Tensor and Curvature Mapping}
+\subsection*{1. Foliation and Strain Tensor}
+Let \(\Sigma_t\) be the propagating 3D resolving surface with unit normal \(u^\mu(x)\). The strain tensor is defined by
+\[
+S_{\mu\nu}(x) = \nabla_\mu u_\nu(x) + \nabla_\nu u_\mu(x),
+\]
+encoding local distortion of the foliation :contentReference[oaicite:0]{index=0}.
+
+\subsection*{2. Emergent Metric and Connection}
+The emergent metric derives from the filament ensemble:
+\[
+\tilde g_{\mu\nu}(x) = \langle v_\mu v_\nu\rangle_F(x),\quad g_{\mu\nu} = (\tilde g_{\mu\nu})^{-1}.
+\]
+Its Levi–Civita connection is
+\[
+\Gamma^\lambda{}_{\mu\nu} = \frac12 g^{\lambda\rho}(\partial_\mu g_{\rho\nu} + \partial_\nu g_{\rho\mu} - \partial_\rho g_{\mu\nu}),
+\]
+which is metric-compatible and torsion-free :contentReference[oaicite:1]{index=1}.
+
+\subsection*{3. Curvature from Strain}
+Perturbing the metric by the strain, \(\delta g_{\mu\nu} \sim S_{\mu\nu}\), the linearized connection variation is
+\[
+\delta \Gamma^\lambda{}_{\mu\nu} = \frac12 g^{\lambda\rho}(\nabla_\mu S_{\rho\nu} + \nabla_\nu S_{\rho\mu} - \nabla_\rho S_{\mu\nu}).
+\]
+This induces a curvature variation
+\[
+\delta R^\rho{}_{\sigma\mu\nu} = \nabla_\mu \delta\Gamma^\rho{}_{\nu\sigma} - \nabla_\nu \delta\Gamma^\rho{}_{\mu\sigma},
+\]
+leading to the Ricci tensor
+\[
+\delta R_{\mu\nu} = \nabla^\rho\nabla_{(\mu}S_{\nu)\rho} - \frac12\nabla_\mu\nabla_\nu S^\rho{}_\rho - \frac12 g_{\mu\nu}\nabla^2 S^\rho{}_\rho.
+\]
+
+\subsection*{4. Einstein–Hilbert Action and Emergent Dynamics}
+The emergent gravitational action takes the Einstein–Hilbert form,
+\[
+S_{\rm grav} = \frac{1}{2\kappa}\int d^4x\,\sqrt{-g}\,R(x),
+\]
+with \(\kappa=8\pi G/c^4\). Variation yields the field equations
+\[
+R_{\mu\nu} - \frac12 g_{\mu\nu} R = \kappa T_{\mu\nu},
+\]
+where the emergent stress–energy tensor from the filament ensemble is
+\[
+T_{\mu\nu}(x) = \langle E_{\rm vib}(x),\,L_{\rm link}(x)\rangle_F,
+\]
+encoding vibrational and topological energy densities :contentReference[oaicite:2]{index=2}.
+
+\subsection*{5. Interpretation}
+Thus the strain tensor \(S_{\mu\nu}\) acts as the geometric source of curvature, mapping local filament distortion to spacetime geometry :contentReference[oaicite:3]{index=3}.
+
+\section*{Derivation D5: Gauge Curvature via Linking}
+\subsection*{1. Topological Densities}
+We introduce the local topological densities of the filament network:
+\[
+\rho_{\rm wind}(x), \quad 
+\rho_{\rm link}(x), \quad
+\rho_{\rm triplet}(x),
+\]
+which quantify the winding, pairwise linking, and triple‑linking (Borromean) frequencies per unit volume fileciteturn5file0.
+
+\subsection*{2. Emergent Gauge Potential}
+Define emergent gauge potentials \(A_\mu^{(G)}(x)\) for each gauge group \(G\in\{U(1),SU(2),SU(3)\}\) by coupling to the corresponding topological current \(J_\mu^{(G)}\):
+\[
+A_\mu^{(G)}(x) = g_G\,J_\mu^{(G)}(x),
+\]
+where the gauge coupling strengths scale with the densities as
+\[
+g_{U(1)}\sim\frac{1}{\sqrt{\rho_{\rm wind}\,\ell_f^2}},\quad
+g_{SU(2)}\sim\frac{1}{\sqrt{\rho_{\rm link}\,\ell_f^2}},\quad
+g_{SU(3)}\sim\frac{1}{\sqrt{\rho_{\rm triplet}\,\ell_f^2}}
+\quad\Bigl(\ell_f=(2A/T)^{1/3}\Bigr)\,, 
+\]
+emerging purely from dimensional analysis of filament topology fileciteturn5file1.
+
+\subsection*{3. Field Strength Tensor}
+The field strength two‑form is
+\[
+F_{\mu\nu}^{(G)} 
+= \partial_\mu A_\nu^{(G)} - \partial_\nu A_\mu^{(G)} 
++ [A_\mu^{(G)},\,A_\nu^{(G)}]\,,
+\]
+with the commutator term vanishing for \(U(1)\) but encoding non‑abelian linking algebra for \(SU(2)\) and \(SU(3)\).  Equivalently, one may express
+\[
+F_{\mu\nu}^{(G)}(x)
+= g_G\,K_{\mu\nu}^{(G)}(x),
+\]
+where \(K^{(G)}\) is the emergent curvature two‑form constructed from filament linking configurations fileciteturn5file2.
+
+\subsection*{4. Yang–Mills Action}
+The effective action for each gauge sector follows as
+\[
+S_{\rm YM}^{(G)} 
+= -\frac{1}{4\,g_G^2}\int d^4x\,\sqrt{-g}\;
+\mathrm{Tr}\bigl(F_{\mu\nu}^{(G)}F^{\mu\nu}_{(G)}\bigr),
+\]
+with the trace taken over the fundamental representation of \(G\). This reproduces the standard gauge dynamics purely from filament topology fileciteturn5file2.
+
+\subsection*{5. Gauge Algebra from Linking}
+Filament phase permutations under exchange define the Lie algebra generators \(T^a\) for \(SU(2)\) and \(SU(3)\):
+\[
+[T^a,\,T^b] = i\,f^{abc}T^c,
+\]
+where the structure constants \(f^{abc}\) arise from the combinatorial linking classes of multi‑filament bundles 
+
+\section*{Derivation D6: Translation of Standard Terms}
+% Mapping classical field actions into SAT-structured analogues (as per master task list) fileciteturn6file0.
+
+\subsection*{1. Maxwell Action Translation}
+The classical Maxwell action in curved spacetime is
+\[
+S_{\rm Max} = -\frac{1}{4e^2}\int d^4x\,\sqrt{-g}\;F_{\mu\nu}F^{\mu\nu},
+\]
+where \(e\) is the electric coupling and \(F_{\mu\nu} = \partial_\mu A_\nu - \partial_\nu A_\mu\).
+In SAT.4D, \(U(1)\) gauge curvature emerges from local winding density \(\rho_{\rm wind}(x)\):
+\[
+g_{U(1)}^{-2}(x) \sim \rho_{\rm wind}(x)\,\ell_f^2,
+\quad
+F_{\mu\nu}^{(U1)}(x) = g_{U(1)}\,K_{\mu\nu}^{(U1)}(x),
+\]
+so the SAT Maxwell analogue reads
+\[
+S_{\rm Max}^{\rm SAT} 
+= -\frac{1}{4}\int d^4x\,\sqrt{-g}\;g_{U(1)}^{-2}(x)\,
+F_{\mu\nu}^{(U1)}F^{\mu\nu}_{(U1)}.
+\]
+
+\subsection*{2. Dirac Action Translation}
+The classical Dirac action for a spinor field \(\psi(x)\) is
+\[
+S_{\rm Dirac}
+= \int d^4x\,\sqrt{-g}\;\bar\psi\Bigl(i\gamma^\mu\nabla_\mu - m\Bigr)\psi.
+\]
+In SAT.4D, fermionic matter fields \(\psi\) correspond to emergent composite bundles
+of two filaments (Hopf links), with spinor structure arising from phase alignment.  The
+mass \(m\) maps to the topological suppression factor \(Q=2\):
+\[
+\psi^{\rm SAT}(x)\sim\Psi_{\rm bundle}(x), 
+\quad
+m \;\rightarrow\; m_{\rm eff} = \frac{m_0}{Q=2},
+\]
+and the kinetic term inherits the emergent metric \(g_{\mu\nu}(x)\) and connection from
+filament strain:
+\[
+S_{\rm Dirac}^{\rm SAT}
+= \int d^4x\,\sqrt{-g}\;\bar\Psi_{\rm bundle}\Bigl(i\Gamma^\mu\nabla_\mu^{\rm SAT}
+- m_{\rm eff}\Bigr)\Psi_{\rm bundle}.
+\]
+
+\subsection*{3. Yang–Mills Action Translation}
+The standard Yang–Mills action for a non-abelian gauge group \(G\) is
+\[
+S_{\rm YM} 
+= -\frac{1}{4g_G^2}\int d^4x\,\sqrt{-g}\;
+\mathrm{Tr}\bigl(F_{\mu\nu}^{(G)}F^{\mu\nu}_{(G)}\bigr).
+\]
+In SAT.4D, \(SU(2)\) and \(SU(3)\) curvatures derive from link and triplet densities
+\(\rho_{\rm link}\) and \(\rho_{\rm triplet}\) respectively fileciteturn6file0:
+\[
+g_G^{-2}(x)\sim \rho_G(x)\,\ell_f^2,
+\quad
+F_{\mu\nu}^{(G)} = g_G\,K_{\mu\nu}^{(G)},
+\]
+yielding
+\[
+S_{\rm YM}^{\rm SAT}
+= -\frac{1}{4}\int d^4x\,\sqrt{-g}\;g_G^{-2}(x)\,
+\mathrm{Tr}\bigl(F_{\mu\nu}^{(G)}F^{\mu\nu}_{(G)}\bigr).
+\]
+
+\subsection*{4. Translation Frames}
+We identify the following translation frames connecting classical and SAT formalisms:
+\begin{itemize}
+  \item \textbf{Gauge Frame:} Maps classical couplings \(e, g_G\) to topological densities
+    \(\rho_{\rm wind}, \rho_{\rm link}, \rho_{\rm triplet}\).
+  \item \textbf{Fermionic Frame:} Interprets spinor fields \(\psi\) as filament bundles,
+    with phases encoding gamma-matrix behavior.
+  \item \textbf{Gravitational Frame:} Replaces the background metric and connection with
+    emergent \(g_{\mu\nu}(x)\) and \(\Gamma^\lambda{}_{\mu\nu}(x)\) from filament strain.
+\end{itemize}
+
+\section*{Derivation D7: Field Mapping for \(\psi(x)\)}
+\subsection*{1. Composite Bundle Representation}
+Fermionic fields \(\psi(x)\) in SAT.4D are realized as composite bundles of two intertwined filaments
+(Hopf link topology). We define the local bundle field
+\[
+\Psi_{\rm bundle}(x) \;=\; \{\gamma^{(1)}(\lambda;x),\,\gamma^{(2)}(\lambda;x)\},
+\]
+with \(\gamma^{(i)}(\lambda;x)\) the embedding of filament \(i\) rooted at spacetime point \(x\) fileciteturn7file1.
+
+\subsection*{2. Spinor Components via Phase Alignment}
+Associate each bundle with a two-component spinor
+\[
+\Psi_{\rm bundle}(x) = \begin{pmatrix}\psi_+(x) \\ \psi_-(x)\end{pmatrix},
+\]
+where \(\psi_\pm(x)\) correspond to the collective phase alignments of the filaments
+under rotations in the local orthonormal frame \(e_\mu^a(x)\). The phase difference \(\Delta\phi\)
+encodes the helicity states of \(\psi\) fileciteturn7file2.
+
+\subsection*{3. Local Frame and Gamma Matrices}
+Define gamma matrices emergently via the tangent vectors of the bundle:
+\[
+\gamma^a(x) \;\sim\; v_\mu^{(1)}(x)\,e^{a\mu}(x),\quad
+\gamma^b(x) \;\sim\; v_\mu^{(2)}(x)\,e^{b\mu}(x),
+\]
+satisfying the Clifford algebra \(\{\gamma^a,\gamma^b\}=2\eta^{ab}\) in the local tangent basis fileciteturn7file3.
+
+\subsection*{4. Dirac Equation Correspondence}
+The classical Dirac equation
+\[
+\bigl(i\gamma^\mu\nabla_\mu - m\bigr)\psi(x) = 0
+\]
+maps to the filament bundle dynamics through the emergent connection \(\nabla_\mu^{\rm SAT}\)
+and topological mass \(m_{\rm eff}\):
+\[
+i\,\gamma^a(x)\,e^\mu_a(x)\,\nabla_\mu^{\rm SAT}\,\Psi_{\rm bundle}(x)
+- m_{\rm eff}\,\Psi_{\rm bundle}(x) = 0.
+\]
+
+\subsection*{5. Topological Interpretation}
+Each spinor component \(\psi_\pm(x)\) is tied to a homotopy class of the bundle:
+\(\pi_1(S^3)\) winding for \(\psi_+\) and \(\pi_2(S^3)\) for \(\psi_-\).
+Transitions between components correspond to elementary Reidemeister moves in the filament network 
+
+\section*{Derivation D8: Summary of Field Interactions and Couplings}
+\subsection*{1. Gravitational Couplings}
+From D4, the emergent metric \(g_{\mu\nu}(x)\) and connection \(\Gamma^\lambda{}_{\mu\nu}(x)\) mediate gravitational interactions of all fields:
+\[
+S_{\rm grav} = \frac{1}{2\kappa}\int d^4x\,\sqrt{-g}\,R
+\quad\Rightarrow\quad
+\mathcal{L}_{\rm int}^{\rm grav} = -\frac12\,h_{\mu\nu}T^{\mu\nu},
+\]
+with \(h_{\mu\nu}=g_{\mu\nu}-\eta_{\mu\nu}\) and \(T^{\mu\nu}\) from filament ensemble strains fileciteturn8file1.
+
+\subsection*{2. Gauge Interactions}
+From D5 and D6, gauge fields \(A_\mu^{(G)}\) couple to matter currents \(J^\mu\):
+\[
+\mathcal{L}_{\rm int}^{\rm gauge} 
+= -J_\mu^{(G)}A^{\mu(G)}
+\quad\text{with}\quad
+J_\mu^{(G)} = \bar\Psi_{\rm bundle}\gamma_\mu T^a\Psi_{\rm bundle},
+\]
+and Yang–Mills self-interactions
+\[
+\mathcal{L}_{\rm YM} 
+= -\frac14\,g_G^{-2}(x)\mathrm{Tr}(F_{\mu\nu}F^{\mu\nu})
+\quad\text{including}\quad
+g f^{abc}A^b_\mu A^c_\nu\partial^\mu A^{\nu a} + \dots
+\] fileciteturn8file2.
+
+\subsection*{3. Yukawa and Mass Terms}
+Fermion–scalar couplings arise from topological mass suppression (D3) and possible shape fluctuations:
+\[
+\mathcal{L}_{\rm Yuk}
+= -y\,\bar\Psi_{\rm bundle}\Phi_{\rm twist}\,\Psi_{\rm bundle}
+\quad\Rightarrow\quad
+m_{\rm eff} = \frac{m_0}{Q}(1 + \alpha_{\rm shape}/Q),
+\]
+where \(\Phi_{\rm twist}(x)\) encodes mutual twist fluctuations of filament pairs fileciteturn8file3.
+
+\subsection*{4. Self-Interactions and Higher Orders}
+Nonlinearities from tension and linking generate quartic and higher-order terms:
+\[
+\mathcal{L}_{\rm self}
+= \lambda_4(\xi\cdot\xi)^2 + \lambda_6(\xi\cdot\xi)^3 + \dots,
+\]
+emerging from higher-order expansion of \(V_{\rm tension}(\xi)\) and multi-link invariants fileciteturn8file4.
+
+\subsection*{5. Complete SAT.4D Action}
+Combining all sectors, the total action is
+\[
+S_{\rm SAT.4D}
+= S_{\rm grav} + S_{\rm YM}^{(G)} + S_{\rm Dirac}^{\rm SAT} + S_{\rm self} + S_{\rm Yuk},
+\]
+providing a unified topological-field-theoretic framework where standard model and gravity emerge from filament topology and strain
+
+\section{Conclusion}

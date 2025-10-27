@@ -1,0 +1,76 @@
+
+\section*{Derivation D6: Translation of Standard Terms}
+% Mapping classical field actions into SAT-structured analogues (as per master task list) fileciteturn6file0.
+
+\subsection*{1. Maxwell Action Translation}
+The classical Maxwell action in curved spacetime is
+\[
+S_{\rm Max} = -\frac{1}{4e^2}\int d^4x\,\sqrt{-g}\;F_{\mu\nu}F^{\mu\nu},
+\]
+where \(e\) is the electric coupling and \(F_{\mu\nu} = \partial_\mu A_\nu - \partial_\nu A_\mu\).
+In SAT.4D, \(U(1)\) gauge curvature emerges from local winding density \(\rho_{\rm wind}(x)\):
+\[
+g_{U(1)}^{-2}(x) \sim \rho_{\rm wind}(x)\,\ell_f^2,
+\quad
+F_{\mu\nu}^{(U1)}(x) = g_{U(1)}\,K_{\mu\nu}^{(U1)}(x),
+\]
+so the SAT Maxwell analogue reads
+\[
+S_{\rm Max}^{\rm SAT} 
+= -\frac{1}{4}\int d^4x\,\sqrt{-g}\;g_{U(1)}^{-2}(x)\,
+F_{\mu\nu}^{(U1)}F^{\mu\nu}_{(U1)}.
+\]
+
+\subsection*{2. Dirac Action Translation}
+The classical Dirac action for a spinor field \(\psi(x)\) is
+\[
+S_{\rm Dirac}
+= \int d^4x\,\sqrt{-g}\;\bar\psi\Bigl(i\gamma^\mu\nabla_\mu - m\Bigr)\psi.
+\]
+In SAT.4D, fermionic matter fields \(\psi\) correspond to emergent composite bundles
+of two filaments (Hopf links), with spinor structure arising from phase alignment.  The
+mass \(m\) maps to the topological suppression factor \(Q=2\):
+\[
+\psi^{\rm SAT}(x)\sim\Psi_{\rm bundle}(x), 
+\quad
+m \;\rightarrow\; m_{\rm eff} = \frac{m_0}{Q=2},
+\]
+and the kinetic term inherits the emergent metric \(g_{\mu\nu}(x)\) and connection from
+filament strain:
+\[
+S_{\rm Dirac}^{\rm SAT}
+= \int d^4x\,\sqrt{-g}\;\bar\Psi_{\rm bundle}\Bigl(i\Gamma^\mu\nabla_\mu^{\rm SAT}
+- m_{\rm eff}\Bigr)\Psi_{\rm bundle}.
+\]
+
+\subsection*{3. Yang–Mills Action Translation}
+The standard Yang–Mills action for a non-abelian gauge group \(G\) is
+\[
+S_{\rm YM} 
+= -\frac{1}{4g_G^2}\int d^4x\,\sqrt{-g}\;
+\mathrm{Tr}\bigl(F_{\mu\nu}^{(G)}F^{\mu\nu}_{(G)}\bigr).
+\]
+In SAT.4D, \(SU(2)\) and \(SU(3)\) curvatures derive from link and triplet densities
+\(\rho_{\rm link}\) and \(\rho_{\rm triplet}\) respectively fileciteturn6file0:
+\[
+g_G^{-2}(x)\sim \rho_G(x)\,\ell_f^2,
+\quad
+F_{\mu\nu}^{(G)} = g_G\,K_{\mu\nu}^{(G)},
+\]
+yielding
+\[
+S_{\rm YM}^{\rm SAT}
+= -\frac{1}{4}\int d^4x\,\sqrt{-g}\;g_G^{-2}(x)\,
+\mathrm{Tr}\bigl(F_{\mu\nu}^{(G)}F^{\mu\nu}_{(G)}\bigr).
+\]
+
+\subsection*{4. Translation Frames}
+We identify the following translation frames connecting classical and SAT formalisms:
+\begin{itemize}
+  \item \textbf{Gauge Frame:} Maps classical couplings \(e, g_G\) to topological densities
+    \(\rho_{\rm wind}, \rho_{\rm link}, \rho_{\rm triplet}\).
+  \item \textbf{Fermionic Frame:} Interprets spinor fields \(\psi\) as filament bundles,
+    with phases encoding gamma-matrix behavior.
+  \item \textbf{Gravitational Frame:} Replaces the background metric and connection with
+    emergent \(g_{\mu\nu}(x)\) and \(\Gamma^\lambda{}_{\mu\nu}(x)\) from filament strain.
+\end{itemize}

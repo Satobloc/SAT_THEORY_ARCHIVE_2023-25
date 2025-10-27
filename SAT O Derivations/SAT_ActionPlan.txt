@@ -1,0 +1,109 @@
+SAT Module‑Rewrite Action Plan
+(Strictly no fine‑tuning; every new element must arise from SAT’s filament‑topology axioms, tension T, and scale ℓ_f alone. “Introduce parameter → fit data” is PROHIBITED.)
+
+#0  Foundations sanity pass
+    Core objective: Re‑audit P1–P4 for hidden tunables or silent priors.
+    Key derivations (no empirical knobs):
+        • Prove that the only dimensional inputs are T and ℓ_f.
+        • Show uniqueness of allowable filament topologies under tension + orientation.
+    Work‑packages:
+        WP0.1 = axiom inventory
+        WP0.2 = dimensional analysis ledger
+    Validation: All subsequent modules must cite WP0.2 for their variable list; any extra constant ⇒ automatic rejection.
+
+#1  Statistical‑mechanics / gauge sector
+    Objective: Derive ⟨filament density tensor⟩ → emergent metric g_{μν} and gauge couplings g_1,g_2,g_3.
+    Derivations:
+        • Maximum‑entropy ensemble of oriented, tensionful 1‑D curves with fixed global linking number.
+        • Show g_a ∝ f_a(T,ℓ_f) with NO free numerical factors.
+        • Compute scale‑dependence via filament‑length RG without inserting Λ_QCD.
+    Work‑packages:
+        WP1.1 = partition‑function definition
+        WP1.2 = saddle‑point evaluation
+        WP1.3 = RG flow           (depends on Module 0)
+    Validation: Predicted g_a at M_Z within 3σ of PDG 2025; error budget traceable solely to saddle‑point truncation.
+
+#2  Fermion mass / flavour
+    Objective: Convert topological charge Q to mass matrix WITHOUT ad‑hoc β, γ, δ_f.
+    Derivations:
+        • Classify Q into chirality‑even and ‑odd invariants.
+        • Prove chiral‑symmetry protection that forces m_e ≈ 0 at tree level; derive naturally small but non‑zero m_e via anomaly in‑flow.
+        • Show flavour hierarchy from winding‑number combinatorics, not fitted constants.
+    Work‑packages:
+        WP2.1 = topological‑charge algebra
+        WP2.2 = mass‑operator construction
+        WP2.3 = numerical evaluation (Monte Carlo over filament knots)  (depends on Module 1)
+    Validation: Lepton and quark masses predicted to order‑of‑magnitude accuracy without adjustable coefficients.
+
+#3  Hadron spectrum & decays
+    Objective: Produce hadron masses and widths from filament‑bundle bound states — NO phase‑space fudge factors.
+    Derivations:
+        • Define composite‑bundle Hamiltonian derived from T and braid group.
+        • Show OZI suppression emerges from topological reconnection barriers.
+        • Include chiral zero‑modes to protect pseudo‑scalar masses.
+    Work‑packages:
+        WP3.1 = bound‑state classification n ≤ 3
+        WP3.2 = numerical spectrum (lattice on filament graph)
+        WP3.3 = decay‑amplitude topological selection rules    (depends on Module 2)
+    Validation: Mass errors < 35 %, decay‑width order ≤ 10²; deviations must map to quantified truncation errors only.
+
+#4  Σ_t foliation dynamics
+    Objective: Replace metaphysical “resolving surface” with an equation of motion derived from filament flow.
+    Derivations:
+        • Extremise functional S_Σ = ∫Σ κ(ℓ_f,T)|d²x| subject to conservation of filament intersection count.
+        • Show causal light‑cone arises as linear perturbations of Σ_t.
+    Work‑packages:
+        WP4.1 = derive Euler‑Lagrange for Σ
+        WP4.2 = linearised‑causality test
+        WP4.3 = numerical demo in toy network          (parallel to Module 1)
+    Validation: Unique Σ evolution law reproduces Minkowski cones to <10⁻⁵ at large scales.
+
+#5  Quantum sector
+    Objective: Provide Hilbert space or path integral for filaments → compute quantum observables.
+    Derivations:
+        • Discretise filament graph; action A = T × length + topological phase term ξ∮k·dk.
+        • Prove unitarity and locality of the resulting transfer matrix.
+        • Recover spin‑½ via projective ribbon statistics.
+    Work‑packages:
+        WP5.1 = path‑integral definition
+        WP5.2 = spin test (Aharonov–Bohm analogue)
+        WP5.3 = one‑loop correction to g_2               (depends on Modules 1 & 4)
+    Validation: Correct electron g‑factor within 1 % (tree + 1‑loop) without adding free coefficient.
+
+#6  Exotics & stability
+    Objective: Prove or refute n ≥ 4 compact‑bundle stability from first principles.
+    Derivations:
+        • Compute binding energy E_n(T,ℓ_f) for n = 4,5 via filament knot invariants.
+        • Identify minimal n where E_n > 0 or show general no‑go theorem.
+    Work‑packages:
+        WP6.1 = topological‑energy functional
+        WP6.2 = variational search
+        WP6.3 = comparison with LHCb tetra‑quark data     (depends on Module 3)
+    Validation: Clear statement — either “SAT predicts all n ≥ 4 unstable by ΔE > X MeV” or mass predictions for comparison.
+
+#7  Short‑distance gravity
+    Objective: Rederive ε‑regularised potential from ensemble, eliminating free cutoff ε.
+    Derivations:
+        • Show ε = ℓ_f/π emerges from smoothing of filament self‑interaction.
+        • Compute post‑Newtonian corrections; predict fifth‑force coefficient C₅(T,ℓ_f).
+    Work‑packages:
+        WP7.1 = self‑energy regularisation
+        WP7.2 = PN expansion
+        WP7.3 = lab‑scale fifth‑force projection          (depends on Module 1)
+    Validation: Predict deviation from 1/r² at <50 µm with fixed C₅; experiment can confirm/falsify.
+
+#8  Cosmology interface (deferred)
+    Gate‑kept until residuals in Modules 1–7 fall below targets.
+
+Project Governance / Milestones
+    • Kick‑off (T₀): deliver WP0.2 ledger.
+    • Q1: WP1.2 + WP4.1 proofs.
+    • Q2: WP1.3, WP2.2, WP4.3 demos.
+    • Q3: WP3.2 lattice spectrum & WP5.2 spin test.
+    • Q4: WP6.3 exotics verdict + WP7.3 gravity proposal.
+
+Non‑Negotiable Rules
+    1. ZERO fine‑tuning: numerical adjustments allowed only from calculational truncations.
+    2. Assumption provenance: cite originating postulate; undocumented assumptions ⇒ rejection.
+    3. Automated theorem‑checking: proofs in Lean/Agda must pass before acceptance.
+    4. Transparent error budgets: separate approximation vs fundamental uncertainty (none).

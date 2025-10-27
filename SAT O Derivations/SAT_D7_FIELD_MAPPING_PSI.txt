@@ -1,0 +1,43 @@
+
+\section*{Derivation D7: Field Mapping for \(\psi(x)\)}
+\subsection*{1. Composite Bundle Representation}
+Fermionic fields \(\psi(x)\) in SAT.4D are realized as composite bundles of two intertwined filaments
+(Hopf link topology). We define the local bundle field
+\[
+\Psi_{\rm bundle}(x) \;=\; \{\gamma^{(1)}(\lambda;x),\,\gamma^{(2)}(\lambda;x)\},
+\]
+with \(\gamma^{(i)}(\lambda;x)\) the embedding of filament \(i\) rooted at spacetime point \(x\) fileciteturn7file1.
+
+\subsection*{2. Spinor Components via Phase Alignment}
+Associate each bundle with a two-component spinor
+\[
+\Psi_{\rm bundle}(x) = \begin{pmatrix}\psi_+(x) \\ \psi_-(x)\end{pmatrix},
+\]
+where \(\psi_\pm(x)\) correspond to the collective phase alignments of the filaments
+under rotations in the local orthonormal frame \(e_\mu^a(x)\). The phase difference \(\Delta\phi\)
+encodes the helicity states of \(\psi\) fileciteturn7file2.
+
+\subsection*{3. Local Frame and Gamma Matrices}
+Define gamma matrices emergently via the tangent vectors of the bundle:
+\[
+\gamma^a(x) \;\sim\; v_\mu^{(1)}(x)\,e^{a\mu}(x),\quad
+\gamma^b(x) \;\sim\; v_\mu^{(2)}(x)\,e^{b\mu}(x),
+\]
+satisfying the Clifford algebra \(\{\gamma^a,\gamma^b\}=2\eta^{ab}\) in the local tangent basis fileciteturn7file3.
+
+\subsection*{4. Dirac Equation Correspondence}
+The classical Dirac equation
+\[
+\bigl(i\gamma^\mu\nabla_\mu - m\bigr)\psi(x) = 0
+\]
+maps to the filament bundle dynamics through the emergent connection \(\nabla_\mu^{\rm SAT}\)
+and topological mass \(m_{\rm eff}\):
+\[
+i\,\gamma^a(x)\,e^\mu_a(x)\,\nabla_\mu^{\rm SAT}\,\Psi_{\rm bundle}(x)
+- m_{\rm eff}\,\Psi_{\rm bundle}(x) = 0.
+\]
+
+\subsection*{5. Topological Interpretation}
+Each spinor component \(\psi_\pm(x)\) is tied to a homotopy class of the bundle:
+\(\pi_1(S^3)\) winding for \(\psi_+\) and \(\pi_2(S^3)\) for \(\psi_-\).
+Transitions between components correspond to elementary Reidemeister moves in the filament network fileciteturn7file4.

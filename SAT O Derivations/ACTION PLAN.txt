@@ -1,0 +1,336 @@
+✅ PHASE 0 — Current State Snapshot
+O1–O8 structure-locked and consistent.
+
+SAT4DCORE + MASTER_STRUCTURE locks active.
+
+Predictive modules O9/O10 functional.
+
+PDF framework documented through Phase VIII.
+
+🔧 PHASE I — Simulation & Diagnostic Toolkit
+🎯 Goal:
+Build numerical tools to compute emergent quantities like:
+
+θ₄(x), α_top(x)
+
+m_eff(Q), g_G(x)
+
+Local Ricci curvature from strain Sμν
+
+📌 Tasks:
+Bundle Evaluator
+
+Input: symbolic filament embeddings γ(λ)
+
+Output: numeric tangent vµ, normal uµ, angle θ₄(x)
+
+Strain & Curvature Engine
+
+From O2/O6: compute Sμν(x) and Ricci scalar R(x)
+
+Show curvature change from adding/removing links
+
+Topological Invariant Calculator
+
+Evaluate Q = L_wind + L_link + W_writhe from path data
+
+Use example knots/links (Hopf, Borromean, trefoil)
+
+α_top(x) Diagnostic Tool
+
+Implement:
+
+𝛼
+top
+(
+𝑥
+)
+=
+𝛽
+1
+𝑆
+(
+𝑥
+)
++
+𝛽
+2
+ℓ
+𝑓
+3
+𝜌
+link
+(
+𝑥
+)
++
+𝛽
+3
+ℓ
+𝑓
+∣
+∇
+𝜃
+4
+(
+𝑥
+)
+∣
+α 
+top
+​
+ (x)=β 
+1
+​
+ S(x)+β 
+2
+​
+ ℓ 
+f
+3
+​
+ ρ 
+link
+​
+ (x)+β 
+3
+​
+ ℓ 
+f
+​
+ ∣∇θ 
+4
+​
+ (x)∣
+Plot decay width predictions as function of geometry
+
+📊 PHASE II — Particle Spectrum Calibration
+🎯 Goal:
+Use O9/O10 to replicate SM particle spectra from topology.
+
+📌 Tasks:
+O9 Parameter Calibrator
+
+Use ground-state masses (e, μ, π) to fit (k, β, a)
+
+Confirm:
+
+𝑚
+2
+=
+𝑘
+(
+𝑁
++
+𝛽
+𝑄
+2
+−
+𝑎
+)
+m 
+2
+ =k(N+βQ 
+2
+ −a)
+O10 Sector Fit
+
+Leptonic (Q=1) vs Hadronic (Q≥3) spectrum plotting
+
+Generate overlay: predicted vs real masses
+
+Integration with Topology Definitions
+
+Load topo.py with real cycles, flux quantization
+
+Ensure winding rules and allowed Qs match actual particle IDs
+
+🧪 PHASE III — Falsifiability & Experiment Interface
+🎯 Goal:
+Test SAT’s core predictions against experiment.
+
+📌 Tasks:
+Stability Scanner
+
+Check for any known Q ≥ 4 states (e.g., tetraquarks)
+
+Flag as unstable vs SAT-falsifying
+
+Coupling Ratio Checker
+
+Calculate g₁:g₂:g₃ from ρ_wind, ρ_link, ρ_triplet
+
+Compare to SM coupling constants
+
+CP Violation Encoder
+
+Use SAT’s θ_CP = ϕ₁ + ϕ₂ + ϕ₃ to estimate baryogenesis asymmetry
+
+Cosmology Verifier
+
+Reproduce FLRW expansion:
+
+(
+𝑎
+˙
+𝑎
+)
+2
+=
+𝜅
+3
+𝜌
+(
+𝑡
+)
+( 
+a
+a
+˙
+ 
+​
+ ) 
+2
+ = 
+3
+κ
+​
+ ρ(t)
+Compare with CMB power spectrum predictions from topological modes
+
+🌀 PHASE IV — Amplitudes & Quantum Completions
+🎯 Goal:
+Move from classical geometry to quantum dynamics.
+
+📌 Tasks:
+Bundle Path Integrator
+
+Implement:
+
+𝑍
+=
+∫
+𝐷
+𝛾
+ 
+𝑒
+−
+𝑇
+∫
+∥
+𝛾
+¨
+∥
+2
+𝑑
+𝜆
+Z=∫Dγe 
+−T∫∥ 
+γ
+¨
+​
+ ∥ 
+2
+ dλ
+ 
+Simulate small loops & reconnections
+
+Reconnection Amplitude Module
+
+Use:
+
+𝐴
+Γ
+out
+,
+Γ
+in
+=
+∑
+𝜋
+exp
+⁡
+[
+−
+∑
+𝑒
+(
+𝑇
+ℓ
+𝑓
+2
+Δ
+𝐶
+(
+𝑒
+)
++
+𝛼
+top
+(
+𝑥
+𝑒
+)
+)
+]
+A 
+Γ 
+out
+​
+ ,Γ 
+in
+​
+ 
+​
+ = 
+π
+∑
+​
+ exp[− 
+e
+∑
+​
+ (Tℓ 
+f
+2
+​
+ ΔC(e)+α 
+top
+​
+ (x 
+e
+​
+ ))]
+Fermion Vertex Simulation
+
+Map spinor bundles ↔ interactions (e.g., electron-photon)
+
+UV Safety Test
+
+Confirm no divergence under loop integration — numerically verify UV finiteness
+
+📦 PHASE V — Packaging & Usability
+🎯 Goal:
+Make SAT a reproducible, sharable, interactive research package.
+
+📌 Tasks:
+Jupyter / Colab Notebook Build
+
+Load O1–O10
+
+Run end-to-end prediction: γ → m_eff, g_G, θ₄ → coupling ratios → spectrum
+
+SAT Diagnostic Dashboard
+
+GUI or CLI for selecting topologies and auto-generating predictions
+
+Publishable Repository
+
+Code + PDF + sample runs = clean repo (perhaps Jupyter Book or Sphinx site)
+
+🚀 Optional Accelerators
+Add unit tests on get_structure() outputs for each O module
+
+Use matplotlib or plotly for θ₄(x) and α_top(x) visualizations
+
+Start logging all falsifiability points (e.g., "tetraquark stability → SAT invalid")

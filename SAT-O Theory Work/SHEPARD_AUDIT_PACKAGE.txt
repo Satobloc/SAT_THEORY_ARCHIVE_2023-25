@@ -1,0 +1,203 @@
+=== SHEPARD.py ===
+
+
+"""
+SHEPARD.py — SAT_O Orchestration Engine
+This module controls phase execution, placeholder enforcement, context integrity,
+and rule compliance for the SAT_O theory rebuild process.
+"""
+
+from PROTOCOLS_REF import (
+    is_placeholder,
+    handle_placeholder,
+    compute_hash_from_string,
+    compare_context_hashes,
+    log_blocker,
+    resolve_ambiguity,
+    verify_logical_dependencies,
+    validate_numeric_output,
+    enforce_naming_consistency,
+    verify_data_version
+)
+
+import json
+import os
+
+# === STATE TRACKING ===
+
+STATE_PATH = "TRACKER.json"
+
+def load_tracker():
+    if not os.path.exists(STATE_PATH):
+        raise FileNotFoundError("TRACKER not found.")
+    with open(STATE_PATH, "r") as f:
+        return json.load(f)
+
+def save_tracker(state):
+    with open(STATE_PATH, "w") as f:
+        json.dump(state, f, indent=2)
+
+# === MODULE EXECUTION HANDLER ===
+
+def execute_module(module_id, module_function, context_hash, data_string):
+    print(f"\n>>> Starting Module: {module_id}")
+    tracker = load_tracker()
+    module_state = tracker.get(module_id, {})
+
+    # Check context integrity
+    stored_hash = module_state.get("context_hash")
+    if stored_hash:
+        compare_context_hashes(stored_hash, context_hash)
+    else:
+        tracker[module_id] = {"context_hash": context_hash}
+
+    # Check for blocker flags
+    if "blocker" in module_state:
+        raise RuntimeError(f"Execution halted. Blocker present: {module_state['blocker']}")
+
+    # Execute module function (wrapped)
+    try:
+        result = module_function()
+        tracker[module_id]["status"] = "complete"
+        tracker[module_id]["result"] = result
+        save_tracker(tracker)
+        print(f"[✓] Module {module_id} completed successfully.")
+    except Exception as e:
+        tracker[module_id]["status"] = "blocked"
+        tracker[module_id]["blocker"] = str(e)
+        save_tracker(tracker)
+        print(f"[✗] Module {module_id} failed: {e}")
+
+# === SYSTEM STATUS TREE ===
+
+def show_status_tree():
+    tracker = load_tracker()
+    print("\n===== SAT_O SYSTEM STATUS =====")
+    for module_id, info in tracker.items():
+        status = info.get("status", "unknown").upper()
+        blocker = info.get("blocker", "")
+        print(f"Module {module_id}: {status}")
+        if blocker:
+            print(f"  ↳ Blocker: {blocker}")
+    print("================================")
+
+# === PLACEHOLDER GUARD ===
+
+def placeholder_guard(value, context="(unknown)"):
+    handle_placeholder(value, context)
+
+# === AMBIGUITY GUARD ===
+
+def guard_ambiguity(options, context="(unknown)"):
+    resolve_ambiguity(options, context)
+
+# === ROOT EXECUTION LOOP EXAMPLE ===
+
+if __name__ == "__main__":
+    # Example usage for testing
+    dummy_data = "SAT_FF_ROOT_GEOMETRY"
+    dummy_hash = compute_hash_from_string(dummy_data)
+
+    def dummy_module():
+        print("Running dummy module logic...")
+        validate_numeric_output(42, lower_bound=0, upper_bound=100)
+        return "OK"
+
+    execute_module("O_TEST", dummy_module, dummy_hash, dummy_data)
+    show_status_tree()
+
+
+=== PROTOCOLS_REF.py ===
+
+
+"""
+PROTOCOLS_REF.py — Core Logic Protocol Definitions for SAT_O System
+Authoritative static file. Invoked by SHEPARD.py and auditing tools.
+This module encodes all SAT_O logic rules, enforcement protocols, and control contracts.
+"""
+
+# === PLACEHOLDER HANDLING PROTOCOL ===
+
+PLACEHOLDER_TOKEN = "[\\PLACEHOLDER\\]"
+
+def is_placeholder(value):
+    return isinstance(value, str) and PLACEHOLDER_TOKEN in value
+
+def handle_placeholder(value, context):
+    if is_placeholder(value):
+        raise RuntimeError(f"PLACEHOLDER detected in {context}. Execution must halt until resolved.")
+
+# === CONTEXT HASH POLICY ===
+
+import hashlib
+
+def compute_hash_from_string(data_string):
+    return hashlib.sha256(data_string.encode('utf-8')).hexdigest()
+
+def compare_context_hashes(stored_hash, current_hash):
+    if stored_hash != current_hash:
+        raise ValueError("Context hash mismatch. Module invalidated. Must revalidate before proceeding.")
+
+# === BLOCKER DEFINITION & ESCALATION ===
+
+BLOCKER_CATEGORIES = {
+    'CRITICAL': "Impacts foundational state. Halts full build.",
+    'LOCAL': "Affects individual module only.",
+    'AMBIGUITY': "Execution path unresolved — user input required."
+}
+
+def log_blocker(module_id, blocker_type, description):
+    return {
+        'module': module_id,
+        'type': blocker_type,
+        'description': description
+    }
+
+# === AMBIGUITY RESOLUTION PROTOCOL ===
+
+def resolve_ambiguity(options, context):
+    """
+    Presents ambiguity options to user.
+    Execution halts until a valid choice is made.
+    """
+    print(f"AMBIGUITY in {context}:")
+    for i, opt in enumerate(options):
+        print(f"[{i}] {opt}")
+    print("Awaiting explicit user choice.")
+    raise RuntimeError("Execution paused for ambiguity resolution.")
+
+# === SYMBOLIC LOGIC CONSISTENCY RULES ===
+
+LOGICAL_DEPENDENCIES = {
+    # Example: 'O2': ['O1'],  # O2 requires O1 to be valid
+}
+
+def verify_logical_dependencies(module_id, completed_modules):
+    required = LOGICAL_DEPENDENCIES.get(module_id, [])
+    for dep in required:
+        if dep not in completed_modules:
+            raise RuntimeError(f"Logical dependency failure: {module_id} requires {dep}.")
+
+# === MODULE VALIDATION CRITERIA ===
+
+def validate_numeric_output(value, lower_bound=None, upper_bound=None, allow_inf=False):
+    if value is None or isinstance(value, str):
+        raise ValueError("Invalid or undefined numeric output.")
+    if not allow_inf and (value == float('inf') or value == float('-inf')):
+        raise ValueError("Infinite value not allowed.")
+    if lower_bound is not None and value < lower_bound:
+        raise ValueError(f"Output below bound: {value} < {lower_bound}")
+    if upper_bound is not None and value > upper_bound:
+        raise ValueError(f"Output above bound: {value} > {upper_bound}")
+
+# === CODE/DATA CONSISTENCY POLICY ===
+
+def enforce_naming_consistency(term_from_glossary, term_from_code):
+    if term_from_glossary != term_from_code:
+        raise ValueError(f"Nomenclature mismatch: glossary '{term_from_glossary}' vs code '{term_from_code}'.")
+
+def verify_data_version(data_file_version, required_version):
+    if data_file_version != required_version:
+        raise RuntimeError(f"Data version mismatch. Found {data_file_version}, required {required_version}.")
+
+# === END PROTOCOL DEFINITIONS ===

@@ -1,0 +1,54 @@
+
+\section*{Derivation D5: Gauge Curvature via Linking}
+\subsection*{1. Topological Densities}
+We introduce the local topological densities of the filament network:
+\[
+\rho_{\rm wind}(x), \quad 
+\rho_{\rm link}(x), \quad
+\rho_{\rm triplet}(x),
+\]
+which quantify the winding, pairwise linking, and triple‑linking (Borromean) frequencies per unit volume fileciteturn5file0.
+
+\subsection*{2. Emergent Gauge Potential}
+Define emergent gauge potentials \(A_\mu^{(G)}(x)\) for each gauge group \(G\in\{U(1),SU(2),SU(3)\}\) by coupling to the corresponding topological current \(J_\mu^{(G)}\):
+\[
+A_\mu^{(G)}(x) = g_G\,J_\mu^{(G)}(x),
+\]
+where the gauge coupling strengths scale with the densities as
+\[
+g_{U(1)}\sim\frac{1}{\sqrt{\rho_{\rm wind}\,\ell_f^2}},\quad
+g_{SU(2)}\sim\frac{1}{\sqrt{\rho_{\rm link}\,\ell_f^2}},\quad
+g_{SU(3)}\sim\frac{1}{\sqrt{\rho_{\rm triplet}\,\ell_f^2}}
+\quad\Bigl(\ell_f=(2A/T)^{1/3}\Bigr)\,, 
+\]
+emerging purely from dimensional analysis of filament topology fileciteturn5file1.
+
+\subsection*{3. Field Strength Tensor}
+The field strength two‑form is
+\[
+F_{\mu\nu}^{(G)} 
+= \partial_\mu A_\nu^{(G)} - \partial_\nu A_\mu^{(G)} 
++ [A_\mu^{(G)},\,A_\nu^{(G)}]\,,
+\]
+with the commutator term vanishing for \(U(1)\) but encoding non‑abelian linking algebra for \(SU(2)\) and \(SU(3)\).  Equivalently, one may express
+\[
+F_{\mu\nu}^{(G)}(x)
+= g_G\,K_{\mu\nu}^{(G)}(x),
+\]
+where \(K^{(G)}\) is the emergent curvature two‑form constructed from filament linking configurations fileciteturn5file2.
+
+\subsection*{4. Yang–Mills Action}
+The effective action for each gauge sector follows as
+\[
+S_{\rm YM}^{(G)} 
+= -\frac{1}{4\,g_G^2}\int d^4x\,\sqrt{-g}\;
+\mathrm{Tr}\bigl(F_{\mu\nu}^{(G)}F^{\mu\nu}_{(G)}\bigr),
+\]
+with the trace taken over the fundamental representation of \(G\). This reproduces the standard gauge dynamics purely from filament topology fileciteturn5file2.
+
+\subsection*{5. Gauge Algebra from Linking}
+Filament phase permutations under exchange define the Lie algebra generators \(T^a\) for \(SU(2)\) and \(SU(3)\):
+\[
+[T^a,\,T^b] = i\,f^{abc}T^c,
+\]
+where the structure constants \(f^{abc}\) arise from the combinatorial linking classes of multi‑filament bundles fileciteturn5file3.

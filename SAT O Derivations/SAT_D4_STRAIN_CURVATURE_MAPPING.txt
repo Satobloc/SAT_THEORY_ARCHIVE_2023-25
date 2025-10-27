@@ -1,0 +1,51 @@
+
+\section*{Derivation D4: Strain Tensor and Curvature Mapping}
+\subsection*{1. Foliation and Strain Tensor}
+Let \(\Sigma_t\) be the propagating 3D resolving surface with unit normal \(u^\mu(x)\). The strain tensor is defined by
+\[
+S_{\mu\nu}(x) = \nabla_\mu u_\nu(x) + \nabla_\nu u_\mu(x),
+\]
+encoding local distortion of the foliation fileciteturn4file0.
+
+\subsection*{2. Emergent Metric and Connection}
+The emergent metric derives from the filament ensemble:
+\[
+\tilde g_{\mu\nu}(x) = \langle v_\mu v_\nu\rangle_F(x),\quad g_{\mu\nu} = (\tilde g_{\mu\nu})^{-1}.
+\]
+Its Levi–Civita connection is
+\[
+\Gamma^\lambda{}_{\mu\nu} = \frac12 g^{\lambda\rho}(\partial_\mu g_{\rho\nu} + \partial_\nu g_{\rho\mu} - \partial_\rho g_{\mu\nu}),
+\]
+which is metric-compatible and torsion-free fileciteturn4file4.
+
+\subsection*{3. Curvature from Strain}
+Perturbing the metric by the strain, \(\delta g_{\mu\nu} \sim S_{\mu\nu}\), the linearized connection variation is
+\[
+\delta \Gamma^\lambda{}_{\mu\nu} = \frac12 g^{\lambda\rho}(\nabla_\mu S_{\rho\nu} + \nabla_\nu S_{\rho\mu} - \nabla_\rho S_{\mu\nu}).
+\]
+This induces a curvature variation
+\[
+\delta R^\rho{}_{\sigma\mu\nu} = \nabla_\mu \delta\Gamma^\rho{}_{\nu\sigma} - \nabla_\nu \delta\Gamma^\rho{}_{\mu\sigma},
+\]
+leading to the Ricci tensor
+\[
+\delta R_{\mu\nu} = \nabla^\rho\nabla_{(\mu}S_{\nu)\rho} - \frac12\nabla_\mu\nabla_\nu S^\rho{}_\rho - \frac12 g_{\mu\nu}\nabla^2 S^\rho{}_\rho.
+\]
+
+\subsection*{4. Einstein–Hilbert Action and Emergent Dynamics}
+The emergent gravitational action takes the Einstein–Hilbert form,
+\[
+S_{\rm grav} = \frac{1}{2\kappa}\int d^4x\,\sqrt{-g}\,R(x),
+\]
+with \(\kappa=8\pi G/c^4\). Variation yields the field equations
+\[
+R_{\mu\nu} - \frac12 g_{\mu\nu} R = \kappa T_{\mu\nu},
+\]
+where the emergent stress–energy tensor from the filament ensemble is
+\[
+T_{\mu\nu}(x) = \langle E_{\rm vib}(x),\,L_{\rm link}(x)\rangle_F,
+\]
+encoding vibrational and topological energy densities fileciteturn4file6.
+
+\subsection*{5. Interpretation}
+Thus the strain tensor \(S_{\mu\nu}\) acts as the geometric source of curvature, mapping local filament distortion to spacetime geometry fileciteturn4file8.

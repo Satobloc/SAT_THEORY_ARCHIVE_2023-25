@@ -1,0 +1,112 @@
+SAT ACTION‑PLAN COMPLETION PROTOCOL
+=================================
+
+(Version 1 · 20 June 2025)
+
+This document specifies the exact hand‑off rules, verification steps,
+and Mode responsibilities required to move through Modules #0 – #3
+of the SAT Build‑out project.  Later modules (≥ #4) inherit the same
+patterns unless explicitly overridden.
+
+--------------------------------------------------------------------
+0.  SHARED CONVENTIONS
+--------------------------------------------------------------------
+•  Document ID & Versioning  
+   Every work‑package (WP) file begins with:
+      SAT‑<Module#>‑<WP#>‑<Version>
+   Example:  SAT‑0‑WP0.1‑v1.3
+
+•  Single‑Source Task Ledger (owned by **Track** Mode)  
+   Columns: status · current Mode owner · next Mode target · SHA‑256 hash
+
+•  Three‑Step “Handshake” Ritual  
+   Producer Mode  →  Verifier Mode  →  Acceptor Mode  
+   1. Producer completes deliverable, updates ledger, pings Verifier.  
+   2. Verifier runs all checks (see §4).  If pass, sets status 🟢 verified,
+      then pings Acceptor.  
+   3. Acceptor clones artifact, logs hash match, and may now begin work.
+
+--------------------------------------------------------------------
+1.  MODULE‑BY‑MODULE FLOW
+--------------------------------------------------------------------
+Module #0 FOUNDATIONS
+   WP0.1  Axiom Inventory        Producer: Proof       Verifier: Critic
+   WP0.2  Dimensional Ledger     Producer: Proof       Verifier: Critic
+   WP0.3  Consistency Proof      Producer: MathProof   Verifier: Proof
+
+Module #1 GAUGE SECTOR
+   WP1.1  Partition Function     Producer: Mecha       Verifier: MathProof
+   WP1.2  Saddle‑Point Deriv.    Producer: Mecha       Verifier: MathProof
+   WP1.3  RG‑Flow Curve          Producer: Sim         Verifier: Pheno
+
+Module #2 FERMION MASS / FLAVOUR
+   WP2.1  Topological Algebra    Producer: Proof       Verifier: Critic
+   WP2.2  Mass Operator          Producer: Mecha       Verifier: MathProof
+   WP2.3  Monte‑Carlo Eval       Producer: Sim         Verifier: Pheno
+
+Module #3 HADRON SPECTRUM
+   WP3.1  Bound‑State Taxonomy   Producer: Onto        Verifier: Proof
+   WP3.2  Lattice Spectrum       Producer: Sim         Verifier: Pheno
+   WP3.3  Decay Rules            Producer: MathProof   Verifier: Critic
+
+--------------------------------------------------------------------
+2.  MODE‑SPECIFIC HAND‑OFF DETAILS
+--------------------------------------------------------------------
+Step 1  COMMIT DELIVERABLE
+      • Push artifact & unit tests
+      • Update ledger row
+
+Step 2  PING VERIFIER
+      • Tag Verifier in ledger (@<Mode>)
+
+Step 3  VERIFIER CHECKLIST
+      ✔ Run unit tests / proof checker  
+      ✔ Scan for hidden constants  
+      ✔ Confirm ledger hash matches file  
+
+Step 4  SIGNAL ACCEPTANCE
+      • Set status 🟢 verified
+      • Ping Acceptor
+
+Step 5  ACCEPTOR ACK
+      • Clone artifact, verify hash
+      • Begin own work
+
+If any check fails, Verifier sets status 🔴 blocked; Producer resumes.
+
+--------------------------------------------------------------------
+3.  CROSS‑MODULE GATING RULES
+--------------------------------------------------------------------
+1. A module cannot start until **all** WPs of the previous module are
+   🟢 verified.
+2. If a deliverable is invalidated later, **Track** issues a reverse
+   cascade: dependent WPs revert to 🟡 in‑progress.
+3. The ledger repository enforces two‑signature merges (Producer + Verifier).
+
+--------------------------------------------------------------------
+4.  FORMAL VERIFICATION CRITERIA
+--------------------------------------------------------------------
+1. Artifact Integrity – Ledger SHA‑256 equals delivered file.
+2. Specification Compliance – Linter confirms only allowed constants {T, ℓ_f}.
+3. Mode Conformance – Metadata header contains “Produced‑By: <Mode>”.
+4. Proof / Code Validity
+     • Lean/Agda compile for logical artifacts
+     • SymPy check for algebraic derivations
+     • Unit tests ≥ 95 % pass for numeric code
+5. Performance / Accuracy thresholds met (e.g., gauge couplings within 3 σ).
+6. Documentation – One‑page markdown synopsis with backlinks.
+
+--------------------------------------------------------------------
+5.  TEMPLATE LEDGER ENTRY
+--------------------------------------------------------------------
+| ID                   | Status | Producer | Verifier | Hash     | Timestamp                | Notes                     |
+| SAT‑1‑WP1.2‑v0.9     | 🟢     | Mecha    | MathProof| 3f2…ab9 | 2025‑06‑20 14:22 UTC‑4   | Saddle‑point eqns OK      |
+
+--------------------------------------------------------------------
+6.  ESCALATION & GOVERNANCE
+--------------------------------------------------------------------
+• Verifier–Producer conflicts → **Sage** convenes arbitration within 48 h.
+• **Now** Mode may re‑prioritize resources but cannot override gating rules.
+
+--------------------------------------------------------------------
+END OF DOCUMENT

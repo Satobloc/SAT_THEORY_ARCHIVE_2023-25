@@ -1,0 +1,47 @@
+
+\section*{Derivation D2: Normal Mode Expansion and Dispersion Relation of O1}
+\subsection*{1. Linearization of the Tension Potential}
+Expanding \(V_{\rm tension}[\xi]\) to second order around the equilibrium \(\xi=0\),
+\[
+V_{\rm tension}[\xi] \approx \frac{1}{2} \int d\lambda\,d\lambda'\,\xi^\mu(\lambda)\,K_{\mu\nu}(\lambda,\lambda')\,\xi^\nu(\lambda'),
+\]
+where the quadratic kernel \(K_{\mu\nu}(\lambda,\lambda')\) defines the linearized tension operator.
+In many cases (e.g.\ for uniform tension \(T\) and periodic boundary conditions on a filament of length \(L\)),
+\[
+K_{\mu\nu}(\lambda,\lambda') = -T\,\delta_{\mu\nu}\,\frac{\partial^2}{\partial\lambda^2}\,\delta(\lambda-\lambda').
+\]
+
+\subsection*{2. Eigenvalue Problem}
+The normal modes \(\phi_n^\mu(\lambda)\) satisfy
+\[
+\int_0^L d\lambda'\,K_{\mu\nu}(\lambda,\lambda')\,\phi_n^\nu(\lambda')
+= m\,\omega_n^2\,\phi_n^\mu(\lambda).
+\]
+For periodic boundary conditions, plane‑wave solutions
+\(\phi_n^\mu(\lambda)=\frac{1}{\sqrt{L}}\,\varepsilon^\mu\,e^{ik_n\lambda}\),
+with \(k_n=\frac{2\pi n}{L}\), yield the dispersion relation
+\[
+\omega_n = |k_n|\,\sqrt{\frac{T}{m}}.
+\]
+
+\subsection*{3. Mode Expansion of Field Operators}
+Using the orthonormality of modes, the operators are expanded as
+\[
+\hat{\xi}^\mu(\lambda) = \sum_n \frac{1}{\sqrt{2m\omega_n}}\Bigl(\hat{a}_n\,\phi_n^\mu(\lambda)
++\hat{a}_n^\dagger\,\phi_n^{\mu*}(\lambda)\Bigr),
+\]
+\[
+\hat{\pi}^\mu(\lambda) = -i\,\sum_n \sqrt{\frac{m\omega_n}{2}}\Bigl(\hat{a}_n\,\phi_n^\mu(\lambda)
+-\hat{a}_n^\dagger\,\phi_n^{\mu*}(\lambda)\Bigr).
+\]
+
+\subsection*{4. Commutation Relations}
+Imposing the canonical commutator
+\(\bigl[\hat{\xi}^\mu(\lambda),\hat{\pi}_\nu(\lambda')\bigr]
+= i\hbar\,\delta^\mu{}_\nu\,\delta(\lambda-\lambda')\)
+implies
+\[
+[\hat{a}_n,\hat{a}_m^\dagger] = \delta_{nm},\quad
+[\hat{a}_n,\hat{a}_m] = 0,\quad
+[\hat{a}_n^\dagger,\hat{a}_m^\dagger] = 0.
+\]
