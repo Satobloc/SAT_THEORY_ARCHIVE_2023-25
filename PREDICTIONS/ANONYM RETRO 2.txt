@@ -1,0 +1,835 @@
+Below are three additional retrodiction “recipes.” Each recipe gives:
+
+A generic equation (with anonymized symbols).
+
+A brief dictionary of what each symbol stands for and the numerical values (when needed).
+
+Instructions that ChatGPT can follow—without any specialized jargon—to look up real‐world measurements, plug them into the equation, and compute the quantity.
+
+At the very end, a separate list of expected outcomes (the target numbers) so you can compare after computing.
+
+A. Light Deflection by a Massive Body
+Calculation Steps
+Equation:
+
+Δ
+Φ
+  
+=
+  
+𝐾
+  
+×
+  
+𝑀
+𝑅
+,
+ΔΦ=K× 
+R
+M
+​
+ ,
+where 
+𝐾
+=
+4
+ 
+𝐺
+/
+𝐶
+2
+K=4G/C 
+2
+ .
+
+Δ
+Φ
+ΔΦ = predicted angular deflection (in radians).
+
+𝑀
+M = mass of the lensing body (in kilograms).
+
+𝑅
+R = impact parameter (closest approach distance, in meters).
+
+𝐺
+G = Newton’s gravitational constant (
+6.674
+×
+10
+−
+11
+6.674×10 
+−11
+  m³ kg⁻¹ s⁻²).
+
+𝐶
+C = speed of light (
+2.998
+×
+10
+8
+2.998×10 
+8
+  m/s).
+
+Symbol Dictionary & Example Values
+(You will replace these with real measurements when you fetch them.)
+
+𝑀
+M: mass of the Sun = 
+1.989
+×
+10
+30
+1.989×10 
+30
+  kg.
+
+𝑅
+R: Sun’s radius ≈ 
+6.963
+×
+10
+8
+6.963×10 
+8
+  m.
+
+𝐺
+=
+6.674
+×
+10
+−
+11
+G=6.674×10 
+−11
+  m³ kg⁻¹ s⁻².
+
+𝐶
+=
+2.998
+×
+10
+8
+C=2.998×10 
+8
+  m/s.
+
+Steps to Compute 
+Δ
+Φ
+ΔΦ:
+a. Compute 
+𝐾
+=
+4
+ 
+𝐺
+/
+𝐶
+2
+.
+K=4G/C 
+2
+ .
+b. Plug in 
+𝑀
+M and 
+𝑅
+R (Sun’s mass & radius).
+c. Evaluate 
+Δ
+Φ
+=
+𝐾
+×
+(
+𝑀
+/
+𝑅
+)
+.
+ΔΦ=K×(M/R).
+
+Instructions for Fetching Data
+
+Search for “mass of the Sun kg” to confirm 
+𝑀
+M.
+
+Search for “radius of the Sun meters” to confirm 
+𝑅
+R.
+
+Use the above equation to calculate 
+Δ
+Φ
+ΔΦ.
+
+Convert the result from radians into arcseconds by multiplying by 
+180
+×
+3600
+𝜋
+π
+180×3600
+​
+ .
+
+B. Einstein‐Ring Radius for a Simple Lens
+Calculation Steps
+Equation:
+
+𝜃
+𝐸
+  
+=
+  
+ 
+𝐽
+×
+𝑀
+ 
+𝐷
+𝐿
+ 
+𝐷
+𝐿
+𝑆
+ 
+/
+ 
+𝐷
+𝑆
+  
+,
+θ 
+E
+​
+ = 
+D 
+L
+​
+ D 
+LS
+​
+ /D 
+S
+​
+ 
+J×M
+​
+ 
+​
+ ,
+where 
+𝐽
+=
+4
+ 
+𝐺
+𝐶
+2
+J= 
+C 
+2
+ 
+4G
+​
+ .
+
+𝜃
+𝐸
+θ 
+E
+​
+  = Einstein‐ring angular radius (in radians).
+
+𝑀
+M = lens mass (in kg).
+
+𝐷
+𝐿
+D 
+L
+​
+  = angular‐diameter distance to lens (in meters).
+
+𝐷
+𝑆
+D 
+S
+​
+  = angular‐diameter distance to source (in meters).
+
+𝐷
+𝐿
+𝑆
+=
+𝐷
+𝑆
+−
+𝐷
+𝐿
+D 
+LS
+​
+ =D 
+S
+​
+ −D 
+L
+​
+  (for flat geometry).
+
+𝐺
+G = 
+6.674
+×
+10
+−
+11
+6.674×10 
+−11
+  m³ kg⁻¹ s⁻².
+
+𝐶
+C = 
+2.998
+×
+10
+8
+2.998×10 
+8
+  m/s.
+
+Symbol Dictionary & Example Values
+(To be replaced by real cosmological distances you look up.)
+
+𝑀
+M: 
+1.0
+×
+10
+12
+1.0×10 
+12
+ ,solar masses ⇒ multiply by 
+1.989
+×
+10
+30
+1.989×10 
+30
+  kg.
+
+𝐷
+𝐿
+D 
+L
+​
+ : e.g. distance to a galaxy at redshift 
+𝑧
+𝐿
+=
+0.5
+z 
+L
+​
+ =0.5.
+
+𝐷
+𝑆
+D 
+S
+​
+ : distance to a quasar at 
+𝑧
+𝑆
+=
+2.0
+z 
+S
+​
+ =2.0.
+
+Distances found via “angular‐diameter distance calculator” or published tables.
+
+Steps to Compute 
+𝜃
+𝐸
+θ 
+E
+​
+ :
+a. Convert 
+𝑀
+M into kilograms.
+b. Use a cosmology‐lookup tool (or official table) to find 
+𝐷
+𝐿
+D 
+L
+​
+  and 
+𝐷
+𝑆
+D 
+S
+​
+  for the chosen redshifts.
+c. Compute 
+𝐷
+𝐿
+𝑆
+=
+𝐷
+𝑆
+−
+𝐷
+𝐿
+.
+D 
+LS
+​
+ =D 
+S
+​
+ −D 
+L
+​
+ .
+d. Compute 
+𝐽
+=
+4
+ 
+𝐺
+/
+𝐶
+2
+.
+J=4G/C 
+2
+ .
+e. Evaluate
+
+𝜃
+𝐸
+=
+𝐽
+ 
+𝑀
+ 
+𝐷
+𝐿
+ 
+𝐷
+𝐿
+𝑆
+ 
+/
+ 
+𝐷
+𝑆
+ ⁣
+ 
+.
+θ 
+E
+​
+ = 
+D 
+L
+​
+ D 
+LS
+​
+ /D 
+S
+​
+ 
+JM
+​
+ 
+​
+ .
+f. Convert 
+𝜃
+𝐸
+θ 
+E
+​
+  from radians to arcseconds via 
+𝜃
+a
+r
+c
+s
+e
+c
+=
+𝜃
+r
+a
+d
+×
+180
+×
+3600
+𝜋
+.
+θ 
+arcsec
+​
+ =θ 
+rad
+​
+ × 
+π
+180×3600
+​
+ .
+
+Instructions for Fetching Data
+
+Search for “angular diameter distance redshift z=0.5 Planck 2018” to get 
+𝐷
+𝐿
+D 
+L
+​
+ .
+
+Search for “angular diameter distance redshift z=2.0 Planck 2018” to get 
+𝐷
+𝑆
+D 
+S
+​
+ .
+
+Compute 
+𝐷
+𝐿
+𝑆
+=
+𝐷
+𝑆
+−
+𝐷
+𝐿
+.
+D 
+LS
+​
+ =D 
+S
+​
+ −D 
+L
+​
+ .
+
+Plug into the equation above to find 
+𝜃
+𝐸
+θ 
+E
+​
+ .
+
+C. Galactic Rotation Speed in the Solar Neighborhood
+Calculation Steps
+Equation:
+
+𝑉
+  
+=
+  
+𝐺
+  
+×
+  
+𝑀
+ 
+𝑅
+ 
+,
+V= 
+R
+G×M
+​
+ 
+​
+ ,
+𝑉
+V = circular orbital speed (in m/s).
+
+𝑀
+M = enclosed mass interior to radius 
+𝑅
+R (in kg).
+
+𝑅
+R = distance from galactic center (in meters).
+
+𝐺
+G = 
+6.674
+×
+10
+−
+11
+6.674×10 
+−11
+  m³ kg⁻¹ s⁻².
+
+Symbol Dictionary & Example Values
+(Replace with measured values when you look them up.)
+
+𝑅
+R: Sun’s distance from galactic center ≈ 8.0 kpc ⇒ convert to meters (
+1
+ 
+kpc
+=
+3.086
+×
+10
+19
+1kpc=3.086×10 
+19
+  m).
+
+𝑀
+M: mass enclosed within 
+𝑅
+R (often quoted as “mass of Milky Way within 8 kpc” ≈ 
+6.0
+×
+10
+10
+6.0×10 
+10
+  solar masses ⇒ convert to kg).
+
+𝐺
+=
+6.674
+×
+10
+−
+11
+G=6.674×10 
+−11
+  m³ kg⁻¹ s⁻².
+
+Steps to Compute 
+𝑉
+V:
+a. Convert 
+𝑅
+R into meters.
+b. Convert 
+𝑀
+M into kilograms.
+c. Compute 
+𝑉
+=
+ 
+𝐺
+ 
+𝑀
+ 
+/
+ 
+𝑅
+ 
+.
+V= 
+GM/R
+​
+ .
+d. Convert 
+𝑉
+V from m/s to km/s by dividing by 
+1
+ 
+000
+1000.
+
+Instructions for Fetching Data
+
+Search for “distance from Sun to Galactic Center” (e.g., “8.0 kpc”).
+
+Search for “Milky Way mass inside 8 kpc” (e.g., “6×10^10 solar masses”).
+
+Plug into the equation to compute 
+𝑉
+V.
+
+D. Distance Modulus from a Standard Candle
+Calculation Steps
+Equation:
+
+𝜇
+  
+=
+  
+𝑚
+  
+−
+  
+𝑀
+,
+𝑑
+=
+10
+ 
+(
+𝜇
++
+5
+)
+/
+5
+ 
+pc
+,
+μ=m−M,d=10 
+(μ+5)/5
+ pc,
+𝜇
+μ = distance modulus (mag).
+
+𝑚
+m = apparent magnitude (mag) of the standard candle.
+
+𝑀
+M = absolute magnitude (mag) of that type.
+
+𝑑
+d = distance in parsecs.
+
+Symbol Dictionary & Example Values
+(Replace with actual values when you fetch them.)
+
+𝑚
+m: apparent magnitude of a well‐known object (e.g., a classical Cepheid in the Large Magellanic Cloud).
+
+𝑀
+M: absolute magnitude for that type (e.g., typical 
+𝑀
+=
+−
+4.0
+M=−4.0 mag for a 10‐day Cepheid).
+
+Then 
+𝜇
+=
+𝑚
+−
+𝑀
+μ=m−M.
+
+Compute 
+𝑑
+=
+10
+(
+𝜇
++
+5
+)
+/
+5
+d=10 
+(μ+5)/5
+  parsecs.
+
+Steps to Compute 
+𝜇
+μ and 
+𝑑
+d:
+a. Look up 
+𝑚
+m for a chosen Cepheid in the LMC (e.g., “apparent magnitude of LMC Cepheid OGLE-LMC-CEP-0227”).
+b. Use 
+𝑀
+M appropriate for that period (e.g., classical Cepheid PL relation: 
+𝑀
+=
+−
+2.78
+ 
+log
+⁡
+10
+(
+𝑃
+)
+−
+1.38
+M=−2.78log 
+10
+​
+ (P)−1.38 if 
+𝑃
+=
+10
+P=10 days → 
+𝑀
+≈
+−
+4.16
+M≈−4.16).
+c. Compute 
+𝜇
+=
+𝑚
+−
+𝑀
+.
+μ=m−M.
+d. Compute 
+𝑑
+=
+10
+(
+𝜇
++
+5
+)
+/
+5
+.
+d=10 
+(μ+5)/5
+ .
+
+Instructions for Fetching Data
+
+Search for “apparent magnitude OGLE LMC Cepheid 10-day” to get 
+𝑚
+m.
+
+Use a published PL relation (or search “Cepheid absolute magnitude 10-day”) to get 
+𝑀
+M.
+
+Compute 
+𝜇
+μ and then 
+𝑑
+d.
+
+Reminder:
+
+Perform each calculation strictly according to the “Calculation Steps” without looking at these final numbers.
+
+After you obtain your computed values, check them against the “Expected Outcomes” above.
