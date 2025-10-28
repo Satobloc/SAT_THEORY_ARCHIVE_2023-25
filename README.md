@@ -2,6 +2,8 @@
 ######################
 ###  FAIR WARNING  ###
 ######################
+----------------------------------------
+
 THE MATERIALS CONTAINED HEREIN ARE ROUGHLY SORTED, ROUGHLY WRITTEN, AND... NOT ROUGHLY THOUGHT THROUGH, BUT MORE "ROUGH-AND-READILY THOUGHT THROUGH" 
 Direct any questions to Nathan McKnight (nathanmcknight@gmail.com)
 
