@@ -1,3 +1,11 @@
+
+######################
+###  FAIR WARNING  ###
+######################
+THE MATERIALS CONTAINED HEREIN ARE ROUGHLY SORTED, ROUGHLY WRITTEN, AND... NOT ROUGHLY THOUGHT THROUGH, BUT MORE "ROUGH-AND-READILY THOUGHT THROUGH" 
+Direct any questions to Nathan McKnight (nathanmcknight@gmail.com)
+
+
 This is basically a personal archive and indexing system for my own use, so that I can access my files more conveniently. 
 That said, it's also an idea that anybody is welcome to consider, share, and work with.
 Started very small, and only grew because once the original ontological commitments were established, so many other things fell into place. Naturally, intuitively. 
