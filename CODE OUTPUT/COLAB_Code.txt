@@ -1,0 +1,379 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.integrate import simpson
+from scipy.linalg import eigh
+import pandas as pd
+
+# --- Kink profile function ---
+def theta4_tanh(x, mu, eta, x0=0.0):
+    return eta * np.tanh(mu * (x - x0))
+
+# --- Gaussian kernel ---
+def delta_ij_gaussian(x, A, x0, sigma, phase=0.0):
+    return A * np.exp(-((x - x0)**2) / (2 * sigma**2)) * np.exp(1j * phase)
+
+class Z3BFMonteCarlo:
+    def __init__(self, length, q=3, beta=5.0):
+        self.length = length
+        self.q = q
+        self.beta = beta  # inverse temperature-like parameter controlling fluctuation strength
+        # Initialize tau randomly
+        self.tau_links = np.random.randint(0, q, size=length - 1)
+
+    def discrete_curvature(self, site):
+        left = self.tau_links[site - 1] if site > 0 else 0
+        right = self.tau_links[site] if site < self.length - 1 else 0
+        return (right - left) % self.q
+
+    def bf_action_phase(self):
+        # BF action S = sum_x B_x * curvature_x mod q, here assume B_x=1 for simplicity
+        # The phase is exp(2πi * S / q)
+        S = 0
+        for x in range(self.length):
+            curvature = self.discrete_curvature(x)
+            # For now assume B_x = 1 (can be generalized)
+            S += curvature
+        S_mod = S % self.q
+        phase = np.exp(2j * np.pi * S_mod / self.q)
+        return phase
+
+    def metropolis_step(self):
+        i = np.random.randint(0, self.length - 1)
+        old_val = self.tau_links[i]
+        new_val = (old_val + np.random.choice([-1, 1])) % self.q
+
+        # Current configuration phase and effective energy
+        old_phase = self.bf_action_phase()
+        old_energy = -self.beta * np.cos(np.angle(old_phase))  # effective energy from phase
+
+        # Propose new configuration
+        self.tau_links[i] = new_val
+        new_phase = self.bf_action_phase()
+        new_energy = -self.beta * np.cos(np.angle(new_phase))
+
+        # Metropolis acceptance probability
+        delta_E = new_energy - old_energy
+        accept_prob = np.exp(-delta_E) if delta_E > 0 else 1.0
+
+        if np.random.rand() < accept_prob:
+            return True  # accept
+        else:
+            self.tau_links[i] = old_val  # revert
+            return False
+
+    def sample_tau(self, n_steps=10000):
+        accepted = 0
+        for _ in range(n_steps):
+            if self.metropolis_step():
+                accepted += 1
+        print(f"Accepted {accepted}/{n_steps} proposed changes")
+        return self.tau_links.copy()
+
+    def modulate_kernel_phase(self, x, base_phase=0.0):
+        phase_profile = np.zeros_like(x)
+        for i in range(len(self.tau_links)):
+            mask = (x >= x[i]) & (x < x[i+1])
+            phase_profile[mask] = (2 * np.pi / self.q) * self.tau_links[i] + base_phase
+        phase_profile[x >= x[-2]] = (2 * np.pi / self.q) * self.tau_links[-1] + base_phase
+        return phase_profile
+
+
+# --- Create kernel parameters modulated by tau ---
+def create_kernel_params_with_tau(N, kernel_shape, cp_phase_mode, taubf, x):
+    kernel_params = {}
+    for i in range(N):
+        for j in range(N):
+            A = 1.0 if i == j else 0.5
+            x0 = 0.0
+            width = 1.0
+            if cp_phase_mode == 'structured':
+                base_phase = np.pi * (i + j) / (2 * N)
+            elif cp_phase_mode == 'random':
+                base_phase = np.random.uniform(0, 2 * np.pi)
+            else:
+                base_phase = 0.0
+            phase_profile = taubf.modulate_kernel_phase(x, base_phase=base_phase)
+            effective_phase = np.mean(phase_profile)
+            kernel_params[(i, j)] = (A, x0, width, effective_phase)
+    return kernel_params
+
+# --- Build mixing matrix ---
+def build_mixing_matrix_with_tau(x, theta4_profile, N, kernel_params, kernel_shape='gaussian', f_theta=lambda th: np.sin(th)**2):
+    M = np.zeros((N, N), dtype=np.complex128)
+    weight = f_theta(theta4_profile)
+    for i in range(N):
+        for j in range(N):
+            params = kernel_params.get((i, j))
+            if params is None:
+                continue
+            if kernel_shape == 'gaussian':
+                A, x0, sigma, phase = params
+                kernel_vals = delta_ij_gaussian(x, A, x0, sigma, phase)
+            else:
+                raise NotImplementedError("Only gaussian kernel with tau is implemented")
+            integrand = kernel_vals * weight
+            integral_val = simpson(integrand, x)
+            M[i, j] = integral_val
+    return M
+
+# --- Diagonalize mixing matrix ---
+def diagonalize_mixing_matrix(M):
+    M_herm = (M + M.conj().T) / 2
+    eigvals, eigvecs = eigh(M_herm)
+    return eigvals, eigvecs
+
+# --- Extract mixing angles ---
+def extract_mixing_angles(U):
+    s13 = np.clip(np.abs(U[0,2]), 0, 1)
+    s12 = np.clip(np.abs(U[0,1]) / np.sqrt(1 - s13**2), 0, 1)
+    s23 = np.clip(np.abs(U[1,2]) / np.sqrt(1 - s13**2), 0, 1)
+    theta_13 = np.arcsin(s13)
+    theta_12 = np.arcsin(s12)
+    theta_23 = np.arcsin(s23)
+    return theta_12, theta_13, theta_23
+
+# --- Calculate Jarlskog invariant ---
+def jarlskog_invariant(U):
+    J = np.imag(U[0,0] * U[1,1] * np.conj(U[0,1]) * np.conj(U[1,0]))
+    return J
+
+# --- Run single experiment ---
+def run_single_experiment_tau(params, x, kernel_shape='gaussian', cp_phase_mode='structured', mc_steps=10000):
+    mu = params['mu']
+    eta = params['eta']
+    N = params['N']
+    length = len(x)
+
+    theta4_vals = theta4_tanh(x, mu, eta)
+
+    taubf = Z3BFMonteCarlo(length=length)
+    flat_tau = taubf.sample_tau(n_steps=mc_steps)
+    plot_tau_and_curvature(flat_tau)  # <<< Add this line here for visualization
+
+    taubf.tau_links = flat_tau
+
+    kernel_params = create_kernel_params_with_tau(N, kernel_shape, cp_phase_mode, taubf, x)
+
+    M = build_mixing_matrix_with_tau(x, theta4_vals, N, kernel_params, kernel_shape)
+
+    eigvals, eigvecs = diagonalize_mixing_matrix(M)
+
+    J_simple = 0.0
+    if N >= 3:
+        J_simple = np.imag(M[0,1]*M[1,2]*M[2,0] - M[0,2]*M[2,1]*M[1,0])
+
+    return {
+        'mu': mu,
+        'eta': eta,
+        'N': N,
+        'kernel_shape': kernel_shape,
+        'cp_phase_mode': cp_phase_mode,
+        'eigvals': eigvals,
+        'mixing_matrix': eigvecs,
+        'cp_violation_measure': J_simple,
+        'tau_config': flat_tau
+    }
+
+def plot_tau_and_curvature(tau_links):
+    q = 3
+    length = len(tau_links) + 1
+    
+    # Plot tau configuration on links
+    plt.figure(figsize=(12,3))
+    plt.title("Sampled Tau Configuration (links)")
+    plt.stem(range(length-1), tau_links)
+    plt.xlabel("Link index")
+    plt.ylabel(r"$\tau$ value")
+    plt.ylim(-0.5, q - 0.5)
+    plt.grid(True)
+    plt.show()
+
+    # Compute curvature per site
+    curvature = []
+    for x in range(length):
+        left = tau_links[x-1] if x > 0 else 0
+        right = tau_links[x] if x < length - 1 else 0
+        curvature.append((right - left) % q)
+    
+    # Plot curvature histogram
+    plt.figure(figsize=(6,4))
+    plt.title("Curvature Distribution")
+    plt.hist(curvature, bins=np.arange(q+1)-0.5, rwidth=0.8, align='mid')
+    plt.xlabel("Curvature value mod 3")
+    plt.ylabel("Frequency")
+    plt.xticks(range(q))
+    plt.grid(True)
+    plt.show()
+
+# --- Parameter grid generator ---
+def generate_parameter_grid(param_ranges):
+    import itertools
+    keys = param_ranges.keys()
+    values = param_ranges.values()
+    for instance in itertools.product(*values):
+        yield dict(zip(keys, instance))
+
+# --- Run parametric sweep ---
+def run_parametric_sweep_tau(x, param_grid, kernel_shapes, cp_phase_modes, mc_steps=10000):
+    results = []
+    for params in param_grid:
+        for k_shape in kernel_shapes:
+            for cp_mode in cp_phase_modes:
+                res = run_single_experiment_tau(params, x, k_shape, cp_mode, mc_steps)
+                results.append(res)
+    return results
+
+# --- Analyze results and plot ---
+def analyze_particle_physics_output(results):
+    records = []
+    for r in results:
+        N = r['N']
+        eigvals = r['eigvals']
+        U = r['mixing_matrix']
+        try:
+            if N == 3:
+                theta_12, theta_13, theta_23 = extract_mixing_angles(U)
+                theta_12_deg = np.degrees(theta_12)
+                theta_13_deg = np.degrees(theta_13)
+                theta_23_deg = np.degrees(theta_23)
+                Jarlskog = jarlskog_invariant(U)
+                U_abs = np.abs(U)
+            else:
+                theta_12_deg = theta_13_deg = theta_23_deg = np.nan
+                Jarlskog = np.nan
+                U_abs = np.full((N, N), np.nan)
+        except Exception:
+            theta_12_deg = theta_13_deg = theta_23_deg = np.nan
+            Jarlskog = np.nan
+            U_abs = np.full((N, N), np.nan)
+
+        masses = np.sqrt(np.abs(eigvals))
+
+        records.append({
+            'mu': r['mu'],
+            'eta': r['eta'],
+            'N': N,
+            'kernel_shape': r['kernel_shape'],
+            'cp_phase_mode': r['cp_phase_mode'],
+            'masses': masses,
+            'theta_12_deg': theta_12_deg,
+            'theta_13_deg': theta_13_deg,
+            'theta_23_deg': theta_23_deg,
+            'Jarlskog': Jarlskog,
+            'mixing_matrix_abs': U_abs
+        })
+
+    df = pd.DataFrame(records)
+
+    # Print sample output for first result
+    first = df.iloc[0]
+    print("Sample Particle Physics Output:")
+    print(f"Mass eigenvalues (approx.): {np.round(first['masses'], 4)}")
+    print(f"Mixing angles (degrees): θ12={first['theta_12_deg']:.2f}, θ13={first['theta_13_deg']:.2f}, θ23={first['theta_23_deg']:.2f}")
+    print(f"Jarlskog Invariant (CP violation measure): {first['Jarlskog']:.4e}")
+    print("Mixing matrix |U| (approx.):")
+    print(np.round(first['mixing_matrix_abs'], 4))
+
+    # Plot masses
+    plt.figure(figsize=(8,4))
+    for (ks, cp), subset in df.groupby(['kernel_shape', 'cp_phase_mode']):
+        for i in range(3):
+            plt.plot(subset['mu'], [m[i] for m in subset['masses']], marker='o', label=f'Mass eigenstate {i+1} {ks}-{cp}' if i==0 else "")
+    plt.xlabel('Kink width (mu)')
+    plt.ylabel('Mass (arbitrary units)')
+    plt.title('Mass eigenvalues vs Kink width')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+
+    # Plot mixing angles
+    plt.figure(figsize=(8,5))
+    angles = ['theta_12_deg', 'theta_13_deg', 'theta_23_deg']
+    labels = ['θ12', 'θ13', 'θ23']
+    for angle, label in zip(angles, labels):
+        for (ks, cp), subset in df.groupby(['kernel_shape', 'cp_phase_mode']):
+            plt.plot(subset['mu'], subset[angle], marker='o', linestyle='-', label=f'{label} {ks}-{cp}')
+    plt.xlabel('Kink width (mu)')
+    plt.ylabel('Mixing angle (degrees)')
+    plt.title('Mixing Angles vs Kink width')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+
+    # Plot CP violation measure
+    plt.figure(figsize=(8,4))
+    for (ks, cp), subset in df.groupby(['kernel_shape', 'cp_phase_mode']):
+        plt.plot(subset['mu'], subset['Jarlskog'], marker='x', linestyle='--', label=f'Jarlskog {ks}-{cp}')
+    plt.xlabel('Kink width (mu)')
+    plt.ylabel('Jarlskog invariant')
+    plt.title('CP Violation (Jarlskog Invariant) vs Kink width')
+    plt.legend()
+    plt.grid(True)
+    plt.show()
+
+    return df
+
+ --- Print detailed output for all results ---
+ def print_full_results(results):
+     for idx, r in enumerate(results):
+         N = r['N']
+         eigvals = r['eigvals']
+         U = r['mixing_matrix']
+         print(f"\n=== Result {idx+1} ===")
+         print(f"Parameters: mu={r['mu']}, eta={r['eta']}, N={N}, kernel_shape={r['kernel_shape']}, cp_phase_mode={r['cp_phase_mode']}")
+ 
+         try:
+             if N == 3:
+                 s13 = np.clip(np.abs(U[0,2]), 0, 1)
+                 s12 = np.clip(np.abs(U[0,1]) / np.sqrt(1 - s13**2), 0, 1)
+                 s23 = np.clip(np.abs(U[1,2]) / np.sqrt(1 - s13**2), 0, 1)
+                 theta_13 = np.degrees(np.arcsin(s13))
+                 theta_12 = np.degrees(np.arcsin(s12))
+                 theta_23 = np.degrees(np.arcsin(s23))
+                 J = np.imag(U[0,0]*U[1,1]*np.conj(U[0,1])*np.conj(U[1,0]))
+                 masses = np.sqrt(np.abs(eigvals))
+                 U_abs = np.abs(U)
+
+                print(f"Mass eigenvalues (approx.): {np.round(masses,4)}")
+                print(f"Mixing angles (degrees): θ12={theta_12:.2f}, θ13={theta_13:.2f}, θ23={theta_23:.2f}")
+                print(f"Jarlskog Invariant (CP violation measure): {J:.4e}")
+                print("Mixing matrix |U| (approx.):")
+                print(np.round(U_abs,4))
+            else:
+                masses = np.sqrt(np.abs(eigvals))
+                print(f"Mass eigenvalues (approx.): {np.round(masses,4)}")
+                print("N != 3: Skipping mixing angles and CP violation.")
+        except Exception as e:
+            print("Error extracting physics info:", e)
+
+# --- Main execution ---
+if __name__ == "__main__":
+    x = np.linspace(-10, 10, 100)
+    param_ranges = {
+    'mu': [0.3, 0.5, 0.7, 1.0, 1.3],
+    'eta': [0.8, 1.0, 1.2],
+    'N': [3],
+}
+
+beta_values = [1.0, 3.0, 5.0, 7.0, 10.0]  # BF sampler inverse temperature grid
+
+kernel_shapes = ['gaussian']
+cp_phase_modes = ['structured', 'random']
+
+import itertools
+full_param_grid = []
+for base_params in generate_parameter_grid(param_ranges):
+    for b in beta_values:
+        p = base_params.copy()
+        p['beta'] = b
+        full_param_grid.append(p)
+
+# To speed up during exploration, reduce MC steps temporarily
+results = run_parametric_sweep_tau(x, full_param_grid, kernel_shapes, cp_phase_modes, mc_steps=1000)
+
+
+df = analyze_particle_physics_output(results)
+
+# Comment out full print during quick runs to save time
+# print_full_results(results)
+
