@@ -191,7 +191,8 @@ STRUCTURAL CONSOLIDATION (Mark III - Mark IV)
     Key concepts were formalized into an explicit "Toolkit" categorized by
     certainty, with $\theta_4$ alignment and the Time Wavefront confirmed as
     Core Axioms.
-
+    *   **SAT First Public Discussion**:
+      Core ontology and conceptual framework first discussed publicly on February 2, 2025 episode of the podcast, "Debating AI On Consciousness and Reality"
 *   **SAT v4.1 / v4.2 (Constraint and Field Focus):**
     These versions introduced necessary refinements to align the theory with
     high-precision observational bounds.
@@ -200,6 +201,7 @@ STRUCTURAL CONSOLIDATION (Mark III - Mark IV)
         Fine-Structure Constant ($\alpha$).
     *   **Name Refined:** SAT v4.2 was formally named **Scalar Angular Torsion
         Theory**.
+
 
 TRANSITION TO FIELD THEORY (Q2 2025 and Beyond)
 ------------------------------------------------
