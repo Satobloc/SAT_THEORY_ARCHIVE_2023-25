@@ -22,16 +22,19 @@ jobs:
         with:
           python-version: "3.x"
 
-      - name: Install PDF extraction tools
+      - name: Install PDF extraction and OCR tools
         run: |
           python -m pip install --upgrade pip
           pip install pymupdf
+          sudo apt-get update
+          sudo apt-get install -y ocrmypdf tesseract-ocr ghostscript
 
       - name: Extract requested PDF
         run: |
           python <<'PY'
           import json
           import os
+          import subprocess
           import sys
           from pathlib import Path
           from datetime import datetime, timezone
@@ -40,6 +43,7 @@ jobs:
 
           request_path = Path("_AI_REQUESTS/pdf_extract_request.json")
           out_root = Path("_AUTO_EXTRACTED_TEXT")
+          work_root = Path("_OCR_WORK")
 
           if not request_path.exists():
               print("Request file not found.", file=sys.stderr)
@@ -50,6 +54,9 @@ jobs:
           pdf_path_raw = request.get("pdf_path", "").strip()
           request_id = request.get("request_id", "")
           requested_by = request.get("requested_by", "unknown")
+          force_ocr = bool(request.get("force_ocr", False))
+          ocr_threshold = int(request.get("ocr_threshold", 200))
+          language = request.get("ocr_language", "eng")
 
           if not pdf_path_raw:
               print("Missing pdf_path in request file.", file=sys.stderr)
@@ -72,15 +79,49 @@ jobs:
 
           output_path = out_root / pdf_path.with_suffix(".txt")
           output_path.parent.mkdir(parents=True, exist_ok=True)
+          work_root.mkdir(parents=True, exist_ok=True)
 
-          doc = fitz.open(pdf_path)
-          pages = []
+          def extract_pages(path: Path):
+              doc = fitz.open(path)
+              pages = []
+              for i, page in enumerate(doc, start=1):
+                  text = page.get_text("text") or ""
+                  pages.append((i, text.strip()))
+              return pages
 
-          for i, page in enumerate(doc, start=1):
-              text = page.get_text("text") or ""
-              pages.append((i, text.strip()))
+          def count_chars(pages):
+              return sum(len(text) for _, text in pages)
 
-          char_count = sum(len(text) for _, text in pages)
+          source_used = pdf_path
+          extraction_engine = "PyMuPDF"
+          ocr_attempted = False
+          ocr_reason = "not needed"
+
+          pages = extract_pages(pdf_path)
+          char_count = count_chars(pages)
+
+          if force_ocr or char_count < ocr_threshold:
+              ocr_attempted = True
+              ocr_reason = "force_ocr requested" if force_ocr else f"embedded text below threshold ({char_count} < {ocr_threshold})"
+              ocr_pdf = work_root / f"{pdf_path.stem}.ocr.pdf"
+
+              print(f"OCR fallback triggered: {ocr_reason}")
+              subprocess.run(
+                  [
+                      "ocrmypdf",
+                      "--skip-text",
+                      "--language", language,
+                      str(pdf_path),
+                      str(ocr_pdf),
+                  ],
+                  check=True,
+              )
+
+              source_used = ocr_pdf
+              extraction_engine = "OCRmyPDF + PyMuPDF"
+              pages = extract_pages(ocr_pdf)
+              char_count = count_chars(pages)
+
           now = datetime.now(timezone.utc).isoformat()
 
           with output_path.open("w", encoding="utf-8") as f:
@@ -89,7 +130,10 @@ jobs:
               f.write(f"Request ID: {request_id}\n")
               f.write(f"Requested by: {requested_by}\n")
               f.write(f"Extraction time UTC: {now}\n")
-              f.write("Extraction engine: PyMuPDF\n")
+              f.write(f"Extraction engine: {extraction_engine}\n")
+              f.write(f"OCR attempted: {ocr_attempted}\n")
+              f.write(f"OCR reason: {ocr_reason}\n")
+              f.write(f"OCR language: {language}\n")
               f.write(f"Pages: {len(pages)}\n")
               f.write(f"Characters extracted: {char_count}\n\n")
               f.write("---\n\n")
@@ -100,7 +144,7 @@ jobs:
                   f.write("\n")
 
           print(f"Wrote {output_path}")
-          print(f"Extracted {char_count} characters from {len(pages)} pages.")
+          print(f"Extracted {char_count} characters from {len(pages)} pages using {extraction_engine}.")
           PY
 
       - name: Commit extracted text
