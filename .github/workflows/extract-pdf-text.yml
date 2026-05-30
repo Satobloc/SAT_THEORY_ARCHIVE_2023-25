@@ -1,0 +1,118 @@
+name: PDF Extract on Request
+
+on:
+  push:
+    paths:
+      - "_AI_REQUESTS/pdf_extract_request.json"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  extract-pdf:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install PDF extraction tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install pymupdf
+
+      - name: Extract requested PDF
+        run: |
+          python <<'PY'
+          import json
+          import os
+          import sys
+          from pathlib import Path
+          from datetime import datetime, timezone
+
+          import fitz  # PyMuPDF
+
+          request_path = Path("_AI_REQUESTS/pdf_extract_request.json")
+          out_root = Path("_AUTO_EXTRACTED_TEXT")
+
+          if not request_path.exists():
+              print("Request file not found.", file=sys.stderr)
+              sys.exit(1)
+
+          request = json.loads(request_path.read_text(encoding="utf-8"))
+
+          pdf_path_raw = request.get("pdf_path", "").strip()
+          request_id = request.get("request_id", "")
+          requested_by = request.get("requested_by", "unknown")
+
+          if not pdf_path_raw:
+              print("Missing pdf_path in request file.", file=sys.stderr)
+              sys.exit(1)
+
+          pdf_path = Path(pdf_path_raw)
+
+          # Safety: prevent absolute paths or path traversal.
+          if pdf_path.is_absolute() or ".." in pdf_path.parts:
+              print(f"Unsafe PDF path: {pdf_path_raw}", file=sys.stderr)
+              sys.exit(1)
+
+          if pdf_path.suffix.lower() != ".pdf":
+              print(f"Requested file is not a PDF: {pdf_path_raw}", file=sys.stderr)
+              sys.exit(1)
+
+          if not pdf_path.exists():
+              print(f"PDF not found: {pdf_path_raw}", file=sys.stderr)
+              sys.exit(1)
+
+          output_path = out_root / pdf_path.with_suffix(".txt")
+          output_path.parent.mkdir(parents=True, exist_ok=True)
+
+          doc = fitz.open(pdf_path)
+          pages = []
+
+          for i, page in enumerate(doc, start=1):
+              text = page.get_text("text") or ""
+              pages.append((i, text.strip()))
+
+          char_count = sum(len(text) for _, text in pages)
+          now = datetime.now(timezone.utc).isoformat()
+
+          with output_path.open("w", encoding="utf-8") as f:
+              f.write("# Extracted PDF Text\n\n")
+              f.write(f"Source PDF: {pdf_path.as_posix()}\n")
+              f.write(f"Request ID: {request_id}\n")
+              f.write(f"Requested by: {requested_by}\n")
+              f.write(f"Extraction time UTC: {now}\n")
+              f.write("Extraction engine: PyMuPDF\n")
+              f.write(f"Pages: {len(pages)}\n")
+              f.write(f"Characters extracted: {char_count}\n\n")
+              f.write("---\n\n")
+
+              for page_num, text in pages:
+                  f.write(f"\n\n## Page {page_num}\n\n")
+                  f.write(text)
+                  f.write("\n")
+
+          print(f"Wrote {output_path}")
+          print(f"Extracted {char_count} characters from {len(pages)} pages.")
+          PY
+
+      - name: Commit extracted text
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add _AUTO_EXTRACTED_TEXT/
+
+          if git diff --cached --quiet; then
+            echo "No extracted text changes to commit."
+          else
+            git commit -m "Auto-extract PDF text from request"
+            git push
+          fi
