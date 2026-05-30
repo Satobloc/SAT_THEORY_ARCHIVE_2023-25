@@ -1,4 +1,4 @@
-name: PDF Extract on Request
+name: PDF and Image Text Extract on Request
 
 on:
   push:
@@ -10,7 +10,7 @@ permissions:
   contents: write
 
 jobs:
-  extract-pdf:
+  extract-text:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,15 +25,14 @@ jobs:
       - name: Install PDF extraction and OCR tools
         run: |
           python -m pip install --upgrade pip
-          pip install pymupdf
+          pip install pymupdf pillow
           sudo apt-get update
           sudo apt-get install -y ocrmypdf tesseract-ocr ghostscript
 
-      - name: Extract requested PDF
+      - name: Extract requested text from PDF or image
         run: |
           python <<'PY'
           import json
-          import os
           import subprocess
           import sys
           from pathlib import Path
@@ -45,43 +44,57 @@ jobs:
           out_root = Path("_AUTO_EXTRACTED_TEXT")
           work_root = Path("_OCR_WORK")
 
+          PDF_EXTENSIONS = {".pdf"}
+          IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".tif", ".tiff", ".bmp", ".webp"}
+          SUPPORTED_EXTENSIONS = PDF_EXTENSIONS | IMAGE_EXTENSIONS
+
           if not request_path.exists():
               print("Request file not found.", file=sys.stderr)
               sys.exit(1)
 
           request = json.loads(request_path.read_text(encoding="utf-8"))
 
-          pdf_path_raw = request.get("pdf_path", "").strip()
+          # Backward compatible: pdf_path still works. New preferred key is source_path.
+          source_path_raw = (
+              request.get("source_path")
+              or request.get("pdf_path")
+              or request.get("image_path")
+              or ""
+          ).strip()
+
           request_id = request.get("request_id", "")
           requested_by = request.get("requested_by", "unknown")
           force_ocr = bool(request.get("force_ocr", False))
           ocr_threshold = int(request.get("ocr_threshold", 200))
           language = request.get("ocr_language", "eng")
 
-          if not pdf_path_raw:
-              print("Missing pdf_path in request file.", file=sys.stderr)
+          if not source_path_raw:
+              print("Missing source_path, pdf_path, or image_path in request file.", file=sys.stderr)
               sys.exit(1)
 
-          pdf_path = Path(pdf_path_raw)
+          source_path = Path(source_path_raw)
 
           # Safety: prevent absolute paths or path traversal.
-          if pdf_path.is_absolute() or ".." in pdf_path.parts:
-              print(f"Unsafe PDF path: {pdf_path_raw}", file=sys.stderr)
+          if source_path.is_absolute() or ".." in source_path.parts:
+              print(f"Unsafe source path: {source_path_raw}", file=sys.stderr)
               sys.exit(1)
 
-          if pdf_path.suffix.lower() != ".pdf":
-              print(f"Requested file is not a PDF: {pdf_path_raw}", file=sys.stderr)
+          suffix = source_path.suffix.lower()
+
+          if suffix not in SUPPORTED_EXTENSIONS:
+              print(f"Unsupported source type: {source_path_raw}", file=sys.stderr)
+              print(f"Supported extensions: {sorted(SUPPORTED_EXTENSIONS)}", file=sys.stderr)
               sys.exit(1)
 
-          if not pdf_path.exists():
-              print(f"PDF not found: {pdf_path_raw}", file=sys.stderr)
+          if not source_path.exists():
+              print(f"Source file not found: {source_path_raw}", file=sys.stderr)
               sys.exit(1)
 
-          output_path = out_root / pdf_path.with_suffix(".txt")
+          output_path = out_root / source_path.with_suffix(".txt")
           output_path.parent.mkdir(parents=True, exist_ok=True)
           work_root.mkdir(parents=True, exist_ok=True)
 
-          def extract_pages(path: Path):
+          def extract_pdf_pages(path: Path):
               doc = fitz.open(path)
               pages = []
               for i, page in enumerate(doc, start=1):
@@ -92,41 +105,67 @@ jobs:
           def count_chars(pages):
               return sum(len(text) for _, text in pages)
 
-          source_used = pdf_path
-          extraction_engine = "PyMuPDF"
-          ocr_attempted = False
-          ocr_reason = "not needed"
-
-          pages = extract_pages(pdf_path)
-          char_count = count_chars(pages)
-
-          if force_ocr or char_count < ocr_threshold:
-              ocr_attempted = True
-              ocr_reason = "force_ocr requested" if force_ocr else f"embedded text below threshold ({char_count} < {ocr_threshold})"
-              ocr_pdf = work_root / f"{pdf_path.stem}.ocr.pdf"
-
-              print(f"OCR fallback triggered: {ocr_reason}")
+          def ocr_pdf(path: Path):
+              ocr_pdf_path = work_root / f"{path.stem}.ocr.pdf"
               subprocess.run(
                   [
                       "ocrmypdf",
                       "--skip-text",
                       "--language", language,
-                      str(pdf_path),
-                      str(ocr_pdf),
+                      str(path),
+                      str(ocr_pdf_path),
                   ],
                   check=True,
               )
+              return ocr_pdf_path
 
-              source_used = ocr_pdf
-              extraction_engine = "OCRmyPDF + PyMuPDF"
-              pages = extract_pages(ocr_pdf)
+          def ocr_image(path: Path):
+              # Tesseract writes output_path without extension, then creates .txt.
+              base = work_root / f"{path.stem}.image_ocr"
+              subprocess.run(
+                  [
+                      "tesseract",
+                      str(path),
+                      str(base),
+                      "-l", language,
+                  ],
+                  check=True,
+              )
+              text_path = base.with_suffix(".txt")
+              text = text_path.read_text(encoding="utf-8", errors="replace") if text_path.exists() else ""
+              return [(1, text.strip())]
+
+          extraction_engine = "unknown"
+          ocr_attempted = False
+          ocr_reason = "not needed"
+
+          if suffix in PDF_EXTENSIONS:
+              extraction_engine = "PyMuPDF"
+              pages = extract_pdf_pages(source_path)
+              char_count = count_chars(pages)
+
+              if force_ocr or char_count < ocr_threshold:
+                  ocr_attempted = True
+                  ocr_reason = "force_ocr requested" if force_ocr else f"embedded text below threshold ({char_count} < {ocr_threshold})"
+                  print(f"OCR fallback triggered: {ocr_reason}")
+                  ocr_pdf_path = ocr_pdf(source_path)
+                  extraction_engine = "OCRmyPDF + PyMuPDF"
+                  pages = extract_pdf_pages(ocr_pdf_path)
+                  char_count = count_chars(pages)
+
+          else:
+              ocr_attempted = True
+              ocr_reason = "image source requires OCR"
+              extraction_engine = "Tesseract OCR"
+              pages = ocr_image(source_path)
               char_count = count_chars(pages)
 
           now = datetime.now(timezone.utc).isoformat()
 
           with output_path.open("w", encoding="utf-8") as f:
-              f.write("# Extracted PDF Text\n\n")
-              f.write(f"Source PDF: {pdf_path.as_posix()}\n")
+              f.write("# Extracted Text\n\n")
+              f.write(f"Source file: {source_path.as_posix()}\n")
+              f.write(f"Source type: {suffix}\n")
               f.write(f"Request ID: {request_id}\n")
               f.write(f"Requested by: {requested_by}\n")
               f.write(f"Extraction time UTC: {now}\n")
@@ -134,17 +173,18 @@ jobs:
               f.write(f"OCR attempted: {ocr_attempted}\n")
               f.write(f"OCR reason: {ocr_reason}\n")
               f.write(f"OCR language: {language}\n")
-              f.write(f"Pages: {len(pages)}\n")
+              f.write(f"Sections/pages: {len(pages)}\n")
               f.write(f"Characters extracted: {char_count}\n\n")
               f.write("---\n\n")
 
               for page_num, text in pages:
-                  f.write(f"\n\n## Page {page_num}\n\n")
+                  label = "Page" if suffix in PDF_EXTENSIONS else "Image"
+                  f.write(f"\n\n## {label} {page_num}\n\n")
                   f.write(text)
                   f.write("\n")
 
           print(f"Wrote {output_path}")
-          print(f"Extracted {char_count} characters from {len(pages)} pages using {extraction_engine}.")
+          print(f"Extracted {char_count} characters from {source_path} using {extraction_engine}.")
           PY
 
       - name: Commit extracted text
@@ -157,6 +197,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No extracted text changes to commit."
           else
-            git commit -m "Auto-extract PDF text from request"
+            git commit -m "Auto-extract text from request"
             git push
           fi
