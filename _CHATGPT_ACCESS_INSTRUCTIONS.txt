@@ -1,0 +1,75 @@
+I can’t directly write this to stored memory from here; I don’t have a memory-write tool available. But here is the memory-ready instruction pack. I’ll treat it as active for the rest of this conversation.
+
+The workflow is verified in the repo at `.github/workflows/extract-pdf-text.yml`, watching `_AI_REQUESTS/pdf_extract_request.json`, and the test extraction successfully produced `_AUTO_EXTRACTED_TEXT/PROTO_RESUME.txt`.  
+
+```text
+GitHub access instructions for Nathan / Satobloc repositories
+
+Primary repository:
+Satobloc/SAT_THEORY_ARCHIVE_2023-25
+
+Use the GitHub connector first, not ordinary web browsing, when accessing Nathan’s GitHub repositories.
+
+Basic access pattern:
+1. Confirm repo access with GitHub.get_repo or GitHub.list_repositories if needed.
+2. For plaintext/code/Markdown files, use GitHub.fetch_file with encoding="utf-8".
+3. For known paths, fetch directly by repository path rather than searching the web.
+4. For finding files, use GitHub.search with repository_name="Satobloc/SAT_THEORY_ARCHIVE_2023-25".
+5. Do not assume raw.githubusercontent.com/web access is sufficient; the connector is more reliable.
+
+PDF access pattern:
+Direct PDF fetching through the connector can retrieve base64 bytes, but large PDF content may be truncated before it can be reconstructed locally. Do not rely on direct PDF parsing through fetch_file.
+
+Instead, use the installed on-demand PDF extraction workflow.
+
+Workflow:
+.github/workflows/extract-pdf-text.yml
+
+Trigger file:
+_AI_REQUESTS/pdf_extract_request.json
+
+Generated text folder:
+_AUTO_EXTRACTED_TEXT/
+
+To request a PDF extraction:
+1. Fetch _AI_REQUESTS/pdf_extract_request.json to get its current sha.
+2. Update it with GitHub.update_file.
+3. Use JSON like:
+
+{
+  "pdf_path": "PATH/TO/FILE.pdf",
+  "requested_by": "ChatGPT",
+  "request_id": "unique timestamp or descriptive id"
+}
+
+4. Commit message should be:
+Request PDF text extraction for PATH/TO/FILE.pdf
+
+5. After GitHub Actions runs, fetch the corresponding text file from:
+_AUTO_EXTRACTED_TEXT/PATH/TO/FILE.txt
+
+Example:
+PDF:
+PROTO_RESUME.pdf
+
+Request file:
+_AI_REQUESTS/pdf_extract_request.json
+
+Generated output:
+_AUTO_EXTRACTED_TEXT/PROTO_RESUME.txt
+
+For PDFs in folders, preserve the folder structure:
+PDF:
+SAT O Core Modules/example.pdf
+
+Output:
+_AUTO_EXTRACTED_TEXT/SAT O Core Modules/example.txt
+
+Important constraints:
+- The action extracts only the requested PDF, not the whole archive.
+- The action creates the output folder automatically.
+- This is the preferred bridge for reading GitHub-hosted PDFs.
+- Do not create bulk text mirrors unless specifically requested.
+- Do not modify repository files unless Nathan explicitly asks or the modification is part of the PDF extraction request workflow.
+- Treat GitHub connector write access cautiously: read by default, write only when explicitly authorized.
+```
