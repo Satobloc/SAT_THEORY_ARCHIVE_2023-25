@@ -1,3 +1,9 @@
+######################
+###  MAY 31, 2026  ###
+######################
+
+AFFILIATION: Currently considering going back to school [remedial math?] looking for program recommendations. Suggestions welcome nathanmcknight@gmail.com
+
 
 ######################
 ###  FAIR WARNING  ###
