@@ -1,0 +1,51 @@
+# ========================================================================
+# SAT.O–Blockwave Mass Spectrum Visualization
+# ========================================================================
+
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+# ----- User-defined Parameters -----
+T_tension = 1e22      # Filament tension
+ell_f = 1e-35         # Filament scale
+C, g1, M_sq, E_overlap = 1.0, 0.01, 1e18, 1e-5
+k, beta, a = 1.0, 1.0, 0.0  # Spectrum parameters
+Q_values = np.arange(1, 6, 1)  # Topological charges
+N_values = np.arange(0, 5, 1)  # Excitation numbers
+
+# ----- Derived Mass Functions -----
+def m_bare(T, ell):
+    return T * ell / (3e8)**2
+
+def m_topo(m0, Q):
+    return m0 / Q
+
+def m_induced(C, g1, M_sq, E_overlap):
+    return C * g1**2 / M_sq * E_overlap
+
+def m_effective(m0, Q):
+    return m_topo(m0, Q) + m_induced(C, g1, M_sq, E_overlap)
+
+def m_spectrum(Q, N):
+    return np.sqrt(k * (N + beta * Q**2 - a))
+
+# ----- Compute Mass Grid -----
+m_grid = np.zeros((len(Q_values), len(N_values)))
+for i, Q in enumerate(Q_values):
+    for j, N in enumerate(N_values):
+        m_grid[i, j] = m_effective(m_bare(T_tension, ell_f), Q) + m_spectrum(Q, N)
+
+# ----- Plot Mass Spectrum -----
+Q_mesh, N_mesh = np.meshgrid(Q_values, N_values)
+fig = plt.figure(figsize=(10,7))
+ax = fig.add_subplot(111, projection='3d')
+
+surf = ax.plot_surface(Q_mesh, N_mesh, m_grid.T, cmap='viridis', edgecolor='k', alpha=0.9)
+ax.set_xlabel('Topological Charge Q')
+ax.set_ylabel('Excitation Number N')
+ax.set_zlabel('Effective Mass m_eff (kg)')
+ax.set_title('SAT.O–Blockwave Mass Spectrum')
+fig.colorbar(surf, shrink=0.5, aspect=5, label='Mass contribution')
+
+plt.show()
