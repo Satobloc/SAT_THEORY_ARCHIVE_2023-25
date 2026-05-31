@@ -1,0 +1,123 @@
+BLOCKWAVE STRING THEORY
+
+You’re not wrong—that’s exactly what we need: a dictionary that takes a standard string-mode specification and turns it into a single SAT filament’s transverse vibration (and back again). Here’s a compact, working blueprint.
+
+1) One filament from one string: the core mapping
+
+Pick a single SAT filament embedded as
+\mathbf{r}(z,t)=\big(X(z,t),\,Y(z,t),\,z\big),
+with z\in[0,L]. We will define X,Y by importing the string’s oscillator content.
+
+Open-string → filament (Neumann at both ends)
+
+Start from the usual open-string mode expansion in conformal gauge (suppressing the center-of-mass and longitudinal pieces, use transverse directions i\in\{x,y\}):
+X^{i}(\sigma,\tau)
+= x_0^{i} + 2\alpha’ p^{i}\,\tau
+	•	i\sqrt{2\alpha’}\sum_{n\neq 0}\frac{1}{n}\,\alpha^{i}_{n}\,e^{-in\tau}\cos(n\sigma).
+
+Set the geometric identification and time reparametrization
+\sigma=\frac{\pi z}{L},\qquad \tau=\omega_0\,t,
+where \omega_0 is a calibration frequency (see §4). Then define the SAT filament by
+X(z,t)=\sum_{n\ge 1}A^{(x)}_n\,\sin\!\frac{n\pi z}{L}\,\cos(n\omega_0 t+\phi^{(x)}n),\quad
+Y(z,t)=\sum{n\ge 1}A^{(y)}_n\,\sin\!\frac{n\pi z}{L}\,\cos(n\omega_0 t+\phi^{(y)}_n),
+with the amplitude–phase dictionary
+A^{(i)}n=\sqrt{2\alpha’}\;\frac{|\alpha^{i}{n}|}{n},\qquad
+\phi^{(i)}n=\arg\big(\alpha^{i}{n}\big).
+(This is just the real part of the complex mode sum, expressed as sines/cosines with phases. Using \sin vs \cos for the spatial profile corresponds to endpoint convention; Neumann → cos, but with our z\in[0,L] it’s convenient to use \sin and absorb a fixed phase—either is fine so long as it’s consistent.)
+
+Closed-string → filament (periodic)
+
+Closed strings have left/right movers:
+X^{i}(\sigma,\tau)=x_0^{i}+ \frac{\alpha’}{2}p^{i}\tau
+	•	i\sqrt{\frac{\alpha’}{2}}\sum_{n\neq 0}\frac{1}{n}\Big(\alpha^{i}{n}e^{-in(\tau-\sigma)}+\tilde{\alpha}^{i}{n}e^{-in(\tau+\sigma)}\Big).
+Map the loop coordinate to a loop filament (or the same straight filament but with periodic boundary z\sim z+L):
+\sigma=\frac{2\pi z}{L},\quad \tau=\omega_0 t,\quad
+\Rightarrow\quad
+X(z,t)=\sum_{n\ge 1}\Big[ A^{(i)}{n,\mathrm L}\cos\!\big(n(\omega_0 t-\tfrac{2\pi z}{L})+\phi^{(i)}{n,\mathrm L}\big)
+	•	A^{(i)}{n,\mathrm R}\cos\!\big(n(\omega_0 t+\tfrac{2\pi z}{L})+\phi^{(i)}{n,\mathrm R}\big)\Big],
+with A^{(i)}{n,\mathrm L/R}=\sqrt{\alpha’/2}\,|\alpha^{i}{n}|/n,\,|\tilde\alpha^{i}_{n}|/n and phases from the arguments of the mode coefficients.
+
+That’s the forward map: a standard string state (its \alpha_n,\tilde\alpha_n) picks a unique SAT filament vibration X(z,t),Y(z,t). The timesheet intersections (your fixed/moving dots) are then just slices of this one field \mathbf{r}(z,t).
+
+⸻
+
+2) Timesheet traces (how “strings” appear in SAT)
+	•	Fixed timesheet at z=z_0: the trace is the closed curve
+\gamma_{\text{fixed}}(t)=\big(X(z_0,t),\,Y(z_0,t)\big)
+in the (x,y) plane. This is the ST loop as a record.
+	•	Moving timesheet with z-ut=0: the dot is
+\gamma_{\text{move}}(t)=\big(X(ut,t),\,Y(ut,t),\,z=ut\big),
+giving the 3D trail you visualized.
+
+No extra dof were introduced—the two dots are two foliations of the same worldsheet W=\{(\mathbf{r}(z,t),t)\}.
+
+⸻
+
+3) The inverse map (filament → string quanta → particle)
+
+Given a filament X(z,t),Y(z,t):
+	1.	Extract Fourier data. Compute the spatial–temporal Fourier series on [0,L]\times[0,T]:
+X(z,t)\approx\sum_{n\ge 1}\Big[a^{(x)}_n\sin\!\frac{n\pi z}{L}\cos(n\omega_0 t)+b^{(x)}_n\sin\!\frac{n\pi z}{L}\sin(n\omega_0 t)\Big],
+similarly for Y. Then A^{(x)}_n=\sqrt{(a^{(x)}_n)^2+(b^{(x)}_n)^2}, \phi^{(x)}_n=\arctan2(-b^{(x)}_n,a^{(x)}_n), etc.
+	2.	Recover \alpha_n. Use the dictionary
+\alpha^{i}_{n}= \frac{n}{\sqrt{2\alpha’}}\,A^{(i)}n\,e^{\,i\phi^{(i)}n},
+\quad(\text{open}),
+\qquad
+\alpha^{i}{n},\tilde\alpha^{i}{n}=\frac{n}{\sqrt{\alpha’/2}}\times(\text{left/right amplitudes}),\ (\text{closed}).
+	3.	Build the level N and mass. For a closed string,
+N=\sum_{n\ge 1} n\,\sum_{i}(N^{i}{n,\mathrm L}+N^{i}{n,\mathrm R}),\quad
+\alpha’ M^2 = 4(N-a),\ \ a=2\ \text{(bosonic)}\ \text{or}\ a=1\ \text{(superstring)}.
+For open strings, \alpha’ M^2= N-a. The occupation numbers N^{i}_{n} are proportional to the squared amplitudes in each transverse polarization; e.g. N^{i}n\propto |\alpha^{i}{n}|^2 with the usual normalization choice.
+	4.	Spin/polarization. The distribution across i=x,y,\dots determines polarization/spin; the phase relations \phi^{(i)}_n fix helicity states.
+	5.	Charges from holonomy. In SAT, quantum numbers (U(1), SU(2), SU(3)) attach via holonomy on the closed trace at a timesheet:
+q_a \ \propto\ \oint_{\gamma_{\text{fixed}}}\!\mathcal{A}^{(a)}\cdot d\ell,
+i.e. the loop’s holonomy gives quantized charges (your \theta-compactness / \tau-triality story). So particle identity = (mass/level, spin/polarization) from oscillator content plus charges from holonomy on the trace.
+
+This inverse pipeline is what lets you “reverse-map filament → particle.”
+
+⸻
+
+4) Calibration knobs (so the map isn’t hand-wavy)
+
+You only need a few calibration constants to fix units and keep both sides honest:
+	•	\alpha’ (string slope): sets absolute mass scale from level N.
+	•	L and \omega_0: choose so that the filament wave speed c_f = \omega_0 L/\pi matches your SAT medium’s transverse signal speed.
+	•	Normalization convention for N_n vs |\alpha_n|^2 (pick the textbook one you like and stick to it).
+
+Once these are set once, the forward and inverse maps are parameter-free.
+
+⸻
+
+5) Minimal “recipe” you can implement now (no prose, just steps)
+
+Forward (string → filament)
+	1.	Pick \alpha^{i}{n},\tilde\alpha^{i}{n}, \alpha’, L, \omega_0.
+	2.	Set \sigma=\pi z/L (open) or 2\pi z/L (closed), \tau=\omega_0 t.
+	3.	Compute X(z,t),Y(z,t) using the expansions above.
+	4.	All timesheet traces come from slicing \mathbf{r}(z,t).
+
+Inverse (filament → particle)
+	1.	Given X(z,t),Y(z,t), do the (n,\omega) Fourier extraction → A^{(i)}_n,\phi^{(i)}_n.
+	2.	Recover \alpha^{i}{n} (and \tilde\alpha^{i}{n} if closed).
+	3.	Form N and get M^2 from the standard level formula.
+	4.	Read spin/polarization from the transverse composition; read charges from holonomies on the fixed-timesheet loop.
+
+⸻
+
+6) Quick sanity example (open, one quantum)
+	•	Take n=1 with \alpha^{x}_{1}\neq 0, others zero.
+	•	Then X(z,t)=A\sin(\pi z/L)\cos(\omega_0 t+\phi), Y=0.
+	•	Inverse gives N=1\Rightarrow \alpha’ M^2=1-a (massless in superstring), one transverse polarization (spin info).
+	•	The fixed timesheet loop is a line segment oscillating in x (ellipse if you also add Y with \pi/2 phase).
+	•	Holonomy on that loop sets its charge.
+
+Add n=2 with small amplitude and you’ll see the fixed loop gain petals—an excited state with N=1+2=3 (schematically), heavier mass, richer polarization.
+
+⸻
+
+Bottom line
+	•	The equations above are the map you asked for: string modes → SAT filament, and the inverse back to particle data.
+	•	The two “dots” are not extra entities; they’re just two timesheets slicing one worldsheet.
+	•	The quantum term in your Lagrangian naturally sits on the holonomy of the closed trace \gamma_{\text{fixed}}, while the elastic/kinetic term sits on the induced metric of W.
+
+If you want, I can package this as a crisp “SAT↔ST dictionary” PDF (with the exact normalization choices spelled out and a one-page derivation) and a small code snippet that takes \{\alpha_n\} in and spits out X(z,t),Y(z,t) and the two traces.
