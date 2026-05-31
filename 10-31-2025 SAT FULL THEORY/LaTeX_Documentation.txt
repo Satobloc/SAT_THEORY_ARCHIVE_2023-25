@@ -1,0 +1,136 @@
+This website uses cookies. To learn more, read our privacy policyOK
+ 
+The LaTeX Project logoThe LaTeX Project
+Home
+ 
+About
+ 
+Get
+ 
+LaTeX3
+ 
+Publications
+ 
+Help
+ 
+News
+Core Documentation
+This page contains references to core documentation about LaTeX written by the LaTeX team. Articles on specific topics, talks, etc. can be found on the publication page indexed by topic.
+
+In addition pointer to documentation in other languages (usually developed and maintained by user groups) is given. To find documentation that is available elsewhere on the net, visit the links page. Also, there's a whole page dedicated to books on LaTeX and related topics.
+
+If you know about a good resource of TeX and related documentation not listed here or on the links page, please contact us.
+
+Distributed LaTeX documentation
+General documentation
+Hook management
+Page mark management
+Typesetting mathematics
+Japanese translations
+Summary of changes by release
+Source code documentation
+Other non-english documentation resources
+German
+French
+Documentation distributed with LaTeX
+General documentation
+A short introduction to newer features of LaTeX is given in the following document:
+
+LaTeX2e for authors — new features
+The original guide describing commands introduced with LaTeX2e in 1994 (with some focus on the differences between the old LaTeX 2.09 and current standard LaTeX2e) is available as well. It remains relevant because the commands introduced between 1994 and 2020 are not included in the previous document:
+
+LaTeX2e for authors — historic version
+For more extensive introductory documentation take a look at the links to contributed documentation that have their own page.
+
+More advanced documentation about core LaTeX, which is available via the net includes:
+
+LaTeX2e for class and package writers — current version
+LaTeX2e for class and package writers — historic version (the original document with updates until 2020 with more focus on changes between LaTeX 2.09 and LaTeX2e)
+LaTeX2e font selection
+LaTeX2e font encodings
+Cyrillic languages support in LaTeX
+Configuration options for LaTeX2e
+Modifying LaTeX
+The LaTeX3 Project
+The LaTeX3 programming layer (which is part of the LaTeX format) is documented in
+
+The L3 programming layer interface documentation
+Documentation of the new hook management
+The hook management introduced in 2020 is largely intended for package developers. However, most of the available hooks can also be useful for document authors. The documentation is currently split across several documents:
+
+Overview of LaTeX’s hook management and core hooks — lthooks-doc.pdf
+Generic hooks for document-level commands — ltcmdhooks-doc.pdf
+Hooks available when reading files — ltfilehook-doc.pdf
+Hooks available when writing pages — ltshipout-doc.pdf (e.g., for background pictures, etc.)
+Hooks available when processing paragraphs — ltpara-doc.pdf
+Documentation of the new mark mechanism
+The new mark mechanism introduced in 2022 offers arbitrary many independent marks and resolves the issues with LaTeX legacy marks (available through \markbox and \markright). The old mechanism remains available so that classes using it continue to work without any updates.
+
+Overview of LaTeX’s new mark mechanism — ltmarks-doc.pdf
+Typesetting complex mathematics
+Specifically targeting the typesetting of mathematics is:
+
+User’s Guide for the amsmath Package (Version 2.1)
+Japanese translations of documentation
+Yukitoshi FUJIMURA kindly translated two of the above documents to the Japanese language. These are
+
+著者のための LaTeX 2e (LaTeX2e for authors) [source]
+amsmath パッケージユーザガイド（Version2.1） (User’s Guide for the amsmath Package) [source]
+He also provided a translation of “Short Math Guide for LaTeX” distributed and maintained by the American Mathematical Society (AMS):
+
+はやわかり LaTeX で数式組版 (Short Math Guide for LaTeX) [source]
+Here are his comments on the translation.
+
+Quick summary of changes by release
+Changes made to the LaTeX kernel or to core packages maintained by the LaTeX team are discussed in some detail in the LaTeX News Newsletters that come as part of each release.
+
+A document with all available issues bundled together in their historical order is ltnews.pdf.
+
+Source code documentation
+The full documentation of the source code with all commands and their implementation can be obtained by processing source2e.tex distributed as part of the LaTeX2e distribution. A compiled version (from the current release) with a list of all major changes and an index of all commands and their usage within the kernel is
+
+The LaTeX2e Sources (1000+ pages)
+The L3 programming layer sources (1000+ pages)
+As a companion document Martin Scharrer compiled a useful reference list with links back into the 2e source document if both are stored in the same directory:
+
+List of internal LaTeX2e Macros useful to Package Authors
+For the implementation of the standard classes article, report, and book there also exists a document that contains the complete sources with commentary:
+
+Standard Document Classes for LaTeX2e
+In 2015 we introduced a roll-back/roll-forward functionality by which it becomes possible to reset the kernel code (though not external packages at this stage) to the behavior that it had on a particular date. This can be useful when processing older documents. It is documented here:
+
+The latexrelease package
+Other non-english documentation
+There is a lot of documentation in languages other than English. Lists of books and other resources in other languages are maintained by TeX user groups in the respective countries. The following are known to us:
+
+German
+German LaTeX documentation maintained by German TeX User Group Dante e.V.
+French
+French LaTeX documentation maintained by the Francophone TeX Users Group GUTenberg
+Tout ce que vous avez toujours voulu savoir sur LaTeX
+A collection of french LaTeX documentation maintained by Framasoft
+Apprends LaTeX!
+LaTeX Books
+List of books on LaTeX in English, French, German, and Spanish.
+
+Useful Links
+Links to contributed documentation, tutorials, videos, communities, etc.
+
+Getting LaTeX
+Get LaTeX for Linux, Mac OS X, Windows and Online.
+
+LaTeX is a document preparation system used for the communication and publication of scientific documents. LaTeX is free software and is distributed under the LaTeX Project Public License.
+
+Home
+About
+Team
+LaTeX News
+Getting LaTeX
+Publications
+Help
+Documentation
+LaTeX Books
+Bugs
+Privacy
+Contact
+
