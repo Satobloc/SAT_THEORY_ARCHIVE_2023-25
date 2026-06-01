@@ -1,0 +1,104 @@
+SAT.4D — Structural Overview (August 2025)
+
+=================================================
+1. DIRECTIVES & PURPOSE
+-------------------------------------------------
+- SAT.O is a structural, geometric, and topological framework built on a 4D differentiable manifold M populated by 1D filaments.
+- No metric, field, or external dynamics are assumed a priori.
+- All observables (mass, charge, curvature, interaction) emerge from filament geometry and its intersection with a 3D resolving surface Σ_t.
+- Core principle: all quantities must be expressible in SAT-native geometric and topological terms, with falsifiability conditions.
+
+References: SAT_DIRECTIVES.txt [July 2025]
+
+=================================================
+2. CORE MODULES O1–O8
+-------------------------------------------------
+- O1: Hyperhelical Filament Dynamics
+  Defines filament embeddings, Hamiltonian formalism, binding conditions, and kink resistance.
+- O2: Emergent Gravitational Action
+  Emergent metric and curvature via ensemble averaging. Curvature arises statistically from filament congruence.
+- O3: Topological Gauge Symmetries
+  Phase-locked filament bundles generate U(1), SU(2), SU(3) symmetry classes.
+- O4: Falsifiability of Particle Classes
+  Only n=1,2,3 bindings are stable (neutrinos, mesons, baryons). n≥4 falsifies SAT.
+- O5: Gauge Couplings
+  Couplings emerge from winding/linking/triplet densities. Ratios tied to filament statistics.
+- O6: Unified Emergent Action
+  Single action unifying gravity and gauge interactions via topological densities.
+- O7: Misalignment Field & Strain
+  θ4 diagnostic angle; strain tensor Sμν encodes local curvature distortion.
+- O8: Topological Mass Suppression
+  Effective inertial mass suppressed by Q (winding + linking + writhe).
+
+References: SAT_CORE_4D.txt, SAT_CLEAN-eval.pdf, SAT_ST_integratin_test.pdf
+
+=================================================
+3. EXTENDED MODULES O9–O10
+-------------------------------------------------
+- O9: 4D-Only String Embedding
+  • Mass formula m² = k(N + β Q² − a).
+  • Ground-state calibration from N=0 masses.
+  • Spectrum generation respecting topological cycle definitions from topo.py.
+- O10: Two-Sector Particle ↔ Geometry
+  • Sector I (Leptonic): strings wrapping minimal S¹ cycles (e, μ, π).
+  • Sector II (Hadronic): strings wrapping larger cycles with flux (ρ, K*, φ).
+  • Predicts ground and radial excitations; overlay with PDG IDs via particle_ids.txt.
+
+References: SAT_ST_integratin_test.pdf
+
+=================================================
+4. DEPLOYMENT & INTERPRETIVE MODES
+-------------------------------------------------
+- Mode 1: True Block (default, all core modules).
+- Mode 2: Semi-Dynamic Block (for quantum collapse/decoherence).
+- Mode 3: Solidification Front (for cosmology, entropy models).
+
+Rules:
+- Core derivations must remain in Mode 1.
+- Interpretive overlays allowed only for speculative or cosmological contexts.
+
+References: SAT_DEPLOYMENT_GUIDELINES.txt
+
+=================================================
+5. QUANTUM EXTENSIONS
+-------------------------------------------------
+- Dirac Bundles: fermions as Hopf-linked filament bundles with effective mass m_eff = m0/Q.
+- Yang–Mills sector: SU(2)×SU(3) couplings from link/triplet densities.
+- Curvature-coupled mass: m_eff(R) = m0/Q + αR.
+- Topological self-interactions: scalar ξ fields with λ4, λ6 terms.
+- Entropic extensions: strain scalar S(x) defines proper time increment dτ = S(x) dφ.
+
+References: SAT_quantum1.txt
+
+=================================================
+6. ACTIVE GLOSSARY
+-------------------------------------------------
+- θ4(x): Misalignment diagnostic angle.
+- uμ(x): Emergent time-flow vector field.
+- Sμν(x): Strain tensor.
+- S(x): Strain scalar.
+- ρ_wind, ρ_link, ρ_triplet: Topological densities (define g_G).
+- g_G: Gauge coupling constants from densities.
+- Q: Topological suppression index; m_eff = m0/Q.
+- φ(x): Foliation scalar defining Σ_t.
+- dτ(x): Emergent proper time increment.
+
+References: SAT_glossary_17jun2025.txt, SAT_GLOSSARY_PATCH.tex
+
+=================================================
+7. STRUCTURE LOCKS & CODEBASE
+-------------------------------------------------
+- All O1–O8 modules implemented as Python symbolic structure-lock files (sympy-based).
+- O9 & O10 provided as Python packages under sat_o/ with topo.py and data/particle_ids.txt.
+- Integration tests exist in tests/test_integration.py.
+
+References: SAT4DCORE_MASTER_STRUCTURE_LOCK.py, sat_o9.py, sat_o10.py
+
+=================================================
+8. STATUS & OUTLOOK
+-------------------------------------------------
+- Core theory O1–O8 is clean, directive-compliant, and falsifiable.
+- O9–O10 extend to predictive particle physics via ST topologies, cycle definitions, and particle ID mapping.
+- Quantum modules sketch Dirac/Yang–Mills correspondence and entropy flow.
+- Glossary patched and harmonized to new cycle-based structure.
+- Future tasks: finalize Mode1→Mode2 simulations, entropy models, and integrate extended tests for O9–O10.

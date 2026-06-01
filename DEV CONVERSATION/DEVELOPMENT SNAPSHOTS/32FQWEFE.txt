@@ -1,0 +1,68 @@
+SAT — Predictions & Retrodictions (with tolerances)
+As of 2025-08-31
+
+A) Stability & Exotic States (Q>3)
+
+- Prediction: No stable bound bundles with Q ≥ 4. Tolerance: strict binary (any long-lived/stable Q ≥ 4 falsifies). Status: supported by current tetra/penta data.
+  Modules/logic: SAT.O4 stability; WKB reconnection picture.
+  Checks: All observed exotics (T_cc, P_c) short-lived; hierarchy τ(T_cc) > τ(P_c) reproduced qualitatively.
+  Quantitative target (lifetime bounds for unobserved):
+    • T_bb (bbūd̄): τ ≈ 3.0×10^−22 s (upper bound test).
+    • H-dibaryon (uuddss): τ ≈ 1.2×10^−24 s (upper bound test).
+  Tolerance for this item: observation of lifetimes significantly longer than these bounds falsifies SAT.O4.
+B) Meson (Q=2) Decay Widths (Module O12)
+
+- Retrodiction: Vector-meson widths reproduced by a minimal topology-conditioned law:
+    Γ = Λ′ · exp(−α_top^2 · ΔE) · (p/p0)^(2L+1) · exp[−β (N_disc−1)]
+  Parameters fixed once: α_top = 0.35 ± 0.02 GeV (from baryon spectroscopy), p0 = p_ρ, β from one OZI-suppressed width (ϕ→K K̄).
+  Tolerance: ≤ 100% relative error per width after constants are frozen (falsify if any exceeds this).
+  OZI rule: branching(OZI-forbidden) ≲ 10^−3 of allowed mode; violation falsifies O12.
+  Status: ρ, ϕ (inputs/cross-checks) OK; ω, ψ(3770) within ~10%; broader program ongoing.
+C) Lifetime scaling via local geometry (α_top(S, ρ_link, ∇θ4))
+
+- Prediction: Meson lifetimes follow τ ∼ ℓ_f · exp(2 α_top), where α_top(x) = β1 S + β2 ℓ_f^3 ρ_link + β3 ℓ_f |∇θ4|.
+  Test: log(τ) vs. α_top should be linear/monotone across environments (vacuum vs. nuclear media).
+  Tolerance: qualitative monotone/linear trend with medium-dependent shifts; systematic departures invalidate the model once observables are measured with sufficient precision.
+D) Mass Spectrum
+
+- Retrodiction (light sector, torsion-exponent model O5-B): π, μ, K, η reproduced with RMS residual ~0.55% after a single γ_χ fit; D±, D_s± predicted at <0.1% without extra parameters.
+  Tolerance: target ≤ 1% residual on light sector; ≤ 0.3% on charm threshold checks.
+- Baryons require a Borromean binding correction B(Q); predicts raised Q=3 masses while preserving meson fits.
+  Tolerance: future fits to nucleon/exotic-baryon masses should fall within a few percent once B(Q) is included; factor-of-2 deviations would falsify the mass mechanism per SAT.O9–O10.
+- Leptons (Q=1): Pure (w, τ) model fails; revised defect-based O10 or A4 (O13) needed (see F/G).
+E) Exotic widths & lifetimes (retrodictions)
+
+- Retrodiction set 1 (earlier pass): lifetimes underpredicted by one to two orders of magnitude (sensitivity to α_top and near-threshold E).
+- Retrodiction set 2 (later pass): widths within ≲ 1.5× for T_cc and P_c with a single barrier parameter.
+  Tolerance stance: treat as provisional; adopt order-of-magnitude agreement until O12 is finalized. Divergence beyond ×10 after finalization would falsify O12/O4 alignment.
+F) Discrete Flavour (O13: A4 embedding)
+
+- Prediction: Charged-lepton mass ratios from discrete phases with no new real parameters; unique integer assignment (k_e, k_μ, k_τ) = (2,1,0).
+  Target residuals: mass ratios within ≲ 6% (derivation-dependent).
+- Prediction: PMNS mixing angles close to tribimaximal with small phase shifts: θ12≈34.6°, θ23≈45°, θ13≈9.2°, δ_CP≈±90°.
+  Tolerances:
+    • Strict model-structure test: deviations > ~1° from the predicted overlap pattern falsify the chosen discrete embedding.
+    • Conservative falsification gate: θ13 or δ_CP moving outside ±5° of the predicted values falsifies the minimal assumptions.
+- Directional width scaling: α_top(τ→μ) > α_top(μ→e), consistent with observed lepton decay hierarchy.
+G) Gauge & Gravity from Topology
+
+- Prediction: Gauge couplings from linking densities (g_G^−2 ∼ ρ_G ℓ_f^2) with hierarchy g1<g2<g3 reproduced in toy simulation (g1≈0.145, g2≈0.270, g3≈0.405).
+  Tolerance: hierarchy and rough magnitudes stable across ensembles; clear mismatch in ordering or persistent large deviation after scaling studies would challenge the postulate.
+- Prediction/retrodiction: Force-strength ratios to gravity from mode densities, α_i ∼ ρ_i^2, match experiment within a factor ≲ 2 without tuning.
+  Tolerance: maintain agreement within ~2×; systematic failure of quadratic scaling falsifies the mechanism.
+- Retrodiction: Newtonian limit recovered; deviation |Φ−Φ_N|/|Φ_N| < 10^−4% for r ≳ 10^−14 m with ε≈10^−20 m.
+  Tolerance: detection of larger deviations at those scales would falsify the emergent metric regularization.
+H) Cosmology (high-level)
+
+- Prediction: Mode-density dilution ρ_i(t) ∝ a(t)^{-3}; embedding-mode scarcity explains the smallness of gravity; potential non-Gaussian strain signatures.
+  Tolerances: qualitative for now; quantitative CMB/large-scale-structure targets to be set after SAT cosmology module finalization.
+I) Global falsifiability matrix (selected entries)
+
+- No SUSY partners: discovery of sleptons/gauginos would refute SAT’s particle ontology.
+- Mass ∝ 1/Q trend at fixed excitation: large, systematic deviations would challenge topological suppression.
+- θ4 & S_μν quantization signatures: absence in regimes where predicted would falsify curvature emergence.
+Notes on tolerance semantics
+
+• "Tolerance" here means the quantitative window within which SAT claims control (post-fit, where applicable) or the threshold that would falsify a claim.
+• Some sectors (O12/O4 interface, cosmology) are still converging; those tolerances are provisional and will be tightened as modules lock.
+• Where conflicting internal drafts exist, we state both and impose the stricter future gate once the module is finalized.

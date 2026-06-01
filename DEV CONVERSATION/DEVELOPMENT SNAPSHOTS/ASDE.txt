@@ -1,0 +1,143 @@
+
+SAT_4D — PREDICTIONS & RETRODICTIONS (WITH TOLERANCES)
+======================================================
+
+Scope
+-----
+This document collates testable claims SAT_4D makes or targets, split into RETRODICTIONS (must already match data) and PREDICTIONS (new/clarified outcomes). Each item carries a tolerance class:
+
+  • Class A (Exact/Structural): Pass/Fail (no deviation allowed).
+  • Class B (Quantitative Band): Dimensionless or scale ratios with target error bands (typically 5–10%; specify per item).
+  • Class C (Bounded/Directional): Must agree with existing experimental bounds or inequality/direction; any violation falsifies.
+
+Notes
+-----
+• “Quark-level” refers to partonic bound states (pre-nuclear). 
+• All tolerances are framed for post-redevelopment SAT_4D; items marked [Pending derivation] require completion in O1–O6 workflow.
+• Where numbers are not yet derived internally, Class C ties the claim to “no violation of current bounds”.
+
+------------------------------------------------------
+RETRODICTIONS (Must Already Match)
+------------------------------------------------------
+
+[GR-1] Newtonian & post-Newtonian limits (perihelion, light-bending, Shapiro delay)
+  Statement: SAT_4D emergent metric reproduces GR’s tested weak-field phenomenology.
+  Tolerance: Class C — Consistent with current experimental bounds on PPN parameters.
+  Status: Requires O1→O2 rebuild to verify heat-kernel/ensemble mapping. [Pending derivation]
+
+[GR-2] Gravitational wave propagation speed and polarization
+  Statement: c_g = c; tensor polarization dominant (no extra longitudinal/scalar modes at leading order).
+  Tolerance: Class C — Within current observational bounds on c_g/c and allowed polarizations.
+  Status: Emergent metric + strain dynamics to enforce. [Pending derivation]
+
+[SM-1] Gauge group content
+  Statement: Topology yields SU(3)×SU(2)×U(1) as the minimal stable bundle symmetries.
+  Tolerance: Class A — Exact structural match.
+  Status: O3/O3.1 consolidation; quantum stability modeling required.
+
+[SM-2] Charge quantization
+  Statement: Electric charge quantized via linking/winding numbers; quark/lepton charges in rational units.
+  Tolerance: Class A — Exact quantization structure.
+  Status: Map winding/linking to hypercharge/weak isospin. [Pending derivation]
+
+[QCD-1] Confinement (no free color)
+  Statement: Color charges cannot be isolated due to topological instability in 4D.
+  Tolerance: Class A — Structural.
+  Status: O3 topology-to-confinement proof sketch exists; needs formalization.
+
+[HAD-1] Stable quark-level bound states limited to mesons (2) and baryons (3)
+  Statement: Only 2- and 3-body partonic topologies (Hopf/Borromean) are 4D-stable; n≥4 unstable.
+  Tolerance: Class A — Structural; “stable” = no asymptotic bound states beyond 3 at quark level.
+  Status: O4.4D provides theorem outline; finalize proof & caveats for resonances.
+
+[QED-1] Photon masslessness
+  Statement: U(1) gauge excitation is exactly massless in the emergent limit.
+  Tolerance: Class C — Must not contradict existing upper bounds on m_γ; any detected m_γ>0 would falsify.
+  Status: Tie to topology (first Chern class = 0 in vacuum sector). [Pending derivation]
+
+[EP-1] Universality of free fall (weak equivalence principle)
+  Statement: Inertial = gravitational response via the same emergent metric.
+  Tolerance: Class C — Within current bounds on Eötvös parameter.
+  Status: Emergent metric consistency check in O2. [Pending derivation]
+
+------------------------------------------------------
+PREDICTIONS (New/Sharpened Tests)
+------------------------------------------------------
+
+[EXO-1] Exotics at quark level are transient only
+  Statement: Tetra-/penta-quark and higher states appear only as resonances; no asymptotically stable exotics.
+  Tolerance: Class A (structural) + Class C on widths — no ultra-narrow exotics (e.g., widths far below typical hadronic scales). 
+  Status: Clarify “ultra-narrow” criterion after O3+O8 coupling/mass scales. [Pending numeric threshold]
+
+[EXO-2] Narrow-width bound exotics excluded
+  Statement: SAT_4D excludes quark-level exotics with parametrically suppressed widths (e.g., long-lived beyond standard hadronic timescales).
+  Tolerance: Class C — No exotics with anomalously small widths relative to QCD scale.
+  Status: Define “parametric suppression” via O5 RG + O8 topology. [Pending derivation]
+
+[COUP-1] Gauge coupling ratios from linking density
+  Statement: At a specified reference scale μ*, coupling ratios α_i(μ*) follow a function of filament linking densities.
+  Tolerance: Class B — Target ≤10% relative error after internal RG closure; report a numeric window per α_i. 
+  Status: Requires O5 (derivation) + RG emergence from ensemble stats. [Pending derivation]
+
+[COUP-2] Running couplings from filament statistics
+  Statement: β-functions emerge from filament ensemble fluctuations; predict qualitative features of unification/no-unification.
+  Tolerance: Class B/C — Qualitative trend must match; quantitative running targeted ≤10–20% bands at selected μ bins. 
+  Status: Pending O5 + statistical modeling.
+
+[MASS-1] Topological mass suppression hierarchy
+  Statement: Mass scales obey suppression factors determined by linking/writhe invariants.
+  Tolerance: Class B — Fit exponents within 10–20% once invariants are fixed; outliers flagged.
+  Status: O8 provides mechanism; calibrate against known spectra. [Pending mapping]
+
+[CONST-1] G and Λ co-emergence
+  Statement: Newton’s constant and cosmological constant arise from the same filament ensemble statistics.
+  Tolerance: Class B/C — Predict scaling relation sign and magnitude order; numeric bands to be reported post O2 rebuild.
+  Status: O2 redevelopment critical; Λ self-tuning mandatory (no ad‑hoc fine-tuning).
+
+[GW-1] Background stochastic GW features
+  Statement: Emergent-geometry filament noise yields spectral characteristics (slope/cutoffs) distinct from classical GR-only backgrounds.
+  Tolerance: Class C — Directional predictions (e.g., slope inequalities); numeric shape after O2 completion.
+  Status: [Pending derivation]
+
+[TIME-1] Relational time effects (later module)
+  Statement: Coherent “sheen” fields modulate local clock rates/decoherence in specific environments.
+  Tolerance: Class C — Must not contradict precision clock tests to date; proposes niche regimes for deviation.
+  Status: O7 (deferred); collect constraints during rebuild.
+
+[FERM-1] Spin-1/2 from writhe/twist
+  Statement: Spinor behavior emerges from geometric phase upon 2π→4π rotations via filament writhe/twist.
+  Tolerance: Class A/B — Structural 4π periodicity exact; quantitative phase accumulation validated in toy models.
+  Status: [Pending geometric construction] O3/O6 interface.
+
+[ANOM-1] Anomaly cancellation as topological identity
+  Statement: Required gauge anomaly cancellations correspond to integral topological identities of filament bundles.
+  Tolerance: Class A — Exact cancellations must hold.
+  Status: [Pending] Map anomaly polynomials to bundle invariants in 4D.
+
+[NEU-1] Neutrino sector topology
+  Statement: Distinct linking classes predict qualitative mixing patterns; mass ordering emerges from suppression factors.
+  Tolerance: Class C/B — Directional (normal/inverted) + banded mixing angles once mapped.
+  Status: Exploratory; only proceed if consistent with O3/O8 framework.
+
+[EDM-1] Tiny electron EDM (if U(1) vacuum sector topologically trivial)
+  Statement: EDM highly suppressed by topology; near-zero.
+  Tolerance: Class C — Must not exceed current bounds.
+  Status: Conditional; depends on parity-violating structures in O3/O6.
+
+------------------------------------------------------
+FALSIFICATION TRIGGERS (Examples)
+------------------------------------------------------
+• Discovery of an asymptotically stable quark-level tetraquark/pentaquark (contradicts [HAD-1], [EXO-1]).
+• Robust evidence for photon mass m_γ > 0 (contradicts [QED-1]).
+• Equivalence principle violation above existing bounds (contradicts [EP-1]).
+• Precision coupling ratios grossly inconsistent with any linking-density mapping (contradicts [COUP-1]).
+• Irreducible need for ad-hoc Λ fine-tuning after O2 rebuild (contradicts [CONST-1]).
+
+------------------------------------------------------
+STATUS KEY
+------------------------------------------------------
+• Ready: can be audited now with existing SAT_4D text.
+• Pending derivation: needs O1–O6 redevelopment and/or code-locked proofs.
+• Conditional: depends on a structural choice in redevelopment (flagged).
+
+END OF FILE

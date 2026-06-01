@@ -1,0 +1,143 @@
+SAT PREDICTIONS & RETRODICTIONS — WITH TOLERANCES
+=================================================
+Date: 2025-08-31
+
+How to read this list
+---------------------
+Each item states: (Domain) Effect -> Leading SAT scaling/closed-form -> Tolerance
+"Tolerances" are expressed parametrically so you can plug in an observational bound eps (fractional or absolute)
+and immediately infer constraints on the SAT parameters (chiefly the filament scale l_f and stiffness T).
+Where a clean formula exists, we give it; otherwise we give the correct leading scaling with guidance.
+Symbols: l_f = filament length scale; T = stiffness; b = impact parameter; r_s = Schwarzschild radius;
+L = characteristic length of the system; omega_f ~ c/l_f = SAT spectral knee; c = speed of light.
+
+A. Gravity: static & quasi-static
+---------------------------------
+P1. (Inverse-square law at short range) Soft-core Newton potential
+    Effect -> Phi(r) = -GM / sqrt(r^2 + l_f^2); Force F = GM r / (r^2 + l_f^2)^(3/2)
+    Leading fractional deviation from Newton: delta_F/F_N = 1 - r^3 / (r^2 + l_f^2)^(3/2) ~ (3/2)(l_f/r)^2 for r >> l_f
+    Tolerance -> To satisfy a bound |delta_F/F_N| <= eps at scale r=L:
+                 l_f <= sqrt( (2/3) * eps ) * L
+
+P2. (Planetary orbits) Perihelion/apsidal precession from central potential softening
+    Effect -> Additional precession per orbit scales ~ (l_f/a)^2 for semi-major axis a (for r >> l_f)
+    Tolerance -> |Delta_varpi| per orbit <= K_eps  implies  l_f <= sqrt(K_varpi * K_eps) * a
+                 (Use data-derived K_varpi; scaling with (l_f/a)^2 is robust; plug K_varpi from ephemerides analysis)
+
+P3. (Light deflection) Lensing angle for impact parameter b
+    Effect -> Replace GM/b with GM * b^2 / (b^2 + l_f^2)^(3/2) at leading order
+              Fractional change: delta_alpha/alpha_GR ~ 1 - b^3 / (b^2 + l_f^2)^(3/2) ~ (3/2)(l_f/b)^2
+    Tolerance -> For a lens test at b = L: l_f <= sqrt( (2/3) * eps ) * L
+
+P4. (Shapiro time delay) Radar echoes / pulsar timing near mass M
+    Effect -> Logarithm argument regularised at small impact parameter; fractional change ~ O((l_f/b)^2)
+    Tolerance -> l_f <= sqrt( eps ) * b (scaling-level; coefficient ~ 1)
+
+P5. (Gravitational redshift near compact objects)
+    Effect -> Soft-core potential reduces redshift for trajectories passing within r ~ l_f
+    Tolerance -> For observations probing down to r_min: require |delta_z/z| <= eps => l_f <= sqrt(eps) * r_min
+
+B. Strong gravity, black holes, echoes
+--------------------------------------
+P6. (Singularity resolution) No r -> 0 curvature blow-up; minimal core size ~ l_f
+    Retrodiction -> Avoids GR singularities; replaces with finite-curvature core
+    Tolerance -> Consistency with exterior tests: deviations at r >> l_f suppressed ~ (l_f/r)^2 (see A-series constraints)
+
+P7. (Shadow size and photon ring) Near-horizon optics
+    Effect -> Shadow diameter shift scales ~ O(l_f/r_s); higher-order structure in photon ring brightness profile
+    Tolerance -> |delta_shadow|/shadow <= eps_EHT  =>  l_f <= eps_EHT * r_s
+
+P8. (Post-merger GW "echoes" / late-time modulations)
+    Effect -> If core/coating modifies near-horizon reflection, echo delay ~ O(r_s * log(r_s/l_f)); amplitude suppressed
+    Tolerance -> Non-detection at SNR sets upper bound on echo amplitude A_echo(l_f,T); use pipeline-specific eps_echo
+                 Map: A_echo ~ f(T) * (l_f/r_s)^p with p>=1  =>  l_f <= (eps_echo / f(T))^(1/p) * r_s
+
+C. Gravitational waves and high-frequency propagation
+-----------------------------------------------------
+P9. (Spectral knee / attenuation) Above omega_f ~ c/l_f, amplitudes from highly curved worldlines are exponentially damped
+    Effect -> Transfer function H(omega) ~ exp[ -C(T) * (omega/omega_f)^q ], with q >= 2 (curvature-weight induced)
+    Tolerance -> For band-limited detectors with max omega_max: require negligible damping => omega_max << omega_f
+                 => l_f << c / omega_max. Conversely, search for roll-off near omega ~ omega_f.
+
+P10. (Dispersion) Tiny frequency-dependent phase shifts from curvature-weight effective action
+     Effect -> Phase phi(omega) acquires higher-derivative corrections ~ (omega/omega_f)^q
+     Tolerance -> |delta_phi| <= eps_phase => l_f >= c * (C/eps_phase)^(1/q) / omega (set at the highest tracked omega)
+
+P11. (Binary inspiral phasing: PN-like corrections)
+     Effect -> Additional terms at high PN orders with scaling ~ (l_f/r)^2 for r(t) near merger
+     Tolerance -> Bound a composite parameter Lambda_SAT ~ (l_f/M)^2 from phase residuals: |delta_phi| <= eps => l_f <= sqrt(eps)*M
+
+D. High-energy scattering and UV behavior
+-----------------------------------------
+P12. (Finite high-energy graviton scattering) No UV divergence; amplitudes suppressed
+     Effect -> A(s,t) ~ A_0 * exp[-C(T) * (E/E_f)^q], where E_f ~ h c / l_f
+     Tolerance -> Look for hard cutoff/suppression in trans-Planckian proxies; if absent up to E*, then l_f <= h c / E*
+
+P13. (No Landau-pole–like pathologies) Running of effective couplings tamed at UV
+     Effect -> Dimensionful damping prevents blow-up; retrodiction: consistency of EFT fits without UV counterterms
+     Tolerance -> Internal consistency check; no direct numeric tolerance beyond "fits stable up to scale ~ 1/l_f"
+
+E. Cosmology (qualitative-to-semi-quantitative)
+-----------------------------------------------
+P14. (Primordial power suppression at very small scales)
+     Effect -> For k >> 1/l_f, curvature-weight damps metric fluctuations: Delta^2(k) roll-off
+     Tolerance -> If small-scale structure observations show no roll-off up to k*, then l_f <= 1/k*
+
+P15. (Big Bang singularity avoidance / bounce-like core)
+     Retrodiction -> Early-time curvature finite; potential imprint is negligible unless l_f comparable to Hubble scales
+     Tolerance -> If no deviations in CMB/BBN, require l_f << c / H_BBN (very conservative, model-dependent)
+
+P16. (Vacuum energy UV contributions softened)
+     Effect -> High-curvature modes contribute less to zero-point energy; suggests reduced UV sensitivity of Lambda
+     Tolerance -> Requires full background calculation (depends on alpha_top and global state); treat as a hypothesis, not a firm prediction
+
+F. Astrophysical lensing & dynamics beyond GR at small scales
+-------------------------------------------------------------
+P17. (Microlensing at tiny impact parameters) Finite deflection core
+     Effect -> Peak magnification saturates for b -> 0; scaling of peak with (l_f/b)^2 corrections
+     Tolerance -> If microlensing events probe b >= b_min with |delta_mu| <= eps_mu: l_f <= sqrt(eps_mu) * b_min
+
+P18. (Tidal disruption near compact objects) Slightly altered Roche limits
+     Effect -> Effective gravity softened inside r ~ l_f; changes threshold by ~ O((l_f/r)^2)
+     Tolerance -> Observational consistency implies l_f <= sqrt(eps_tidal) * r_probe
+
+G. Laboratory-scale prospects (speculative but concrete)
+--------------------------------------------------------
+P19. (Tabletop inverse-square tests) Short-range gravity deviations
+     Effect -> As in P1; search for (l_f)^2/r^2 correction at mm–micron scales
+     Tolerance -> If experiment bounds |delta_F/F| <= eps_lab at separation L_lab: l_f <= sqrt((2/3) * eps_lab) * L_lab
+
+P20. (Resonant-mass GW prototypes) High-frequency roll-off
+     Effect -> If detectors reach omega ~ omega_f, SAT predicts exponential damping tail
+     Tolerance -> Absence of roll-off up to omega* => l_f <= c / omega*
+
+H. Theory-internal, computation-level retrodictions
+---------------------------------------------------
+R1. (UV-finite path integrals) Curvature-weight guarantees plateau in mode cutoff k_max
+    Effect -> Relative amplitudes stabilize once k_max >= O(L/l_f)
+    Tolerance -> Numerically: change in amplitude < eps_num when increasing k_max -> choose l_f such that plateau reached at affordable k_max
+
+R2. (Additivity across topologies) With one reconnection, total amplitude = A0 + exp(-T l_f^2) * alpha_top
+    Effect -> Verified in toy Monte Carlo (alpha_top = 1): A_total = 1 + exp(-T l_f^2)
+    Tolerance -> Implementation check: Monte Carlo estimator within eps_MC of analytic value after N samples
+
+R3. (Low-energy expansion) Leading potential equals softened Newton; next terms map to EFT coefficients
+    Effect -> Series in (p l_f) with even powers; coefficients fixed by curvature action and alpha_top
+    Tolerance -> Fit residuals <= eps_fit over p << 1/l_f; use to extract/compare EFT Wilson coefficients
+
+I. How to set numeric tolerances in practice
+--------------------------------------------
+1) Pick the dataset and an observable O with a bound eps (fractional or absolute).
+2) Identify the matching SAT formula above and solve for l_f (and T if it appears).
+3) Report constraint as (l_f, T) region: usually l_f <= kappa * L * sqrt(eps) with a known prefactor kappa.
+4) For wave phenomena, translate band edge omega* into l_f <= c / omega* for "no observed roll-off".
+5) When alpha_top(x) is known, include it multiplicatively in vertex-level predictions (P12, R2), and reassess tolerances.
+
+Notes and caveats
+-----------------
+• All tolerances are given at leading order in small ratios (l_f/L) or (omega/omega_f); higher-order terms are smaller.
+• Where a coefficient is marked ~O(1) or requires K_varpi, it must be taken from the specific data-analysis pipeline; the scaling with l_f is robust.
+• Items P16 and parts of P15 are hypothesis-level until the full alpha_top(x) and background cosmology are specified.
+• This sheet is designed to be concise yet complete; extend with dataset-specific numbers as they become available.
+
+(End of list)

@@ -1,0 +1,122 @@
+SAT — Predictions & Retrodictions (with tolerances) — 2025-08-31
+Scope
+This file collects the concrete effects SAT suggests today, grouped by domain. For each item:
+  Observable • Minimal setup • Expected signal • Tolerances (what counts, what fails) • Status/priority.
+
+Conventions
+- Fractions are dimensionless (e.g., δ = fractional frequency offset).
+- σ refers to the noise σ estimated from control data as specified in the prereg.
+- “Pass” tolerances are thresholds you pre-declared; “Fail” gives the null bound you’ll report.
+
+──────────────────────────────────────────────────────────────────────────────
+A) CLOCKS / TIMING
+A1) ψ‑modulated clock drift (two‑path, co‑located activator)
+Observable: path‑specific fractional frequency offset when one RF path is co‑located with the activator.
+Setup: 10 MHz carrier; 1 Hz sampling; 30‑min blocks; windows 6×5 min (power variant: 12×2.5 min).
+Expected: opposite‑sign δ̂ between Activ@X and Activ@Y; Sham≈Control.
+Tolerances (Pass):
+  • |δ̂′_X| ≥ 3×10⁻¹² and |δ̂′_Y| ≥ 3×10⁻¹² (window‑mean, detrended).
+  • sign(δ̂′_X) = −sign(δ̂′_Y); Sham within ±1×10⁻¹² of Control.
+  • C1 (X−Sham) & C2 (X−Y) paired sign‑flip permutation: p < 0.01 (one‑sided).
+  • C3 ((X+Y)/2−Control) two‑sided: p > 0.05.
+  • Replicate after rebuild (new seating) with same signs & magnitudes within ±30%.
+Fail → Report bound: |δ| < 3×10⁻¹² (30 min) at 10 MHz under stated noise; note that slope‑SE scales ≈ T^(−3/2) (so 60 min improves ~×2.8).
+
+A2) Orientation dependence of δ (holonomy sign test)
+Observable: sign of δ̂′ flips when activator path is moved to the opposite side of a symmetric geometry.
+Setup: As A1, but with a physical side‑swap across a mirror‑symmetric bench.
+Expected: deterministic sign flip; magnitude within ±30%.
+Tolerances (Pass): sign flips; |Δmagnitude| ≤ 30% after detrend; p<0.01 on C2 (X−Y).
+Fail → Bound: no resolvable orientation signature above 3×10⁻¹² (30 min).
+
+A3) Drive response (weak‑drive linearity)
+Observable: δ̂′ scales linearly with a declared weak ψ‑drive knob (e.g., low‑amplitude acoustic/electric bias near activator).
+Setup: A1 plus one tunable drive; three levels about zero: −d, 0, +d.
+Expected: slope ≠ 0 in δ̂′ vs drive; odd symmetry.
+Tolerances (Pass): linear fit slope significant at p<0.01; R²>0.8; slope stability across replicates within ±30%.
+Fail → Bound: |∂δ̂′/∂drive| below detection at stated d.
+
+──────────────────────────────────────────────────────────────────────────────
+B) OPTICS / PHOTOMETRY
+B1) ψ‑null photometry (near‑crossed polarizers)
+Observable: localized negative residual “pocket” (Activator − Sham < 0) near θ≈90°.
+Setup: Raster maps of Sham & Activator; residual = Activator − Sham; ROI pre‑declared ellipse.
+Expected: compact negative pocket above noise; stable shape after recentering.
+Tolerances (Pass):
+  • ROI permutation (one‑sided): p ≤ 0.01.
+  • Largest negative cluster at threshold −k·σ (k=5.0): size ≥ 20 px.
+  • ROI mean residual 95% bootstrap CI excludes 0 (negative).
+  • Recentered Day‑1 vs Day‑N (15×15; search ±8 px): r ≥ 0.80 for ≥3 of 4 days (strict‑stable = all 4).
+Fail → Bound: no −5σ cluster ≥20 px and ROI p>0.01; report σ and imaging geometry.
+
+B2) Phase holonomy under element rotation
+Observable: step‑like phase offset that is (mostly) angle‑independent when an element is rotated through a full turn; toggles at discrete angles.
+Setup: Interferometer or phase camera; rotate a symmetric optic through 0→360°; control for material asymmetry by flipping/rotating substitutes.
+Expected: step(s) of order 10⁻² rad (10–100 mrad) appearing at reproducible angles; insensitive to wavelength across a moderate band.
+Tolerances (Pass): ≥1 reproducible step ≥10 mrad with hysteresis ≤20% and angle repeatability within ±3° across ≥3 runs; null across substitutes/flip controls.
+Fail → Bound: |Δφ| < 5 mrad (95% CI) for any angle‑independent step under declared bandwidth.
+
+B3) Macroscopic media modulation (aerosols/rotating glass)
+Observable: small, structured contrast dips or phase shifts when imaging through driven media (charged aerosol columns, rotating glass tubes, coin‑punctured cavities).
+Setup: Long‑exposure photometry or simple interferometry; optional acoustic/electric drive.
+Expected: spatially coherent residuals at the drive fundamental; pocket‑like features.
+Tolerances (Pass): coherent residual at drive f with SNR ≥ 6, stable spatial template (r≥0.8) across ≥2 sessions; effect parity with drive reversal.
+Fail → Bound: no coherent residual >1% contrast (or phase >5 mrad) at drive f.
+
+──────────────────────────────────────────────────────────────────────────────
+C) POLARIZATION / ASTRONOMY (consistency‑level in this project)
+C1) Cosmic polarization rotation (uniform birefringence)
+Observable: frequency‑independent rotation α of linear polarization across the sky.
+Setup: Use external CMB/quasar‑pol surveys (analysis‑only in this project).
+Expected: α of order 10⁻³–10⁻² rad if ψ is cosmological; uniform or low‑ℓ pattern.
+Tolerances (Pass, phenomenology): any α in [1×10⁻³, 1×10⁻²] rad consistent across bands (Δα/α ≤ 10%) is “SAT‑compatible”; tighter constraints become bounds on ψ coupling.
+Fail → Interpretation: α consistent with 0 at ≤10⁻³ rad → strong bound on cosmological ψ in the emergent‑metric sector.
+
+C2) Polarization‑rotation dipole/quad (patterned birefringence)
+Observable: low‑ℓ anisotropy in α(𝑛̂).
+Expected: dipole/quad ≤ few × 10⁻³ rad peak‑to‑peak.
+Tolerance: detection with >3σ across independent maps/bands; else bounds.
+
+──────────────────────────────────────────────────────────────────────────────
+D) MATERIALS / COHERENCE (exploratory)
+D1) TRON‑class anisotropy (coherence / superconductivity thresholds)
+Observable: sharp angle‑dependent thresholds in coherence (e.g., critical current or phase rigidity) suggestive of coupling to τ/ψ.
+Setup: Angular sweep of thin films or patterned stacks; four‑probe or RF cavity Q.
+Expected: onset at a critical angle θ_c with step‑like change 2–10%.
+Tolerances (Pass): reproducible onset at θ_c ±2° with magnitude change ≥2% and odd/even symmetry as pre‑declared; null in isotropic controls.
+Fail → Bound: |Δ|<1% across full sweep with no θ_c → no evidence in this material system.
+
+──────────────────────────────────────────────────────────────────────────────
+E) EMERGENT‑METRIC CONSISTENCY / LIMITS
+E1) GR/SM limit recovery
+Observable: in declared “no‑ψ/no‑τ” conditions, standard laws are recovered.
+Setup: Bench with activator removed or shielded; symmetric optics; swapped cables.
+Expected: nulls within measurement floor.
+Tolerance (Pass): all SAT‑specific contrasts revert to null within floors (e.g., |δ|<1×10⁻¹² in A1; ROI p>0.1 in B1; no steps >5 mrad in B2).
+Fail → If anomalies persist without declared ψ/τ knobs, attribute to conventional systematics until disproven.
+
+──────────────────────────────────────────────────────────────────────────────
+RETRODICTIONS / CONSISTENCY WITH EXISTING OBSERVATIONS
+R1) Malus‑law near‑crossed behavior
+Claim: With no activator, intensity follows a non‑ideal Malus curve with leakage ε and offset θ₀; SAT adds no extra dip.
+Tolerance: Fits within residuals of standard model (ε, θ₀, B) at ≤ few ×10⁻³ relative error.
+
+R2) Nulls in symmetric optical rotations
+Claim: With perfectly symmetric optics and flip‑controls, no angle‑independent phase step should appear (holonomy requires ψ/τ asymmetry).
+Tolerance: |Δφ|<5 mrad across full rotations under bandwidth of interest.
+
+R3) Existing bounds on cosmic birefringence
+Claim: SAT is consistent with α constrained to ≲10⁻³–10⁻² rad; tighter external bounds map to weaker ψ coupling.
+Tolerance: treat current best limits as priors; report compatibility rather than a fixed value.
+
+R4) Bench drifts under environmental controls
+Claim: In activator‑free runs with the same data pipeline, δ̂′ statistics should match robust‑fit expectations under thermal/EM controls.
+Tolerance: permutation p’s uniform under H₀, and |δ̂′| clustered well below the SOI (3×10⁻¹² at 30 min).
+
+──────────────────────────────────────────────────────────────────────────────
+REPORTING NOTES
+• Always give absolute magnitudes with ± tolerance bands (e.g., “9±3 mrad”, “(4.5–6.0)σ”).
+• Use prereg decision rules as the primary “Pass/Fail”; everything else becomes a bound.
+• For “orientation/sign” claims, require replicated sign behavior across rebuilds.
+
+END

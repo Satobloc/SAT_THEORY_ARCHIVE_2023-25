@@ -1,0 +1,25 @@
+Sector,Operator,Level,Symmetries,Dim,Spurion |u|,Redundancy,Phenomenology,Primary bound/anchor,Numeric bracket / note,Baseline setting
+Foliation,λ((∂T)^2+1),A (Core),"reparam(T), CPT, gauge",2,—,Basis,Defines unit-timelike foliation,—,Constraint term (definition),Required (enforce u^2=-1)
+Foliation,c1(∂_μ u_ν)(∂^μ u^ν) + c3(∂_μ u_ν)(∂^ν u^μ),A (Core),"CPT, gauge",4,0,Æther basis,GW speed,GW170817,Enforce c1+c3 ≈ 0 (|c_T-1|≲10^-15),c1+c3=0 at tree level
+Foliation,c2(∂_μ u^μ)^2,A (Core),"CPT, gauge",4,0,Æther basis,"PPN, pulsars","Solar-System/PPN, pulsars",|c2| ≲ 10^-5–10^-7 (model-dependent),Scan allowed wedge
+Foliation,c4(u·∂ u)^2,A (Core),"CPT, gauge",4,0,Æther basis,Stability/strong-field,Stability/PPN,|c4| ≲ 10^-5–10^-7 (model-dependent),Scan allowed wedge
+Foliation,(Δ^{αβ}∂_α∂_β u_μ)^2 / M_u^2,C (UV),"CPT, gauge",6 (spatial),0,Basis,"UV dispersion, early-U modes",Stability/causality,M_u ≫ experimental scales (≥ 10–100 TeV as baseline),"Keep, suppressed"
+Scalar θ4,(Z_⊥/2)Δ^{μν}∂_μθ_4∂_νθ_4 − (Z_∥/2)(u·∂θ_4)^2,A (Core),"Z3, CPT",4,1 (longitudinal),Basis,Propagation speeds,Lorentz tests,|Z_⊥−Z_∥|/Z ≲ 10^-15–10^-22 (sector-dependent),Set nearly equal in IR
+Scalar θ4,− μ^2 cos(3θ_4),A (Core),breaks U(1)_shift→Z3,4,0,Basis,Mass/defects/domains,Cosmology/defects,μ sets axion-like mass; domain-wall tension ∝ μ^2,Keep
+Scalar θ4,(Δ^{μν}∂_μ∂_ν θ_4)^2 / (2M_θ^2),C (UV),"Z3, CPT",6 (spatial),0,Basis,High-k stabilization,Positivity/causality,M_θ ≫ probed energies (≥ multi-TeV),"Keep, suppressed"
+Gauge,−(1/4) Σ_I F^I_{μν}F^{I μν},A (Core),"Gauge, CPT",4,0,Basis,Standard YM,SM fits,—,Keep
+Gauge,(ζ_F/2M_F^2) Σ_I (Δ^{μα}Δ^{νβ}F^I_{μν}F^I_{αβ}),C (UV),"Gauge, CPT",6 (spatial),0,Basis,Photon dispersion/birefringence in extrema,SME photon LIV,Effective limits reach 10^-15–10^-32 (structure-dependent); set M_F large,"Keep, suppressed"
+Fermion,Σ_a ψ̄_a (iγ^μ∂_μ − m_a(θ_4)) ψ_a,A (Core),"Gauge, Z3",4,0,Basis,Mass spectrum,Collider/EW fits,Model-dependent Yukawas,Keep
+Fermion,"− Σ_{a,I} g_I ψ̄_a γ^μ A^I_μ T^I ψ_a",A (Core),Gauge,4,0,Basis,Interactions,SM fits,—,Keep
+Fermion (LV),(ε_a/M_ψ) u_μ ψ̄_a γ^μ ψ_a,B (Soft),Gauge; LV spurion,5 (eff.),1,Basis,Clock/comagnetometer tests,SME fermion LIV,Often constrained to 10^-20–10^-30 (normalized),Keep tiny
+Fermion (LV),δ (u·∂ψ)^2,B (Soft),Gauge; LV spurion,6 (spatial-time split),1,Basis,Dispersion anisotropy,SME fermion LIV,Highly constrained; treat as suppressed,Keep suppressed
+Fermion (mix),ε sin(2θ_4) (u·∂ψ),B (Soft),"Z3, Gauge; LV spurion",5 (eff.),1,Basis,Axion–fermion modulation,EDM/precision spin tests,Constrain via EDM/spin-precession,Keep suppressed
+Fermion (CS-like),ζ ε^{μνρσ} u_μ (∂_ν ψ)(∂_ρ u_σ),B (Soft/Top.),Gauge; CPT-odd structure,6,1,Model-dependent,Exotic spin-rotation couplings,SME-like CPT tests,Treat as highly suppressed,"Keep, very suppressed"
+Fermion (Yukawa),ε_Y sin(θ_4) (u·∂ψ),B (Soft),Z3; LV spurion,5 (eff.),1,Basis,Time-varying couplings,Clock tests/EDM,Use EDM/clock bounds,Keep suppressed
+Topological,(κ/32π^2) θ_4 Σ_I F^I_{μν} \tilde F^{I μν},D (Topological),"Gauge, CP-odd",4,0,Basis,"Axion-photon, EDMs",PDG/CAST/stellar/EDMs,g_{aγγ} ≲ few×10^-11 GeV^-1 (mass-dependent),Keep (quantized κ)
+Gauge (Stückelberg),(f_θ^2/2)(∂_μ ϑ − e A_μ)^2,A (Core alt.),Gauge (U(1)),4,0,Use only if distinct ϑ,Gauge mass generation,Collider/precision EW,Works if ϑ ≠ θ_4,Optional (separate from θ_4)
+Discrete τ (UV scaffold),"ε_f Σ_Δ [1 − δ_{(τ_i+τ_j+τ_k) mod 3, 0}]",D (Topological/discrete),Z3 (lattice),—,0,Discrete only,"Domain constraints, confinement",Matching to continuum,Use for UV regularization/matching only,Keep (separate regime)
+Discrete τ (BF),Σ_faces τ_f (δβ)_f + m^2 Σ_faces τ_f^2,D (Topological/discrete),cohomological,—,0,Discrete only,Topological sectors,Quantization/matching,Coefficients quantized; match to continuum θ_4 sector,Keep (separate regime)
+Self-interactions,λ_4 (ξ·ξ)^2 + λ_6 (ξ·ξ)^3,B/C (Model),Model-dependent,8/12 (eff.),0,Optional,Stabilization/nonlinearities,Unitarity/positivity,Keep below unitarity cutoff,"Optional, suppressed"
+Fermion (covariant),ψ̄ (iγ^μ D_μ − m_eff) ψ,"A (Core, gravity track)",Gauge,4,0,Basis (with gravity),Curved-space dynamics,Equivalence tests,Use when gravity included,Keep when adding gravity
+Fermion (QMC),Ψ̄ [ iγ^μ ∇_μ − (m_0/Q(φ) + α R(φ)) ] Ψ,"B (Model, gravity track)",Model-dependent,—,0,Optional,Mass-curvature coupling,Equivalence/EP tests,Constrain via EP and astrophysical tests,Optional (gravity)

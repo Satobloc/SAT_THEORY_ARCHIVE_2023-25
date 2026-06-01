@@ -1,0 +1,126 @@
+
+SAT_4D — NOTEBOOKLM QUESTION PACK (FOR 45+ SUMMARIES & PRED/RETRO LISTS)
+========================================================================
+
+Purpose
+-------
+Use these prompts to mine the uploaded SAT project-folder summaries and prediction lists. 
+The goal is to: (1) extract a cross-folder consensus, (2) find contradictions and drift, 
+(3) prioritize experiments, (4) lock terminology, and (5) steer the SAT_4D rebuild.
+
+How to Use
+----------
+Copy a block into NotebookLM and run. Prefer tabular outputs (CSV or Markdown tables). 
+Where possible, ask for explicit citations (doc title + section + quote).
+
+A. Global Synthesis & Consensus
+-------------------------------
+1) “Build a unified SAT summary from all docs. Keep it 4D-native: geometry emergent, no background metric, 
+   gauge from topology, mass/charge/spin from phase-lock. Highlight only claims that appear in ≥ N project folders 
+   (default N=5). Output: narrative summary + bullet list of consensus claims with doc counts.”
+
+2) “Create a table of all unique predictions and retrodictions across folders. Columns: 
+   ClaimID, Type (Pred/Retro), Class (A/B/C), Tolerance band or structural, Module dependency (O1–O8), 
+   First seen in [folder/thread], #folders supporting, #folders contradicting, Quote, Citation.”
+
+3) “From the table, produce a ‘Consensus Prediction Portfolio’: claims supported by ≥ N folders and contradicted by 0. 
+   Sort by experimental feasibility (if given) or by number of supporting folders.”
+
+B. Contradiction & Drift Detection
+----------------------------------
+4) “List all claims that are contradicted anywhere. For each: show conflicting formulations side-by-side, 
+   with exact quotes and sources. Tag the conflict as: terminology, math, physical mechanism, or scope.”
+
+5) “Extract every definition of θ_4, τ, ‘phase-lock’, ‘tension T’, ‘ℓ_f’, and ‘ℏ_eff’. 
+   Present a side-by-side definition table. Flag semantic mismatches or dimensional inconsistencies.”
+
+6) “Identify places where Λ (cosmological constant) is (a) emergent/self-tuning, (b) fine-tuned, (c) left unspecified. 
+   Give counts and list the exact language used.”
+
+7) “Find each instance discussing stable tetraquarks or pentaquarks. Does any document claim long-lived exotics? 
+   If yes, quote and list doc(s).”
+
+C. Evolution & Lineage
+----------------------
+8) “Build a chronology of key conceptual shifts: emergence of O3.1, topological mass suppression (O8), 
+   switch to 4D chauvinism, and introduction of the code ‘geometry-lock’ plan. Include first-doc/last-doc mentions and quotes.”
+
+9) “Create a dependency map: for each module O1–O8, list which later claims rely on it. 
+   Count how many predictions break if each module is removed (sensitivity ranking).”
+
+D. 4D Compliance & Gatekeeping
+------------------------------
+10) “Gatekeeper pass: list statements that use 3D+1 reasoning or assume a fixed background metric. 
+    Quote and cite. Suggest the minimal 4D rewrite needed (one-sentence suggestions).”
+
+11) “Extract all places that tie claims to 4D topological invariants (linking, winding, triple linking, writhe/twist). 
+    Build a table: invariant → physical claim(s) → module(s) → doc(s).”
+
+E. Parameter Origins & Hidden Assumptions
+-----------------------------------------
+12) “Scan for hidden parameters: any place T, ℏ_eff, ℓ_f, or coupling constants are inserted rather than derived. 
+    Summarize per folder and quote the justification lines.”
+
+13) “List all mechanisms proposed for emergent T. Cluster them (e.g., ensemble statistics, rigidity/area trade-offs, etc.). 
+    Rank by #supporting docs and by presence of math.”
+
+F. Quantum Mechanics & Hilbert Space
+------------------------------------
+14) “Aggregate all discussions of emergent Hilbert space. Extract candidate constructions, inner products, 
+    and proposed observables. Tag each as toy-model, heuristic, or formal.”
+
+15) “Collect all proposed routes to spin-½ (2π→4π) from writhe/twist. Provide a mini-brief with equations/diagrams (if any).”
+
+16) “Summarize anomaly-cancellation proposals as topological identities of bundles. Map to SM anomalies.”
+
+G. Couplings, Masses, and RG
+----------------------------
+17) “Extract all explicit or implicit formulas for gauge coupling ratios vs linking density. Turn them into normalized forms. 
+    Identify constants needing derivation. Flag numeric targets/tolerances.”
+
+18) “Summarize every proposed RG-like or statistical-running mechanism. 
+    Distill the common structure and list missing steps needed for a full β-function.”
+
+19) “From O8-related passages, collect all mass hierarchy scaling laws. Fit proposed exponents where numbers appear, 
+    and report variance across folders.”
+
+H. Falsifiability & Experiment Planning
+---------------------------------------
+20) “Build a minimal experiment set (set-cover style): smallest list of experiments that together could falsify the largest number of claims. 
+    Output table: Experiment → claims tested → expected signal/absence → current bounds → next feasible facility.”
+
+21) “Rank predictions by (a) novelty vs SM/GR, (b) feasibility (<3 years, 3–10, >10), (c) payoff if confirmed. 
+    Produce a top-10 priority list.”
+
+I. Quality & Rigor Scoring
+--------------------------
+22) “Score each folder 0–5 on: (i) 4D compliance, (ii) derivation completeness, (iii) operational definitions, 
+    (iv) falsifiability clarity, (v) glossary discipline. Return a table with brief justifications and citations.”
+
+23) “Identify which single folder is the best canonical base for SAT_4D given the above scores. 
+    Provide a rationale (bullet points) and list its gaps to be filled by CoMast.”
+
+J. Consolidation Outputs for SAT_4D
+-----------------------------------
+24) “Produce a master glossary delta: for θ_4, τ, phase-lock, strain/sheen tensors, ℓ_f, ℏ_eff. 
+    For each term: best definition (consensus), alternatives (verbatim), decision notes, and conflicts.”
+
+25) “Draft a unified Prediction & Retrodiction Portfolio. Keep Class A structural claims separate from Class B numeric bands. 
+    Include tolerances as stated; mark where bands are missing.”
+
+26) “Extract LaTeX-ready equation blocks for: O1 canonical action/Hamiltonian, O2 ensemble-to-metric map, 
+    O3 linking→gauge algebra, O8 mass-suppression scalings. Cite sources.”
+
+K. What You Probably Asked (and Should Ask Next)
+------------------------------------------------
+Likely question you asked: “Give me a unified summary of SAT from these projects and a single consolidated list of predictions/retrodictions.”
+Next excellent questions (choose 2–3 to run now):
+- “Where do the folders disagree most, and which disagreements matter for falsifiability?”
+- “What’s the minimal coherent subset of ideas that 4D-locks cleanly across all folders?”
+- “Which specific derivation gaps (by equation) block numeric tolerances for couplings and Λ?”
+- “Which experiments within 3–5 years could deliver the strongest yes/no on the Class A claims?”
+
+L. Output Formats
+-----------------
+Prefer: CSV/Markdown tables with columns exactly as specified; include doc titles + direct quotes (≤30 words) for traceability.
+If NotebookLM supports it, request a ZIP with (i) the tables as CSV, (ii) a README, (iii) a LaTeX appendix of equations.

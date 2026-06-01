@@ -1,0 +1,41 @@
+SAT Project — State of Play
+(as of 2025-08-31)
+
+1) Executive Summary
+• SAT has matured from a conceptual framework into a testable, mode-synchronized program with clear falsifiability gates. Recent documents finalize the link between topology (winding/linking, θ4, τ, Sμν) and observed spectra, decay widths, and emergent gauge/gravity structure.
+• The mass sector (O9–O10) reproduces light-flavour masses within ≲6% without retuning successful baryon/heavy-meson fits. The decay-width sector (O12) closes a prior phenomenology gap with a minimal, topology-conditioned law. The flavour sector (O13) adds a discrete A4 embedding that explains charged-lepton hierarchy and PMNS structure with no new continuous parameters.
+• Modes have been redeployed with sharper responsibilities, enabling rigorous hand-offs: Mecha/Sim/Viz/Pheno feed structured outputs to Track; Proof/MathProof pin down formal derivations.
+
+2) Architecture & Modes (operational view)
+• Foundations: Onto, Dict, Axiom formalize the primitives (u^μ, θ4, ψ, τ), crosswalks to GR/QFT/SM, and core principles.
+• Design & Mechanics: Mecha constructs Lagrangians/Hamiltonians and constraint closures; Sim discretizes dynamics and runs evolutions; Bridge maps SAT structures onto SU(3)×SU(2)×U(1); Viz generates reproducible figures.
+• Empirics & Quantification: Pheno defines observables and falsifiability; Track consolidates status and outputs; Quant & Prism handle quantization and spectral decomposition.
+• Mathematical Validation: Proof (logical) and MathProof (symbolic) separate correctness from calculation.
+• Perspective: Critic stress-tests assumptions; Insight crafts intuitive models; Sage integrates the whole system.
+
+3) Module Progress (high level)
+• O0/O0-A: Foundations sanity pass, dimensional ledger, and “Mode ladder” (True Block → Triggered Dynamics → Crystallisation). Lower modes carry core derivations; Mode 2 adds controlled corrections for GR matching; Mode 3 is long-horizon conceptual closure.
+• O9–O10 (Mass pipeline): Topology-anchored mapping from 4D string-like excitations to spectra. The extended mass law m(Q, τ_χ) = (m0/Q)·exp[−γ_χ τ_χ] fits π, μ, K, τ and leaves baryon success intact. Deliverables include a Lean proof (torsion uniqueness), numeric notebook, and human-readable report.
+• O12 (Decay widths): Minimal law for Q=2 bundle decays, Γ ∝ (p/p0)^{2L+1}·exp[−α_top^2·ΔE]·exp[−β(N_disc−1)], encoding the OZI rule as a strict filament-counting factor. Depends only on O1 and O5; introduces at most one universal dimensionless constant.
+• O13 (Discrete flavour): Embeds charged-lepton filaments in A4 with “no new reals,” yielding hierarchy and PMNS structure from discrete phase factors. Adds logical updates to earlier modules (O5/O6/O8/O11) while remaining independent of O12.
+
+4) Evidence of Predictive Control
+• Cross-check table shows ≤6% agreement for light-flavour masses without further fits. Falsifiability criteria are explicit (e.g., discovery of stable Q≥4 states, violation of τ_χ trends, environment-independent decay widths contrary to θ4 predictions).
+• Phase VIII-A execution log records synchronized outputs from Viz/Mecha/Sim/Pheno/Track, including θ4 and ∇θ4 overlays and Q(t) traces.
+
+5) Assets & Reproducibility
+• Visualization scripts (θ4 and helix/time-plane geometry) generate standardized, margin-safe figures ready for inclusion, with θ4 explicitly labeled and parameters centralized for re-runs.
+• Structured deliverables: O10 torsion.lean (formal uniqueness proof), O10 fit.nb (notebook), O10 report.pdf (derivation + plots). Master SAT PDF outlines phases, module dependencies, and next steps.
+• Mode directives include a first-mention spelling-out policy for jargon, separation of math breakouts from prose, and conversion tables/dictionaries for readers to map text ↔ symbols without cluttering exposition.
+
+6) Open Tasks (near horizon)
+• Classify viable symmetry embeddings Γ in {Z3, A4, S3}; derive orbit structures and minima.
+• Compute PMNS matrices from mode overlaps using realistic ψ_n basis on T^3.
+• Establish loop-level stability bounds for k1, k2.
+• Extend flavour-lattice structure to Q>1 bound sectors (e.g., baryons).
+
+7) Practical Implications
+• The theory is now positioned for targeted numerical campaigns (stability and decay simulations) and figure production that feed directly into Overleaf sections—with whole-file updates, no micro-edits.
+• The redeployed Modes enable transparent “show your work” provenance (proof IDs for equations, figure scripts for diagrams, notebook hashes for results) and minimize the need for ad-hoc tuning.
+
+(End of overview)
