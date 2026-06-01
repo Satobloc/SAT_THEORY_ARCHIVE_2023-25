@@ -1,0 +1,99 @@
+name: Combine text folder
+
+on:
+  push:
+    paths:
+      - '_AI_REQUESTS/combine_text_request.json'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  combine-text:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Combine requested text folder
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          import re
+          from pathlib import Path
+          from datetime import datetime, timezone
+
+          request_path = Path('_AI_REQUESTS/combine_text_request.json')
+          if not request_path.exists():
+              raise SystemExit('Missing _AI_REQUESTS/combine_text_request.json')
+
+          req = json.loads(request_path.read_text(encoding='utf-8'))
+          source_folder = Path(req['source_folder'])
+          requested_by = req.get('requested_by', 'unknown')
+          request_id = req.get('request_id', 'no-request-id')
+          extensions = req.get('extensions', ['.txt', '.md', '.csv', '.json', '.yaml', '.yml', '.py'])
+          recursive = bool(req.get('recursive', False))
+
+          if not source_folder.exists() or not source_folder.is_dir():
+              raise SystemExit(f'Source folder not found or not a directory: {source_folder}')
+
+          safe_name = re.sub(r'[^A-Za-z0-9._-]+', '_', str(source_folder).strip('/'))
+          out_dir = Path('_AUTO_EXTRACTED_TEXT') / 'COMBINED'
+          out_dir.mkdir(parents=True, exist_ok=True)
+          out_path = out_dir / f'{safe_name}_COMBINED.txt'
+
+          globber = source_folder.rglob if recursive else source_folder.glob
+          files = []
+          for ext in extensions:
+              files.extend(globber(f'*{ext}'))
+          files = sorted(set(p for p in files if p.is_file()), key=lambda p: str(p).lower())
+
+          parts = []
+          parts.append('# Combined Text Folder')
+          parts.append('')
+          parts.append(f'Source folder: {source_folder}')
+          parts.append(f'Request ID: {request_id}')
+          parts.append(f'Requested by: {requested_by}')
+          parts.append(f'Combination time UTC: {datetime.now(timezone.utc).isoformat()}')
+          parts.append(f'Recursive: {recursive}')
+          parts.append(f'Extensions: {extensions}')
+          parts.append(f'Files combined: {len(files)}')
+          parts.append('')
+          parts.append('## File list')
+          parts.append('')
+          for p in files:
+              parts.append(f'- {p}')
+          parts.append('')
+          parts.append('---')
+          parts.append('')
+
+          for p in files:
+              rel = str(p)
+              parts.append(f'===== BEGIN FILE: {rel} =====')
+              parts.append('')
+              try:
+                  text = p.read_text(encoding='utf-8')
+              except UnicodeDecodeError:
+                  text = p.read_text(encoding='utf-8', errors='replace')
+              parts.append(text.rstrip('\n'))
+              parts.append('')
+              parts.append(f'===== END FILE: {rel} =====')
+              parts.append('')
+
+          out_path.write_text('\n'.join(parts), encoding='utf-8')
+          print(f'Wrote {out_path}')
+          PY
+
+      - name: Commit combined text output
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add _AUTO_EXTRACTED_TEXT/COMBINED
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Combine requested text folder"
+            git push
+          fi
