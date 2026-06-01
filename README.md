@@ -4,6 +4,9 @@
 
 AFFILIATION: Currently considering going back to school [remedial math?] looking for program recommendations. Suggestions welcome nathanmcknight@gmail.com
 
+Feel free go clone or fork. Hell, feel free to publish if you want--but cite me if you would. 
+
+If you find anything useful or interesting, please, drop a comment ! I'm always open for a good chat. :)
 
 ######################
 ###  FAIR WARNING  ###
