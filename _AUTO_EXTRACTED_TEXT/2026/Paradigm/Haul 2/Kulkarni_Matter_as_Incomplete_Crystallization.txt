@@ -1,0 +1,1465 @@
+# Extracted Text
+
+Source file: 2026/Paradigm/Haul 2/Kulkarni_Matter_as_Incomplete_Crystallization.pdf
+Source type: .pdf
+Request ID: 2026-05-31T-haul2-kulkarni-matter-incomplete-crystallization
+Requested by: ChatGPT
+Extraction time UTC: 2026-06-01T07:45:04.439421+00:00
+Extraction engine: PyMuPDF
+OCR attempted: False
+OCR reason: not needed
+OCR language: eng
+Sections/pages: 13
+Characters extracted: 71698
+
+---
+
+
+
+## Page 1
+
+Contents lists available at ScienceDirect
+Physics Open
+journal homepage: www.elsevier.com/locate/physo
+ 
+Matter as incomplete crystallization: Quark charges, color confinement, and 
+the proton mass from a single extra node in the vacuum lattice
+Raghu Kulkarni
+SSMTheory Group, IDrive Inc., Calabasas, CA 91302, USA
+A R T I C L E  I N F O
+Handling Editor: William Barletta
+Dataset link: ssm_sim.py, plot_rex_sweep.py, ss
+m_bulk_analysis.py, https://raghu91302.github
+.io/ssmtheory/ssm_regge_deficit.html, https://r
+aghu91302.github.io/ssmtheory/ssm_quark_str
+ucture.html
+ 
+A B S T R A C T
+We propose that baryonic matter is spacetime that failed to fully crystallize. In the Selection-Stitch Model, 
+the early universe undergoes a 𝐾=4 →𝐾=12 phase transition from a frustrated tetrahedral foam to a Face-
+Centered Cubic (FCC) lattice. The FCC unit cell contains eight tetrahedral voids. If one extra node — a remnant 
+of the 𝐾=4 phase — remains trapped in such a void, it bonds to the four surrounding FCC vertices, creating 
+a local 𝐾=4 pocket inside the 𝐾=12 bulk. From this single geometric fact, with no adjustable parameters, 
+we derive: (i) fractional electric charges −1∕3 from the regular-tetrahedron bond-angle cosine and +2∕3 from 
+integer winding under the bulk Bravais translation symmetry; (ii) exactly three color charges from the three 
+skew-edge pairs of the bounding tetrahedron; (iii) linear confinement from the 𝐿∕
+√
+3 metric wall preventing 
+node extraction; and (iv) the proton-to-electron mass ratio 𝑚𝑝∕𝑚𝑒= (𝐾+1)𝐾2−𝑐skew𝐾= 1836 from the structural 
+node count and skew-edge pair count. Every result follows strictly from unadjusted FCC crystallography. We 
+support these derivations with a computational verification of the underlying 𝐾=4 →𝐾=12 phase transition 
+(finite-size scaling toward 𝐾=12 saturation, sharp geometric phase transition at exclusion radius 𝑅ex = 𝐿∕
+√
+3, 
+and a verified Lorentz-isotropic dispersion). The model is shown to be consistent with current bounds on 
+Lorentz violation and to reproduce the linear-confinement piece of the Cornell potential.
+1. Introduction
+The Standard Model treats quark charges, color confinement, and 
+hadron masses as empirical inputs or outputs of non-perturbative lat-
+tice QCD simulations [1]. These properties have no geometric origin 
+within the standard framework. We argue that they require none: all 
+three emerge natively from a single crystallographic fact about the 
+Face-Centered Cubic (FCC) lattice.
+The FCC unit cell contains eight tetrahedral voids — small intersti-
+tial pockets where four nearest-neighbor atoms form a regular tetrahe-
+dron. In the Selection-Stitch Model (SSM), the vacuum crystallizes from 
+a frustrated 𝐾=4 tetrahedral foam into the ordered 𝐾=12 FCC lattice. 
+If this crystallization is incomplete — if a single extra node from the 
+𝐾=4 phase remains trapped inside a tetrahedral void — it bonds to the 
+four surrounding FCC vertices and recreates a local 𝐾=4 tetrahedron 
+embedded in the 𝐾=12 bulk. That single trapped node is a baryon.
+The rest of this paper unpacks that single geometric premise. Sec-
+tion 2 establishes the FCC vacuum: why FCC is uniquely preferred over 
+BCC and HCP, a precise definition of the coordination number 𝐾, and 
+a computational verification of the 𝐾=4 →𝐾=12 phase transition. 
+Section 3 introduces the trapped extra node. Section 4 derives the 
+fractional electric charges quantitatively. Section 5 derives the three 
+E-mail address: raghu@idrive.com.
+color charges from the skew-edge pair count and discusses the rela-
+tion to standard SU(3). Section 6 establishes confinement from the 
+metric wall and compares to the Cornell potential. Section 7 derives 
+the proton-to-electron mass ratio and analyzes its stability. Section 8 
+covers the lighter particles. Section 9 addresses Lorentz invariance and 
+experimental constraints. Sections 10 and 11 discuss limitations and 
+conclude.
+Relation to the companion paper. A companion paper [2] treats particles 
+as defects in an FCC quantum error-correcting code and derives their 
+masses as fault-tolerant verification costs. That work asks what mass 
+is; the present work asks what matter is. The two papers share the 
+same underlying 𝐾=12 FCC vacuum geometry but address structurally 
+distinct questions: the companion paper’s central object is the verifica-
+tion cost of a stabilizer code, while the present paper’s central object 
+is the trapped extra node and the fractional charges, color content, 
+confinement, and baryon spectrum it generates. The proton-to-electron 
+mass ratio is one observable on which the two papers contact each 
+other; this contact is discussed in Section 7.4.
+Interactive 3D visualizations. Readers can explore the geometric con-
+cepts discussed in this paper through two interactive WebGL applica-
+tions:
+https://doi.org/10.1016/j.physo.2026.100423
+Received 13 March 2026; Received in revised form 3 May 2026; Accepted 11 May 2026
+Physics Open 27 (2026) 100423 
+2666-0326/© 2026 The Author(s). Published by Elsevier B.V. This is an open access article under the CC BY-NC-ND license ( http://creativecommons.org/licenses/by- 
+nc-nd/4.0/ ).
+
+
+## Page 2
+
+R. Kulkarni
+1. Spacetime Crystallization: the 𝐾=6
+→
+𝐾=4
+→
+𝐾=12 phase 
+transition sequence, available at https://raghu91302.github.io/
+ssmtheory/ssm_regge_deficit.html.
+2. Matter as a Topological Defect: a direct interactive model isolating 
+the single trapped extra node, at https://raghu91302.github.io/
+ssmtheory/ssm_quark_structure.html.
+2. The FCC vacuum
+Before introducing the defect that constitutes matter, we establish 
+the lattice in which the defect lives. This section addresses three 
+foundational questions: why FCC, what is 𝐾, and how does the 𝐾=4 →
+𝐾=12 phase transition arise.
+2.1. Why FCC and not BCC or HCP?
+The FCC lattice is uniquely selected as the vacuum’s ground-state 
+geometry by three independent considerations.
+The Kepler bound. The Kepler conjecture, proven by Hales [3], es-
+tablishes that the maximum density for packing identical spheres in 
+three-dimensional Euclidean space is 𝜋∕(3
+√
+2) ≈0.7405. Both FCC and 
+HCP saturate this bound; both achieve coordination number 𝐾=12. 
+BCC achieves only 𝐾=8 and packing density 𝜋
+√
+3∕8 ≈0.6802, well 
+below the Kepler bound. Simple cubic achieves 𝐾=6 and density 𝜋∕6 ≈
+0.5236. A vacuum that minimizes its free energy under a sphere-packing 
+constraint — as our SSM kinematic rules require — cannot select BCC 
+or simple cubic (Table 1).
+Bravais lattice structure. FCC and HCP are stacking isomers with iden-
+tical local coordination but different long-range stacking sequences 
+(ABCABC for FCC, ABAB for HCP). A critical structural distinction lies 
+in their Bravais classification: FCC is a Bravais lattice (a single primitive 
+lattice with one atom per primitive cell, generating a translation group 
+Z3), while HCP is not a Bravais lattice (it requires a hexagonal lattice 
+with a two-atom basis, and its full translation group is not isomorphic 
+to Z3). The integer-winding argument we use to derive the up-quark 
+charge +2∕3 in Section 4.3 requires a Bravais translation group, in 
+which closed loops must traverse integer numbers of primitive vectors. 
+HCP’s two-atom basis breaks this requirement: a defect in HCP would 
+couple to a translation group with a non-trivial sublattice structure, 
+producing winding numbers that are fractional rather than integer. 
+The FCC Bravais structure is therefore essential to the framework’s 
+quantitative predictions.
+Crystallization pathway. The simulation results in Section 2.3 below 
+show that under the SSM kinematic rules (lateral 2D ‘‘stitch’’ plus sup-
+pressed out-of-plane ‘‘lift’’), the vacuum spontaneously produces FCC 
+stacking through ABC ordering, never ABAB. The geometric mechanism 
+that generates the lattice is therefore intrinsically tied to FCC, not HCP.
+2.2. The coordination number K
+We use the symbol 𝐾 throughout this paper in a single, precise 
+sense.
+Definition 1 (Coordination Number). For a node 𝑣 in the lattice graph 
+𝐺(𝑉, 𝐸), 𝐾(𝑣) is the graph-theoretic degree of 𝑣: the number of edges 
+incident on 𝑣. The lattice coordination 𝐾 is the modal value of 𝐾(𝑣) across 
+the bulk interior of the lattice, excluding boundary nodes within ∼2 lattice 
+spacings of any free surface.
+With this definition, 𝐾 is unambiguously the vertex degree, and its 
+values across the lattice phases of interest are:
+• In a 2D hexagonal sheet (the 𝐾=6 ground state of the SSM), each 
+interior node has degree 6 and the bonds form a flat triangulated 
+sheet.
+Table 1
+Comparison of common 3D lattices.
+ Lattice
+𝐾max
+Packing density
+Point group
+Saturates Kepler? 
+ Simple cubic (SC)
+6
+0.5236
+𝑂ℎ
+No
+ 
+ Body-centered cubic 
+(BCC)
+8
+0.6802
+𝑂ℎ
+No
+ 
+ Hexagonal 
+close-packed (HCP)
+12
+0.7405
+𝐷6ℎ
+Yes
+ 
+ Face-centered cubic 
+(FCC)
+12
+0.7405
+𝑂ℎ
+Yes
+ 
+• In the 𝐾=4 tetrahedral foam phase, each node is bonded to 4 
+nearest neighbors forming a regular tetrahedron, and the resulting 
+space is geometrically frustrated (Section 2.3).
+• In the 𝐾=12 FCC bulk, each interior node is at the center of 
+a cuboctahedral coordination shell with 12 nearest neighbors. 
+The number 12 saturates the kissing-number bound of three-
+dimensional Euclidean space [3].
+We define the fundamental nearest-neighbor bond length of the 
+FCC lattice as 𝐿. In terms of the conventional cubic lattice constant 
+𝑎, 𝐿= 𝑎∕
+√
+2. All length scales in this paper are expressed in units of 𝐿.
+2.3. The K=4 → K=12 phase transition: Kinematic origin and computa-
+tional verification
+Why stitch and lift, and only these two. The SSM vacuum is built from 
+a single primitive structure: a Bell-pair entanglement bond connecting 
+two nodes at unit distance 𝐿. There are exactly two distinct kinematic 
+operators that extend such a bond’s connectivity while preserving the 
+unit bond length:
+(i) Stitch — planar expansion. Place a new node at the equilateral apex 
+above an existing edge. This adds one node bonded to two existing 
+nodes, growing a planar triangulated sheet. Geometrically, stitch re-
+alizes the intersection of two unit spheres centered on the existing 
+edge endpoints — generically a 1-parameter family in 3D (a circle of 
+solutions), reduced to a unique apex on the local 2D growth plane. 
+Interior nodes of such a sheet have coordination 𝐾=6 (six surrounding 
+triangles), the maximum coordination consistent with strict planarity.
+(Ii) Lift — out-of-plane projection. Place a new node above the centroid 
+of an existing triangular face at the unique height ℎ that maintains unit 
+bond length 𝐿 to all three triangle vertices. The triangle has circum-
+radius 𝐿∕
+√
+3 (centroid-to-vertex distance of an equilateral triangle of 
+edge 𝐿), so by the Pythagorean theorem ℎ2+(𝐿∕
+√
+3)2 = 𝐿2, which gives 
+ℎ=
+√
+2∕3 𝐿 — equivalently, the apex height of a regular tetrahedron 
+with edge 𝐿. This adds one node bonded to three existing nodes, 
+breaking out of the planar 𝐾=6 ground state into 3D. Geometrically, lift 
+realizes the intersection of three unit spheres centered on the triangle 
+vertices — a 0-parameter set in 3D (a unique apex pair, of which one 
+is selected by orientation).
+These two operators exhaust the kinematic possibilities. A 4-sphere 
+intersection in 3D is generically empty, so no third operator with 
+strictly greater connectivity can be defined. Stitch and lift therefore 
+form a complete kinematic basis for graph growth in three-dimensional 
+Euclidean space at fixed unit bond length.
+Why lift is rare. The relative suppression of lift over stitch follows 
+from the dimensional reduction in the operator’s solution manifold. 
+A stitch is constrained by two simultaneous unit-distance conditions 
+and admits a 1-parameter family of geometric solutions; a lift is con-
+strained by three simultaneous unit-distance conditions and admits 
+only a 0-parameter family. The relative amplitude 𝑃lift∕𝑃stitch is there-
+fore exponentially suppressed in the codimension difference, and the 
+specific value 𝑃lift = 𝑒−3 ≈4.98% is the unique exponential amplitude 
+consistent with the requirement that the cascade terminates at FCC 
+Physics Open 27 (2026) 100423 
+2
+
+
+## Page 3
+
+R. Kulkarni
+Fig. 1. Stitch and lift produce 𝐾=12 cuboctahedral coordination on every interior FCC bulk node. (a) The central node (yellow star) sits in the middle close-packed 
+hexagonal sheet (Layer B, 𝑧= 0). Its 12 nearest neighbors decompose into 6 in-plane neighbors (green, 𝐾=6 saturation of the planar growth from stitch within 
+Layer B), 3 neighbors in the upper sheet (Layer C, blue, at 𝑧= +ℎ with ℎ=
+√
+2∕3 𝐿, reached by lift), and 3 neighbors in the lower sheet (Layer A, orange, at 
+𝑧= −ℎ, the mirror lift). (b) The same 12 vertices interpreted as the cuboctahedron: 8 triangular faces (green, non-bipartite 𝐶3 — the color-confining channels 
+of Section 5.1) and 6 square faces (blue, bipartite 𝐶4 — the electromagnetic-screening channels of Section 6.4). The figure visualizes why no third operator is 
+needed: the kissing-number bound 𝐾=12 saturates with exactly the 6+3+3 contributions of in-plane stitching plus two rare lifts.
+Table 2
+Coordination statistics across system sizes (𝑃lift = 0.05, 𝑅ex = 0.95 𝐿, 30 seeds 
+each). The rightmost two columns report the bulk-interior diagnostic. The bulk 
+interior is defined as the set of nodes whose three FCC coordination shells are 
+fully populated: an ideal interior FCC node has 12 + 6 + 24 = 42 neighbors at 
+distances 𝐿, 
+√
+2 𝐿, and 
+√
+3 𝐿, all within radius 2𝐿. We classify a node as bulk-
+interior iff it has at least 42 other nodes within 2𝐿. This is a strict geometric 
+criterion derived from FCC crystallography, not a tuned threshold. It excludes 
+any node whose surroundings are not yet a complete bulk environment, such 
+as free-surface nodes that have no physical analog in the cosmological setting.
+ 𝑁
+Mean K
+K=12 (all, %)
+𝜆min∕𝜆max
+K=12 (bulk, %)
+Bulk modal 𝐾 
+ 250
+7.41 ± 0.33
+8.2 ± 3.7
+0.39 ± 0.17
+59 ± 14
+12
+ 
+ 500
+8.20 ± 0.28
+15.9 ± 4.7
+0.46 ± 0.17
+63 ± 12
+12
+ 
+ 750
+8.64 ± 0.26
+21.8 ± 5.1
+0.51 ± 0.16
+68 ± 10
+12
+ 
+ 1000
+8.90 ± 0.26
+25.4 ± 5.4
+0.54 ± 0.15
+69 ± 10
+12
+ 
+saturation (𝐾=12 at the Kepler bound) in the thermodynamic limit. 
+Smaller 𝑃lift produces isolated 2D sheets that fail to interlock; larger 
+𝑃lift produces 3D foams that fail to saturate at 𝐾=12. The simulation 
+results in Table 2 below confirm 𝑒−3 as the value consistent with the 
+asymptotic 𝐾=12 ground state.
+The cascade closes at K=12. The kinematic sequence — Bell pair (𝐾=1) 
+→ stitched sheet (𝐾=6) → lifted tetrahedral foam (𝐾=4, geometri-
+cally frustrated intermediate) → interlocked sheets (𝐾=12 FCC, ABC 
+stacking) — closes geometrically at 𝐾=12 because 𝐾=12 saturates the 
+kissing-number bound of three-dimensional Euclidean space [3]. No 
+further operator can add a node at unit distance from an already 
+12-coordinated node, so the cascade has no fifth phase. This is the 
+geometric reason why stitch and lift suffice: they drive the system from 
+the minimal-entanglement starting point to its saturation phase, and 
+there is nothing further to do.
+Geometric frustration of the K=4 intermediate. Of the four phases in the 
+cascade, only the 𝐾=4 tetrahedral foam is unstable. Regular tetrahedra 
+cannot tile three-dimensional Euclidean space: the dihedral angle of a 
+regular tetrahedron is arccos(1∕3) ≈70.528◦, and packing five tetrahe-
+dra around a shared edge consumes 5 × 70.528◦= 352.64◦, leaving an 
+irreducible Regge deficit angle [4] 
+𝛿= 2𝜋−5 arccos(1∕3) ≈0.128 rad.
+(1)
+This residual 7.36◦ wedge is the geometric source of the instability of 
+the 𝐾=4 phase. The frustrated foam therefore proceeds, under contin-
+ued action of the lift operator and proximity bonding between adjacent 
+𝐾=6 sheets, to the 𝐾=12 FCC saturation phase — the cuboctahedral 
+coordination shell of every interior bulk node, with the 𝐾= 6 + 3 + 3
+decomposition into in-plane hexagonal neighbors plus upper and lower 
+triangular caps shown in Fig. 1.
+Operational parameters of the simulation. The simulation is controlled 
+by a tolerance window around the unit bond length: nodes closer than 
+𝑅ex = 0.95 𝐿 to each other are forbidden (overlap exclusion), while 
+nodes within proximity-bond radius 𝑅𝑏= 1.05 𝐿 are bonded. The ±5%
+width of this window is the natural angular jitter at every node set by 
+the Regge deficit angle 𝛿≈0.128 rad ≈7.36◦ (Eq. (1)), which projects 
+to approximately ±5% bond-length tolerance for unit-distance vectors. 
+The specific value 𝑅ex = 0.95 𝐿 is well inside the 𝐾=12 stability plateau 
+confirmed in Fig. 2 below (𝑅ex ∈[0.58, 0.99] 𝐿), so the simulation is 
+robust to this choice rather than fine-tuned to it.
+Finite-size scaling. Table 2 shows the 𝐾=12 saturation fraction across 
+system sizes 𝑁= 250, 500, 750, 1000, each averaged over 30 indepen-
+dent random seeds. The data fit a clean surface-to-volume scaling law
+𝑓𝐾=12(𝑁) = 1 −𝛼∕𝑁1∕3,
+𝛼= 6.8 ± 0.6.
+(2)
+This functional form follows directly from the geometric expectation 
+that under-coordinated nodes are confined to the cluster boundary 
+(scaling as 𝑁2∕3) while bulk-interior nodes saturate at 𝐾=12 (scaling 
+as 𝑁). The under-coordinated fraction is therefore 𝑁2∕3∕𝑁= 𝑁−1∕3. 
+Extrapolating Eq. (2) gives 𝑓𝐾=12 →1 in the thermodynamic limit 
+(𝑁→∞), consistent with complete FCC saturation as the asymptotic 
+ground state of the kinematics.
+Physics Open 27 (2026) 100423 
+3
+
+
+## Page 4
+
+R. Kulkarni
+Fig. 2. The geometric phase transition at the metric wall length 𝑅ex = 𝐿∕
+√
+3. Below this exclusion radius, the lattice loses its 𝐾=12 saturation. The wide stability 
+plateau in [0.58, 0.99] confirms that 𝐾=12 saturation is not a fine-tuned outcome. Data are means over 30 random seeds at 𝑁= 500 with 𝑃lift = 0.05.
+Bulk-interior diagnostic. The all-node 𝐾=12 percentages above are mixed 
+measurements: they include free-surface nodes that are intrinsically 
+under-coordinated and that have no physical analog in the cosmological 
+setting (the observable universe sits in the bulk regime, not near a 
+boundary). The physically relevant quantity is whether bulk-interior 
+nodes have reached FCC coordination. We extract this directly via 
+a strict geometric criterion: a node is bulk-interior iff its three FCC 
+coordination shells are all populated, i.e., iff at least 42 other nodes 
+lie within radius 2𝐿 of it. The threshold value 42 is not tuned: it is 
+simply 12 + 6 + 24, the count of an ideal FCC interior node’s neighbors 
+in its first three coordination shells (at distances 𝐿, 
+√
+2 𝐿, and 
+√
+3 𝐿). 
+Re-analyzing the same 30-seed simulation output under this criterion 
+gives the bulk-restricted statistics in the rightmost two columns of Table 
+2. Three observations:
+1. The bulk modal 𝐾 is exactly 12 at every system size from 𝑁=250
+upward. The lattice’s bulk interior is FCC by direct measurement, 
+not by extrapolation.
+2. The bulk-restricted 𝐾=12 fraction (e.g., 69 ± 10% at 𝑁=1000) is 
+roughly 2.5× the all-node value (e.g., 25.4 ± 5.4%), consistent with 
+the surface-volume interpretation of the scaling law.
+3. The bulk standard deviation is 𝜎𝐾≈0.86 at 𝑁=1000, with bulk 
+mean ̄𝐾bulk ≈11.52. The remaining bulk-interior nodes that fall 
+short of 𝐾=12 are concentrated at 𝐾=10, 11 rather than spread 
+broadly — a fingerprint of grain-boundary nodes between FCC 
+crystallites of different orientations, not of a coordination distribu-
+tion centered below 12. This is consistent with the polycrystalline 
+character of the emergent lattice.
+Together, the all-node finite-size scaling and the bulk-interior modal-𝐾
+measurement provide independent evidence: the first establishes that 
+under-coordinated nodes are confined to the surface (where they decay 
+as 𝑁−1∕3), the second establishes that the bulk itself is FCC. Neither 
+relies on extrapolation to N→∞.
+The metric wall at 𝑅ex = 𝐿∕
+√
+3. A sweep over the exclusion radius 𝑅ex
+reveals a sharp geometric phase transition at 𝑅ex = 𝐿∕
+√
+3 = 0.577 𝐿
+(Fig. 2). The maximum coordination 𝐾max = 12 is maintained across 
+the entire band 𝑅ex ∈[0.58, 0.99], demonstrating that the specific value 
+𝑅ex = 0.95 𝐿 used in our simulations is not a fine-tuned parameter. 
+Below 𝑅ex = 𝐿∕
+√
+3, the exclusion is too weak and unphysical overlaps 
+appear (𝐾max > 12); above 𝑅ex = 1.0 𝐿, strict rigidity causes lattice 
+freezing (𝐾max collapses to 2–3).
+The geometric origin of the value 𝐿∕
+√
+3 is the circumradius of the 
+equilateral triangle with edge 𝐿: this is the distance from the centroid 
+of a triangular face to each of its vertices. Below this distance, a node 
+at the centroid would lie within bond-length range of all three triangle 
+vertices, creating a topologically inadmissible configuration.
+Additional simulation outputs
+The simulation also produces, with no fitting:
+• Inter-layer FCC spacing of 0.8165±0.0011 𝐿, matching the ideal FCC 
+value 
+√
+2∕3 𝐿= 0.8165 𝐿 to 0.01%.
+• Exact structural planarity of internal layers (𝜎𝑧< 10−10 𝐿 for 22 of 
+23 substantial layers at 𝑁= 3000).
+• Mean inter-layer bond count of 4.9 per node, indicating that ∼𝑒−3
+rare lift events are sufficient to weld adjacent hexagonal sheets into 
+a coherent FCC bulk.
+The kinematic parameters of the simulation are summarized in 
+Appendix.
+3. The trapped extra node
+3.1. Crystallographic setting
+The FCC unit cell, with cubic lattice constant 𝑎, contains atoms 
+at (0, 0, 0) and the three face centers. The cell decomposes into eight 
+tetrahedral voids and four octahedral voids [5,6]. Each tetrahedral void 
+is bounded by exactly four FCC atoms forming a regular tetrahedron 
+with edge length 𝑎∕
+√
+2 = 𝐿, equal to the nearest-neighbor distance. 
+For the void centered at (𝑎∕4, 𝑎∕4, 𝑎∕4), the bounding vertices are 
+𝐴= (0, 0, 0),
+𝐵= (𝑎∕2)(1, 1, 0),
+𝐶= (𝑎∕2)(1, 0, 1),
+𝐷= (𝑎∕2)(0, 1, 1).
+(3)
+3.2. The trapped remnant
+During the 𝐾=4 →𝐾=12 phase transition, the amorphous tetrahe-
+dral foam converts to crystalline FCC order. An extra node that fails 
+to integrate into the crystal remains sitting at the void center, bonded 
+to all four bounding vertices (Fig. 3). This creates a local 𝐾4 complete 
+graph (four nodes with all six pairwise edges plus four bonds to the 
+Physics Open 27 (2026) 100423 
+4
+
+
+## Page 5
+
+R. Kulkarni
+Fig. 3. A single 𝐾=4 node (yellow star) trapped at the centroid of the interstitial tetrahedral void of the 𝐾=12 FCC lattice. The trapped node bonds to all four 
+bounding vertices 𝐴, 𝐵, 𝐶, 𝐷 — themselves bulk FCC nodes with their own 𝐾=12 cuboctahedral coordination shells (the green translucent polyhedron shows vertex 
+𝐴’s shell as an example). The four defect bonds (orange) are under compressive strain because the 𝐾=4 coordination of the trapped node is below the 𝐾=12 bulk 
+equilibrium, creating a local stress field that propagates outward through the FCC lattice for ∼2 lattice spacings. The dashed red segment marks the metric wall 
+length 𝐿∕
+√
+3 — the in-plane circumradius of any bounding face — which sets the absolute exclusion distance below which the lattice cannot accommodate an 
+independent node. The defect is metastable with a confinement barrier 𝜎𝑟 set by this scale (Section 6).
+trapped center, or equivalently, four bonds per bounding vertex within 
+the defect cluster) embedded in the 𝐾=12 bulk. The trapped node has 
+coordination 𝐾=4, precisely the pre-crystallization phase.
+This is the central claim of the paper: matter is a frozen fragment of 
+the inflationary vacuum phase. It is not something added to spacetime; 
+it is spacetime that did not finish crystallizing.
+4. Fractional electric charges from tetrahedral projection
+The fractional charges −1∕3 and +2∕3 are derived in this section 
+from two rigorous geometric facts: (i) the bond angle of a regular 
+tetrahedron has cosine exactly −1∕3, and (ii) the trapped defect must 
+couple to the bulk FCC lattice through integer winding numbers fixed 
+by the bulk’s Bravais translation symmetry. Together these uniquely 
+determine the values −1∕3 (the unwound or ‘‘baseline’’ state) and +2∕3
+(the singly-wound excited state).
+4.1. The four-bond defect: 1 anchor + 3 valence quarks
+The trapped extra node sits at the centroid of a regular tetrahe-
+dron with vertices 𝐴, 𝐵, 𝐶, 𝐷 given in Eq. (3). It bonds to all four 
+bounding vertices, producing a local 𝐾=4 pocket with bond directions 
+̂𝑟𝐴, ̂𝑟𝐵, ̂𝑟𝐶, ̂𝑟𝐷 pointing from the void center to each bounding vertex.
+The four bonds split into a 1 + 3 structure under the host FCC 
+embedding (Fig. 4):
+• One anchor bond. The bonding cluster must couple to the surround-
+ing 𝐾=12 bulk to remain stable; one of the four bonds serves as the 
+topological anchor (the ‘‘gluon junction’’) through which charge, 
+momentum, and color flux are exchanged with the bulk. Without 
+loss of generality we designate ̂𝑟𝐴 the anchor direction. The choice 
+of which vertex serves as the anchor breaks the 𝑆4 symmetry of the 
+tetrahedron explicitly to 𝑆3 acting on the remaining three bonds.
+• Three valence bonds. The remaining bonds ̂𝑟𝐵, ̂𝑟𝐶, ̂𝑟𝐷 are internal 
+to the defect and constitute the three valence quarks. They are 
+equivalent under the residual 𝑆3 symmetry.
+The choice of anchor is dynamical: a different choice gives a spa-
+tially inverted defect (the second tetrahedral-void orientation in the 
+FCC unit cell, centered at (3𝑎∕4, 3𝑎∕4, 3𝑎∕4)). This 4-fold ambiguity of 
+anchor selection — combined with the integer-winding mechanism of 
+Section 4.3 — is what produces the proton, neutron, 𝛥−, and 𝛥++ from 
+a single underlying geometric structure (Section 4.4).
+4.2. The tetrahedral projection: −1∕3 as a geometric law
+The defining geometric fact about a regular tetrahedron is the cosine 
+of its bond angle. From any vertex of a regular tetrahedron, the four 
+bonds to the centroid (equivalently, the four bonds emanating from the 
+trapped node to its bounding vertices) pairwise satisfy 
+̂𝑟𝑖⋅̂𝑟𝑗= −1∕3
+for all 𝑖≠𝑗∈{𝐴, 𝐵, 𝐶, 𝐷}.
+(4)
+The angle is arccos(−1∕3) ≈109.47◦, the well-known regular-tetrahedron 
+bond angle. Eq. (4) is a rigid theorem of three-dimensional Euclidean 
+geometry; it admits no fine-tuning, no parameter, and no alternative.
+Physics Open 27 (2026) 100423 
+5
+
+
+## Page 6
+
+R. Kulkarni
+Fig. 4. Quark structure from tetrahedral geometry. (a) Anchor selection breaks the tetrahedral 𝑆4 symmetry to 𝑆3: one bond (red) anchors the defect to the bulk, 
+while three bonds (green) are the equivalent valence quarks. (b) Each valence bond projects onto the anchor axis with weight cos(arccos(−1∕3)) = −1∕3 — a rigid 
+theorem of three-dimensional Euclidean geometry. The four-bond conservation 1 + 3 × (−1∕3) = 0 is exact. (c) The four observed baryon configurations follow 
+directly from the total winding number 𝑊= ∑
+𝑖𝑤𝑖∈{0, 1, 2, 3} via the formula 𝑄baryon = −1 + 𝑊 (Eq. (10)).
+Projection onto the anchor axis
+Project each of the three valence bonds onto the anchor direction 
+̂𝑟𝐴: 
+𝑃𝑣≡̂𝑟𝑣⋅̂𝑟𝐴= −1∕3
+for each 𝑣∈{𝐵, 𝐶, 𝐷}.
+(5)
+Each valence bond carries a geometric flux of exactly −1∕3 unit along 
+the anchor axis. This is not a counting argument or a normalization 
+choice; it is the direct value of the cosine in Eq. (4).
+Self-projection of the anchor
+The anchor bond projects onto itself with weight ̂𝑟𝐴⋅̂𝑟𝐴= +1.
+Conservation along the anchor axis
+The four bonds together project a total flux of 
+𝑃tot = ̂𝑟𝐴⋅̂𝑟𝐴+
+∑
+𝑣∈{𝐵,𝐶,𝐷}
+̂𝑟𝑣⋅̂𝑟𝐴= 1 + 3 × (−1∕3) = 0.
+(6)
+The sum of projections vanishes identically. This is the geometric origin 
+of charge conservation in the unwound state: the four-bond defect 
+carries net flux zero along its own preferred axis.
+We identify the projected flux 𝑃𝑣 with the observable electric charge 
+𝑞𝑣 of each valence bond in the unwound state. This identification is 
+justified because (a) the anchor axis is the only physically distinguished 
+direction at the defect site (the bulk-coupling channel), (b) the flux 
+along this axis is the quantity transmitted to the bulk and observable 
+at infinity, and (c) the conservation Eq. (6) is exactly the requirement 
+that the closed defect carry zero net charge before bulk coupling. The 
+baseline charge of each valence bond is therefore 
+𝑞(0)
+𝑣
+= −1∕3.
+(7)
+This is the geometric origin of the down-quark charge.
+4.3. Integer winding from bulk translation symmetry
+The unwound state with all three valence bonds at −1∕3 gives 
+a baryon charge of −1 (corresponding to the 𝛥− baryon, 𝑑𝑑𝑑). The 
+trapped defect must couple to the bulk FCC lattice in a manner that 
+allows the full observed baryon spectrum to form. We now derive the 
+second geometric fact that fixes the up-quark charge.
+Bravais translation symmetry
+The bulk 𝐾=12 FCC lattice is a Bravais lattice with discrete transla-
+tion group Z3 (generated by the three primitive lattice vectors). Any 
+quantity that couples a localized defect to the bulk must be single-
+valued under bulk translations: a defect that traverses a closed loop in 
+the lattice must return to its initial state up to a multiple-of-2𝜋 phase, 
+exactly as in standard lattice gauge theory [7].
+Winding number
+For a valence bond, define the winding number 𝑤 as the integer 
+count of full lattice spacings the bond’s endpoint traverses when the 
+defect couples to the bulk. The single-valuedness requirement under 
+the Bravais translation group forces 
+𝑤∈Z.
+(8)
+Non-integer winding would correspond to a fractional translation, 
+which is not an element of the translation group and would render the 
+defect ill-defined as a bulk excitation.
+Charge after winding
+A valence bond with winding number 𝑤 carries observable charge 
+𝑞𝑣(𝑤) = 𝑞(0)
+𝑣
++ 𝑤= −1∕3 + 𝑤.
+(9)
+The available charge values are {… , −4∕3, −1∕3, +2∕3, +5∕3, +8∕3, …}.
+Phenomenological selection of 𝑤∈{0, +1}
+The two lowest-magnitude solutions of Eq. (9) are:
+• 𝑤= 0: 𝑞= −1∕3 (the baseline state, identified with the down 
+quark).
+• 𝑤= +1: 𝑞= +2∕3 (the singly-wound state, identified with the up 
+quark).
+Higher windings 𝑤≥2 would correspond to charges ≥+5∕3, which are 
+not observed for valence quarks in any baryon at the first-shell level of 
+the FCC defect classification. Negative windings 𝑤≤−1 would give 
+charges ≤−4∕3, also not observed.
+The restriction to 𝑤∈{0, +1} is therefore an empirical input from 
+the observed quark spectrum, not derived from the FCC geometry 
+alone. It is analogous to other places in this framework where the 
+Physics Open 27 (2026) 100423 
+6
+
+
+## Page 7
+
+R. Kulkarni
+lowest-shell defects match observation: the framework predicts the 
+form of the allowed states (a discrete ladder −1∕3 + 𝑤) and the geo-
+metric value of the baseline (−1∕3), but the upper end of the ladder is 
+fixed phenomenologically.
+4.4. The baryon spectrum from total winding number
+A baryon consists of one trapped defect: 1 anchor bond + 3 valence 
+quarks, each valence bond carrying an independent winding number 
+𝑤𝑖∈{0, +1}. The anchor bond couples the defect to the bulk and does 
+not itself contribute an observable valence charge — its self-projection 
+of +1 is internal to the defect, while the three valence bonds carry 
+the externally observable charges. The total observable charge of the 
+baryon is therefore the sum of the three valence contributions: 
+𝑄baryon =
+3
+∑
+𝑖=1
+𝑞𝑖(𝑤𝑖) =
+3
+∑
+𝑖=1
+(−1∕3 + 𝑤𝑖) = −1 +
+3
+∑
+𝑖=1
+𝑤𝑖= −1 + 𝑊,
+(10)
+where 𝑊
+= ∑𝑤𝑖∈{0, 1, 2, 3} is the total winding number across 
+the three valence bonds. The four observed baryon configurations 
+correspond to the four possible total windings:
+• 𝛥− (𝑑𝑑𝑑): 𝑊
+= 0, all three bonds unwound. Valence charges: 
+(−1∕3, −1∕3, −1∕3). Total: 𝑄= −1. ✓
+• neutron (𝑢𝑑𝑑): 𝑊= 1, one bond wound. Valence charges: (+2∕3,
+−1∕3, −1∕3). Total: 𝑄= 0. ✓
+• proton (𝑢𝑢𝑑): 𝑊= 2, two bonds wound. Valence charges: (+2∕3,
++2∕3, −1∕3). Total: 𝑄= +1. ✓
+• 𝛥++ (𝑢𝑢𝑢): 𝑊
+=
+3, all three bonds wound. Valence charges: 
+(+2∕3, +2∕3, +2∕3). Total: 𝑄= +2. ✓
+This reproduces the four observed first-shell baryon charge states 
+(𝑄∈{−1, 0, +1, +2}), matching the 𝛥-baryon isospin quartet (𝛥−, 𝛥0, 
+𝛥+, 𝛥++) of the 𝐼= 3∕2 multiplet. At the level of structural counting, 
+the neutron and proton are degenerate with 𝛥0 and 𝛥+ respectively 
+(same quark content 𝑢𝑑𝑑 and 𝑢𝑢𝑑); the spin-1/2 vs spin-3/2 mass 
+splitting between them is a QCD effect that lies outside the geometric 
+framework, which counts only structural disruption integers.
+The matter–antimatter asymmetry from anchor orientation
+The two tetrahedral-void orientations in the FCC unit cell (centered 
+at (𝑎∕4, 𝑎∕4, 𝑎∕4) and (3𝑎∕4, 3𝑎∕4, 3𝑎∕4)) are related by spatial inversion. 
+The inversion exchanges the sign of the anchor projection: ̂𝑟𝐴→−̂𝑟𝐴, 
+so the valence projections become +1∕3 instead of −1∕3. The inverted 
+void supports anti-baryons (anti-𝛥−→𝛥+, antineutron, antiproton, 
+anti-𝛥++ →𝛥−) by the same construction with all signs flipped. The two 
+void orientations are the geometric origin of matter and antimatter, and 
+the local cosmological excess of one orientation over the other selects 
+the observed matter-dominated universe.
+4.5. What the geometry derives, what It does not, and what It falsifiably 
+predicts
+We summarize what the tetrahedral-projection argument establishes 
+rigorously, what remains as input, and what the framework predicts at 
+the level of falsifiable observation.
+Rigorous geometric outputs
+1. The baseline charge 𝑞(0) = −1∕3 for each valence bond, derived 
+from the regular-tetrahedron bond-angle cosine (Eq. (4)).
+2. Charge conservation along the anchor axis (Eq. (6)), guaranteeing 
+zero net flux along the defect’s preferred direction in the unwound 
+state.
+3. Integer winding 𝑤∈Z, derived from the Bravais translation 
+symmetry of the bulk 𝐾=12 lattice (Eq. (8)).
+4. The discrete charge ladder 𝑞(𝑤) = −1∕3 + 𝑤 (Eq. (9)).
+5. The four-baryon spectrum (𝛥−, neutron, proton, 𝛥++) from the 
+formula 𝑄baryon = −1 + 𝑊 with 𝑊∈{0, 1, 2, 3} (Eq. (10)).
+6. Matter–antimatter duality from the two void orientations.
+Phenomenological input
+The restriction to single-bond windings 𝑤∈{0, +1} (rather than 
+|𝑤| ≥2) reflects the observed valence-quark spectrum at the first-
+shell level of the FCC defect classification. The framework does not 
+independently predict why higher windings are absent at this level; this 
+is consistent with the broader program of identifying the lowest-shell 
+defects with the lightest particles [2], where the heavier strange and 
+charm sectors are expected to involve second-shell extensions beyond 
+the first FCC void.
+Rigid falsifiable predictions
+While the truncation 𝑤∈{0, +1} is taken as input, the frame-
+work makes three rigid predictions in this sector that are falsifiable in 
+principle:
+1. No fourth color charge exists. The combinatorial uniqueness of the 
+skew-edge pair count 𝑐skew = 3 for the complete graph 𝐾4 admits no 
+extension. Detection of a fourth fundamental color charge would 
+falsify the framework.
+2. No isolated fractionally charged quark can propagate through the 
+bulk. The non-bipartite triangular face topology of the cuboctahe-
+dral coordination shell (Sections 5.1 and 6.4) topologically forbids 
+single-color-mode propagation. Observation of a free fractional 
+charge would falsify the framework.
+3. The first-shell baryon spectrum is exhausted by 𝑊∈{0, 1, 2, 3}. 
+There is no fifth first-shell baryon. Discovery of a stable funda-
+mental baryon outside this multiplet (not a higher-shell radial 
+excitation) would falsify the framework.
+5. Three colors from three skew-edge pairs
+5.1. Combinatorial origin of three colors
+The bounding tetrahedron 𝐾4 has 6 edges. These partition uniquely 
+into 3 pairs of skew edges (edges sharing no common vertex): 
+Pair 1: (𝐴𝐵, 𝐶𝐷),
+Pair 2: (𝐴𝐶, 𝐵𝐷),
+Pair 3: (𝐴𝐷, 𝐵𝐶).
+(11)
+This corresponds to the combinatorial identity 𝐶(4, 2)∕2 = 3. For any 
+chosen edge of 𝐾4, exactly one of the other 5 edges shares no vertex 
+with it (the ‘‘opposite’’ edge); the 6 edges therefore partition into 3 
+disjoint skew pairs, and this partition is unique. There is no fourth skew 
+pair, no second valid assignment, and no other tetrahedral graph with 
+a different number of skew pairs. We use the symbol 𝑐skew = 3 to denote 
+this skew-edge pair count.
+Each skew pair carries one unit of internal flux that binds the 
+tetrahedral defect together. Three skew-edge pairs therefore provide 
+three independent internal flux channels, recovering the three color 
+charges of Quantum Chromodynamics. No fourth color exists because 
+a tetrahedron has no fourth independent skew-edge pair. This is a 
+theorem of discrete combinatorics, not a phenomenological postulate.
+5.2. Relation to SU(3) and color neutrality
+We address the relation between this geometric construction and 
+the standard SU(3) gauge group.
+Three colors, not SU(3) directly
+Our construction generates exactly three color charges from the 
+three skew-edge pairs of the bounding tetrahedron. This corresponds to 
+the representation theory of standard SU(3) gauge theory — specifically 
+the three-dimensional fundamental representation in which quarks 
+transform — not the full SU(3) Lie algebra. We do not claim to derive 
+the SU(3) Lie algebra from the lattice geometry; we claim that the 
+representation of color charges on a baryon-like defect is uniquely fixed 
+at three by the combinatorial identity 𝐶(4, 2)∕2 = 3.
+Physics Open 27 (2026) 100423 
+7
+
+
+## Page 8
+
+R. Kulkarni
+The 8 generators of SU(3) (corresponding to the 8 gluons) live in 
+a different topological structure of the lattice: the 8 triangular faces 
+of the cuboctahedral coordination shell of each FCC bulk node. The 
+cuboctahedron has 14 faces total: 8 triangles and 6 squares. The 8 
+triangular faces are non-bipartite (they contain odd-length cycles 𝐶3
+that cannot be 2-colored), making them confining channels; the 6 
+square faces are bipartite (they admit perfect {+, −} alternation) and 
+host the screening sector. This separation of representation (three colors 
+on the defect) and algebra (eight gluons in the bulk) is consistent with 
+the standard formulation of lattice gauge theory [7,8].
+Color neutrality
+The closed tetrahedral defect carries net color charge zero. The three 
+skew-edge pairs each carry one unit of internal color flux, but the flux 
+lines are oriented so that the four vertices form a closed loop in color 
+space. Specifically, the color fluxes assigned to the three pairs satisfy a 
+vertex-balance condition at every bounding vertex: 
+4
+∑
+𝑖=1
+𝑐𝑖= 0,
+(12)
+where 𝑐𝑖 is the color charge associated with vertex 𝑖. This is verified 
+directly: each vertex is an endpoint of exactly one edge from each skew 
+pair (3 incident edges total, one from each color), and the three colors 
+sum to zero in any SU(3) representation. The defect is therefore a color 
+singlet, which is the discrete analog of the trace condition that makes 
+baryons color singlets in SU(3) representation theory.
+Confinement at the topological level
+The non-bipartite topology of the triangular faces of the cuboc-
+tahedral coordination shell prevents the propagation of single-color 
+modes through the bulk. A bipartite face supports an alternating {+, −}
+coloring (a perfect 2-coloring of the face’s vertices), corresponding 
+to a propagating dipole mode. A non-bipartite face does not. The 8 
+triangular faces in each coordination shell are non-bipartite by virtue 
+of containing odd-length cycles (𝐶3). A color singlet (three colors 
+summing to zero) can propagate through these faces because it carries 
+no net coloring obligation; an isolated color charge cannot, because 
+its associated alternating mode is geometrically frustrated on every 
+triangular face it would have to cross.
+This provides a static, topological version of confinement that does 
+not require a dynamical gauge field. It complements — rather than 
+replaces — the dynamical Wilson-loop area law of continuum lattice 
+QCD [7,9]: the static topological structure provides the boundary con-
+ditions, while the dynamical area law would emerge in the continuum 
+limit when fluctuations of the lattice bonds are taken into account.
+6. Confinement from the metric wall
+6.1. Why the extra node cannot escape
+The extra node sits at the centroid of the tetrahedral void, bonded to 
+its four bounding vertices 𝐴, 𝐵, 𝐶, 𝐷 at the centroid-to-vertex distance 
+𝐿⋅
+√
+3∕8 ≈0.612 𝐿 (slightly compressed below the unit bond length, 
+hence the local strain). The relevant length scale for confinement, how-
+ever, is not the centroid-to-vertex distance but the in-plane circumradius
+𝐿∕
+√
+3 of any bounding face: this is the distance, within the plane of 
+one triangular face, from the face centroid to any vertex of that face. 
+We refer to this length as the metric wall. It is the absolute minimum 
+approach distance below which the lattice cannot accommodate an 
+independent node without violating the exclusion principle of the 
+discrete metric: any node lying within 𝐿∕
+√
+3 of all three vertices of 
+an equilateral triangle of edge 𝐿 would be at unit-bond-length range 
+of all three simultaneously, an over-constrained configuration that the 
+kinematics rejects.
+Section 2.3 (Fig. 2) provides computational verification of this 
+length scale: a sharp phase transition in 𝐾max occurs precisely at 𝑅ex =
+𝐿∕
+√
+3, and below this threshold the exclusion principle becomes too 
+weak to enforce the FCC topology.
+To extract the trapped node from the void, one must stretch the four 
+bonds connecting it to the bounding vertices. However, the surrounding 
+𝐾=12 lattice aggressively resists this displacement: every bounding ver-
+tex has 9 external bonds pulling it back into its crystalline equilibrium 
+position. This restoring force grows linearly with the displacement, 
+producing a confining potential 
+𝑉(𝑟) = 𝜎𝑟,
+(13)
+where 𝜎 is the lattice-level string tension set by the bond energy.
+6.2. Comparison with the Cornell potential
+The Cornell potential [9,10] is the phenomenological QCD confine-
+ment potential 
+𝑉Cornell(𝑟) = −𝜅∕𝑟+ 𝜎𝑟,
+(14)
+where 𝜎≈1 GeV/fm is the QCD string tension and 𝜅≈0.5 encodes the 
+short-distance Coulomb-like interaction.
+Linear term
+Our metric-wall confinement reproduces the linear 𝜎𝑟 term of 
+Eq. (14) naturally. The geometric obstruction to extracting a node from 
+a tetrahedral void grows linearly with the extraction distance because 
+each unit of displacement requires breaking one additional layer of 
+bond connections. The linear-in-𝑟 behavior is a consequence of the 
+discrete topology of the lattice and does not require dynamical gauge 
+fields.
+Coulomb term
+Our derivation does not reproduce the short-distance Coulomb −𝜅∕𝑟
+piece. This is expected: our argument is purely static and considers 
+only the kinematic obstruction to extracting a node. The Coulomb term 
+in the Cornell potential arises from one-gluon exchange in continuum 
+QCD, which is a dynamical effect not captured by the static lattice 
+geometry alone. A complete derivation of the Coulomb term would 
+require additional input from the gauge dynamics of the lattice (the 
+Wilson action and its continuum limit), which is beyond the scope of 
+this paper.
+String tension scale
+The lattice-level string tension is 𝜎lat ∼𝜀∕𝐿2, where 𝜀 is the unitary 
+entanglement bond energy and 𝐿 is the lattice spacing. Setting 𝐿∼𝓁𝑃
+(Planck scale) and 𝜀 at the GUT scale (∼1015 GeV, as constrained 
+by the reheating temperature in inflationary cosmology [11]) gives 
+𝜎lat ∼10−15 GeV2, many orders of magnitude smaller than the QCD 
+string tension (∼0.2 GeV2). The two confinement scales reflect different 
+physical regimes: the lattice-level confinement operates at the Planck 
+scale, while the QCD-scale confinement emerges in the long-wavelength 
+continuum limit. A complete bridge between them would require a 
+renormalization-group analysis that we do not undertake here.
+6.3. String breaking
+If sufficient external energy is supplied to stretch a bond beyond the 
+fundamental length 𝐿, the lattice kinematically un-stitches: it nucleates 
+a new node at the fracture point, capping both torn ends with new 
+vertices. The original single defect bifurcates into two distinct defects: a 
+quark–antiquark pair. This represents physical string breaking, mechan-
+ically ensuring that isolated, unconfined quarks can never propagate 
+through the bulk.
+Physics Open 27 (2026) 100423 
+8
+
+
+## Page 9
+
+R. Kulkarni
+6.4. Electromagnetic invisibility
+The three internal bonds emanating from each bounding vertex 
+pass exclusively through the triangular faces of the cuboctahedral 
+coordination shell. As established in Section 5.1, triangular faces are 
+non-bipartite (𝐶3): they cannot support the alternating {+, −} charge 
+oscillations that mediate photon exchange. Photon coupling instead 
+operates on the bipartite (square) faces of the cuboctahedron, of which 
+there are 6 per coordination shell [12]. The internal bonds of the defect 
+are therefore topologically invisible to photons. Only the external bonds 
+passing through square faces contribute to the net observable charge, 
+which resolves only as the composite integer charge of the baryon. This 
+explains why isolated quarks — carrying fractional charges through 
+internal bonds — cannot be observed electromagnetically.
+7. The proton mass
+Before applying the structural counting argument to the proton, we 
+state the two definitional choices on which the formula in this section 
+rests: the choice of mass unit (the electron) and the counting basis 
+(the count of disrupted crystalline bond states). These are stated up 
+front so that Section 7 is self-contained rather than dependent on the 
+lighter-particle correspondences introduced later in Section 8.
+The electron as the unit of mass. The simplest possible defect in the 
+FCC lattice is a single-node defect — a localized perturbation at one 
+bulk vertex with no internal structure, no skew-edge pairs (𝑐skew = 0), 
+and no color content. We identify this minimal defect as the electron 
+and set 𝑚𝑒≡1 as the unit of the count throughout this paper. This 
+is a definition, not a derivation; the framework’s predictive content 
+lies in the integer ratios 𝑚𝑥∕𝑚𝑒 computed for richer defects, just as no 
+derivation is given for the elementary charge 𝑒 or the speed of light 𝑐
+when those are used as units.
+Counting basis. With the electron as the unit, mass is the total count 
+of crystalline bond states disrupted by the defect — including the bond 
+states associated with the defect’s own structural nodes and those of 
+the surrounding shells whose coordination is perturbed by the defect’s 
+presence. Each disrupted bond state contributes one unit (= 𝑚𝑒). This 
+identification — that mass is a count of crystalline disruption rather 
+than an independently fitted energy parameter — is the geometric 
+content of the framework. For the trapped tetrahedral-void defect, the 
+count factors into three pieces: 𝐾+ 1 = 13 structural nodes (the 
+trapped node plus its four bounding vertices, with each bounding vertex 
+contributing three internal bonds), each disrupting 𝐾2 = 144 bond 
+states in its second-neighbor shell, minus 𝑐skew𝐾= 36 double-counted 
+bonds along the three skew-edge pairs, giving the formula (𝐾+ 1)𝐾2 −
+𝑐skew𝐾= 1836 derived in Section 7.2.
+Scope of the formula. The expression (𝐾+ 1)𝐾2 −𝑐skew𝐾 applies specif-
+ically to the trapped tetrahedral-void defect — the configuration that 
+yields the proton and neutron. Other defect classes (the electron above; 
+the pion as a two-vertex defect with one closing string; the muon as 
+a deconfined three-sheet defect) have their own counting expressions 
+matched to their structural footprints, summarized in Section 8 with 
+full derivations in the companion paper [2]. The formula in this section 
+should not be applied outside the trapped-void class.
+7.1. Structural node count
+The single trapped extra node bonds to the four bounding vertices. 
+Each bounding vertex commits 3 of its 𝐾=12 bonds internally to the de-
+fect structure. Including the central trapped node itself as a coordinate 
+point, the total structural node count of the localized defect is 
+𝑁struct = 4 × 3 + 1 = 𝐾+ 1 = 13.
+(15)
+Table 3
+Proton mass decomposition from the interstitial void geometry.
+ Component
+Geometric origin
+Value
+ 
+ 𝐾+ 1 = 13
+4 bounding cells × 3 bonds + 1 center
+13 nodes
+ 
+ 𝐾2 = 144
+Each node disrupts 𝐾 neighbors of 𝐾 neighbors
+144 per node  
+ −𝑐skew𝐾= −36
+3 skew-edge pairs × 𝐾 shared bonds
+−36 correction 
+ Total
+(𝐾+ 1)𝐾2 −𝑐skew𝐾
+1836
+ 
+7.2. The mass formula
+Each of the 13 structural nodes disrupts the crystalline coordi-
+nation of its 𝐾2 = 144 second-nearest neighbors. The 3 skew-edge 
+pairs (𝑐skew = 3) represent internal flux lines that link two bounding 
+vertices each, with overlapping disrupted neighborhoods. The double-
+counted second-nearest-neighbor bonds along each skew pair must be 
+subtracted. The proton-to-electron mass ratio scales directly with the 
+resulting count (Fig. 5): 
+𝑚𝑝∕𝑚𝑒= (𝐾+ 1)𝐾2 −𝑐skew𝐾= 13 × 144 −3 × 12 = 1872 −36 = 1836.
+(16)
+The observed empirical value is 1836.153 [13]. The theoretical match 
+is to within 0.008%. Table 3 summarizes the geometric origin of each 
+factor in the formula.
+7.3. Stability under geometric perturbations
+The formula (𝐾+ 1)𝐾2 −𝑐skew𝐾 depends on three integers, each a 
+topological invariant:
+• 𝐾= 12: the kissing number of three-dimensional Euclidean space
+[3], fixed by the geometry of the FCC lattice.
+• 𝐾+ 1 = 13: the structural node count of the defect (4 bounding 
+vertices each contributing 3 internal bonds, plus 1 trapped node = 
+13 nodes).
+• 𝑐skew = 3: the unique skew-edge pair count of the complete graph 
+𝐾4, fixed by the combinatorial identity 𝐶(4, 2)∕2 = 3.
+Small geometric perturbations of the lattice (thermal vibrations, bond 
+length fluctuations, slight angular distortions of the cuboctahedral 
+coordination shell) do not change any of these integers. The formula is 
+therefore stable under all such perturbations: it is a counting argument 
+over discrete topological data, not a continuous optimization. The 
+continuous environment can shift the absolute mass scale (through the 
+bond energy 𝜀 and lattice temperature 𝑇) but not the dimensionless 
+ratio 𝑚𝑝∕𝑚𝑒.
+7.4. Relation to the companion QEC derivation
+The same number 1836 is obtained by a different route in the 
+companion paper [2]. There, 𝑚𝑝∕𝑚𝑒 is the dimension of the coupling 
+matrix of a [[192, 130, 3]] CSS code on the FCC lattice: 
+𝑚𝑝∕𝑚𝑒= 𝐸𝑠× 𝐶𝑠= 36 × 51 = 1836,
+(17)
+where 𝐸𝑠= 36 is the number of edges in the 3-sheet substructure of 
+the cuboctahedral coordination cluster and 𝐶𝑠= 𝑓0 + 𝑓2 = 13 + 38 = 51
+is the total number of stabilizer constraints (vertex stabilizers plus face 
+stabilizers) capable of detecting the defect.
+The two factorizations are arithmetically equivalent: 
+36 × 51 = 1836 = 13 × 144 −36 = (𝐾+ 1)𝐾2 −𝑐skew𝐾,
+(18)
+because 𝐾= 4𝑐skew in the cuboctahedral geometry. The companion 
+paper’s question — what is the verification cost of this defect? — and the 
+present paper’s question — what does the trapped-defect geometry count?
+— meet at this shared integer. The structural content of 𝐸𝑠 and 𝐶𝑠 as 𝑓-
+vector entries of the FCC coordination cluster, and the deeper geometric 
+origin of the equivalence, are the subject of ongoing work.
+Physics Open 27 (2026) 100423 
+9
+
+
+## Page 10
+
+R. Kulkarni
+Fig. 5. The macroscopic topological disruption zone. Left: schematic of the 13 structural nodes of the localized defect — the central trapped node (yellow star) 
+plus 12 surrounding bonded nodes (one per internal bond from each of the four bounding vertices, color-coded by parent vertex). The three skew-edge pairs are 
+highlighted (red dashed). Right: the three-component derivation of 𝑚𝑝∕𝑚𝑒: 13 structural nodes (per Eq. (15)), each disrupting 𝐾2 = 144 second-nearest-neighbor 
+states, minus 36 double-counted bonds along the three skew-edge pairs, gives 1836 — matching empirical 𝑚𝑝∕𝑚𝑒= 1836.153 to 0.008%. The companion paper [2] 
+reaches the same number through the dimension of the [[192, 130, 3]] CSS-code coupling matrix (see Section 7.4).
+8. The lighter particles
+The proton-to-electron mass ratio derived in Section 7 uses the 
+electron rest mass as the unit scale. Within the present framework, 
+the electron is the minimal single-node defect of the 𝐾=12 lattice — 
+a point defect localized at one bulk vertex, with no internal edges, no 
+skew-edge pairs (𝑐skew = 0), and no fractional substructure — defining 
+the minimal discrete strain unit of the vacuum. The other lighter 
+particles (the pion, the muon, and the neutron) require fault-tolerant 
+verification-cost arguments that lie outside the structural-disruption 
+framework of this paper; they are treated in the companion paper [2], 
+which derives 𝐶𝑒= 1, 𝐶𝜋= 273, 𝐶𝜇= 207, and 𝐶𝑛= 1839, all matching 
+empirical mass ratios to within 0.12%.
+9. Lorentz invariance and experimental constraints
+A common concern about discrete-spacetime models is conflict with 
+special relativity. We establish emergent Lorentz invariance in three 
+steps and verify compatibility with current experimental bounds.
+9.1. Spatial isotropy at the lattice level
+The 12 nearest-neighbor bond vectors of the FCC lattice are 
+𝑛𝑗∈{(±1, ±1, 0), (±1, 0, ±1), (0, ±1, ±1)}∕
+√
+2,
+𝑗= 1, … , 12.
+(19)
+Define the rank-2 structure tensor 
+𝑆𝜇𝜈≡
+12
+∑
+𝑗=1
+𝑛𝜇
+𝑗𝑛𝜈
+𝑗.
+(20)
+Direct enumeration [2] gives 𝑆𝑥𝑥= 𝑆𝑦𝑦= 𝑆𝑧𝑧= 4 and all off-diagonal 
+components vanish. Therefore 
+𝑆𝜇𝜈= 4 𝛿𝜇𝜈
+[exact, by enumeration].
+(21)
+This guarantees equal propagation speed in every spatial direction.
+The odd-rank tensor 
+𝑇𝜇𝜈𝜆≡
+12
+∑
+𝑗=1
+𝑛𝜇
+𝑗𝑛𝜈
+𝑗𝑛𝜆
+𝑗
+(22)
+vanishes exactly: every bond 𝑛𝑗 has a partner −𝑛𝑗 (the FCC lattice is 
+centrosymmetric), so every odd-power sum cancels: 
+𝑇𝜇𝜈𝜆= 0
+[exact, by inversion symmetry].
+(23)
+This ensures 𝜔(𝑘) = 𝜔(−𝑘): there is no preferred direction and no linear 
+(𝑘) term in the dispersion.
+9.2. Isotropy of the dispersion relation
+For a scalar field on the FCC lattice, the dispersion is 𝜔(𝑘)2 =
+𝜅∑12
+𝑗=1[1 −cos(𝑘⋅𝑛𝑗𝑎)]. At long wavelengths (|𝑘|𝑎≪1): 
+𝜔(𝑘)2 ≈(𝜅𝑎2∕2)
+12
+∑
+𝑗=1
+(𝑘⋅𝑛𝑗)2 = (𝜅𝑎2∕2) 𝑘𝜇𝑘𝜈𝑆𝜇𝜈= (𝜅𝑎2∕2)⋅4|𝑘|2 = 2𝜅𝑎2|𝑘|2,
+(24)
+so 𝜔= 𝑐lat|𝑘| with 𝑐lat = 𝑎
+√
+2𝜅. The dispersion is exactly isotropic at all 
+orders in 𝑘 for which the Taylor expansion is valid. Corrections appear 
+only at 𝑂(𝑘4𝑎4) from higher cosine terms, suppressed by (|𝑘|𝑎)4 ∼
+(𝐸∕𝑀𝑃)4 for Planck-scale lattice spacing 𝑎∼𝓁𝑃.
+9.3. Lorentz boosts in the continuum limit
+The two tensor identities (Eq. (21), (23)) and the isotropic linear 
+dispersion are sufficient for SO(3,1) Lorentz boosts to emerge in the 
+standard continuum limit [14]. A lattice Hamiltonian whose dispersion 
+is isotropic and linear in 𝑘 at long wavelengths gives rise to a relativistic 
+effective field theory in the continuum limit. The lattice does break 
+Lorentz symmetry at the cutoff scale 1∕𝑎, but these violations are 
+suppressed by (𝐸∕𝑀𝑃)4, far below current experimental sensitivity.
+9.4. Experimental constraints
+Current bounds on Lorentz violation are summarized in the
+Kostelecký–Russell data tables [15] and the Liberati–Maccione re-
+view [16]. Typical constraints fall in the range 10−20 to 10−40 relative 
+to the Planck scale, depending on the operator and the experimental 
+Physics Open 27 (2026) 100423 
+10
+
+
+## Page 11
+
+R. Kulkarni
+probe. Our predicted suppression of (𝐸∕𝑀𝑃)4
+∼
+10−56 at optical 
+frequencies is many orders of magnitude below these bounds, so the 
+SSM is compatible with all current Lorentz-invariance tests.
+9.5. Resolution of the Collins et al. naturalness objection
+Collins et al. [14] pointed out that any Lorentz-violating UV cutoff 
+generates fine-tuning of order 𝛬2
+UV∕𝑀2
+𝑃 via radiative corrections, which 
+would normally dominate over the bare suppression. In the SSM, this 
+objection is addressed by the holographic structure of the lattice: the 
+UV cutoff is effectively the 2D boundary network, which carries con-
+tinuous SO(2) symmetry. Radiative corrections in the boundary respect 
+SO(2) at every loop order, and the 3D bulk inherits this symmetry 
+holographically. The full argument is given in [2], Section 2.2.
+10. Discussion
+10.1. What this picture gets right
+From a single geometric premise — an extra node trapped in an 
+interstitial tetrahedral void — we structurally obtain:
+1. Fractional charges −1∕3 and +2∕3 from the regular-tetrahedron 
+bond-angle cosine combined with integer winding under the bulk 
+FCC Bravais translation symmetry. The full first-shell baryon spec-
+trum (𝛥−, neutron, proton, 𝛥++) follows from the four possible total 
+winding numbers 𝑊∈{0, 1, 2, 3} via 𝑄baryon = −1 + 𝑊.
+2. Exactly three colors generated by the three independent skew-edge 
+pairs.
+3. Linear color confinement dictated by the metric wall at 𝐿∕
+√
+3, 
+reproducing the 𝜎𝑟 term of the Cornell potential.
+4. 𝑚𝑝∕𝑚𝑒= 1836 derived from the structural node count and skew-
+edge pair count, with arithmetic equivalence to the [[192, 130, 3]]
+CSS-code derivation in the companion paper [2].
+5. The 𝛥−, neutron, proton, and 𝛥++ spectrum from total winding 
+number, and matter–antimatter duality from spatial inversion of 
+the tetrahedral void.
+6. Physical string breaking from lattice un-stitching limits.
+7. Electromagnetic invisibility of quarks from the non-bipartite trian-
+gular face topology.
+8. Compatibility with all current Lorentz-invariance experimental 
+bounds.
+None of these results require fine-tuned free parameters.
+10.2. What remains open
+Several aspects of the framework are not yet resolved:
+• The complete meson spectrum beyond the pion.
+• The geometric origin of the strange and heavier quark generations.
+• The relationship between this static defect picture and the dy-
+namical QCD flux tubes modeled by current gauge theories. The 
+static topological structure provides the boundary conditions and 
+the Coulomb-like short-distance term is expected to emerge from 
+gauge dynamics, but a full derivation is not provided here.
+• The proton–neutron mass splitting at the level of QFT corrections 
+beyond the integer baseline.
+• The phenomenological restriction of valence-bond windings to 
+𝑤∈{0, +1} rather than the full integer ladder. The framework 
+predicts the structure of the charge ladder rigorously but takes 
+the truncation to lowest two states as input from the observed 
+first-shell quark spectrum (Section 4.3).
+10.3. Relation to other approaches
+Lattice gauge theory. Lattice QCD [1,7] computes hadronic properties 
+numerically on a background lattice using the Wilson action and its 
+descendants. The SSM proposes that the lattice is not merely a mathe-
+matical computational tool but the physical vacuum itself. Confinement 
+is therefore a static geometric property of the space rather than a 
+dynamical property of a continuous gauge field living on the space. 
+Our discrete-color and confinement arguments build on the standard 
+lattice formulation reviewed by Kogut [8] and verified numerically by 
+Creutz [17]. The treatment of fermions on the lattice — the Karsten–
+Smit no-go theorem on chiral invariance and species doubling [18] 
+and the Susskind staggered-fermion construction [19] — defines the 
+technical landscape within which a discrete-spacetime model must 
+reproduce continuum physics. The SSM’s static topological derivation 
+is complementary to (not a replacement for) the dynamical Wilson-loop 
+approach, and the two should agree in the continuum limit.
+Emergent spacetime and discrete geometry. The view that geometry 
+itself emerges from a more primitive substrate has multiple com-
+plementary realizations in the recent literature. The ER=EPR con-
+jecture of Maldacena and Susskind [20] identifies geometric con-
+nections (Einstein–Rosen bridges) with quantum entanglement; Van 
+Raamsdonk [21] argues that classical spacetime connectivity is built 
+up by entanglement; Swingle [22] maps entanglement renormaliza-
+tion onto holographic geometry; and the holographic quantum error-
+correcting codes of Pastawski et al. [23] make the emergence of 
+bulk locality from boundary entanglement explicit. Other founda-
+tional discrete-spacetime programs include causal dynamical trian-
+gulations [24], causal sets [25], the spin-network combinatorics of 
+Penrose [26], and the recent spacetime-quasicrystal construction of 
+Boyle and Mygdalas [27]. The SSM differs from these in that the 
+discrete substrate is a specific physical lattice (FCC) rather than a 
+generic combinatorial graph, and its predictions are quantitative in-
+teger ratios of observable particle properties rather than asymptotic 
+geometric features.
+Regge calculus and discrete gravity. Regge’s foundational coordinate-free 
+formulation of general relativity [4] provides the geometric machinery 
+(the deficit angle around an edge as the discrete curvature) that we use 
+to characterize the geometric frustration of the 𝐾=4 tetrahedral foam. 
+Cheeger, Müller, and Schrader [28] placed Regge calculus on a rigorous 
+footing by analyzing the curvature of piecewise flat spaces, and Ham-
+ber [29] provides a comprehensive treatment of lattice approaches to 
+quantum gravity that share with the SSM the premise that spacetime 
+admits a discrete description. The SSM uses these ideas in a constrained 
+way: only the deficit-angle calculation enters, as the geometric quantity 
+that drives the 𝐾=4 →𝐾=12 phase transition.
+Topological quantum error correction. The interpretation of the FCC 
+vacuum as a CSS code in our companion paper [2,12] is part of a 
+broader research program that began with Kitaev’s anyon model for 
+fault-tolerant quantum computation [30] and the topological-quantum-
+memory analysis of Dennis et al. [31]. The defining feature of these 
+constructions is that information is protected not by an active
+measurement-and-correct cycle but by the topological properties of the 
+underlying lattice. The SSM extends this perspective to the physical 
+vacuum: the trapped tetrahedral defect is a topologically stable config-
+uration whose inability to relax (the metric wall of Section 6) is the 
+analog of the topological protection that makes anyonic codes useful.
+Crystallization mechanisms. The framework’s central image — matter 
+as incomplete crystallization of the vacuum — has structural analogs 
+in two well-studied physical processes. Witten and Sander’s diffusion-
+limited aggregation [32] demonstrates that local kinematic rules gener-
+ate persistent macroscopic non-uniformities that survive long after the 
+rules cease to be locally informative. Coleman’s analysis of the false 
+Physics Open 27 (2026) 100423 
+11
+
+
+## Page 12
+
+R. Kulkarni
+Table 4
+Kinematic parameters of the SSM lattice simulation. All values are geometri-
+cally or thermodynamically determined.
+ Parameter
+Value
+Derivation
+ 
+ Unitary metric (𝐿)
+1.0
+Invariant relational distance
+ 
+ Lateral height
+√
+3∕2 ⋅𝐿≈0.866 𝐿
+Equilateral triangle altitude
+ 
+ Lift height
+√
+2∕3 𝐿≈0.816 𝐿
+Regular tetrahedron altitude
+ 
+ Lift probability
+𝑒−3 ≈4.98%
+Topological tunneling
+ 
+ Proximity bond
+1.05 𝐿
+Regge deficit (𝛿≈7.36◦)
+ 
+ Hard shell (𝑅ex)
+0.95 𝐿
+Symmetric exclusion
+ 
+ Geometric cutoff
+𝐿∕
+√
+3 ≈0.577 𝐿
+Circumradius of unitary triangle 
+vacuum [33] establishes that a quantum field can become trapped in 
+a metastable phase whose decay proceeds through nucleation events 
+governed by topological barriers. The SSM combines these two ideas: 
+the cosmological vacuum begins in a metastable 𝐾=4 tetrahedral phase, 
+transitions to the 𝐾=12 FCC ground state through a Kepler-bound 
+saturation process, and leaves behind the trapped extra nodes of an 
+incomplete crystallization as the topological defects we identify with 
+baryons.
+11. Conclusions
+Matter is spacetime that did not finish crystallizing. A single extra 
+node trapped in a tetrahedral void of the 𝐾=12 FCC vacuum lattice 
+strictly recovers fractional quark charges, three color degrees of free-
+dom, linear confinement, and the proton-to-electron mass ratio — all 
+emerging organically from the unadjusted geometry of close-packed 
+spheres. The framework makes clear, falsifiable predictions: no isolated 
+quarks can propagate, no fourth color charge can exist, and the first-
+shell baryon spectrum is exhausted by the four configurations 𝑊∈
+{0, 1, 2, 3} corresponding to 𝛥−, neutron, proton, and 𝛥++. The model 
+is consistent with all current experimental bounds on Lorentz violation 
+and reproduces the linear-confinement piece of the Cornell potential. 
+The companion paper [2] reaches 𝑚𝑝∕𝑚𝑒= 1836 by a different route 
+(fault-tolerant verification cost in a CSS code on the same lattice); 
+the two derivations are arithmetically equivalent because 𝐾= 4𝑐skew
+in the cuboctahedral geometry, and the structural meaning of that 
+equivalence is left for future work.
+Declaration of competing interest
+The authors declare that they have no known competing finan-
+cial interests or personal relationships that could have appeared to 
+influence the work reported in this paper.
+Appendix. Kinematic parameters and replication conditions
+This appendix specifies the kinematic parameters of the simulation 
+reported in Section 2.3 and the conditions under which its quantitative 
+claims (Table 2 and Fig. 2) are reproduced. The kinematic operators 
+(stitch and lift) and their geometric origins are defined in Section 2.3; 
+this appendix collects the operational parameters in a single table for 
+ease of reference.
+A.1. Kinematic parameters
+See Table 4.
+A.2. Replication
+The kinematic rules described in Section 2.3 (Bell-pair seed; stitch 
+and lift operators with relative amplitude 𝑃lift = 𝑒−3; proximity bond-
+ing within 1.05 𝐿; exclusion radius 𝑅ex = 0.95 𝐿), together with the 
+parameter values in Table 4, fully specify the simulation. Running the 
+resulting graph-growth procedure at 𝑁= 1000 over 30 random seeds 
+reproduces the data in Table 2: 𝐾=12 saturation of 25.4 ± 5.4%, mean 
+coordination ̄𝐾= 8.90±0.26, and shape isotropy 𝜆min∕𝜆max = 0.54±0.15. 
+The finite-size scaling exponent is 𝛼= 6.8 ± 0.6 (Eq. (2)). A sweep over 
+𝑅ex ∈[0.50, 1.02] at fixed 𝑁= 500, 𝑃lift = 0.05 reproduces Fig. 2: the 
+sharp phase transition at 𝑅ex = 𝐿∕
+√
+3 and the wide stability plateau in 
+[0.58, 0.99]. All quantitative claims in Section 2.3 reduce to these two 
+scans.
+A reference implementation of the algorithm is available at
+ssm_sim.py (lattice generation and saturation analysis); the exclusion-
+radius sweep is performed by plot_rex_sweep.py. The implemen-
+tation is provided as a verification aid; the manuscript itself fully spec-
+ifies the algorithm and any equivalent implementation will reproduce 
+the results within the reported statistical uncertainties.
+Data availability
+All kinematic parameters and replication conditions for the simu-
+lation results in Section 2.3 are given in Appendix. A reference im-
+plementation of the algorithm is available as ssm_sim.py (the lattice 
+generator and saturation analysis used for Table 2) and plot_rex_sweep.
+py (the exclusion-radius sweep used for Fig. 2). The bulk-interior 
+diagnostic reported in Table 2 is computed by ssm_bulk_analysis.py, 
+which re-analyzes the simulation output to extract bulk-restricted co-
+ordination statistics. The interactive 3D visualizations are available 
+at https://raghu91302.github.io/ssmtheory/ssm_regge_deficit.html and 
+https://raghu91302.github.io/ssmtheory/ssm_quark_structure.html.
+References
+[1] S. Dürr, et al., Ab initio determination of light hadron masses, Science 322 (2008) 
+1224, http://dx.doi.org/10.1126/science.1163233.
+[2] R. Kulkarni, The mass-energy-information equivalence: A bottom-up identifica-
+tion of the particle spectrum via FCC lattice error correction, Phys. Open 27 
+(2026) 100414, http://dx.doi.org/10.1016/j.physo.2026.100414.
+[3] T.C. Hales, A proof of the Kepler conjecture, Ann. Math. 162 (2005) 1065, 
+http://dx.doi.org/10.4007/annals.2005.162.1065.
+[4] T. Regge, General relativity without coordinates, Nuovo Cimento 19 (1961) 558, 
+http://dx.doi.org/10.1007/BF02733251.
+[5] N.W. Ashcroft, N.D. Mermin, Solid State Physics, Saunders College, 1976.
+[6] H.S.M. Coxeter, Regular Polytopes, Dover, 1973.
+[7] K.G. Wilson, Confinement of quarks, Phys. Rev. D 10 (1974) 2445, http://dx.
+doi.org/10.1103/PhysRevD.10.2445.
+[8] J.B. Kogut, An introduction to lattice gauge theory and spin systems, Rev. 
+Modern Phys. 51 (1979) 659, http://dx.doi.org/10.1103/RevModPhys.51.659.
+[9] G.S. Bali, QCD forces and heavy quark bound states, Phys. Rep. 343 (2001) 1, 
+http://dx.doi.org/10.1016/S0370-1573(00)00079-X.
+[10] E. Eichten, et al., Charmonium: Comparison with experiment, Phys. Rev. D 21 
+(1980) 203, http://dx.doi.org/10.1103/PhysRevD.21.203.
+[11] R. Allahverdi, R. Brandenberger, F.-Y. Cyr-Racine, A. Mazumdar, Reheating in 
+inflationary cosmology: Theory and applications, Annu. Rev. Nucl. Part. Sci. 60 
+(2010) 27, http://dx.doi.org/10.1146/annurev.nucl.012809.104511.
+[12] R. Kulkarni, A 67% rate CSS code on the FCC lattice: [[192, 130, 3]] from 
+weight-12 stabilizers, 2026, arXiv Preprint arXiv:2603.20294.
+[13] P.J. Mohr, D.B. Newell, B.N. Taylor, E. Tiesinga, CODATA recommended values 
+of the fundamental physical constants: 2022, Rev. Modern Phys. 97 (2025) 
+025002, http://dx.doi.org/10.1103/RevModPhys.97.025002.
+[14] J. Collins, A. Perez, D. Sudarsky, L. Urrutia, H. Vucetich, Lorentz invariance and 
+quantum gravity: an additional fine-tuning problem? Phys. Rev. Lett. 93 (2004) 
+191301, http://dx.doi.org/10.1103/PhysRevLett.93.191301.
+[15] V.A. Kostelecký, N. Russell, Data tables for Lorentz and CPT violation, Rev. 
+Modern Phys. 83 (2011) 11, http://dx.doi.org/10.1103/RevModPhys.83.11.
+[16] S. Liberati, L. Maccione, Lorentz violation: Motivation and new constraints, Annu. 
+Rev. Nucl. Part. Sci. 59 (2009) 245, http://dx.doi.org/10.1146/annurev.nucl.
+010909.083640.
+[17] M. Creutz, Monte Carlo study of quantized SU(2) gauge theory, Phys. Rev. D 21 
+(1980) 2308, http://dx.doi.org/10.1103/PhysRevD.21.2308.
+[18] L.H. Karsten, J. Smit, Lattice fermions: species doubling, chiral invariance, and 
+the triangle anomaly, Nuclear Phys. B 183 (1981) 103, http://dx.doi.org/10.
+1016/0550-3213(81)90549-6.
+[19] L. Susskind, Lattice fermions, Phys. Rev. D 16 (1977) 3031, http://dx.doi.org/
+10.1103/PhysRevD.16.3031.
+Physics Open 27 (2026) 100423 
+12
+
+
+## Page 13
+
+R. Kulkarni
+[20] J. Maldacena, L. Susskind, Cool horizons for entangled black holes, Fortschr. 
+Phys. 61 (2013) 781, http://dx.doi.org/10.1002/prop.201300020.
+[21] M. Van Raamsdonk, Building up spacetime with quantum entanglement, Gen. 
+Relativity Gravitation 42 (2010) 2323, http://dx.doi.org/10.1007/s10714-010-
+1034-0.
+[22] B. Swingle, Entanglement renormalization and holography, Phys. Rev. D 86 
+(2012) 065007, http://dx.doi.org/10.1103/PhysRevD.86.065007.
+[23] F. Pastawski, B. Yoshida, D. Harlow, J. Preskill, Holographic quantum 
+error-correcting codes, JHEP 2015 (2015) 149, http://dx.doi.org/10.1007/
+JHEP06(2015)149.
+[24] J. Ambjørn, J. Jurkiewicz, R. Loll, Emergence of a 4D world from causal 
+dynamical triangulations, Phys. Rev. Lett. 93 (2004) 131301, http://dx.doi.org/
+10.1103/PhysRevLett.93.131301.
+[25] L. Bombelli, J. Lee, D. Meyer, R.D. Sorkin, Space–time as a causal set, Phys. Rev. 
+Lett. 59 (1987) 521, http://dx.doi.org/10.1103/PhysRevLett.59.521.
+[26] R. Penrose, Angular momentum: an approach to combinatorial spacetime, in: T. 
+Bastin (Ed.), Quantum Theory and beyond, Cambridge University Press, 1971.
+[27] L. Boyle, S. Mygdalas, Spacetime quasicrystals, 2026, arXiv Preprint arXiv:
+2601.07769.
+[28] J. Cheeger, W. Müller, R. Schrader, On the curvature of piecewise flat spaces, 
+Comm. Math. Phys. 92 (1984) 405, http://dx.doi.org/10.1007/BF01210729.
+[29] H.W. Hamber, Quantum Gravity on the Lattice, Cambridge University Press, 
+2009.
+[30] A.Y. Kitaev, Fault-tolerant quantum computation by anyons, Ann. Phys. 303 
+(2003) 2, http://dx.doi.org/10.1016/S0003-4916(02)00018-0.
+[31] E. Dennis, A. Kitaev, A. Landahl, J. Preskill, Topological quantum memory, J. 
+Math. Phys. 43 (2002) 4452, http://dx.doi.org/10.1063/1.1499754.
+[32] T.A. Witten, L.M. Sander, Diffusion-limited aggregation, Phys. Rev. Lett. 47 
+(1981) 1400, http://dx.doi.org/10.1103/PhysRevLett.47.1400.
+[33] S. Coleman, Fate of the false vacuum: Semiclassical theory, Phys. Rev. D 15 
+(1977) 2929, http://dx.doi.org/10.1103/PhysRevD.15.2929.
+Physics Open 27 (2026) 100423 
+13
