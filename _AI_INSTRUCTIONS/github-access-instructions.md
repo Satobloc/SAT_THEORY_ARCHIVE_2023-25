@@ -4,7 +4,7 @@ Primary repository:
 
 `Satobloc/SAT_THEORY_ARCHIVE_2023-25`
 
-These notes document the practical GitHub access pathway established during testing, including the earlier public-web limitations, path-reconstruction workarounds, and the working GitHub connector + PDF extraction workflow.
+These notes document the practical GitHub access pathway established during testing, including public-web limitations, path-reconstruction workarounds, direct connector access, PDF extraction, folder-combination/chunking, and operational tips for working through large archive folders.
 
 ---
 
@@ -21,7 +21,7 @@ Recommended connector pattern:
 
    `repository_name="Satobloc/SAT_THEORY_ARCHIVE_2023-25"`
 
-5. Treat connector write access cautiously. Read by default. Write only when Nathan explicitly asks or when performing the established PDF extraction-request workflow.
+5. Treat connector write access cautiously. Read by default. Write only when Nathan explicitly asks or when performing the established extraction/combine request workflows.
 
 ---
 
@@ -33,7 +33,7 @@ Public GitHub web pages can sometimes be read as ordinary web pages, but this is
 
 Observed public-web behavior:
 
-- GitHub repository root and folder pages can expose directory listings through `/tree/main/...` URLs.
+- GitHub repository root and folder pages can expose directory listings through `/tree/main/...` URLs in a normal browser, but the GitHub connector fetch tool does not accept `/tree/...` folder URLs.
 - GitHub file pages using `/blob/main/...` expose HTML wrapper pages, not always raw file contents.
 - Raw plaintext files can usually be read through `raw.githubusercontent.com`.
 - GitHub-hosted PDFs generally cannot be extracted through ordinary public-web access in this chat environment.
@@ -90,9 +90,40 @@ https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/Towar
 
 This worked for `.txt`, `.md`, source-code files, extensionless text files such as `LICENSE`, and other text-like repository files.
 
+Important limitation: a `/tree/...` folder URL can help a human list filenames, but the connector usually cannot fetch that folder page. If a folder listing is needed, ask Nathan for a copied filename list, use `GitHub.search`, or create/use an index or combined output file.
+
 ---
 
-## 4. Why PDF access failed through public web URLs
+## 4. Direct file fetching and chunking strategy
+
+For known text-file paths, use:
+
+```text
+GitHub.fetch_file(repository_full_name="Satobloc/SAT_THEORY_ARCHIVE_2023-25", path="PATH/TO/FILE.txt", encoding="utf-8")
+```
+
+Large files may be truncated by the connector response budget. When that happens, fetch the same file in explicit line ranges:
+
+```text
+start_line=1, end_line=200
+start_line=201, end_line=400
+start_line=401, end_line=600
+```
+
+Use the file's reported line count, truncation notice, or visible continuation point to decide the next range. For long files, avoid claiming the full file has been read until all ranges have been fetched.
+
+Practical tips:
+
+- Fetch whole small files first.
+- For large files, use 100-250 line chunks.
+- Keep track of which ranges have been read.
+- If a file contains huge blank stretches, jump forward by line number rather than repeatedly fetching empty regions.
+- If a folder contains many text files, use the combine-text workflow below instead of manually chunking each file.
+- Prefer reading generated combined files from `_AUTO_EXTRACTED_TEXT/COMBINED/` when the goal is to absorb a whole folder.
+
+---
+
+## 5. Why PDF access failed through public web URLs
 
 The earlier PDF problem was not simply a bad URL. Several URL forms were tested:
 
@@ -115,7 +146,7 @@ This is why path tricks helped for `.txt` files but not for PDFs.
 
 ---
 
-## 5. PDF access problem and its resolution
+## 6. PDF access problem and its resolution
 
 Direct PDF access has two separate layers:
 
@@ -128,7 +159,7 @@ The established solution is an on-demand GitHub Actions PDF extraction bridge.
 
 ---
 
-## 6. Installed PDF extraction workflow
+## 7. Installed PDF extraction workflow
 
 Workflow file:
 
@@ -156,7 +187,7 @@ The workflow creates the output directory automatically. The `_AUTO_EXTRACTED_TE
 
 ---
 
-## 7. How to request PDF extraction
+## 8. How to request PDF extraction
 
 To request a PDF extraction:
 
@@ -212,11 +243,142 @@ Generated output:
 _AUTO_EXTRACTED_TEXT/SAT O Core Modules/example.txt
 ```
 
+If an extracted text file already exists in `_AUTO_EXTRACTED_TEXT/`, fetch it before triggering a new extraction unless Nathan asks for a fresh extraction.
+
 ---
 
-## 8. Verified test result
+## 9. Installed text-folder combination workflow
 
-The workflow was tested with:
+Workflow file:
+
+```text
+.github/workflows/combine-text-folder.yml
+```
+
+Trigger/request file:
+
+```text
+_AI_REQUESTS/combine_text_request.json
+```
+
+Generated combined-text folder:
+
+```text
+_AUTO_EXTRACTED_TEXT/COMBINED/
+```
+
+The workflow watches changes to `_AI_REQUESTS/combine_text_request.json`. When updated, it combines all matching text-like files in a requested folder into one large `.txt` file with clear file dividers.
+
+This is useful when a folder contains many `.txt`, `.md`, `.csv`, `.json`, `.yaml`, `.yml`, or `.py` files and the assistant needs to read the whole folder word-for-word without managing many separate fetches.
+
+The combined output includes:
+
+- source folder
+- request ID
+- request time
+- recursive/non-recursive flag
+- file extensions included
+- file list
+- full contents separated by `===== BEGIN FILE: ... =====` and `===== END FILE: ... =====`
+
+---
+
+## 10. How to request text-folder combination
+
+To request folder combination:
+
+1. Fetch `_AI_REQUESTS/combine_text_request.json` if it already exists, or create it if missing.
+2. Update or create it using JSON of this form:
+
+```json
+{
+  "source_folder": "PATH/TO/FOLDER",
+  "requested_by": "ChatGPT",
+  "request_id": "unique timestamp or descriptive id",
+  "recursive": false,
+  "extensions": [".txt", ".md", ".csv", ".json", ".yaml", ".yml", ".py"]
+}
+```
+
+Suggested commit message:
+
+```text
+Request combined text output for PATH/TO/FOLDER
+```
+
+The generated output path is based on a sanitized version of the folder path:
+
+```text
+_AUTO_EXTRACTED_TEXT/COMBINED/<SANITIZED-FOLDER-PATH>_COMBINED.txt
+```
+
+Example request:
+
+```json
+{
+  "source_folder": "2026/Paradigm/SAT PARADIGM TIMELINE",
+  "requested_by": "ChatGPT",
+  "request_id": "2026-06-01T-sat-paradigm-timeline-combined",
+  "recursive": false,
+  "extensions": [".txt", ".md", ".csv", ".json"]
+}
+```
+
+Expected output:
+
+```text
+_AUTO_EXTRACTED_TEXT/COMBINED/2026_Paradigm_SAT_PARADIGM_TIMELINE_COMBINED.txt
+```
+
+Use this when the user asks to read every document in a text-heavy folder. It is especially helpful for folders where the connector response budget truncates long files.
+
+---
+
+## 11. Folder discovery strategies
+
+The connector does not reliably list arbitrary folder contents from `/tree/...` URLs. Use these workarounds:
+
+1. Try `GitHub.search` with a path-like query, for example:
+
+   ```text
+   path:"2026/Paradigm/SAT PARADIGM TIMELINE"
+   ```
+
+2. Ask Nathan to paste the folder listing from the GitHub UI.
+3. Once filenames are known, reconstruct exact paths and fetch files directly.
+4. For PDFs, search online first when filenames look like arXiv IDs or public titles.
+5. If public search fails or the PDF is repo-only, use the PDF extraction workflow.
+6. For many text files, use the combine-text workflow.
+7. For many PDFs, extract only the most relevant PDFs first unless Nathan explicitly requests bulk conversion.
+
+Useful filename/path observations from testing:
+
+- GitHub paths may contain spaces, em dashes, brackets, parentheses, and double spaces. Preserve exact spelling when using connector `path` arguments.
+- URL-encode spaces as `%20` only for web/raw URL reconstruction. Do not URL-encode spaces in connector `fetch_file` paths.
+- Long/truncated PDF filenames can trigger write-tool safety checks. If a request fails, try a cleaner filename first or ask Nathan to rename/provide a shorter path.
+- Files named `.txt` may contain scraped HTML or accidental web dumps; inspect before treating them as theory content.
+
+---
+
+## 12. Online-first strategy for public papers
+
+For files that look like public preprints, search the web before extracting from the repo.
+
+Good candidates for online-first lookup:
+
+- arXiv-style filenames such as `2605.19117`, `2603.20294`, etc.
+- SSRN filenames such as `ssrn-6469929.pdf`
+- DOI/Nature filenames such as `s41586-026-10652-y_reference.pdf`
+- recognizable paper titles
+- author/title combinations such as `Kulkarni FCC Quantum Code`
+
+If a reliable public abstract or PDF is found, use it for quick orientation. Still prefer repo extraction when Nathan wants word-for-word reading of the saved archive copy.
+
+---
+
+## 13. Verified test results
+
+The PDF extraction workflow was tested with:
 
 ```text
 PROTO_RESUME.pdf
@@ -244,26 +406,42 @@ ChatGPT updates request JSON
 → ChatGPT reads generated TXT through the GitHub connector
 ```
 
+The PDF extraction workflow was also successfully used for archive PDFs such as:
+
+```text
+2026/Paradigm/Haul 3/trapped-tetrahedral-defect.pdf
+2026/Paradigm/Haul 4/physical-spacetime.pdf
+```
+
+The text-folder combination workflow was installed to create combined readable files under:
+
+```text
+_AUTO_EXTRACTED_TEXT/COMBINED/
+```
+
 ---
 
-## 9. Do not confuse these paths
+## 14. Do not confuse these paths
 
 Use these distinctions:
 
-- `github.com/.../tree/...` = folder listing HTML
-- `github.com/.../blob/...` = GitHub HTML wrapper for a file
-- `raw.githubusercontent.com/...` = raw file payload, good for text files
-- `github.dev/...` = browser editor shell, not useful for extraction
-- `viewscreen.githubusercontent.com/view/pdf?...` = GitHub PDF viewer shell, not useful for text extraction
-- GitHub connector `fetch_file` = preferred repo-native access
-- GitHub Actions extraction workflow = preferred PDF-to-text bridge
+- `github.com/.../tree/...` = folder listing HTML for humans; connector fetch usually rejects it.
+- `github.com/.../blob/...` = GitHub HTML wrapper for a file.
+- `raw.githubusercontent.com/...` = raw file payload, good for text files.
+- `github.dev/...` = browser editor shell, not useful for extraction.
+- `viewscreen.githubusercontent.com/view/pdf?...` = GitHub PDF viewer shell, not useful for text extraction.
+- GitHub connector `fetch_file` = preferred repo-native access for known files.
+- GitHub Actions PDF extraction workflow = preferred PDF-to-text bridge.
+- GitHub Actions combine-text workflow = preferred folder-to-single-text bridge.
 
 ---
 
-## 10. Operational cautions
+## 15. Operational cautions
 
-- Do not modify repository files unless Nathan explicitly asks or the change is part of the PDF extraction request workflow.
+- Do not modify repository files unless Nathan explicitly asks or the change is part of an established request workflow.
 - Do not bulk-convert all PDFs unless specifically requested.
 - Prefer on-demand extraction.
 - If a PDF extraction output already exists in `_AUTO_EXTRACTED_TEXT/`, fetch and use it before triggering a new extraction unless Nathan asks for a fresh run.
 - If the extraction returns very little text, the PDF may be scanned, image-based, or otherwise lacking a usable embedded text layer. Consider adding OCR fallback to the workflow if needed.
+- When creating helper workflows or request files, preserve existing archive contents and write only to `_AI_REQUESTS/`, `_AUTO_EXTRACTED_TEXT/`, `.github/workflows/`, or explicitly approved locations.
+- When claiming to have read a folder word-for-word, verify either that all source files were fetched completely or that the combined output was generated and read completely.
