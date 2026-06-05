@@ -91,9 +91,9 @@ CHRONOLOGICAL DEVELOPMENT OF SCALAR–ANGULAR THEORY (SAT)
 DRAFT TIMELINE 1
 The development of the Speculative Framework on Strings and Time (SAT) spans several decades, evolving from purely philosophical geometric visualizations into a complex geometric-topological field theory. Its history tracks the transition of its foundational structures—known initially only as particle worldlines—into formalized, physical entities called filaments.
 
-===================================================================
+=============================================
 SAT DEVELOPMENT TIMELINE (Text-Only, Detailed)
-===================================================================
+=============================================
 
 PRE-FORMAL CONCEPTION (Circa 1991 - Decades Later)
 --------------------------------------------------
@@ -360,3 +360,37 @@ This phase focuses on the integration of modular results into the unified Lagran
     *   "**Freeze the block. Move the slice. Structure first. Dynamics emergent. Expand only when structure is sound.**".
     *   **Slogan:** "**MASS IS MISALIGNMENT. CHARGE IS TWIST. GRAVITY IS STRAIN. MOTION IS SLICING.**".
 -------------------------------------
+
+ADDENDUM: Work continues, new versions and thinking are periodically added. 
+
+
+####################
+###  VERSIONING  ###
+####################
+As of June 4, 2026
+
+0. RMS conversations / pre-SAT conceptual phase
+   → “Stringing-Along Theory”
+1. Scalar-Angular-Torsion / early SAT naming stabilization
+   → worldlines/filaments, angular structure, torsion vocabulary
+2. SAT Mark III
+3. SAT Mark IV / IV.2
+4. SAT Mark V / SAT V
+5. SAT X
+6. SAT XY
+7. SAT Z / SAT.QG / SAT XYZ
+8. SAT.QR / SAT Next
+   → intermediate/side branches somewhere around the post-Z / pre- or peri-O transition
+9. SAT-O / SAT 4D / SAT-O Rewrite / Satobloc
+   → archive-live era, formal module/audit framing
+10. SAT.4DHH
+11. SAT.4DHH.UC
+12. Bosonic Time
+13. SAT.4DHH.HSU V.UI (+ Whirligig)
+14. One File / One Drop Builds (Discord — JOIN US: https://discord.gg/Cpa7zsZZ)
+15. Minkowski Build
+16. Worldlines Only
+17. SAT 20
+18. Electrogravacoustics
+19. SAT 2026
+   → current emerging build
