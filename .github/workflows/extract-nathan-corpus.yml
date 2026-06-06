@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - '_AI_REQUESTS/nathan_corpus_extract_request.json'
-      - '_TOOLS/extract_nathan_corpus.py'
+      - '.⚙️_AI_AUTOMATION_ADMIN/_AI_REQUESTS/nathan_corpus_extract_request.json'
+      - '.⚙️_AI_AUTOMATION_ADMIN/_TOOLS/extract_nathan_corpus_batched.py'
       - '.github/workflows/extract-nathan-corpus.yml'
 
 permissions:
@@ -14,28 +14,29 @@ permissions:
 jobs:
   extract-nathan-corpus:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 1
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: Run Nathan corpus extractor
-        run: python _TOOLS/extract_nathan_corpus.py
+      - name: Run batched Nathan corpus extractor
+        run: python '.⚙️_AI_AUTOMATION_ADMIN/_TOOLS/extract_nathan_corpus_batched.py'
 
       - name: Commit generated corpus files
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add _NATHAN_CORPUS
+          git add '..📚_NATHAN_WORDS_EXTRACTED'
           if git diff --cached --quiet; then
             echo "No corpus output changes to commit."
           else
-            git commit -m "Update Nathan corpus extraction output"
+            git commit -m "Update batched Nathan words extraction output"
             git push
           fi
