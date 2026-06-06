@@ -1,15 +1,44 @@
 # Nathan Words Extraction
 
-This folder is the intended home for human-readable extracted text.
+Status: paused_by_limit
+Mode: extract
+Strategy: recursive_batched
+Generated UTC: 2026-06-06T21:27:01.277583+00:00
 
-Readable extraction files should use this pattern:
+This run:
+- files processed: 125
+- dirs processed: 7
+- passages extracted: 25005
+- review candidates: 0
+- output parts written: 158
+- output chars written: 15223668
+- stop reason: max_passages_per_run
 
-- 000_EXTRACTED_NATHAN_WORDS_PART_000.txt
-- 001_EXTRACTED_NATHAN_WORDS_PART_001.txt
-- 002_EXTRACTED_NATHAN_WORDS_PART_002.txt
+Overall cursor:
+- runs completed: 1
+- global passage count: 25005
+- next output part: 158
+- pending dirs: 47
+- pending files: 1
+- completed dirs: 7
+- completed files: 125
+- last stop reason: max_passages_per_run
 
-Logs, indexes, warnings, and machine-readable files should live in:
+Safety limits:
+- max_runtime_seconds: 1200
+- max_files_per_run: 2000
+- max_dirs_per_run: 5000
+- max_passages_per_run: 25000
+- max_output_files_per_run: 100
+- max_total_output_chars_per_run: 20000000
+- max_chars_per_part: 200000
+- max_single_passage_chars: 50000
 
-- ⚒️_extraction_logs_and_indexes/
+Open the numbered 000/001/002 extraction files in this folder to read extracted text.
+Logs, indexes, and the resume cursor are in ⚒️_extraction_logs_and_indexes.
 
-This placeholder exists so the folder sorts visibly near the top before the next extraction run rewrites live status.
+Warnings this run: 2
+
+Recent warnings:
+- ActivatorPrayer(Alberr).txt lines 546-841: passage trimmed from 65000 chars to 50000
+- 10-31-2025 SAT FULL THEORY/Physical Review D Guidelines.txt lines 726-2395: passage trimmed from 151169 chars to 50000

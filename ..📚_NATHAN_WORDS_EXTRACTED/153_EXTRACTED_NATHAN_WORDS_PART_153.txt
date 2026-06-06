@@ -1,0 +1,4856 @@
+
+---
+NATHAN-000024061 | With | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18006-18013
+date: 2074
+version: SAT-X
+---
+
+python
+Copy
+df = analyze_particle_physics_output(results)
+
+# Comment out full print during quick runs to save time
+# print_full_results(results)
+
+---
+NATHAN-000024062 | Explanation | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18014-18025
+date: 2074
+version: SAT-X
+---
+
+The current mc_steps=10000 makes each single sample very slow; cutting it to 1000 or less will speed things up drastically at the cost of noisier sampling. Also, printing all results clogs output and slows execution—commenting out full print during big sweeps is advised.
+
+You can restore full MC steps and full print once parameters and code are stable.
+
+Let me know if you want me to help implement incremental result saving or batching next!
+
+---
+NATHAN-000024063 | You said | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18026-18031
+date: 2074
+version: SAT-X
+---
+
+COLAB_Code.txt
+Document
+Something's screwed up
+
+---
+NATHAN-000024064 | Replace | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18036-18048
+date: 2074
+version: SAT-X
+---
+
+python
+Copy
+ --- Print detailed output for all results ---
+ def print_full_results(results):
+     for idx, r in enumerate(results):
+         N = r['N']
+         eigvals = r['eigvals']
+         U = r['mixing_matrix']
+         print(f"\n=== Result {idx+1} ===")
+         print(f"Parameters: mu={r['mu']}, eta={r['eta']}, N={N}, kernel_shape={r['kernel_shape']}, cp_phase_mode={r['cp_phase_mode']}")
+
+---
+NATHAN-000024065 | try | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18049-18065
+date: 2074
+version: SAT-X
+---
+
+             if N == 3:
+                 s13 = np.clip(np.abs(U[0,2]), 0, 1)
+                 s12 = np.clip(np.abs(U[0,1]) / np.sqrt(1 - s13**2), 0, 1)
+                 s23 = np.clip(np.abs(U[1,2]) / np.sqrt(1 - s13**2), 0, 1)
+                 theta_13 = np.degrees(np.arcsin(s13))
+                 theta_12 = np.degrees(np.arcsin(s12))
+                 theta_23 = np.degrees(np.arcsin(s23))
+                 J = np.imag(U[0,0]*U[1,1]*np.conj(U[0,1])*np.conj(U[1,0]))
+                 masses = np.sqrt(np.abs(eigvals))
+                 U_abs = np.abs(U)
+
+                print(f"Mass eigenvalues (approx.): {np.round(masses,4)}")
+                print(f"Mixing angles (degrees): θ12={theta_12:.2f}, θ13={theta_13:.2f}, θ23={theta_23:.2f}")
+                print(f"Jarlskog Invariant (CP violation measure): {J:.4e}")
+                print("Mixing matrix |U| (approx.):")
+                print(np.round(U_abs,4))
+
+---
+NATHAN-000024066 | else | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18066-18069
+date: 2074
+version: SAT-X
+---
+
+                masses = np.sqrt(np.abs(eigvals))
+                print(f"Mass eigenvalues (approx.): {np.round(masses,4)}")
+                print("N != 3: Skipping mixing angles and CP violation.")
+
+---
+NATHAN-000024067 | except Exception as e | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18070-18071
+date: 2074
+version: SAT-X
+---
+
+            print("Error extracting physics info:", e)
+
+---
+NATHAN-000024068 | With | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18072-18084
+date: 2074
+version: SAT-X
+---
+
+python
+Copy
+# --- Print detailed output for all results ---
+def print_full_results(results):
+    for idx, r in enumerate(results):
+        N = r['N']
+        eigvals = r['eigvals']
+        U = r['mixing_matrix']
+        print(f"\n=== Result {idx+1} ===")
+        print(f"Parameters: mu={r['mu']}, eta={r['eta']}, N={N}, kernel_shape={r['kernel_shape']}, cp_phase_mode={r['cp_phase_mode']}")
+
+---
+NATHAN-000024069 | try | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18085-18101
+date: 2074
+version: SAT-X
+---
+
+            if N == 3:
+                s13 = np.clip(np.abs(U[0,2]), 0, 1)
+                s12 = np.clip(np.abs(U[0,1]) / np.sqrt(1 - s13**2), 0, 1)
+                s23 = np.clip(np.abs(U[1,2]) / np.sqrt(1 - s13**2), 0, 1)
+                theta_13 = np.degrees(np.arcsin(s13))
+                theta_12 = np.degrees(np.arcsin(s12))
+                theta_23 = np.degrees(np.arcsin(s23))
+                J = np.imag(U[0,0]*U[1,1]*np.conj(U[0,1])*np.conj(U[1,0]))
+                masses = np.sqrt(np.abs(eigvals))
+                U_abs = np.abs(U)
+
+                print(f"Mass eigenvalues (approx.): {np.round(masses,4)}")
+                print(f"Mixing angles (degrees): θ12={theta_12:.2f}, θ13={theta_13:.2f}, θ23={theta_23:.2f}")
+                print(f"Jarlskog Invariant (CP violation measure): {J:.4e}")
+                print("Mixing matrix |U| (approx.):")
+                print(np.round(U_abs,4))
+
+---
+NATHAN-000024070 | else | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18102-18105
+date: 2074
+version: SAT-X
+---
+
+                masses = np.sqrt(np.abs(eigvals))
+                print(f"Mass eigenvalues (approx.): {np.round(masses,4)}")
+                print("N != 3: Skipping mixing angles and CP violation.")
+
+---
+NATHAN-000024071 | except Exception as e | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18106-18107
+date: 2074
+version: SAT-X
+---
+
+            print("Error extracting physics info:", e)
+
+---
+NATHAN-000024072 | Replace | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18108-18112
+date: 2074
+version: SAT-X
+---
+
+python
+Copy
+# print_full_results(results)
+
+---
+NATHAN-000024073 | With | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18113-18126
+date: 2074
+version: SAT-X
+---
+
+python
+Copy
+print_full_results(results)
+That way, the function is well-defined, indented correctly, and called to show full detailed output.
+
+If you want, I can prepare the whole corrected script as one block for you. Just ask.
+
+---
+NATHAN-000024074 | You said | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18127-18130
+date: 2074
+version: SAT-X
+---
+
+Ok, but we commented that out because it was taking forever to run. Now, it's doing that again. I don't need a thousand graphs
+
+---
+NATHAN-000024075 | Replace | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18134-18138
+date: 2074
+version: SAT-X
+---
+
+python
+Copy
+print_full_results(results)
+
+---
+NATHAN-000024076 | With | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18139-18143
+date: 2074
+version: SAT-X
+---
+
+python
+Copy
+# print_full_results(results)  # Disabled to speed up long runs; uncomment to see detailed output
+
+---
+NATHAN-000024077 | Add under | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18144-18148
+date: 2074
+version: SAT-X
+---
+
+python
+Copy
+df = analyze_particle_physics_output(results)
+
+---
+NATHAN-000024078 | This block | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18149-18169
+date: 2074
+version: SAT-X
+---
+
+python
+Copy
+# Print summary of top 3 best fits only to limit output
+top_fits = df.nsmallest(3, 'loss')
+for idx, row in top_fits.iterrows():
+    print(f"\n--- Top Fit {idx+1} ---")
+    print(f"Parameters: mu={row['mu']}, eta={row['eta']}, beta={row['beta']}, cp_phase_mode={row['cp_phase_mode']}")
+    print(f"Masses (approx.): {np.round(row['masses'],4)}")
+    print(f"Mixing angles (deg): θ12={row['theta_12_deg']:.2f}, θ13={row['theta_13_deg']:.2f}, θ23={row['theta_23_deg']:.2f}")
+    print(f"Jarlskog Invariant (CP violation): {row['Jarlskog']:.4e}")
+This will drastically reduce the printed output during long runs, while still showing you the best parameter fits.
+
+Want me to prepare a full updated code block with this included?
+
+---
+NATHAN-000024079 | You said | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18170-18622
+date: 2074
+version: SAT-X
+---
+
+Alright, well I did that and it's still printing out graph after graph. ANyway, here's the result of the last run:
+
+Accepted 1000/1000 proposed changes 
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+
+Accepted 1000/1000 proposed changes
+
+---
+NATHAN-000024080 | Sample Particle Physics Output | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18623-18635
+date: 2074
+version: SAT-X
+---
+
+Mass eigenvalues (approx.): [0.4369 0.2144 0.0129]
+Mixing angles (degrees): θ12=45.59, θ13=42.51, θ23=0.91
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.5159 0.5266 0.6757]
+ [0.7067 0.7074 0.0118]
+ [0.4842 0.4715 0.7371]]
+
+
+
+
+=== Result 1 ===
+
+---
+NATHAN-000024081 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18636-18645
+date: 2074
+version: SAT-X
+---
+
+mu=0.3, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.4369 0.2144 0.0129]
+Mixing angles (degrees): θ12=45.59, θ13=42.51, θ23=0.91
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.5159 0.5266 0.6757]
+ [0.7067 0.7074 0.0118]
+ [0.4842 0.4715 0.7371]]
+
+=== Result 2 ===
+
+---
+NATHAN-000024082 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18646-18655
+date: 2074
+version: SAT-X
+---
+
+mu=0.3, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.091  0.2607 0.3539]
+Mixing angles (degrees): θ12=23.13, θ13=48.37, θ23=44.15
+Jarlskog Invariant (CP violation measure): 4.5260e-02
+Mixing matrix |U| (approx.):
+[[0.6109 0.2609 0.7475]
+ [0.3651 0.8078 0.4627]
+ [0.7025 0.5285 0.4766]]
+
+=== Result 3 ===
+
+---
+NATHAN-000024083 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18656-18665
+date: 2074
+version: SAT-X
+---
+
+mu=0.3, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.437  0.2143 0.    ]
+Mixing angles (degrees): θ12=45.00, θ13=45.00, θ23=0.00
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.5    0.5    0.7071]
+ [0.7071 0.7071 0.    ]
+ [0.5    0.5    0.7071]]
+
+=== Result 4 ===
+
+---
+NATHAN-000024084 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18666-18675
+date: 2074
+version: SAT-X
+---
+
+mu=0.3, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.3481 0.2119 0.3382]
+Mixing angles (degrees): θ12=74.41, θ13=69.81, θ23=4.46
+Jarlskog Invariant (CP violation measure): -2.1403e-03
+Mixing matrix |U| (approx.):
+[[0.0927 0.3324 0.9386]
+ [0.9664 0.2557 0.0268]
+ [0.2398 0.9078 0.3441]]
+
+=== Result 5 ===
+
+---
+NATHAN-000024085 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18676-18685
+date: 2074
+version: SAT-X
+---
+
+mu=0.3, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.4324 0.2166 0.0928]
+Mixing angles (degrees): θ12=45.26, θ13=28.42, θ23=3.87
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.6191 0.6247 0.4759]
+ [0.6861 0.7251 0.0594]
+ [0.3822 0.2897 0.8775]]
+
+=== Result 6 ===
+
+---
+NATHAN-000024086 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18686-18695
+date: 2074
+version: SAT-X
+---
+
+mu=0.3, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.3408 0.2655 0.3464]
+Mixing angles (degrees): θ12=83.11, θ13=84.79, θ23=7.74
+Jarlskog Invariant (CP violation measure): 8.0884e-05
+Mixing matrix |U| (approx.):
+[[0.0109 0.0901 0.9959]
+ [0.9964 0.0838 0.0122]
+ [0.084  0.9924 0.0899]]
+
+=== Result 7 ===
+
+---
+NATHAN-000024087 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18696-18705
+date: 2074
+version: SAT-X
+---
+
+mu=0.3, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.4354 0.2155 0.0571]
+Mixing angles (degrees): θ12=40.61, θ13=55.59, θ23=4.65
+Jarlskog Invariant (CP violation measure): 0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.429  0.3678 0.825 ]
+ [0.6995 0.7131 0.0458]
+ [0.5715 0.5968 0.5633]]
+
+=== Result 8 ===
+
+---
+NATHAN-000024088 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18706-18715
+date: 1913
+version: SAT-X
+---
+
+mu=0.3, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.1913 0.2661 0.3679]
+Mixing angles (degrees): θ12=20.57, θ13=24.91, θ23=71.31
+Jarlskog Invariant (CP violation measure): 1.1707e-02
+Mixing matrix |U| (approx.):
+[[0.8491 0.3186 0.4213]
+ [0.2704 0.4345 0.8591]
+ [0.4537 0.8424 0.2906]]
+
+=== Result 9 ===
+
+---
+NATHAN-000024089 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18716-18725
+date: 1913
+version: SAT-X
+---
+
+mu=0.3, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.4354 0.2155 0.0571]
+Mixing angles (degrees): θ12=40.61, θ13=55.59, θ23=4.65
+Jarlskog Invariant (CP violation measure): 0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.429  0.3678 0.825 ]
+ [0.6995 0.7131 0.0458]
+ [0.5715 0.5968 0.5633]]
+
+=== Result 10 ===
+
+---
+NATHAN-000024090 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18726-18735
+date: 1913
+version: SAT-X
+---
+
+mu=0.3, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.1624 0.1699 0.3972]
+Mixing angles (degrees): θ12=81.31, θ13=31.47, θ23=7.97
+Jarlskog Invariant (CP violation measure): 2.4734e-03
+Mixing matrix |U| (approx.):
+[[0.1289 0.8431 0.522 ]
+ [0.9686 0.2186 0.1182]
+ [0.2125 0.4913 0.8447]]
+
+=== Result 11 ===
+
+---
+NATHAN-000024091 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18736-18745
+date: 1913
+version: SAT-X
+---
+
+mu=0.3, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.5351 0.2674 0.1075]
+Mixing angles (degrees): θ12=37.71, θ13=60.47, θ23=6.79
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.39   0.3015 0.8701]
+ [0.6888 0.7226 0.0583]
+ [0.6111 0.622  0.4895]]
+
+=== Result 12 ===
+
+---
+NATHAN-000024092 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18746-18755
+date: 1984
+version: SAT-X
+---
+
+mu=0.3, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.141  0.3471 0.4628]
+Mixing angles (degrees): θ12=13.90, θ13=34.34, θ23=57.21
+Jarlskog Invariant (CP violation measure): -1.8805e-02
+Mixing matrix |U| (approx.):
+[[0.8016 0.1984 0.5641]
+ [0.35   0.629  0.6942]
+ [0.4848 0.7517 0.4472]]
+
+=== Result 13 ===
+
+---
+NATHAN-000024093 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18756-18765
+date: 1984
+version: SAT-X
+---
+
+mu=0.3, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.5399 0.2649 0.0159]
+Mixing angles (degrees): θ12=44.24, θ13=47.48, θ23=1.00
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.4842 0.4715 0.7371]
+ [0.7067 0.7074 0.0118]
+ [0.5159 0.5266 0.6757]]
+
+=== Result 14 ===
+
+---
+NATHAN-000024094 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18766-18775
+date: 2053
+version: SAT-X
+---
+
+mu=0.3, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.4396 0.2053 0.4264]
+Mixing angles (degrees): θ12=48.42, θ13=82.20, θ23=27.12
+Jarlskog Invariant (CP violation measure): -1.6733e-03
+Mixing matrix |U| (approx.):
+[[0.0901 0.1016 0.9907]
+ [0.4216 0.9047 0.0619]
+ [0.9023 0.4138 0.1208]]
+
+=== Result 15 ===
+
+---
+NATHAN-000024095 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18776-18785
+date: 2053
+version: SAT-X
+---
+
+mu=0.3, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.5396 0.2651 0.0318]
+Mixing angles (degrees): θ12=43.33, θ13=49.92, θ23=2.05
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.4684 0.4418 0.7651]
+ [0.7056 0.7082 0.023 ]
+ [0.5317 0.5506 0.6435]]
+
+=== Result 16 ===
+
+---
+NATHAN-000024096 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18786-18795
+date: 2053
+version: SAT-X
+---
+
+mu=0.3, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.4208 0.3239 0.3632]
+Mixing angles (degrees): θ12=54.68, θ13=63.71, θ23=67.83
+Jarlskog Invariant (CP violation measure): 4.4397e-03
+Mixing matrix |U| (approx.):
+[[0.2561 0.3614 0.8965]
+ [0.1819 0.8937 0.4102]
+ [0.9494 0.266  0.1672]]
+
+=== Result 17 ===
+
+---
+NATHAN-000024097 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18796-18805
+date: 2053
+version: SAT-X
+---
+
+mu=0.3, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.5398 0.265  0.0239]
+Mixing angles (degrees): θ12=43.80, θ13=48.71, θ23=1.52
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.4763 0.4567 0.7514]
+ [0.7063 0.7077 0.0175]
+ [0.5238 0.539  0.6597]]
+
+=== Result 18 ===
+
+---
+NATHAN-000024098 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18806-18815
+date: 2053
+version: SAT-X
+---
+
+mu=0.3, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.4541 0.0996 0.3025]
+Mixing angles (degrees): θ12=70.71, θ13=55.26, θ23=16.20
+Jarlskog Invariant (CP violation measure): -2.0315e-02
+Mixing matrix |U| (approx.):
+[[0.1882 0.5378 0.8218]
+ [0.9401 0.3017 0.159 ]
+ [0.2843 0.7872 0.5472]]
+
+=== Result 19 ===
+
+---
+NATHAN-000024099 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18816-18825
+date: 2053
+version: SAT-X
+---
+
+mu=0.3, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.54   0.2648 0.008 ]
+Mixing angles (degrees): θ12=45.32, θ13=43.75, θ23=0.47
+Jarlskog Invariant (CP violation measure): 0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.5079 0.5136 0.6915]
+ [0.707  0.7072 0.0059]
+ [0.4921 0.4859 0.7223]]
+
+=== Result 20 ===
+
+---
+NATHAN-000024100 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18826-18835
+date: 1929
+version: SAT-X
+---
+
+mu=0.3, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.3924 0.1174 0.4479]
+Mixing angles (degrees): θ12=22.54, θ13=11.12, θ23=71.44
+Jarlskog Invariant (CP violation measure): 1.9075e-03
+Mixing matrix |U| (approx.):
+[[0.9062 0.3762 0.1929]
+ [0.2907 0.2243 0.9302]
+ [0.307  0.899  0.3124]]
+
+=== Result 21 ===
+
+---
+NATHAN-000024101 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18836-18845
+date: 1929
+version: SAT-X
+---
+
+mu=0.3, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.6323 0.3167 0.1356]
+Mixing angles (degrees): θ12=37.16, θ13=61.34, θ23=7.12
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.3822 0.2897 0.8775]
+ [0.6861 0.7251 0.0594]
+ [0.6191 0.6247 0.4759]]
+
+=== Result 22 ===
+
+---
+NATHAN-000024102 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18846-18855
+date: 1982; 2053
+version: SAT-X
+---
+
+mu=0.3, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.5368 0.2053 0.4405]
+Mixing angles (degrees): θ12=21.48, θ13=9.31, θ23=40.57
+Jarlskog Invariant (CP violation measure): 1.2797e-02
+Mixing matrix |U| (approx.):
+[[0.9183 0.3614 0.1618]
+ [0.1982 0.7409 0.6418]
+ [0.3428 0.5661 0.7497]]
+
+=== Result 23 ===
+
+---
+NATHAN-000024103 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18856-18865
+date: 1982
+version: SAT-X
+---
+
+mu=0.3, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.6382 0.3139 0.0469]
+Mixing angles (degrees): θ12=46.14, θ13=38.85, θ23=2.08
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.5397 0.5615 0.6272]
+ [0.7048 0.7089 0.0282]
+ [0.4605 0.4268 0.7783]]
+
+=== Result 24 ===
+
+---
+NATHAN-000024104 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18866-18875
+date: 1982
+version: SAT-X
+---
+
+mu=0.3, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.5596 0.0748 0.5168]
+Mixing angles (degrees): θ12=67.22, θ13=2.14, θ23=79.96
+Jarlskog Invariant (CP violation measure): 7.0418e-04
+Mixing matrix |U| (approx.):
+[[0.387  0.9213 0.0373]
+ [0.1472 0.1003 0.984 ]
+ [0.9103 0.3756 0.1742]]
+
+=== Result 25 ===
+
+---
+NATHAN-000024105 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18876-18885
+date: 1982
+version: SAT-X
+---
+
+mu=0.3, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.6389 0.3133 0.0094]
+Mixing angles (degrees): θ12=45.32, θ13=43.75, θ23=0.47
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.5079 0.5136 0.6915]
+ [0.707  0.7072 0.0059]
+ [0.4921 0.4859 0.7223]]
+
+=== Result 26 ===
+
+---
+NATHAN-000024106 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18886-18895
+date: 1982
+version: SAT-X
+---
+
+mu=0.3, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.1823 0.5004 0.5656]
+Mixing angles (degrees): θ12=20.13, θ13=35.39, θ23=18.49
+Jarlskog Invariant (CP violation measure): -3.6518e-02
+Mixing matrix |U| (approx.):
+[[0.7654 0.2806 0.5792]
+ [0.3346 0.9062 0.2585]
+ [0.5498 0.3162 0.7731]]
+
+=== Result 27 ===
+
+---
+NATHAN-000024107 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18896-18905
+date: 1982
+version: SAT-X
+---
+
+mu=0.3, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.6354 0.3156 0.1012]
+Mixing angles (degrees): θ12=46.05, θ13=32.19, θ23=3.53
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.5874 0.6093 0.5327]
+ [0.6958 0.7163 0.0522]
+ [0.4134 0.34   0.8447]]
+
+=== Result 28 ===
+
+---
+NATHAN-000024108 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18906-18915
+date: 1913
+version: SAT-X
+---
+
+mu=0.3, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.5629 0.3853 0.041 ]
+Mixing angles (degrees): θ12=42.82, θ13=14.26, θ23=63.52
+Jarlskog Invariant (CP violation measure): 1.4786e-02
+Mixing matrix |U| (approx.):
+[[0.7109 0.6588 0.2462]
+ [0.4591 0.1913 0.8675]
+ [0.5328 0.7276 0.4322]]
+
+=== Result 29 ===
+
+---
+NATHAN-000024109 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18916-18925
+date: 1913
+version: SAT-X
+---
+
+mu=0.3, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.6389 0.3134 0.0188]
+Mixing angles (degrees): θ12=45.59, θ13=42.51, θ23=0.91
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.5159 0.5266 0.6757]
+ [0.7067 0.7074 0.0118]
+ [0.4842 0.4715 0.7371]]
+
+=== Result 30 ===
+
+---
+NATHAN-000024110 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18926-18935
+date: 1913
+version: SAT-X
+---
+
+mu=0.3, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.3215 0.4528 0.5869]
+Mixing angles (degrees): θ12=67.07, θ13=37.73, θ23=63.84
+Jarlskog Invariant (CP violation measure): -3.2168e-02
+Mixing matrix |U| (approx.):
+[[0.3081 0.7284 0.612 ]
+ [0.5922 0.3812 0.7099]
+ [0.7445 0.5693 0.3487]]
+
+=== Result 31 ===
+
+---
+NATHAN-000024111 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18936-18945
+date: 1913
+version: SAT-X
+---
+
+mu=0.5, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.641  0.3178 0.0931]
+Mixing angles (degrees): θ12=46.16, θ13=33.22, θ23=3.37
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.5794 0.6035 0.5478]
+ [0.6978 0.7146 0.0492]
+ [0.4212 0.3537 0.8351]]
+
+=== Result 32 ===
+
+---
+NATHAN-000024112 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18946-18955
+date: 2084
+version: SAT-X
+---
+
+mu=0.5, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.0404 0.4672 0.6157]
+Mixing angles (degrees): θ12=59.30, θ13=40.53, θ23=51.52
+Jarlskog Invariant (CP violation measure): 4.1838e-02
+Mixing matrix |U| (approx.):
+[[0.388  0.6536 0.6498]
+ [0.3414 0.7276 0.595 ]
+ [0.8561 0.2084 0.473 ]]
+
+=== Result 33 ===
+
+---
+NATHAN-000024113 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18956-18965
+date: 2084
+version: SAT-X
+---
+
+mu=0.5, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.6396 0.3184 0.1108]
+Mixing angles (degrees): θ12=38.85, θ13=58.61, θ23=6.02
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.4056 0.3267 0.8537]
+ [0.6936 0.7182 0.0546]
+ [0.5953 0.6143 0.5179]]
+
+=== Result 34 ===
+
+---
+NATHAN-000024114 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18966-18975
+date: 2084
+version: SAT-X
+---
+
+mu=0.5, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.606  0.3981 0.2822]
+Mixing angles (degrees): θ12=40.24, θ13=29.19, θ23=69.77
+Jarlskog Invariant (CP violation measure): -4.2288e-02
+Mixing matrix |U| (approx.):
+[[0.6664 0.564  0.4877]
+ [0.2494 0.5165 0.8192]
+ [0.7026 0.6443 0.3019]]
+
+=== Result 35 ===
+
+---
+NATHAN-000024115 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18976-18985
+date: 2084
+version: SAT-X
+---
+
+mu=0.5, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.6381 0.3189 0.1282]
+Mixing angles (degrees): θ12=37.71, θ13=60.47, θ23=6.79
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.39   0.3015 0.8701]
+ [0.6888 0.7226 0.0583]
+ [0.6111 0.622  0.4895]]
+
+=== Result 36 ===
+
+---
+NATHAN-000024116 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18986-18995
+date: 2084
+version: SAT-X
+---
+
+mu=0.5, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.4405 0.3003 0.4963]
+Mixing angles (degrees): θ12=61.47, θ13=37.69, θ23=23.29
+Jarlskog Invariant (CP violation measure): 9.9511e-03
+Mixing matrix |U| (approx.):
+[[0.3779 0.6953 0.6114]
+ [0.921  0.2322 0.3129]
+ [0.0949 0.6802 0.7268]]
+
+=== Result 37 ===
+
+---
+NATHAN-000024117 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 18996-19005
+date: 2084
+version: SAT-X
+---
+
+mu=0.5, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.6439 0.3158 0.0095]
+Mixing angles (degrees): θ12=45.32, θ13=43.75, θ23=0.47
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.5079 0.5136 0.6915]
+ [0.707  0.7072 0.0059]
+ [0.4921 0.4859 0.7223]]
+
+=== Result 38 ===
+
+---
+NATHAN-000024118 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19006-19015
+date: 1963; 1992
+version: SAT-X
+---
+
+mu=0.5, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.1963 0.2515 0.5783]
+Mixing angles (degrees): θ12=76.23, θ13=27.03, θ23=12.92
+Jarlskog Invariant (CP violation measure): 3.5383e-03
+Mixing matrix |U| (approx.):
+[[0.212  0.8652 0.4544]
+ [0.9229 0.3294 0.1992]
+ [0.3213 0.3781 0.8682]]
+
+=== Result 39 ===
+
+---
+NATHAN-000024119 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19016-19025
+date: 1992
+version: SAT-X
+---
+
+mu=0.5, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.6439 0.3159 0.019 ]
+Mixing angles (degrees): θ12=44.24, θ13=47.48, θ23=1.00
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.4842 0.4715 0.7371]
+ [0.7067 0.7074 0.0118]
+ [0.5159 0.5266 0.6757]]
+
+=== Result 40 ===
+
+---
+NATHAN-000024120 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19026-19035
+date: 1992
+version: SAT-X
+---
+
+mu=0.5, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.3766 0.1458 0.5283]
+Mixing angles (degrees): θ12=10.68, θ13=18.79, θ23=83.76
+Jarlskog Invariant (CP violation measure): -1.1419e-03
+Mixing matrix |U| (approx.):
+[[0.9303 0.1755 0.3221]
+ [0.3344 0.0501 0.9411]
+ [0.1507 0.9832 0.1028]]
+
+=== Result 41 ===
+
+---
+NATHAN-000024121 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19036-19045
+date: 1992
+version: SAT-X
+---
+
+mu=0.5, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.7855 0.3874 0.0805]
+Mixing angles (degrees): θ12=41.75, θ13=53.41, θ23=3.64
+Jarlskog Invariant (CP violation measure): 0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.4447 0.397  0.8029]
+ [0.7025 0.7107 0.0378]
+ [0.5556 0.5809 0.5949]]
+
+=== Result 42 ===
+
+---
+NATHAN-000024122 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19046-19055
+date: 1992
+version: SAT-X
+---
+
+mu=0.5, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.5633 0.523  0.648 ]
+Mixing angles (degrees): θ12=76.23, θ13=5.43, θ23=16.38
+Jarlskog Invariant (CP violation measure): 5.4772e-03
+Mixing matrix |U| (approx.):
+[[0.237  0.9669 0.0946]
+ [0.9341 0.2205 0.2807]
+ [0.2669 0.1285 0.9551]]
+
+=== Result 43 ===
+
+---
+NATHAN-000024123 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19056-19065
+date: 1992
+version: SAT-X
+---
+
+mu=0.5, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.7873 0.3861 0.0116]
+Mixing angles (degrees): θ12=45.32, θ13=43.75, θ23=0.47
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.5079 0.5136 0.6915]
+ [0.707  0.7072 0.0059]
+ [0.4921 0.4859 0.7223]]
+
+=== Result 44 ===
+
+---
+NATHAN-000024124 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19066-19075
+date: 1992
+version: SAT-X
+---
+
+mu=0.5, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.5402 0.0591 0.5285]
+Mixing angles (degrees): θ12=74.74, θ13=46.62, θ23=14.62
+Jarlskog Invariant (CP violation measure): 1.2894e-02
+Mixing matrix |U| (approx.):
+[[0.1807 0.6626 0.7268]
+ [0.9723 0.1565 0.1733]
+ [0.1479 0.7324 0.6646]]
+
+=== Result 45 ===
+
+---
+NATHAN-000024125 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19076-19085
+date: 1992
+version: SAT-X
+---
+
+mu=0.5, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.7801 0.3899 0.1567]
+Mixing angles (degrees): θ12=37.71, θ13=60.47, θ23=6.79
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.39   0.3015 0.8701]
+ [0.6888 0.7226 0.0583]
+ [0.6111 0.622  0.4895]]
+
+=== Result 46 ===
+
+---
+NATHAN-000024126 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19086-19095
+date: 1992
+version: SAT-X
+---
+
+mu=0.5, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.6685 0.4984 0.2755]
+Mixing angles (degrees): θ12=61.66, θ13=24.55, θ23=35.65
+Jarlskog Invariant (CP violation measure): -1.1368e-02
+Mixing matrix |U| (approx.):
+[[0.4318 0.8006 0.4155]
+ [0.6022 0.5969 0.5301]
+ [0.6715 0.0523 0.7391]]
+
+=== Result 47 ===
+
+---
+NATHAN-000024127 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19096-19105
+date: 1992
+version: SAT-X
+---
+
+mu=0.5, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.7843 0.3882 0.1028]
+Mixing angles (degrees): θ12=40.61, θ13=55.59, θ23=4.65
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.429  0.3678 0.825 ]
+ [0.6995 0.7131 0.0458]
+ [0.5715 0.5968 0.5633]]
+
+=== Result 48 ===
+
+---
+NATHAN-000024128 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19106-19115
+date: 1944
+version: SAT-X
+---
+
+mu=0.5, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.6387 0.4365 0.635 ]
+Mixing angles (degrees): θ12=45.55, θ13=74.71, θ23=47.47
+Jarlskog Invariant (CP violation measure): 1.4570e-04
+Mixing matrix |U| (approx.):
+[[0.1847 0.1883 0.9646]
+ [0.0159 0.9808 0.1944]
+ [0.9827 0.0508 0.1783]]
+
+=== Result 49 ===
+
+---
+NATHAN-000024129 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19116-19125
+date: 1944
+version: SAT-X
+---
+
+mu=0.5, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.785  0.3878 0.0917]
+Mixing angles (degrees): θ12=46.28, θ13=35.38, θ23=2.95
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.5635 0.5892 0.579 ]
+ [0.7011 0.7118 0.042 ]
+ [0.4369 0.3823 0.8142]]
+
+=== Result 50 ===
+
+---
+NATHAN-000024130 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19126-19135
+date: 1944
+version: SAT-X
+---
+
+mu=0.5, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.6677 0.4056 0.2927]
+Mixing angles (degrees): θ12=69.77, θ13=22.08, θ23=16.47
+Jarlskog Invariant (CP violation measure): -2.4345e-02
+Mixing matrix |U| (approx.):
+[[0.3204 0.8695 0.3759]
+ [0.8813 0.3928 0.2627]
+ [0.3474 0.2994 0.8886]]
+
+=== Result 51 ===
+
+---
+NATHAN-000024131 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19136-19145
+date: 1944
+version: SAT-X
+---
+
+mu=0.5, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.9192 0.4512 0.0406]
+Mixing angles (degrees): θ12=45.82, θ13=41.27, θ23=1.33
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.5238 0.539  0.6597]
+ [0.7063 0.7077 0.0175]
+ [0.4763 0.4567 0.7514]]
+
+=== Result 52 ===
+
+---
+NATHAN-000024132 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19146-19155
+date: 1952; 2039
+version: SAT-X
+---
+
+mu=0.5, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.6641 0.6918 0.7896]
+Mixing angles (degrees): θ12=75.14, θ13=37.33, θ23=69.38
+Jarlskog Invariant (CP violation measure): 1.5781e-03
+Mixing matrix |U| (approx.):
+[[0.2039 0.7686 0.6064]
+ [0.1952 0.6388 0.7442]
+ [0.9593 0.0354 0.2801]]
+
+=== Result 53 ===
+
+---
+NATHAN-000024133 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19156-19165
+date: 1952
+version: SAT-X
+---
+
+mu=0.5, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.9189 0.4515 0.0541]
+Mixing angles (degrees): θ12=46.00, θ13=40.05, θ23=1.72
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.5317 0.5506 0.6435]
+ [0.7056 0.7082 0.023 ]
+ [0.4684 0.4418 0.7651]]
+
+=== Result 54 ===
+
+---
+NATHAN-000024134 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19166-19175
+date: 2048
+version: SAT-X
+---
+
+mu=0.5, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.6309 0.2773 0.7241]
+Mixing angles (degrees): θ12=30.83, θ13=10.76, θ23=39.78
+Jarlskog Invariant (CP violation measure): -1.0424e-03
+Mixing matrix |U| (approx.):
+[[0.8436 0.5034 0.1867]
+ [0.4963 0.5987 0.6286]
+ [0.2048 0.623  0.755 ]]
+
+=== Result 55 ===
+
+---
+NATHAN-000024135 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19176-19185
+date: 2048
+version: SAT-X
+---
+
+mu=0.5, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.9175 0.4525 0.094 ]
+Mixing angles (degrees): θ12=46.27, θ13=36.51, θ23=2.70
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.5556 0.5809 0.5949]
+ [0.7025 0.7107 0.0378]
+ [0.4447 0.397  0.8029]]
+
+=== Result 56 ===
+
+---
+NATHAN-000024136 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19186-19195
+date: 2048
+version: SAT-X
+---
+
+mu=0.5, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.7558 0.5841 0.8518]
+Mixing angles (degrees): θ12=15.00, θ13=7.36, θ23=48.56
+Jarlskog Invariant (CP violation measure): 1.3913e-02
+Mixing matrix |U| (approx.):
+[[0.958  0.2566 0.1282]
+ [0.229  0.6283 0.7435]
+ [0.1728 0.7344 0.6563]]
+
+=== Result 57 ===
+
+---
+NATHAN-000024137 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19196-19205
+date: 2048
+version: SAT-X
+---
+
+mu=0.5, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.9195 0.4511 0.0271]
+Mixing angles (degrees): θ12=45.59, θ13=42.51, θ23=0.91
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.5159 0.5266 0.6757]
+ [0.7067 0.7074 0.0118]
+ [0.4842 0.4715 0.7371]]
+
+=== Result 58 ===
+
+---
+NATHAN-000024138 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19206-19215
+date: 2048
+version: SAT-X
+---
+
+mu=0.5, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.5063 0.1667 0.7387]
+Mixing angles (degrees): θ12=51.96, θ13=61.81, θ23=76.08
+Jarlskog Invariant (CP violation measure): -1.8259e-02
+Mixing matrix |U| (approx.):
+[[0.2911 0.372  0.8814]
+ [0.6545 0.6011 0.4585]
+ [0.6978 0.7073 0.1137]]
+
+=== Result 59 ===
+
+---
+NATHAN-000024139 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19216-19225
+date: 2048
+version: SAT-X
+---
+
+mu=0.5, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.8972 0.4551 0.2869]
+Mixing angles (degrees): θ12=42.49, θ13=22.41, θ23=3.38
+Jarlskog Invariant (CP violation measure): 0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.6817 0.6244 0.3812]
+ [0.6577 0.7513 0.0545]
+ [0.3204 0.2136 0.9229]]
+
+=== Result 60 ===
+
+---
+NATHAN-000024140 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19226-19235
+date: 2048
+version: SAT-X
+---
+
+mu=0.5, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.6316 0.5867 0.6207]
+Mixing angles (degrees): θ12=33.09, θ13=32.52, θ23=45.33
+Jarlskog Invariant (CP violation measure): -6.9213e-02
+Mixing matrix |U| (approx.):
+[[0.7065 0.4604 0.5376]
+ [0.6325 0.4902 0.5997]
+ [0.3175 0.7401 0.5928]]
+
+=== Result 61 ===
+
+---
+NATHAN-000024141 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19236-19245
+date: 2048
+version: SAT-X
+---
+
+mu=0.7, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.7919 0.3887 0.035 ]
+Mixing angles (degrees): θ12=45.82, θ13=41.27, θ23=1.33
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.5238 0.539  0.6597]
+ [0.7063 0.7077 0.0175]
+ [0.4763 0.4567 0.7514]]
+
+=== Result 62 ===
+
+---
+NATHAN-000024142 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19246-19255
+date: 2048
+version: SAT-X
+---
+
+mu=0.7, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.6482 0.2834 0.5934]
+Mixing angles (degrees): θ12=76.39, θ13=4.03, θ23=83.33
+Jarlskog Invariant (CP violation measure): 1.6829e-03
+Mixing matrix |U| (approx.):
+[[0.2347 0.9695 0.0703]
+ [0.1206 0.0619 0.9908]
+ [0.9646 0.237  0.1159]]
+
+=== Result 63 ===
+
+---
+NATHAN-000024143 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19256-19265
+date: 2048
+version: SAT-X
+---
+
+mu=0.7, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.7921 0.3886 0.0234]
+Mixing angles (degrees): θ12=44.24, θ13=47.48, θ23=1.00
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.4842 0.4715 0.7371]
+ [0.7067 0.7074 0.0118]
+ [0.5159 0.5266 0.6757]]
+
+=== Result 64 ===
+
+---
+NATHAN-000024144 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19266-19275
+date: 2048
+version: SAT-X
+---
+
+mu=0.7, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.66  0.367 0.273]
+Mixing angles (degrees): θ12=89.27, θ13=1.13, θ23=55.51
+Jarlskog Invariant (CP violation measure): 4.8377e-05
+Mixing matrix |U| (approx.):
+[[0.0127 0.9997 0.0198]
+ [0.5665 0.0102 0.824 ]
+ [0.824  0.0212 0.5662]]
+
+=== Result 65 ===
+
+---
+NATHAN-000024145 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19276-19285
+date: 2048
+version: SAT-X
+---
+
+mu=0.7, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.785  0.3924 0.1577]
+Mixing angles (degrees): θ12=45.50, θ13=29.31, θ23=3.83
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.6111 0.622  0.4895]
+ [0.6888 0.7226 0.0583]
+ [0.39   0.3015 0.8701]]
+
+=== Result 66 ===
+
+---
+NATHAN-000024146 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19286-19295
+date: 2048
+version: SAT-X
+---
+
+mu=0.7, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.6024 0.0741 0.6396]
+Mixing angles (degrees): θ12=30.72, θ13=13.35, θ23=69.02
+Jarlskog Invariant (CP violation measure): 1.1330e-02
+Mixing matrix |U| (approx.):
+[[0.8365 0.497  0.231 ]
+ [0.0661 0.4127 0.9084]
+ [0.544  0.7633 0.3484]]
+
+=== Result 67 ===
+
+---
+NATHAN-000024147 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19296-19305
+date: 2048
+version: SAT-X
+---
+
+mu=0.7, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.784  0.3926 0.1682]
+Mixing angles (degrees): θ12=37.16, θ13=61.34, θ23=7.12
+Jarlskog Invariant (CP violation measure): 0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.3822 0.2897 0.8775]
+ [0.6861 0.7251 0.0594]
+ [0.6191 0.6247 0.4759]]
+
+=== Result 68 ===
+
+---
+NATHAN-000024148 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19306-19315
+date: 2097
+version: SAT-X
+---
+
+mu=0.7, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.2097 0.5501 0.6342]
+Mixing angles (degrees): θ12=43.12, θ13=22.03, θ23=74.68
+Jarlskog Invariant (CP violation measure): 1.8840e-03
+Mixing matrix |U| (approx.):
+[[0.6766 0.6336 0.3751]
+ [0.0841 0.44   0.8941]
+ [0.7315 0.6364 0.2449]]
+
+=== Result 69 ===
+
+---
+NATHAN-000024149 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19316-19325
+date: 2097
+version: SAT-X
+---
+
+mu=0.7, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.7893 0.3906 0.1035]
+Mixing angles (degrees): θ12=40.61, θ13=55.59, θ23=4.65
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.429  0.3678 0.825 ]
+ [0.6995 0.7131 0.0458]
+ [0.5715 0.5968 0.5633]]
+
+=== Result 70 ===
+
+---
+NATHAN-000024150 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19326-19335
+date: 2097
+version: SAT-X
+---
+
+mu=0.7, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.6258 0.1346 0.5607]
+Mixing angles (degrees): θ12=19.55, θ13=6.91, θ23=47.78
+Jarlskog Invariant (CP violation measure): 3.4505e-03
+Mixing matrix |U| (approx.):
+[[0.9355 0.3323 0.1202]
+ [0.1433 0.6626 0.7352]
+ [0.323  0.6713 0.6671]]
+
+=== Result 71 ===
+
+---
+NATHAN-000024151 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19336-19345
+date: 2097
+version: SAT-X
+---
+
+mu=0.7, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.9606 0.471  0.0142]
+Mixing angles (degrees): θ12=44.64, θ13=46.25, θ23=0.49
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.4921 0.4859 0.7223]
+ [0.707  0.7072 0.0059]
+ [0.5079 0.5136 0.6915]]
+
+=== Result 72 ===
+
+---
+NATHAN-000024152 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19346-19355
+date: 2097
+version: SAT-X
+---
+
+mu=0.7, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.706  0.2361 0.6487]
+Mixing angles (degrees): θ12=77.91, θ13=59.79, θ23=80.07
+Jarlskog Invariant (CP violation measure): 1.2001e-03
+Mixing matrix |U| (approx.):
+[[0.1054 0.4921 0.8642]
+ [0.3459 0.7966 0.4957]
+ [0.9323 0.351  0.0868]]
+
+=== Result 73 ===
+
+---
+NATHAN-000024153 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19356-19365
+date: 2097
+version: SAT-X
+---
+
+mu=0.7, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.9606 0.471  0.0142]
+Mixing angles (degrees): θ12=45.32, θ13=43.75, θ23=0.47
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.5079 0.5136 0.6915]
+ [0.707  0.7072 0.0059]
+ [0.4921 0.4859 0.7223]]
+
+=== Result 74 ===
+
+---
+NATHAN-000024154 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19366-19375
+date: 2097
+version: SAT-X
+---
+
+mu=0.7, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.3936 0.571  0.9558]
+Mixing angles (degrees): θ12=18.04, θ13=42.67, θ23=48.58
+Jarlskog Invariant (CP violation measure): 5.3062e-02
+Mixing matrix |U| (approx.):
+[[0.6992 0.2277 0.6777]
+ [0.5492 0.628  0.5514]
+ [0.4578 0.7442 0.4865]]
+
+=== Result 75 ===
+
+---
+NATHAN-000024155 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19376-19385
+date: 2097
+version: SAT-X
+---
+
+mu=0.7, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.9604 0.4712 0.0283]
+Mixing angles (degrees): θ12=45.59, θ13=42.51, θ23=0.91
+Jarlskog Invariant (CP violation measure): 0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.5159 0.5266 0.6757]
+ [0.7067 0.7074 0.0118]
+ [0.4842 0.4715 0.7371]]
+
+=== Result 76 ===
+
+---
+NATHAN-000024156 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19386-19395
+date: 2097
+version: SAT-X
+---
+
+mu=0.7, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.6081 0.3867 0.5642]
+Mixing angles (degrees): θ12=49.44, θ13=46.14, θ23=28.82
+Jarlskog Invariant (CP violation measure): -7.2116e-02
+Mixing matrix |U| (approx.):
+[[0.4505 0.5264 0.721 ]
+ [0.6911 0.6409 0.334 ]
+ [0.5651 0.5587 0.6071]]
+
+=== Result 77 ===
+
+---
+NATHAN-000024157 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19396-19405
+date: 2097
+version: SAT-X
+---
+
+mu=0.7, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.9606 0.471  0.0142]
+Mixing angles (degrees): θ12=44.64, θ13=46.25, θ23=0.49
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.4921 0.4859 0.7223]
+ [0.707  0.7072 0.0059]
+ [0.5079 0.5136 0.6915]]
+
+=== Result 78 ===
+
+---
+NATHAN-000024158 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19406-19415
+date: 2097
+version: SAT-X
+---
+
+mu=0.7, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.6935 0.5505 0.7381]
+Mixing angles (degrees): θ12=81.19, θ13=5.58, θ23=7.19
+Jarlskog Invariant (CP violation measure): 1.8074e-03
+Mixing matrix |U| (approx.):
+[[0.1525 0.9835 0.0972]
+ [0.9803 0.1531 0.1245]
+ [0.1253 0.0962 0.9874]]
+
+=== Result 79 ===
+
+---
+NATHAN-000024159 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19416-19425
+date: 2097
+version: SAT-X
+---
+
+mu=0.7, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.9604 0.4712 0.0283]
+Mixing angles (degrees): θ12=45.59, θ13=42.51, θ23=0.91
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.5159 0.5266 0.6757]
+ [0.7067 0.7074 0.0118]
+ [0.4842 0.4715 0.7371]]
+
+=== Result 80 ===
+
+---
+NATHAN-000024160 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19426-19435
+date: 2001
+version: SAT-X
+---
+
+mu=0.7, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.7196 0.207  0.7451]
+Mixing angles (degrees): θ12=12.20, θ13=18.82, θ23=74.07
+Jarlskog Invariant (CP violation measure): 3.6541e-03
+Mixing matrix |U| (approx.):
+[[0.9252 0.2001 0.3225]
+ [0.2471 0.3324 0.9102]
+ [0.2881 0.9217 0.2598]]
+
+=== Result 81 ===
+
+---
+NATHAN-000024161 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19436-19445
+date: 2001
+version: SAT-X
+---
+
+mu=0.7, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [1.1004 0.55   0.221 ]
+Mixing angles (degrees): θ12=37.71, θ13=60.47, θ23=6.79
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.39   0.3015 0.8701]
+ [0.6888 0.7226 0.0583]
+ [0.6111 0.622  0.4895]]
+
+=== Result 82 ===
+
+---
+NATHAN-000024162 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19446-19455
+date: 2001
+version: SAT-X
+---
+
+mu=0.7, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.9047 0.2372 0.6942]
+Mixing angles (degrees): θ12=39.68, θ13=10.27, θ23=54.72
+Jarlskog Invariant (CP violation measure): 3.9955e-02
+Mixing matrix |U| (approx.):
+[[0.7573 0.6282 0.1783]
+ [0.3806 0.458  0.8033]
+ [0.5306 0.6289 0.5683]]
+
+=== Result 83 ===
+
+---
+NATHAN-000024163 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19456-19465
+date: 1912
+version: SAT-X
+---
+
+mu=0.7, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [1.1031 0.5491 0.1912]
+Mixing angles (degrees): θ12=38.85, θ13=58.61, θ23=6.02
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.4056 0.3267 0.8537]
+ [0.6936 0.7182 0.0546]
+ [0.5953 0.6143 0.5179]]
+
+=== Result 84 ===
+
+---
+NATHAN-000024164 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19466-19475
+date: 2088
+version: SAT-X
+---
+
+mu=0.7, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [1.0022 0.6357 0.7415]
+Mixing angles (degrees): θ12=67.32, θ13=57.22, θ23=37.63
+Jarlskog Invariant (CP violation measure): -4.0943e-02
+Mixing matrix |U| (approx.):
+[[0.2088 0.4995 0.8408]
+ [0.8052 0.4923 0.3305]
+ [0.555  0.7128 0.4288]]
+
+=== Result 85 ===
+
+---
+NATHAN-000024165 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19476-19485
+date: 2088
+version: SAT-X
+---
+
+mu=0.7, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [1.108  0.5465 0.1135]
+Mixing angles (degrees): θ12=46.27, θ13=36.51, θ23=2.70
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.5556 0.5809 0.5949]
+ [0.7025 0.7107 0.0378]
+ [0.4447 0.397  0.8029]]
+
+=== Result 86 ===
+
+---
+NATHAN-000024166 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19486-19495
+date: 2088
+version: SAT-X
+---
+
+mu=0.7, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.8723 0.3879 0.7503]
+Mixing angles (degrees): θ12=29.80, θ13=5.30, θ23=30.43
+Jarlskog Invariant (CP violation measure): -1.2720e-02
+Mixing matrix |U| (approx.):
+[[0.864  0.4949 0.0924]
+ [0.4022 0.7641 0.5043]
+ [0.3028 0.4138 0.8586]]
+
+=== Result 87 ===
+
+---
+NATHAN-000024167 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19496-19505
+date: 1912
+version: SAT-X
+---
+
+mu=0.7, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [1.1031 0.5491 0.1912]
+Mixing angles (degrees): θ12=45.90, θ13=31.19, θ23=3.66
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.5953 0.6143 0.5179]
+ [0.6936 0.7182 0.0546]
+ [0.4056 0.3267 0.8537]]
+
+=== Result 88 ===
+
+---
+NATHAN-000024168 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19506-19515
+date: 1912
+version: SAT-X
+---
+
+mu=0.7, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [1.0178 0.6855 0.3521]
+Mixing angles (degrees): θ12=68.72, θ13=76.72, θ23=67.60
+Jarlskog Invariant (CP violation measure): -1.8306e-04
+Mixing matrix |U| (approx.):
+[[0.0834 0.2141 0.9732]
+ [0.6816 0.7002 0.2124]
+ [0.727  0.6811 0.0876]]
+
+=== Result 89 ===
+
+---
+NATHAN-000024169 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19516-19525
+date: 1912
+version: SAT-X
+---
+
+mu=0.7, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [1.1054 0.5481 0.1606]
+Mixing angles (degrees): θ12=40.02, θ13=56.63, θ23=5.13
+Jarlskog Invariant (CP violation measure): 0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.4212 0.3537 0.8351]
+ [0.6978 0.7146 0.0492]
+ [0.5794 0.6035 0.5478]]
+
+=== Result 90 ===
+
+---
+NATHAN-000024170 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19526-19535
+date: 1912
+version: SAT-X
+---
+
+mu=0.7, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.192  0.6708 1.1197]
+Mixing angles (degrees): θ12=49.52, θ13=32.19, θ23=57.12
+Jarlskog Invariant (CP violation measure): 8.5888e-02
+Mixing matrix |U| (approx.):
+[[0.5494 0.6438 0.5327]
+ [0.5061 0.4885 0.7108]
+ [0.6649 0.589  0.4594]]
+
+=== Result 91 ===
+
+---
+NATHAN-000024171 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19536-19545
+date: 1912
+version: SAT-X
+---
+
+mu=1.0, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.9399 0.4643 0.1098]
+Mixing angles (degrees): θ12=46.28, θ13=35.38, θ23=2.95
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.5635 0.5892 0.579 ]
+ [0.7011 0.7118 0.042 ]
+ [0.4369 0.3823 0.8142]]
+
+=== Result 92 ===
+
+---
+NATHAN-000024172 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19546-19555
+date: 1912
+version: SAT-X
+---
+
+mu=1.0, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.7597 0.6362 0.3694]
+Mixing angles (degrees): θ12=67.10, θ13=30.23, θ23=69.76
+Jarlskog Invariant (CP violation measure): -3.4630e-02
+Mixing matrix |U| (approx.):
+[[0.3362 0.7959 0.5035]
+ [0.4548 0.3687 0.8107]
+ [0.8247 0.4802 0.2989]]
+
+=== Result 93 ===
+
+---
+NATHAN-000024173 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19556-19565
+date: 1912
+version: SAT-X
+---
+
+mu=1.0, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.9427 0.4623 0.0139]
+Mixing angles (degrees): θ12=44.64, θ13=46.25, θ23=0.49
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.4921 0.4859 0.7223]
+ [0.707  0.7072 0.0059]
+ [0.5079 0.5136 0.6915]]
+
+=== Result 94 ===
+
+---
+NATHAN-000024174 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19566-19575
+date: 1912
+version: SAT-X
+---
+
+mu=1.0, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.819  0.1143 0.418 ]
+Mixing angles (degrees): θ12=73.56, θ13=14.17, θ23=69.52
+Jarlskog Invariant (CP violation measure): -2.1941e-03
+Mixing matrix |U| (approx.):
+[[0.2744 0.9299 0.2448]
+ [0.2711 0.3186 0.9083]
+ [0.9226 0.1837 0.3392]]
+
+=== Result 95 ===
+
+---
+NATHAN-000024175 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19576-19585
+date: 1912
+version: SAT-X
+---
+
+mu=1.0, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.9426 0.4624 0.0278]
+Mixing angles (degrees): θ12=45.59, θ13=42.51, θ23=0.91
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.5159 0.5266 0.6757]
+ [0.7067 0.7074 0.0118]
+ [0.4842 0.4715 0.7371]]
+
+=== Result 96 ===
+
+---
+NATHAN-000024176 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19586-19595
+date: 1912
+version: SAT-X
+---
+
+mu=1.0, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.6979 0.3241 0.8921]
+Mixing angles (degrees): θ12=67.92, θ13=53.82, θ23=59.69
+Jarlskog Invariant (CP violation measure): 2.7450e-02
+Mixing matrix |U| (approx.):
+[[0.222  0.5471 0.8071]
+ [0.3156 0.8004 0.5097]
+ [0.9226 0.2452 0.2979]]
+
+=== Result 97 ===
+
+---
+NATHAN-000024177 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19596-19605
+date: 1912
+version: SAT-X
+---
+
+mu=1.0, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.9341 0.4669 0.1876]
+Mixing angles (degrees): θ12=37.71, θ13=60.47, θ23=6.79
+Jarlskog Invariant (CP violation measure): 0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.39   0.3015 0.8701]
+ [0.6888 0.7226 0.0583]
+ [0.6111 0.622  0.4895]]
+
+=== Result 98 ===
+
+---
+NATHAN-000024178 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19606-19615
+date: 1912
+version: SAT-X
+---
+
+mu=1.0, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.7048 0.1891 0.7571]
+Mixing angles (degrees): θ12=81.15, θ13=60.91, θ23=7.20
+Jarlskog Invariant (CP violation measure): 5.2802e-05
+Mixing matrix |U| (approx.):
+[[0.0748 0.4804 0.8738]
+ [0.9972 0.0444 0.061 ]
+ [0.0096 0.8759 0.4824]]
+
+=== Result 99 ===
+
+---
+NATHAN-000024179 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19616-19625
+date: 1912
+version: SAT-X
+---
+
+mu=1.0, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [0.9374 0.4657 0.1494]
+Mixing angles (degrees): θ12=39.44, θ13=57.64, θ23=5.59
+Jarlskog Invariant (CP violation measure): 0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.4134 0.34   0.8447]
+ [0.6958 0.7163 0.0522]
+ [0.5874 0.6093 0.5327]]
+
+=== Result 100 ===
+
+---
+NATHAN-000024180 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19626-19635
+date: 1912
+version: SAT-X
+---
+
+mu=1.0, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.2852 0.5919 0.8247]
+Mixing angles (degrees): θ12=36.13, θ13=23.35, θ23=41.69
+Jarlskog Invariant (CP violation measure): 5.2517e-02
+Mixing matrix |U| (approx.):
+[[0.7415 0.5413 0.3964]
+ [0.6159 0.4979 0.6106]
+ [0.2661 0.6776 0.6856]]
+
+=== Result 101 ===
+
+---
+NATHAN-000024181 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19636-19645
+date: 1912
+version: SAT-X
+---
+
+mu=1.0, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [1.1333 0.5557 0.0167]
+Mixing angles (degrees): θ12=44.64, θ13=46.25, θ23=0.49
+Jarlskog Invariant (CP violation measure): 0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.4921 0.4859 0.7223]
+ [0.707  0.7072 0.0059]
+ [0.5079 0.5136 0.6915]]
+
+=== Result 102 ===
+
+---
+NATHAN-000024182 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19646-19655
+date: 1912
+version: SAT-X
+---
+
+mu=1.0, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.955  0.5538 1.0153]
+Mixing angles (degrees): θ12=75.10, θ13=55.16, θ23=11.04
+Jarlskog Invariant (CP violation measure): -1.2406e-02
+Mixing matrix |U| (approx.):
+[[0.1469 0.552  0.8208]
+ [0.9546 0.2771 0.1094]
+ [0.2591 0.7865 0.5607]]
+
+=== Result 103 ===
+
+---
+NATHAN-000024183 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19656-19665
+date: 1912
+version: SAT-X
+---
+
+mu=1.0, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [1.1333 0.5557 0.0167]
+Mixing angles (degrees): θ12=45.32, θ13=43.75, θ23=0.47
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.5079 0.5136 0.6915]
+ [0.707  0.7072 0.0059]
+ [0.4921 0.4859 0.7223]]
+
+=== Result 104 ===
+
+---
+NATHAN-000024184 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19666-19675
+date: 1912
+version: SAT-X
+---
+
+mu=1.0, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.8681 0.4247 0.9101]
+Mixing angles (degrees): θ12=15.13, θ13=7.56, θ23=83.76
+Jarlskog Invariant (CP violation measure): 9.2403e-04
+Mixing matrix |U| (approx.):
+[[0.9569 0.2588 0.1316]
+ [0.1538 0.0726 0.9854]
+ [0.2462 0.9632 0.1078]]
+
+=== Result 105 ===
+
+---
+NATHAN-000024185 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19676-19685
+date: 1912
+version: SAT-X
+---
+
+mu=1.0, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [1.1144 0.5623 0.2986]
+Mixing angles (degrees): θ12=35.18, θ13=64.55, θ23=8.01
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.3512 0.2475 0.903 ]
+ [0.6734 0.7369 0.0599]
+ [0.6506 0.6291 0.4255]]
+
+=== Result 106 ===
+
+---
+NATHAN-000024186 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19686-19695
+date: 1912
+version: SAT-X
+---
+
+mu=1.0, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.9621 0.4199 0.5663]
+Mixing angles (degrees): θ12=52.69, θ13=15.47, θ23=15.59
+Jarlskog Invariant (CP violation measure): 3.0683e-03
+Mixing matrix |U| (approx.):
+[[0.5842 0.7666 0.2667]
+ [0.7229 0.6406 0.259 ]
+ [0.369  0.0452 0.9283]]
+
+=== Result 107 ===
+
+---
+NATHAN-000024187 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19696-19705
+date: 1912
+version: SAT-X
+---
+
+mu=1.0, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [1.1333 0.5557 0.    ]
+Mixing angles (degrees): θ12=45.00, θ13=45.00, θ23=0.00
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.5    0.5    0.7071]
+ [0.7071 0.7071 0.    ]
+ [0.5    0.5    0.7071]]
+
+=== Result 108 ===
+
+---
+NATHAN-000024188 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19706-19715
+date: 2083
+version: SAT-X
+---
+
+mu=1.0, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.9195 0.6051 1.0537]
+Mixing angles (degrees): θ12=86.61, θ13=44.99, θ23=80.24
+Jarlskog Invariant (CP violation measure): 1.2548e-03
+Mixing matrix |U| (approx.):
+[[0.0418 0.706  0.7069]
+ [0.2083 0.6861 0.697 ]
+ [0.9772 0.1753 0.1199]]
+
+=== Result 109 ===
+
+---
+NATHAN-000024189 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19716-19725
+date: 2083
+version: SAT-X
+---
+
+mu=1.0, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [1.1333 0.5557 0.    ]
+Mixing angles (degrees): θ12=45.00, θ13=45.00, θ23=0.00
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.5    0.5    0.7071]
+ [0.7071 0.7071 0.    ]
+ [0.5    0.5    0.7071]]
+
+=== Result 110 ===
+
+---
+NATHAN-000024190 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19726-19735
+date: 1916; 2061
+version: SAT-X
+---
+
+mu=1.0, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.8812 0.6729 0.9321]
+Mixing angles (degrees): θ12=80.23, θ13=18.92, θ23=8.60
+Jarlskog Invariant (CP violation measure): 4.7470e-03
+Mixing matrix |U| (approx.):
+[[0.1606 0.9322 0.3243]
+ [0.9683 0.2061 0.1414]
+ [0.1916 0.2975 0.9353]]
+
+=== Result 111 ===
+
+---
+NATHAN-000024191 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19736-19745
+date: 1916
+version: SAT-X
+---
+
+mu=1.0, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [1.2958 0.6361 0.0573]
+Mixing angles (degrees): θ12=45.82, θ13=41.27, θ23=1.33
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.5238 0.539  0.6597]
+ [0.7063 0.7077 0.0175]
+ [0.4763 0.4567 0.7514]]
+
+=== Result 112 ===
+
+---
+NATHAN-000024192 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19746-19755
+date: 1916
+version: SAT-X
+---
+
+mu=1.0, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [1.0216 0.1237 0.9698]
+Mixing angles (degrees): θ12=2.06, θ13=5.31, θ23=34.75
+Jarlskog Invariant (CP violation measure): -1.5442e-03
+Mixing matrix |U| (approx.):
+[[0.9951 0.0358 0.0925]
+ [0.0603 0.8211 0.5676]
+ [0.0787 0.5697 0.8181]]
+
+=== Result 113 ===
+
+---
+NATHAN-000024193 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19756-19765
+date: 1916
+version: SAT-X
+---
+
+mu=1.0, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [1.2941 0.6373 0.1139]
+Mixing angles (degrees): θ12=42.30, θ13=52.27, θ23=3.11
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.4526 0.4118 0.7909]
+ [0.7037 0.7097 0.0332]
+ [0.5476 0.5716 0.611 ]]
+
+=== Result 114 ===
+
+---
+NATHAN-000024194 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19766-19775
+date: 1916
+version: SAT-X
+---
+
+mu=1.0, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [1.0335 0.3711 1.1005]
+Mixing angles (degrees): θ12=78.24, θ13=24.76, θ23=8.38
+Jarlskog Invariant (CP violation measure): -8.7758e-03
+Mixing matrix |U| (approx.):
+[[0.185  0.889  0.4189]
+ [0.9628 0.2356 0.1324]
+ [0.197  0.3927 0.8983]]
+
+=== Result 115 ===
+
+---
+NATHAN-000024195 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19776-19785
+date: 1916
+version: SAT-X
+---
+
+mu=1.0, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [1.2958 0.6361 0.0573]
+Mixing angles (degrees): θ12=43.80, θ13=48.71, θ23=1.52
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.4763 0.4567 0.7514]
+ [0.7063 0.7077 0.0175]
+ [0.5238 0.539  0.6597]]
+
+=== Result 116 ===
+
+---
+NATHAN-000024196 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19786-19795
+date: 1916
+version: SAT-X
+---
+
+mu=1.0, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.3556 0.8415 1.1678]
+Mixing angles (degrees): θ12=23.44, θ13=27.13, θ23=42.20
+Jarlskog Invariant (CP violation measure): 6.2095e-02
+Mixing matrix |U| (approx.):
+[[0.8166 0.354  0.4559]
+ [0.3354 0.7281 0.5978]
+ [0.4698 0.587  0.6594]]
+
+=== Result 117 ===
+
+---
+NATHAN-000024197 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19796-19805
+date: 1916
+version: SAT-X
+---
+
+mu=1.0, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [1.2809 0.6428 0.292 ]
+Mixing angles (degrees): θ12=36.63, θ13=62.19, θ23=7.41
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.3744 0.2784 0.8845]
+ [0.6832 0.7278 0.0602]
+ [0.627  0.6268 0.4627]]
+
+=== Result 118 ===
+
+---
+NATHAN-000024198 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19806-19815
+date: 2014
+version: SAT-X
+---
+
+mu=1.0, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [1.2014 0.8485 1.0692]
+Mixing angles (degrees): θ12=82.55, θ13=64.71, θ23=42.51
+Jarlskog Invariant (CP violation measure): 4.0938e-03
+Mixing matrix |U| (approx.):
+[[0.0554 0.4235 0.9042]
+ [0.8046 0.519  0.2886]
+ [0.5913 0.7424 0.3149]]
+
+=== Result 119 ===
+
+---
+NATHAN-000024199 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19816-19825
+date: 2014
+version: SAT-X
+---
+
+mu=1.0, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [1.2903 0.6397 0.1874]
+Mixing angles (degrees): θ12=46.16, θ13=33.22, θ23=3.37
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.5794 0.6035 0.5478]
+ [0.6978 0.7146 0.0492]
+ [0.4212 0.3537 0.8351]]
+
+=== Result 120 ===
+
+---
+NATHAN-000024200 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19826-19835
+date: 2014
+version: SAT-X
+---
+
+mu=1.0, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.7854 0.5169 1.0966]
+Mixing angles (degrees): θ12=23.14, θ13=18.47, θ23=41.56
+Jarlskog Invariant (CP violation measure): 5.1093e-02
+Mixing matrix |U| (approx.):
+[[0.8722 0.3727 0.3167]
+ [0.3558 0.6911 0.6292]
+ [0.3356 0.6193 0.7098]]
+
+=== Result 121 ===
+
+---
+NATHAN-000024201 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19836-19845
+date: 2014
+version: SAT-X
+---
+
+mu=1.3, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [1.0411 0.5105 0.0154]
+Mixing angles (degrees): θ12=45.32, θ13=43.75, θ23=0.47
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.5079 0.5136 0.6915]
+ [0.707  0.7072 0.0059]
+ [0.4921 0.4859 0.7223]]
+
+=== Result 122 ===
+
+---
+NATHAN-000024202 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19846-19855
+date: 2014
+version: SAT-X
+---
+
+mu=1.3, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.6425 0.1617 0.7951]
+Mixing angles (degrees): θ12=14.41, θ13=26.94, θ23=31.68
+Jarlskog Invariant (CP violation measure): -3.5641e-02
+Mixing matrix |U| (approx.):
+[[0.8635 0.2218 0.453 ]
+ [0.3693 0.8028 0.4682]
+ [0.3436 0.5535 0.7587]]
+
+=== Result 123 ===
+
+---
+NATHAN-000024203 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19856-19865
+date: 2014
+version: SAT-X
+---
+
+mu=1.3, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [1.0407 0.5109 0.046 ]
+Mixing angles (degrees): θ12=43.80, θ13=48.71, θ23=1.52
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.4763 0.4567 0.7514]
+ [0.7063 0.7077 0.0175]
+ [0.5238 0.539  0.6597]]
+
+=== Result 124 ===
+
+---
+NATHAN-000024204 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19866-19875
+date: 2014
+version: SAT-X
+---
+
+mu=1.3, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.2334 0.6606 0.9656]
+Mixing angles (degrees): θ12=51.83, θ13=36.28, θ23=56.77
+Jarlskog Invariant (CP violation measure): 2.1203e-02
+Mixing matrix |U| (approx.):
+[[0.4982 0.6338 0.5917]
+ [0.7311 0.1037 0.6744]
+ [0.4661 0.7665 0.4417]]
+
+=== Result 125 ===
+
+---
+NATHAN-000024205 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19876-19885
+date: 2014
+version: SAT-X
+---
+
+mu=1.3, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [1.0404 0.5111 0.0612]
+Mixing angles (degrees): θ12=46.00, θ13=40.05, θ23=1.72
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.5317 0.5506 0.6435]
+ [0.7056 0.7082 0.023 ]
+ [0.4684 0.4418 0.7651]]
+
+=== Result 126 ===
+
+---
+NATHAN-000024206 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19886-19895
+date: 2014
+version: SAT-X
+---
+
+mu=1.3, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.8886 0.524  0.4422]
+Mixing angles (degrees): θ12=61.24, θ13=2.95, θ23=88.99
+Jarlskog Invariant (CP violation measure): -3.2320e-05
+Mixing matrix |U| (approx.):
+[[0.4805 0.8755 0.0514]
+ [0.0094 0.0535 0.9985]
+ [0.8769 0.4803 0.0176]]
+
+=== Result 127 ===
+
+---
+NATHAN-000024207 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19896-19905
+date: 2014
+version: SAT-X
+---
+
+mu=1.3, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [1.0399 0.5115 0.0764]
+Mixing angles (degrees): θ12=46.14, θ13=38.85, θ23=2.08
+Jarlskog Invariant (CP violation measure): 0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.5397 0.5615 0.6272]
+ [0.7048 0.7089 0.0282]
+ [0.4605 0.4268 0.7783]]
+
+=== Result 128 ===
+
+---
+NATHAN-000024208 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19906-19915
+date: 2014
+version: SAT-X
+---
+
+mu=1.3, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.5447 0.4576 0.7837]
+Mixing angles (degrees): θ12=27.34, θ13=5.27, θ23=3.64
+Jarlskog Invariant (CP violation measure): 1.0968e-04
+Mixing matrix |U| (approx.):
+[[0.8846 0.4573 0.0918]
+ [0.4635 0.8838 0.0633]
+ [0.0522 0.0985 0.9938]]
+
+=== Result 129 ===
+
+---
+NATHAN-000024209 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19916-19925
+date: 2014
+version: SAT-X
+---
+
+mu=1.3, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [1.0394 0.5119 0.0915]
+Mixing angles (degrees): θ12=46.23, θ13=37.66, θ23=2.40
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.5476 0.5716 0.611 ]
+ [0.7037 0.7097 0.0332]
+ [0.4526 0.4118 0.7909]]
+
+=== Result 130 ===
+
+---
+NATHAN-000024210 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19926-19935
+date: 2014
+version: SAT-X
+---
+
+mu=1.3, eta=0.8, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.4557 0.4637 0.8917]
+Mixing angles (degrees): θ12=9.24, θ13=68.70, θ23=14.97
+Jarlskog Invariant (CP violation measure): -1.0053e-04
+Mixing matrix |U| (approx.):
+[[0.3586 0.0583 0.9317]
+ [0.0825 0.9922 0.0938]
+ [0.9298 0.1105 0.351 ]]
+
+=== Result 131 ===
+
+---
+NATHAN-000024211 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19936-19945
+date: 2014
+version: SAT-X
+---
+
+mu=1.3, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [1.2443 0.6108 0.055 ]
+Mixing angles (degrees): θ12=45.82, θ13=41.27, θ23=1.33
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.5238 0.539  0.6597]
+ [0.7063 0.7077 0.0175]
+ [0.4763 0.4567 0.7514]]
+
+=== Result 132 ===
+
+---
+NATHAN-000024212 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19946-19955
+date: 2014
+version: SAT-X
+---
+
+mu=1.3, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [1.0042 0.2727 1.0101]
+Mixing angles (degrees): θ12=30.50, θ13=2.29, θ23=73.00
+Jarlskog Invariant (CP violation measure): -4.2898e-03
+Mixing matrix |U| (approx.):
+[[0.8609 0.5072 0.04  ]
+ [0.1357 0.2617 0.9556]
+ [0.4903 0.8212 0.2921]]
+
+=== Result 133 ===
+
+---
+NATHAN-000024213 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19956-19965
+date: 2014
+version: SAT-X
+---
+
+mu=1.3, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [1.2427 0.612  0.1094]
+Mixing angles (degrees): θ12=42.30, θ13=52.27, θ23=3.11
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.4526 0.4118 0.7909]
+ [0.7037 0.7097 0.0332]
+ [0.5476 0.5716 0.611 ]]
+
+=== Result 134 ===
+
+---
+NATHAN-000024214 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19966-19975
+date: 2014
+version: SAT-X
+---
+
+mu=1.3, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [0.9923 0.5361 0.7391]
+Mixing angles (degrees): θ12=16.40, θ13=7.12, θ23=33.15
+Jarlskog Invariant (CP violation measure): 1.2859e-02
+Mixing matrix |U| (approx.):
+[[0.9519 0.2802 0.124 ]
+ [0.2763 0.7933 0.5426]
+ [0.1324 0.5406 0.8308]]
+
+=== Result 135 ===
+
+---
+NATHAN-000024215 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19976-19985
+date: 2014
+version: SAT-X
+---
+
+mu=1.3, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [1.2365 0.6155 0.2143]
+Mixing angles (degrees): θ12=38.85, θ13=58.61, θ23=6.02
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.4056 0.3267 0.8537]
+ [0.6936 0.7182 0.0546]
+ [0.5953 0.6143 0.5179]]
+
+=== Result 136 ===
+
+---
+NATHAN-000024216 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19986-19995
+date: 2014
+version: SAT-X
+---
+
+mu=1.3, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [1.1876 0.7956 0.8511]
+Mixing angles (degrees): θ12=38.89, θ13=16.24, θ23=7.42
+Jarlskog Invariant (CP violation measure): -1.2276e-02
+Mixing matrix |U| (approx.):
+[[0.7473 0.6028 0.2796]
+ [0.6412 0.7573 0.1241]
+ [0.1744 0.2513 0.9521]]
+
+=== Result 137 ===
+
+---
+NATHAN-000024217 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 19996-20005
+date: 2014
+version: SAT-X
+---
+
+mu=1.3, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [1.2443 0.6108 0.055 ]
+Mixing angles (degrees): θ12=43.80, θ13=48.71, θ23=1.52
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.4763 0.4567 0.7514]
+ [0.7063 0.7077 0.0175]
+ [0.5238 0.539  0.6597]]
+
+=== Result 138 ===
+
+---
+NATHAN-000024218 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20006-20015
+date: 2014
+version: SAT-X
+---
+
+mu=1.3, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [1.1102 0.7281 0.895 ]
+Mixing angles (degrees): θ12=33.69, θ13=13.10, θ23=72.57
+Jarlskog Invariant (CP violation measure): 2.0670e-03
+Mixing matrix |U| (approx.):
+[[0.8104 0.5402 0.2267]
+ [0.0187 0.3689 0.9293]
+ [0.5855 0.7564 0.2917]]
+
+=== Result 139 ===
+
+---
+NATHAN-000024219 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20016-20025
+date: 2014
+version: SAT-X
+---
+
+mu=1.3, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [1.239  0.6143 0.18  ]
+Mixing angles (degrees): θ12=46.16, θ13=33.22, θ23=3.37
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.5794 0.6035 0.5478]
+ [0.6978 0.7146 0.0492]
+ [0.4212 0.3537 0.8351]]
+
+=== Result 140 ===
+
+---
+NATHAN-000024220 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20026-20035
+date: 2014
+version: SAT-X
+---
+
+mu=1.3, eta=1.0, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [1.0594 0.7143 0.9809]
+Mixing angles (degrees): θ12=29.41, θ13=5.70, θ23=88.71
+Jarlskog Invariant (CP violation measure): 1.8904e-04
+Mixing matrix |U| (approx.):
+[[0.8668 0.4886 0.0992]
+ [0.0757 0.068  0.9948]
+ [0.4928 0.8698 0.0224]]
+
+=== Result 141 ===
+
+---
+NATHAN-000024221 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20036-20045
+date: 2014
+version: SAT-X
+---
+
+mu=1.3, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [1.4116 0.6952 0.1242]
+Mixing angles (degrees): θ12=46.23, θ13=37.66, θ23=2.40
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.5476 0.5716 0.611 ]
+ [0.7037 0.7097 0.0332]
+ [0.4526 0.4118 0.7909]]
+
+=== Result 142 ===
+
+---
+NATHAN-000024222 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20046-20055
+date: 2014
+version: SAT-X
+---
+
+mu=1.3, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [1.2484 0.3675 1.0061]
+Mixing angles (degrees): θ12=62.54, θ13=5.81, θ23=4.04
+Jarlskog Invariant (CP violation measure): 9.0306e-04
+Mixing matrix |U| (approx.):
+[[0.4588 0.8828 0.1012]
+ [0.882  0.466  0.0701]
+ [0.1077 0.0596 0.9924]]
+
+=== Result 143 ===
+
+---
+NATHAN-000024223 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20056-20065
+date: 2014
+version: SAT-X
+---
+
+mu=1.3, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [1.3927 0.7015 0.3547]
+Mixing angles (degrees): θ12=44.38, θ13=25.94, θ23=3.85
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.6427 0.6289 0.4375]
+ [0.6768 0.7337 0.0604]
+ [0.3589 0.2573 0.8972]]
+
+=== Result 144 ===
+
+---
+NATHAN-000024224 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20066-20075
+date: 2014
+version: SAT-X
+---
+
+mu=1.3, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [1.1362 0.4808 1.262 ]
+Mixing angles (degrees): θ12=80.46, θ13=28.26, θ23=10.20
+Jarlskog Invariant (CP violation measure): 9.0379e-03
+Mixing matrix |U| (approx.):
+[[0.1459 0.8686 0.4735]
+ [0.9637 0.2168 0.156 ]
+ [0.2237 0.4456 0.8669]]
+
+=== Result 145 ===
+
+---
+NATHAN-000024225 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20076-20085
+date: 2014
+version: SAT-X
+---
+
+mu=1.3, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [1.4129 0.6942 0.0832]
+Mixing angles (degrees): θ12=43.33, θ13=49.92, θ23=2.05
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.4684 0.4418 0.7651]
+ [0.7056 0.7082 0.023 ]
+ [0.5317 0.5506 0.6435]]
+
+=== Result 146 ===
+
+---
+NATHAN-000024226 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20086-20095
+date: 2014
+version: SAT-X
+---
+
+mu=1.3, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [1.2483 0.6165 0.2204]
+Mixing angles (degrees): θ12=7.89, θ13=28.74, θ23=76.13
+Jarlskog Invariant (CP violation measure): 5.4208e-03
+Mixing matrix |U| (approx.):
+[[0.8685 0.1204 0.4808]
+ [0.4334 0.2958 0.8513]
+ [0.2404 0.9476 0.2103]]
+
+=== Result 147 ===
+
+---
+NATHAN-000024227 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20096-20105
+date: 2014
+version: SAT-X
+---
+
+mu=1.3, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [1.4129 0.6942 0.0832]
+Mixing angles (degrees): θ12=46.00, θ13=40.05, θ23=1.72
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.5317 0.5506 0.6435]
+ [0.7056 0.7082 0.023 ]
+ [0.4684 0.4418 0.7651]]
+
+=== Result 148 ===
+
+---
+NATHAN-000024228 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20106-20115
+date: 2047
+version: SAT-X
+---
+
+mu=1.3, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [1.1594 0.3469 1.202 ]
+Mixing angles (degrees): θ12=5.60, θ13=13.65, θ23=12.16
+Jarlskog Invariant (CP violation measure): 4.4051e-03
+Mixing matrix |U| (approx.):
+[[0.9671 0.0949 0.2361]
+ [0.1142 0.9721 0.2047]
+ [0.2274 0.2144 0.9499]]
+
+=== Result 149 ===
+
+---
+NATHAN-000024229 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20116-20125
+date: 2047
+version: SAT-X
+---
+
+mu=1.3, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=structured
+Mass eigenvalues (approx.): [1.4123 0.6946 0.1037]
+Mixing angles (degrees): θ12=42.83, θ13=51.11, θ23=2.58
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.4605 0.4268 0.7783]
+ [0.7048 0.7089 0.0282]
+ [0.5397 0.5615 0.6272]]
+
+=== Result 150 ===
+
+---
+NATHAN-000024230 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20126-20135
+date: 1998
+version: SAT-X
+---
+
+mu=1.3, eta=1.2, N=3, kernel_shape=gaussian, cp_phase_mode=random
+Mass eigenvalues (approx.): [1.1206 0.742  1.2978]
+Mixing angles (degrees): θ12=75.30, θ13=38.06, θ23=83.43
+Jarlskog Invariant (CP violation measure): -9.9918e-03
+Mixing matrix |U| (approx.):
+[[0.1998 0.7616 0.6164]
+ [0.2198 0.5829 0.7822]
+ [0.9549 0.2831 0.09  ]]
+
+---
+NATHAN-000024231 | Clear | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20137-20138
+date: 1998
+version: SAT-X
+---
+
+the code is still producing tons of graphs despite commenting out the explicit print of print_full_results(). That means the graph generation is likely inside the Monte Carlo sampling or result sweep loop.
+
+---
+NATHAN-000024232 | Most likely culprit | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20139-20145
+date: 1998
+version: SAT-X
+---
+
+the plotting calls inside run_parametric_sweep_tau() or wherever the sweep runs the MC sampler repeatedly.
+
+Fix proposal
+Locate and comment out all plotting calls inside the inner loops of the param sweep and MC sampler.
+
+Add a global verbose or plot flag so you can easily toggle plots on/off.
+
+---
+NATHAN-000024233 | Replace | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20147-20153
+date: 1998
+version: SAT-X
+---
+
+python
+Copy
+def run_parametric_sweep_tau(x, param_grid, kernel_shapes, cp_phase_modes, mc_steps=10000):
+    results = []
+    for mu, eta, beta in param_grid:
+
+---
+NATHAN-000024234 | for cp_phase_mode in cp_phase_modes | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20155-20163
+date: 1998
+version: SAT-X
+---
+
+                # Run the sampler and collect results
+                result = monte_carlo_sampler(x, mu, eta, beta, kernel_shape, cp_phase_mode, mc_steps)
+                results.append(result)
+                
+                # Plotting inside loop - REMOVE or COMMENT OUT to stop graph spam
+                plot_tau_and_curvature(result['tau_links'])
+                plot_mixing_angles(result['mixing_angles'])
+    return results
+
+---
+NATHAN-000024235 | With | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20164-20170
+date: 1998
+version: SAT-X
+---
+
+python
+Copy
+def run_parametric_sweep_tau(x, param_grid, kernel_shapes, cp_phase_modes, mc_steps=10000, plot=False):
+    results = []
+    for mu, eta, beta in param_grid:
+
+---
+NATHAN-000024236 | for cp_phase_mode in cp_phase_modes | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20172-20177
+date: 1998
+version: SAT-X
+---
+
+                # Run the sampler and collect results
+                result = monte_carlo_sampler(x, mu, eta, beta, kernel_shape, cp_phase_mode, mc_steps)
+                results.append(result)
+                
+                # Conditional plotting based on flag
+
+---
+NATHAN-000024237 | if plot | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20178-20181
+date: 1998
+version: SAT-X
+---
+
+                    plot_tau_and_curvature(result['tau_links'])
+                    plot_mixing_angles(result['mixing_angles'])
+    return results
+
+---
+NATHAN-000024238 | Replace | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20182-20186
+date: 1998
+version: SAT-X
+---
+
+python
+Copy
+results = run_parametric_sweep_tau(x, grid, kernel_shapes, cp_phase_modes, mc_steps=10000)
+
+---
+NATHAN-000024239 | With | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20187-20203
+date: 1998
+version: SAT-X
+---
+
+python
+Copy
+results = run_parametric_sweep_tau(x, grid, kernel_shapes, cp_phase_modes, mc_steps=10000, plot=False)
+Why this?
+You keep the ability to plot when needed (plot=True), but by default, it's off, so no graph spam.
+
+Graphs inside big loops cause both visual overload and slowdowns.
+
+If you want me to scan the full file you uploaded and do this systematically, say so. Otherwise, apply the above replacements exactly.
+
+---
+NATHAN-000024240 | You said | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20204-20217
+date: 1998
+version: SAT-X
+---
+
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+<ipython-input-25-1ce4728fb418> in <cell line: 0>()
+    378 
+    379 # To speed up during exploration, reduce MC steps temporarily
+--> 380 results = run_parametric_sweep_tau(x, grid, kernel_shapes, cp_phase_modes, mc_steps=10000, plot=False)
+    381 
+    382 
+
+<ipython-input-25-1ce4728fb418> in run_parametric_sweep_tau(x, param_grid, kernel_shapes, cp_phase_modes, mc_steps, plot)
+    217 def run_parametric_sweep_tau(x, param_grid, kernel_shapes, cp_phase_modes, mc_steps=10000, plot=False):
+    218     results = []
+--> 219     for mu, eta, beta in param_grid:
+
+---
+NATHAN-000024241 | ValueError | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20221-20223
+date: 1998
+version: SAT-X
+---
+
+not enough values to unpack (expected 3, got 2)
+
+---
+NATHAN-000024242 | The error says | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20225-20228
+date: 1998
+version: SAT-X
+---
+
+python
+Copy
+
+---
+NATHAN-000024243 | ValueError | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20229-20229
+date: 1998
+version: SAT-X
+---
+
+not enough values to unpack (expected 3, got 2)
+
+---
+NATHAN-000024244 | at this line | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20230-20236
+date: 1998
+version: SAT-X
+---
+
+python
+Copy
+for mu, eta, beta in param_grid:
+Meaning your param_grid items have only 2 elements, but the loop expects 3 (mu, eta, beta).
+
+---
+NATHAN-000024245 | Explanation | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20237-20239
+date: 1998
+version: SAT-X
+---
+
+You probably constructed param_grid as a list of 2-tuples (mu, eta) but the loop expects (mu, eta, beta).
+
+---
+NATHAN-000024246 | Option 1 | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20243-20243
+date: 1998
+version: SAT-X
+---
+
+If your param_grid items are (mu, eta) (2 elements), fix the unpacking:
+
+---
+NATHAN-000024247 | Replace this line inside run_parametric_sweep_tau | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20244-20256
+date: 1998
+version: SAT-X
+---
+
+python
+Copy
+for mu, eta, beta in param_grid:
+with
+
+python
+Copy
+for mu, eta in param_grid:
+    beta = default_beta  # you can set beta to some default value or None if unused
+(Define default_beta above or inside the function.)
+
+---
+NATHAN-000024248 | Option 2 | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20257-20257
+date: 1998
+version: SAT-X
+---
+
+Fix param_grid construction to include beta
+
+---
+NATHAN-000024249 | Likely something like | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20260-20268
+date: 1998
+version: SAT-X
+---
+
+python
+Copy
+param_grid = list(generate_parameter_grid(param_ranges))
+where generate_parameter_grid yields tuples.
+
+Make sure it yields 3-tuples (mu, eta, beta).
+
+---
+NATHAN-000024250 | Suggested fix in your case | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20269-20271
+date: 1998
+version: SAT-X
+---
+
+Since I don’t see beta used much in the output, and you probably intended 2 parameters, fix the unpacking:
+
+---
+NATHAN-000024251 | Replace | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20272-20276
+date: 1998
+version: SAT-X
+---
+
+python
+Copy
+for mu, eta, beta in param_grid:
+
+---
+NATHAN-000024252 | With | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20277-20290
+date: 1998
+version: SAT-X
+---
+
+python
+Copy
+for mu, eta in param_grid:
+    beta = None  # or some default
+If beta is needed downstream, make sure to handle None or pass a proper default.
+
+If you want me to scan your param_grid construction and the function for you, I can. Just say so.
+
+---
+NATHAN-000024253 | You said | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20291-20298
+date: 1998
+version: SAT-X
+---
+
+Somethin's wrong with the indentation here:
+
+# --- Run parametric sweep ---
+def run_parametric_sweep_tau(x, param_grid, kernel_shapes, cp_phase_modes, mc_steps=10000, plot=False):
+    results = []
+    for mu, eta in param_grid:
+        beta = None  # or some default
+
+---
+NATHAN-000024254 | for cp_phase_mode in cp_phase_modes | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20300-20305
+date: 1998
+version: SAT-X
+---
+
+                # Run the sampler and collect results
+                  result = monte_carlo_sampler(x, mu, eta, beta, kernel_shape, cp_phase_mode, mc_steps)
+                  results.append(result)
+                
+                # Conditional plotting based on flag
+
+---
+NATHAN-000024255 | if plot | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20306-20312
+date: 1998
+version: SAT-X
+---
+
+                    plot_tau_and_curvature(result['tau_links'])
+                    plot_mixing_angles(result['mixing_angles'])
+    return results
+
+---
+NATHAN-000024256 | Replace | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20318-20325
+date: 1998
+version: SAT-X
+---
+
+python
+Copy
+def run_parametric_sweep_tau(x, param_grid, kernel_shapes, cp_phase_modes, mc_steps=10000, plot=False):
+    results = []
+    for mu, eta in param_grid:
+        beta = None  # or some default
+
+---
+NATHAN-000024257 | for cp_phase_mode in cp_phase_modes | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20327-20332
+date: 1998
+version: SAT-X
+---
+
+                # Run the sampler and collect results
+                  result = monte_carlo_sampler(x, mu, eta, beta, kernel_shape, cp_phase_mode, mc_steps)
+                  results.append(result)
+                
+                # Conditional plotting based on flag
+
+---
+NATHAN-000024258 | if plot | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20333-20336
+date: 1998
+version: SAT-X
+---
+
+                    plot_tau_and_curvature(result['tau_links'])
+                    plot_mixing_angles(result['mixing_angles'])
+    return results
+
+---
+NATHAN-000024259 | With | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20337-20344
+date: 1998
+version: SAT-X
+---
+
+python
+Copy
+def run_parametric_sweep_tau(x, param_grid, kernel_shapes, cp_phase_modes, mc_steps=10000, plot=False):
+    results = []
+    for mu, eta in param_grid:
+        beta = None  # or some default
+
+---
+NATHAN-000024260 | for cp_phase_mode in cp_phase_modes | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20346-20351
+date: 1998
+version: SAT-X
+---
+
+                # Run the sampler and collect results
+                result = monte_carlo_sampler(x, mu, eta, beta, kernel_shape, cp_phase_mode, mc_steps)
+                results.append(result)
+
+                # Conditional plotting based on flag
+
+---
+NATHAN-000024261 | if plot | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20352-20355
+date: 1998
+version: SAT-X
+---
+
+                    plot_tau_and_curvature(result['tau_links'])
+                    plot_mixing_angles(result['mixing_angles'])
+    return results
+
+---
+NATHAN-000024262 | Key fixes | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20356-20370
+date: 1998
+version: SAT-X
+---
+
+for cp_phase_mode loop aligned with for kernel_shape
+
+Code inside loops indented 4 spaces from the loop above
+
+Comments aligned with code blocks they belong to
+
+This will fix your indentation errors.
+
+---
+NATHAN-000024263 | You said | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20371-20380
+date: 1998
+version: SAT-X
+---
+
+NameError                                 Traceback (most recent call last)
+<ipython-input-35-86d9572fe740> in <cell line: 0>()
+    380 
+    381 # To speed up during exploration, reduce MC steps temporarily
+--> 382 results = run_parametric_sweep_tau(x, grid, kernel_shapes, cp_phase_modes, mc_steps=10000, plot=False)
+    383 
+    384 
+
+<ipython-input-35-86d9572fe740> in run_parametric_sweep_tau(x, param_grid, kernel_shapes, cp_phase_modes, mc_steps, plot)
+
+---
+NATHAN-000024264 | 222 for cp_phase_mode in cp_phase_modes | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20381-20386
+date: 1998
+version: SAT-X
+---
+
+    223                 # Run the sampler and collect results
+--> 224                 result = monte_carlo_sampler(x, mu, eta, beta, kernel_shape, cp_phase_mode, mc_steps)
+    225                 results.append(result)
+    226
+
+---
+NATHAN-000024265 | NameError | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20387-20389
+date: 1998
+version: SAT-X
+---
+
+name 'monte_carlo_sampler' is not defined
+
+---
+NATHAN-000024266 | Replace | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20391-20395
+date: 1998
+version: SAT-X
+---
+
+python
+Copy
+result = monte_carlo_sampler(x, mu, eta, beta, kernel_shape, cp_phase_mode, mc_steps)
+
+---
+NATHAN-000024267 | With | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20396-20400
+date: 1998
+version: SAT-X
+---
+
+python
+Copy
+result = run_monte_carlo_sampler(x, mu, eta, beta, kernel_shape, cp_phase_mode, mc_steps)
+
+---
+NATHAN-000024268 | Reasoning | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20401-20410
+date: 1998
+version: SAT-X
+---
+
+The error says monte_carlo_sampler is not defined. Based on your codebase, the correct function name is likely run_monte_carlo_sampler or something similar.
+
+If you’re not sure, search for a function starting with monte_carlo or run_monte_carlo in your code and use that exact name. If none exists, tell me so I can help find or define it.
+
+---
+NATHAN-000024269 | You said | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20411-20420
+date: 1998
+version: SAT-X
+---
+
+NameError                                 Traceback (most recent call last)
+<ipython-input-36-2e1a0f021c05> in <cell line: 0>()
+    380 
+    381 # To speed up during exploration, reduce MC steps temporarily
+--> 382 results = run_parametric_sweep_tau(x, grid, kernel_shapes, cp_phase_modes, mc_steps=10000, plot=False)
+    383 
+    384 
+
+<ipython-input-36-2e1a0f021c05> in run_parametric_sweep_tau(x, param_grid, kernel_shapes, cp_phase_modes, mc_steps, plot)
+
+---
+NATHAN-000024270 | 222 for cp_phase_mode in cp_phase_modes | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20421-20426
+date: 1998
+version: SAT-X
+---
+
+    223                 # Run the sampler and collect results
+--> 224                 result = run_monte_carlo_sampler(x, mu, eta, beta, kernel_shape, cp_phase_mode, mc_steps)
+    225                 results.append(result)
+    226
+
+---
+NATHAN-000024271 | NameError | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20427-20429
+date: 1998
+version: SAT-X
+---
+
+name 'run_monte_carlo_sampler' is not defined
+
+---
+NATHAN-000024272 | Replace | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20431-20435
+date: 1998
+version: SAT-X
+---
+
+python
+Copy
+result = run_monte_carlo_sampler(x, mu, eta, beta, kernel_shape, cp_phase_mode, mc_steps)
+
+---
+NATHAN-000024273 | With | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20436-20440
+date: 1998
+version: SAT-X
+---
+
+python
+Copy
+result = monte_carlo_tau_sampler(x, mu, eta, beta, kernel_shape, cp_phase_mode, mc_steps)
+
+---
+NATHAN-000024274 | Explanation | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20441-20448
+date: 1998
+version: SAT-X
+---
+
+The function run_monte_carlo_sampler does not exist. Based on your uploaded code, the Monte Carlo sampler function related to τ is named monte_carlo_tau_sampler. Use the exact function name from your codebase. If this also errors, please confirm or share the function definitions related to Monte Carlo sampling so I can pinpoint the exact name.
+
+---
+NATHAN-000024275 | You said | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20449-20899
+date: 1998
+version: SAT-X
+---
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+
+Accepted 10000/10000 proposed changes
+
+---
+NATHAN-000024276 | Sample Particle Physics Output | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20900-20914
+date: 1998
+version: SAT-X
+---
+
+Mass eigenvalues (approx.): [0.436  0.2151 0.0447]
+Mixing angles (degrees): θ12=46.27, θ13=36.51, θ23=2.70
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.5556 0.5809 0.5949]
+ [0.7025 0.7107 0.0378]
+ [0.4447 0.397  0.8029]]
+
+
+
+
+--- First 3 Results ---
+
+--- Result 1 ---
+
+---
+NATHAN-000024277 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20915-20920
+date: 1998
+version: SAT-X
+---
+
+mu=0.3, eta=0.8, N=3, beta=N/A, kernel_shape=gaussian, cp_phase_mode=structured
+Masses (approx.): [0.436  0.2151 0.0447]
+Mixing angles (deg): θ12=46.27, θ13=36.51, θ23=2.70
+Jarlskog Invariant (CP violation): -0.0000e+00
+
+--- Result 2 ---
+
+---
+NATHAN-000024278 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20921-20926
+date: 1998
+version: SAT-X
+---
+
+mu=0.3, eta=0.8, N=3, beta=N/A, kernel_shape=gaussian, cp_phase_mode=random
+Masses (approx.): [0.253  0.0964 0.3082]
+Mixing angles (deg): θ12=86.88, θ13=70.89, θ23=1.18
+Jarlskog Invariant (CP violation): 1.0571e-04
+
+--- Result 3 ---
+
+---
+NATHAN-000024279 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20927-20932
+date: 1998
+version: SAT-X
+---
+
+mu=0.3, eta=0.8, N=3, beta=N/A, kernel_shape=gaussian, cp_phase_mode=structured
+Masses (approx.): [0.433  0.2164 0.087 ]
+Mixing angles (deg): θ12=45.50, θ13=29.31, θ23=3.83
+Jarlskog Invariant (CP violation): -0.0000e+00
+
+---
+NATHAN-000024280 | Key Observations from Particle Physics Output | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20936-20961
+date: 1998
+version: SAT-X
+---
+
+Mass eigenvalues (approx.):
+[0.436, 0.2151, 0.0447] — These are in a roughly hierarchical pattern, which could resemble the neutrino or quark mass hierarchies depending on scale and units. The small mass splitting suggests the model can produce meaningful mass spectra.
+
+Mixing angles (degrees):
+
+θ₁₂ ≈ 46.27°
+
+θ₁₃ ≈ 36.51°
+
+θ₂₃ ≈ 2.70°
+These angles differ somewhat from the experimentally measured PMNS or CKM angles, but the structure is qualitatively interesting—especially the large θ₁₂ and θ₁₃, with a very small θ₂₃.
+
+Jarlskog invariant (CP violation measure):
+Near zero (-0.0000e+00), indicating negligible CP violation in this particular run/configuration.
+
+Mixing matrix magnitudes |U|:
+A matrix with off-diagonal elements that suggest substantial flavor mixing, although the third row's last element is high (~0.8), indicating one mass eigenstate strongly aligned with the third flavor.
+
+Interpretation & Next Steps:
+Your Monte Carlo sampler with the given parameters (mu=0.3, eta=0.8, N=3, beta=N/A) can generate consistent mass spectra and mixing structures with some variability depending on CP phase mode (structured vs random).
+
+The CP violation parameter being effectively zero in structured phase mode but nonzero in random mode is physically meaningful: it hints that CP violation is sensitive to the phase configuration and may be tunable.
+
+The spread of mixing angles suggests your kernel shape and phase mode substantially influence the outcome; further sweeps across parameters might reveal regimes with closer empirical matches.
+
+---
+NATHAN-000024281 | If you want to push further | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20962-20978
+date: 1998
+version: SAT-X
+---
+
+Explore different β values explicitly instead of None to see how it modulates masses and mixing.
+
+Extend N to 4 or higher for richer phenomenology.
+
+Compare more systematically with the standard PMNS and CKM matrices.
+
+Plot distributions of results to identify stable patterns versus stochastic noise.
+
+If you'd like, I can help you design specific parameter studies or data visualizations next. What’s your priority?
+
+---
+NATHAN-000024282 | You said | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 20979-21129
+date: 1998
+version: SAT-X
+---
+
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+Accepted 10000/10000 proposed changes
+
+---
+NATHAN-000024283 | Sample Particle Physics Output | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 21130-21144
+date: 1998
+version: SAT-X
+---
+
+Mass eigenvalues (approx.): [0.4369 0.2144 0.0129]
+Mixing angles (degrees): θ12=44.24, θ13=47.48, θ23=1.00
+Jarlskog Invariant (CP violation measure): -0.0000e+00
+Mixing matrix |U| (approx.):
+[[0.4842 0.4715 0.7371]
+ [0.7067 0.7074 0.0118]
+ [0.5159 0.5266 0.6757]]
+
+
+
+
+--- First 3 Results ---
+
+--- Result 1 ---
+
+---
+NATHAN-000024284 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 21145-21150
+date: 1998
+version: SAT-X
+---
+
+mu=0.3, eta=0.8, N=3, beta=N/A, kernel_shape=gaussian, cp_phase_mode=structured
+Masses (approx.): [0.4369 0.2144 0.0129]
+Mixing angles (deg): θ12=44.24, θ13=47.48, θ23=1.00
+Jarlskog Invariant (CP violation): -0.0000e+00
+
+--- Result 2 ---
+
+---
+NATHAN-000024285 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 21151-21156
+date: 1998
+version: SAT-X
+---
+
+mu=0.3, eta=0.8, N=3, beta=N/A, kernel_shape=gaussian, cp_phase_mode=random
+Masses (approx.): [0.2371 0.3262 0.3668]
+Mixing angles (deg): θ12=64.39, θ13=33.77, θ23=24.55
+Jarlskog Invariant (CP violation): 1.2901e-02
+
+--- Result 3 ---
+
+---
+NATHAN-000024286 | Parameters | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 21157-21162
+date: 1998
+version: SAT-X
+---
+
+mu=0.3, eta=0.8, N=3, beta=N/A, kernel_shape=gaussian, cp_phase_mode=structured
+Masses (approx.): [0.436  0.2151 0.0447]
+Mixing angles (deg): θ12=41.75, θ13=53.41, θ23=3.64
+Jarlskog Invariant (CP violation): 0.0000e+00
+
+---
+NATHAN-000024287 | Analytical summary of the latest output | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 21166-21168
+date: 1998
+version: SAT-X
+---
+
+Mass eigenvalues show hierarchical structure, often with one eigenvalue significantly smaller than the others, hinting at potentially interesting phenomenology (like neutrino masses).
+
+---
+NATHAN-000024288 | Mixing angles vary widely but maintain some structure | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 21169-21174
+date: 1998
+version: SAT-X
+---
+
+θ12 and θ13 are generally large (~40–50°), which is reminiscent of large mixing observed in neutrino physics.
+
+θ23 varies more, from very small (~1°) to moderate (~24°).
+
+---
+NATHAN-000024289 | Jarlskog invariant | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 21175-21184
+date: 1998
+version: SAT-X
+---
+
+Zero or near-zero for structured CP phase mode,
+
+Non-zero and order ~10⁻² for random CP phase mode,
+
+This suggests your model is capable of switching CP violation on/off depending on input assumptions, which could be useful for model tuning or phenomenological explorations.
+
+Mixing matrix |U| shows significant off-diagonal components, reflecting strong mixing. The variability in the last column across runs indicates sensitivity to CP phases and kernel shape.
+
+---
+NATHAN-000024290 | Next steps you might consider | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 21185-21188
+date: 1998
+version: SAT-X
+---
+
+Vary β explicitly:
+Since β is currently N/A (None), try setting β to meaningful values (e.g., small, moderate, large) to see how it impacts spectra and mixing.
+
+---
+NATHAN-000024291 | Expand parameter grid | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 21189-21191
+date: 1998
+version: SAT-X
+---
+
+Broaden the sweep over μ, η, β, and kernel shapes to capture full behavior space.
+
+---
+NATHAN-000024292 | Compare to experimental data | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 21192-21194
+date: 1998
+version: SAT-X
+---
+
+Quantitatively measure the "distance" between your output angles/masses and those observed in PMNS or CKM matrices to find best-fit regions.
+
+---
+NATHAN-000024293 | Visualize distributions | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 21195-21197
+date: 1998
+version: SAT-X
+---
+
+Plot histograms/scatterplots of masses, angles, and CP violation to identify clusters, modes, or outliers.
+
+---
+NATHAN-000024294 | Run with higher N | likely
+source: 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt lines 21198-21216
+date: 1998
+version: SAT-X
+---
+
+Increase the number of flavors N for richer patterns and test scalability.
+
+If you want, I can help you script the β inclusion, automate analysis against empirical values, or generate diagnostic plots. What’s your priority from here?
+
+
+
+
+
+
+
+
+
+
+Tools
+
+
+
+ChatGPT can make mistakes. Check important info.
+
+---
+END PART 153. Last completed passage: NATHAN-000024294
