@@ -1,0 +1,48 @@
+LESSONS LEARNED
+
+Purpose:
+Record practical archive-operation problems and their solutions so future Nathan/AI sessions do not rediscover them from scratch.
+
+Standing habit:
+- When a problem occurs, read this file before troubleshooting too deeply.
+- When a solution is found, add a short entry.
+- Keep entries practical and reusable.
+- If GitHub access is needed and unavailable, remind Nathan to make the GitHub tool available.
+
+Entry format:
+
+------------------------------------------------------------
+DATE:
+PROBLEM:
+CAUSE:
+SOLUTION:
+APPLIES TO:
+NOTES:
+------------------------------------------------------------
+
+------------------------------------------------------------
+DATE: 2026-06-07
+PROBLEM: GitHub Actions workflow failed to parse path filters using dashboard/AI folder names with brackets and emoji.
+CAUSE: GitHub Actions path filters use glob syntax. Square brackets in paths can be interpreted as character classes and can make patterns invalid.
+SOLUTION: Use workflow_dispatch only for dashboard/admin workflows, or trigger from plain ASCII paths.
+APPLIES TO: .github/workflows/*.yml
+NOTES: Manual trigger is safer for archive admin operations anyway.
+------------------------------------------------------------
+
+------------------------------------------------------------
+DATE: 2026-06-07
+PROBLEM: ChatGPT could write some repo files but could not run Python directly inside the GitHub repository.
+CAUSE: GitHub connector file access and GitHub Actions execution are separate capabilities.
+SOLUTION: Use GitHub Actions workflows that run repo-local Python tools from request/control files. ChatGPT updates requests; Nathan runs workflow; workflow logs results.
+APPLIES TO: archive admin, indexing, extraction tooling
+NOTES: This is now the standard architecture pattern.
+------------------------------------------------------------
+
+------------------------------------------------------------
+DATE: 2026-06-07
+PROBLEM: ChatGPT may not always have the GitHub tool available in a given session.
+CAUSE: Tool availability can vary by session/context, and GitHub access may not be enabled or visible.
+SOLUTION: If archive work requires GitHub and the tool is missing, remind Nathan to make the GitHub tool available.
+APPLIES TO: any archive operation requiring repo reads/writes
+NOTES: Do not assume GitHub access exists just because previous sessions had it.
+------------------------------------------------------------

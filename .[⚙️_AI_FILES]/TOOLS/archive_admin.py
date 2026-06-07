@@ -2,19 +2,24 @@
 """
 Archive Admin Tool
 
-Manifest-driven admin utility for SAT archive control/tooling folders.
-Designed for bounded, logged operations. Default behavior avoids overwrite.
+General request-driven admin utility for SAT archive control/tooling.
 
-Dashboard manifest location:
+Request file:
   ..[🎛️_NATHAN_DASH]/⚒️_ADMIN_TASK.txt
 
-Logs:
-  .[⚙️_AI_FILES]/LOGS/archive_admin/
+Permissions:
+  - May write/append freely inside .[⚙️_AI_FILES]/
+  - May create missing placeholders in ..[🎛️_NATHAN_DASH]/
+  - May append only to approved dashboard files
+  - May perform named legacy-control cleanup tasks only by allowlist
+  - Must log every run
 """
+
 from __future__ import annotations
 
 import os
 import shutil
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -24,7 +29,172 @@ AI = ROOT / ".[⚙️_AI_FILES]"
 TASK = DASH / "⚒️_ADMIN_TASK.txt"
 LOG_DIR = AI / "LOGS" / "archive_admin"
 
-DELETE_ALLOWLIST_PREFIXES = {
+APPROVED_DASH_APPEND = {
+    "⚙️_LESSONS_LEARNED.txt",
+    "📋_PRIORITY_TODO.txt",
+    "📖_PROJECT_NOTES.txt",
+    "🗄️_ARCHIVE_INDEX.txt",
+}
+
+DASH_PLACEHOLDERS = {
+    "..findex.txt": """# Folder Index
+
+GENERATED_BY_FOLDER_INDEXER: YES
+
+```text
+..[🎛️_NATHAN_DASH]/
+├── ..findex.txt
+├── ⚙️_LESSONS_LEARNED.txt
+├── ⚒️_ADMIN_TASK.txt
+├── ⚒️_FOLDER_INDEXER.txt
+├── ⚒️_NATHAN_EXT.txt
+├── ⚒️_PREDICTION_EXT.txt
+├── 🧹_CLEANUP.txt
+├── 🗄️_ARCHIVE_INDEX.txt
+├── 📖_PROJECT_NOTES.txt
+├── 📋_PRIORITY_TODO.txt
+├── [📘_EXTRACTED]/
+└── [🗂️_LOGS]/
+```
+""",
+    "⚙️_LESSONS_LEARNED.txt": """LESSONS LEARNED
+
+Purpose:
+Record practical archive-operation problems and their solutions so future Nathan/AI sessions do not rediscover them from scratch.
+
+Standing habit:
+- When a problem occurs, read this file before troubleshooting too deeply.
+- When a solution is found, add a short entry.
+- Keep entries practical and reusable.
+- If GitHub access is needed and unavailable, remind Nathan to make the GitHub tool available.
+
+Entry format:
+
+------------------------------------------------------------
+DATE:
+PROBLEM:
+CAUSE:
+SOLUTION:
+APPLIES TO:
+NOTES:
+------------------------------------------------------------
+
+------------------------------------------------------------
+DATE: 2026-06-07
+PROBLEM: GitHub Actions workflow failed to parse path filters using dashboard/AI folder names with brackets and emoji.
+CAUSE: GitHub Actions path filters use glob syntax. Square brackets in paths can be interpreted as character classes and can make patterns invalid.
+SOLUTION: Use workflow_dispatch only for dashboard/admin workflows, or trigger from plain ASCII paths.
+APPLIES TO: .github/workflows/*.yml
+NOTES: Manual trigger is safer for archive admin operations anyway.
+------------------------------------------------------------
+
+------------------------------------------------------------
+DATE: 2026-06-07
+PROBLEM: ChatGPT could write some repo files but could not run Python directly inside the GitHub repository.
+CAUSE: GitHub connector file access and GitHub Actions execution are separate capabilities.
+SOLUTION: Use GitHub Actions workflows that run repo-local Python tools from request/control files. ChatGPT updates requests; Nathan runs workflow; workflow logs results.
+APPLIES TO: archive admin, indexing, extraction tooling
+NOTES: This is now the standard architecture pattern.
+------------------------------------------------------------
+
+------------------------------------------------------------
+DATE: 2026-06-07
+PROBLEM: ChatGPT may not always have the GitHub tool available in a given session.
+CAUSE: Tool availability can vary by session/context, and GitHub access may not be enabled or visible.
+SOLUTION: If archive work requires GitHub and the tool is missing, remind Nathan to make the GitHub tool available.
+APPLIES TO: any archive operation requiring repo reads/writes
+NOTES: Do not assume GitHub access exists just because previous sessions had it.
+------------------------------------------------------------
+""",
+    "📋_PRIORITY_TODO.txt": """PRIORITY TODO
+
+[ ] Finish dashboard / AI folder consolidation.
+[ ] Move usable tools into .[⚙️_AI_FILES]/TOOLS.
+[ ] Fix workflows to manual-only where needed.
+[ ] Run folder indexer on legacy control folders.
+[ ] Decide what to migrate, delete, or archive.
+[ ] Resume Nathan extraction after portal cleanup.
+
+------------------------------------------------------------
+PARKING LOT / DO LATER
+------------------------------------------------------------
+
+[ ] Add named admin tasks so ChatGPT can request cleanup without writing long manifests.
+[ ] Add workflow request mode for updating lessons learned.
+[ ] Add workflow request mode for appending lower-priority TODO items.
+[ ] Update future workflows so ChatGPT can submit small task requests instead of requiring Nathan to paste long manifests.
+""",
+    "📖_PROJECT_NOTES.txt": """PROJECT NOTES
+
+Active / near-term:
+- Dashboard and AI folder consolidation.
+- Nathan extraction restart after cleanup.
+- SAT Foundations reconstruction.
+""",
+    "🗄️_ARCHIVE_INDEX.txt": """ARCHIVE INDEX
+
+Append-only folder index blocks will appear below.
+""",
+    "⚒️_ADMIN_TASK.txt": """# Archive Admin request file
+# Examples:
+#
+# TASK: ENSURE_DASH_PLACEHOLDERS
+#
+# TASK: APPEND_DASH_FILE
+# FILE: ⚙️_LESSONS_LEARNED.txt
+# TEXT:
+# DATE:
+# PROBLEM:
+# CAUSE:
+# SOLUTION:
+# APPLIES TO:
+# NOTES:
+# ENDTEXT
+#
+# TASK: WRITE_AI_FILE
+# FILE: WORKFLOWS/example.txt
+# TEXT:
+# ...
+# ENDTEXT
+""",
+    "⚒️_FOLDER_INDEXER.txt": """TARGET_FOLDER: .
+INDEX_FILENAME: ..findex.txt
+
+MAX_RUNTIME_SECONDS: 120
+MAX_DEPTH: 1
+MAX_ENTRIES: 5000
+
+INCLUDE_FILES: YES
+INCLUDE_DIRS: YES
+FOLLOW_SYMLINKS: NO
+
+UPDATE_GENERATED_INDEX: YES
+CREATE_TIMESTAMPED_IF_PROTECTED: YES
+
+MASTER_INDEX: ..[🎛️_NATHAN_DASH]/🗄️_ARCHIVE_INDEX.txt
+APPEND_TO_MASTER_INDEX: YES
+
+SKIP_DIRS: .git,.github,..[🎛️_NATHAN_DASH],.[⚙️_AI_FILES],..📚_NATHAN_WORDS_EXTRACTED,📚_NATHAN_WORDS_EXTRACTED,_NATHAN_CORPUS
+""",
+    "⚒️_NATHAN_EXT.txt": "NATHAN EXTRACTION CONTROL\n\nSTATUS: placeholder pending cleanup/migration.\n",
+    "⚒️_PREDICTION_EXT.txt": "PREDICTION EXTRACTION CONTROL\n\nSTATUS: placeholder.\n",
+    "🧹_CLEANUP.txt": "CLEANUP CONTROL\n\nSTATUS: planned.\n",
+}
+
+AI_BASE_DIRS = [
+    "PROJECTS",
+    "TOOLS",
+    "WORKFLOWS",
+    "CURSORS",
+    "LOGS",
+    "TEMP",
+    "_MIGRATION_HOLD",
+    "LOGS/archive_admin",
+    "LOGS/workflows",
+    "LOGS/folder_indexer",
+]
+
+LEGACY_CONTROL_PATHS = [
     ".AI_READING_PLAN",
     ".⚙️_AI_AUTOMATION_ADMIN",
     "_AI_INSTRUCTIONS",
@@ -33,7 +203,9 @@ DELETE_ALLOWLIST_PREFIXES = {
     "⚙️_AI_AUTOMATION_ADMIN",
     ".github/workflows/index_folder.py",
     ".github/workflows/⚒️_FOLDER_INDEXER.txt",
-}
+]
+
+DELETE_ALLOWLIST_PREFIXES = set(LEGACY_CONTROL_PATHS)
 
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
@@ -42,13 +214,43 @@ def stamp() -> str:
     return datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
 
 def rel(path: Path) -> str:
-    return str(path.relative_to(ROOT)).replace(os.sep, "/")
+    try:
+        return str(path.relative_to(ROOT)).replace(os.sep, "/")
+    except Exception:
+        return str(path)
 
-def safe_path(text: str) -> Path:
+def safe_repo_path(text: str) -> Path:
     p = (ROOT / text).resolve()
     if p != ROOT and ROOT not in p.parents:
         raise ValueError(f"Refusing path outside repository: {text}")
     return p
+
+def inside(path: Path, root: Path) -> bool:
+    path = path.resolve()
+    root = root.resolve()
+    return path == root or root in path.parents
+
+def ensure_parent(path: Path) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+
+def write_if_missing(path: Path, content: str, log: list[str]) -> None:
+    ensure_parent(path)
+    if path.exists():
+        log.append(f"SKIP existing: {rel(path)}")
+        return
+    path.write_text(content, encoding="utf-8")
+    log.append(f"CREATE: {rel(path)}")
+
+def append_file(path: Path, text: str, log: list[str]) -> None:
+    ensure_parent(path)
+    with path.open("a", encoding="utf-8") as f:
+        f.write(text.rstrip() + "\n")
+    log.append(f"APPEND: {rel(path)}")
+
+def write_file(path: Path, text: str, log: list[str]) -> None:
+    ensure_parent(path)
+    path.write_text(text.rstrip() + "\n", encoding="utf-8")
+    log.append(f"WRITE: {rel(path)}")
 
 def deletion_allowed(path_text: str) -> bool:
     return any(path_text == p or path_text.startswith(p + "/") for p in DELETE_ALLOWLIST_PREFIXES)
@@ -65,57 +267,293 @@ def copy_any(src: Path, dst: Path) -> str:
     shutil.copy2(src, dst)
     return f"COPY_FILE {rel(src)} -> {rel(dst)}"
 
-def run_task() -> list[str]:
-    log = [f"ARCHIVE ADMIN RUN", f"UTC: {utc_now()}", ""]
-    if not TASK.exists():
-        log.append(f"No task file found: {rel(TASK)}")
-        return log
+@dataclass
+class TaskBlock:
+    task: str
+    fields: dict[str, str]
+    text: str = ""
 
-    lines = TASK.read_text(encoding="utf-8").splitlines()
-    for raw in lines:
-        line = raw.strip()
-        if not line or line.startswith("#"):
+def parse_tasks(raw: str) -> list[TaskBlock]:
+    lines = raw.splitlines()
+    tasks: list[TaskBlock] = []
+    current: TaskBlock | None = None
+    collecting_text = False
+    text_lines: list[str] = []
+
+    def finish_current() -> None:
+        nonlocal current, text_lines, collecting_text
+        if current is not None:
+            if text_lines:
+                current.text = "\n".join(text_lines).rstrip()
+            tasks.append(current)
+        current = None
+        text_lines = []
+        collecting_text = False
+
+    for raw_line in lines:
+        line = raw_line.rstrip("\n")
+
+        if collecting_text:
+            if line.strip() == "ENDTEXT":
+                collecting_text = False
+                if current is not None:
+                    current.text = "\n".join(text_lines).rstrip()
+                text_lines = []
+            else:
+                text_lines.append(line)
             continue
 
-        parts = line.split()
-        cmd = parts[0].upper()
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#"):
+            continue
 
-        if cmd == "MKDIR" and len(parts) >= 2:
-            target = safe_path(" ".join(parts[1:]))
-            target.mkdir(parents=True, exist_ok=True)
-            log.append(f"MKDIR {rel(target)}")
+        if stripped.upper().startswith("TASK:"):
+            finish_current()
+            current = TaskBlock(task=stripped.split(":", 1)[1].strip().upper(), fields={})
+            continue
 
-        elif cmd == "COPY" and len(parts) >= 3:
-            src = safe_path(parts[1])
-            dst = safe_path(parts[2])
-            log.append(copy_any(src, dst))
+        if current is None:
+            current = TaskBlock(task="LEGACY", fields={})
 
-        elif cmd == "DELETE" and len(parts) >= 2:
-            path_text = " ".join(parts[1:])
-            target = safe_path(path_text)
-            if not deletion_allowed(path_text):
-                log.append(f"REFUSE DELETE outside allowlist: {path_text}")
-                continue
-            if not target.exists():
-                log.append(f"DELETE skip missing: {path_text}")
-                continue
-            if target.is_dir():
-                shutil.rmtree(target)
-                log.append(f"DELETE_TREE {path_text}")
-            else:
-                target.unlink()
-                log.append(f"DELETE_FILE {path_text}")
+        if stripped.upper() == "TEXT:":
+            collecting_text = True
+            text_lines = []
+            continue
 
+        if ":" in stripped:
+            k, v = stripped.split(":", 1)
+            current.fields[k.strip().upper()] = v.strip()
         else:
-            log.append(f"UNKNOWN/INVALID: {line}")
+            current.fields.setdefault("LINES", "")
+            current.fields["LINES"] += stripped + "\n"
 
-    return log
+    finish_current()
+    return tasks
+
+def ensure_dashboard(log: list[str]) -> None:
+    DASH.mkdir(parents=True, exist_ok=True)
+    (DASH / "[📘_EXTRACTED]").mkdir(parents=True, exist_ok=True)
+    (DASH / "[🗂️_LOGS]").mkdir(parents=True, exist_ok=True)
+
+    for name, content in DASH_PLACEHOLDERS.items():
+        write_if_missing(DASH / name, content, log)
+
+    for d in AI_BASE_DIRS:
+        (AI / d).mkdir(parents=True, exist_ok=True)
+        log.append(f"ENSURE_DIR: {rel(AI / d)}")
+
+    write_if_missing(
+        AI / "..findex.txt",
+        """# Folder Index
+
+GENERATED_BY_FOLDER_INDEXER: YES
+
+```text
+.[⚙️_AI_FILES]/
+├── ..findex.txt
+├── ORIENTATION.txt
+├── WATERCOOLER.txt
+├── RESOURCES.txt
+├── SAT_THEORY_ROADMAP_AND_NEEDS.txt
+├── PROJECTS/
+├── TOOLS/
+├── WORKFLOWS/
+├── CURSORS/
+├── LOGS/
+├── TEMP/
+└── _MIGRATION_HOLD/
+```
+""",
+        log,
+    )
+
+    write_if_missing(
+        AI / "ORIENTATION.txt",
+        """ORIENTATION
+
+Read this before project work.
+
+Core principles:
+- The archive is the territory; SATopedia/dashboard materials are maps.
+- Routine human controls belong in ..[🎛️_NATHAN_DASH].
+- AI machinery belongs in .[⚙️_AI_FILES].
+- Preserve source material whenever possible.
+- Prefer extraction, indexing, logging, and characterization over intrusive modification.
+- Maximize useful logging to minimize repeated access requests.
+- Do not confuse local exposure with global understanding.
+- Reason only from the information actually available unless explicitly exploring possibilities.
+- Mark the boundary between observation, inference, speculation, derivation, empirical claim, and unknown.
+- If GitHub access is unavailable, remind Nathan to enable/make available the GitHub tool.
+- When troubleshooting, read ..[🎛️_NATHAN_DASH]/⚙️_LESSONS_LEARNED.txt.
+""",
+        log,
+    )
+
+    write_if_missing(AI / "WATERCOOLER.txt", "WATERCOOLER\n\nArchivists' work chat, suggestion box, parking lot, and pinned plans.\n", log)
+    write_if_missing(AI / "RESOURCES.txt", "RESOURCES\n\nPointers and reusable generated resources.\n", log)
+    write_if_missing(
+        AI / "SAT_THEORY_ROADMAP_AND_NEEDS.txt",
+        """SAT THEORY ROADMAP AND NEEDS
+
+Perspective rule:
+Do not assess SAT globally from partial exposure. State the scope of what has actually been reviewed.
+
+Foundations project mission:
+Starting from minimal accepted representational grammar and explicit assumptions only, reconstruct the admissible possibility space and determine what follows. SAT is treated as a hypothesis about the outcome of this process, not as an input.
+""",
+        log,
+    )
+
+def task_append_dash_file(t: TaskBlock, log: list[str]) -> None:
+    filename = t.fields.get("FILE", "").strip()
+    if filename not in APPROVED_DASH_APPEND:
+        log.append(f"REFUSE APPEND_DASH_FILE not approved: {filename}")
+        return
+    path = DASH / filename
+    if not path.exists():
+        content = DASH_PLACEHOLDERS.get(filename, "")
+        write_if_missing(path, content, log)
+
+    section = t.fields.get("SECTION", "").strip().upper()
+    text = t.text.strip()
+    if not text:
+        log.append(f"SKIP empty APPEND_DASH_FILE for {filename}")
+        return
+
+    if filename == "📋_PRIORITY_TODO.txt" and section == "PARKING_LOT":
+        append_file(path, "\n[ ] " + text.removeprefix("[ ] ").strip(), log)
+    else:
+        append_file(path, "\n------------------------------------------------------------\n" + text + "\n------------------------------------------------------------", log)
+
+def task_write_ai_file(t: TaskBlock, log: list[str]) -> None:
+    filename = t.fields.get("FILE", "").strip()
+    if not filename:
+        log.append("REFUSE WRITE_AI_FILE missing FILE")
+        return
+    path = (AI / filename).resolve()
+    if not inside(path, AI):
+        log.append(f"REFUSE WRITE_AI_FILE outside AI folder: {filename}")
+        return
+    write_file(path, t.text, log)
+
+def task_append_ai_file(t: TaskBlock, log: list[str]) -> None:
+    filename = t.fields.get("FILE", "").strip()
+    if not filename:
+        log.append("REFUSE APPEND_AI_FILE missing FILE")
+        return
+    path = (AI / filename).resolve()
+    if not inside(path, AI):
+        log.append(f"REFUSE APPEND_AI_FILE outside AI folder: {filename}")
+        return
+    append_file(path, t.text, log)
+
+def task_quarantine_legacy(log: list[str]) -> None:
+    hold = AI / "_MIGRATION_HOLD"
+    hold.mkdir(parents=True, exist_ok=True)
+    for src_text in LEGACY_CONTROL_PATHS:
+        src = safe_repo_path(src_text)
+        dst_name = src_text.replace("/", "__")
+        dst = hold / dst_name
+        log.append(copy_any(src, dst))
+
+def task_delete_legacy(log: list[str]) -> None:
+    for path_text in LEGACY_CONTROL_PATHS:
+        target = safe_repo_path(path_text)
+        if not deletion_allowed(path_text):
+            log.append(f"REFUSE DELETE outside allowlist: {path_text}")
+            continue
+        if not target.exists():
+            log.append(f"DELETE skip missing: {path_text}")
+            continue
+        if target.is_dir():
+            shutil.rmtree(target)
+            log.append(f"DELETE_TREE {path_text}")
+        else:
+            target.unlink()
+            log.append(f"DELETE_FILE {path_text}")
+
+def run_legacy_line(line: str, log: list[str]) -> None:
+    parts = line.split()
+    if not parts:
+        return
+    cmd = parts[0].upper()
+    if cmd == "MKDIR" and len(parts) >= 2:
+        target = safe_repo_path(" ".join(parts[1:]))
+        target.mkdir(parents=True, exist_ok=True)
+        log.append(f"MKDIR {rel(target)}")
+    elif cmd == "COPY" and len(parts) >= 3:
+        src = safe_repo_path(parts[1])
+        dst = safe_repo_path(parts[2])
+        log.append(copy_any(src, dst))
+    elif cmd == "DELETE" and len(parts) >= 2:
+        path_text = " ".join(parts[1:])
+        target = safe_repo_path(path_text)
+        if not deletion_allowed(path_text):
+            log.append(f"REFUSE DELETE outside allowlist: {path_text}")
+            return
+        if not target.exists():
+            log.append(f"DELETE skip missing: {path_text}")
+            return
+        if target.is_dir():
+            shutil.rmtree(target)
+            log.append(f"DELETE_TREE {path_text}")
+        else:
+            target.unlink()
+            log.append(f"DELETE_FILE {path_text}")
+    else:
+        log.append(f"UNKNOWN LEGACY LINE: {line}")
+
+def run_tasks(log: list[str]) -> None:
+    if not TASK.exists():
+        log.append(f"No task file found: {rel(TASK)}")
+        return
+
+    raw = TASK.read_text(encoding="utf-8")
+    tasks = parse_tasks(raw)
+    if not tasks:
+        log.append("No tasks parsed.")
+        return
+
+    for t in tasks:
+        log.append(f"TASK: {t.task}")
+
+        if t.task == "ENSURE_DASH_PLACEHOLDERS":
+            ensure_dashboard(log)
+        elif t.task == "APPEND_DASH_FILE":
+            task_append_dash_file(t, log)
+        elif t.task == "WRITE_AI_FILE":
+            task_write_ai_file(t, log)
+        elif t.task == "APPEND_AI_FILE":
+            task_append_ai_file(t, log)
+        elif t.task == "QUARANTINE_LEGACY_CONTROL_FOLDERS":
+            task_quarantine_legacy(log)
+        elif t.task == "DELETE_LEGACY_CONTROL_FOLDERS_AFTER_QUARANTINE":
+            task_delete_legacy(log)
+        elif t.task == "LEGACY":
+            for line in t.fields.get("LINES", "").splitlines():
+                run_legacy_line(line, log)
+        else:
+            log.append(f"UNKNOWN TASK: {t.task}")
 
 def main() -> int:
     LOG_DIR.mkdir(parents=True, exist_ok=True)
-    log = run_task()
+    log = ["ARCHIVE ADMIN RUN", f"UTC: {utc_now()}", ""]
+
+    ensure_dashboard(log)
+    run_tasks(log)
+
     log_path = LOG_DIR / f"archive_admin_{stamp()}.txt"
-    log_path.write_text("\\n".join(log) + "\\n", encoding="utf-8")
+    log_path.write_text("\n".join(log) + "\n", encoding="utf-8")
+
+    workflow_log = AI / "LOGS" / "workflows" / "archive_admin_last_run.txt"
+    workflow_log.parent.mkdir(parents=True, exist_ok=True)
+    workflow_log.write_text(
+        "WORKFLOW: Archive Admin\n"
+        f"UTC: {utc_now()}\n"
+        "STATUS: archive_admin.py completed\n"
+        f"LOG: {rel(log_path)}\n",
+        encoding="utf-8",
+    )
     return 0
 
 if __name__ == "__main__":
