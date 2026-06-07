@@ -168,3 +168,23 @@ Preferred options:
 Also:
 Similar filenames are confusing and should be cleaned up, but they are not the same problem as invalid workflow path globbing.
 ------------------------------------------------------------
+
+------------------------------------------------------------
+2026-06-07 — Control-folder naming and index hygiene
+
+Official control-folder naming convention:
+
+.[...]   AI/tool/admin/control layer
+..[...]  Nathan-facing dashboard/control layer
+
+Default indexer behavior should skip:
+- folders beginning .[
+- folders beginning ..[
+- files named ..findex.txt
+- .git
+- __pycache__
+
+However, skipped items must be logged. Unknown .[...] or ..[...] folders should be flagged as possible control-name collisions, because older archive material might accidentally use the same pattern.
+
+The goal is clean source indexes without silently hiding potentially meaningful material.
+------------------------------------------------------------
