@@ -1,58 +1,17 @@
-name: Build Archive Structure
+name: Build Archive Structure (Legacy Disabled)
 
 on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  build-archive-structure:
+  legacy-structure-builder-disabled:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
-
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Copy structure builder into AI files
+      - name: Legacy workflow disabled
         run: |
-          mkdir -p '.[⚙️_AI_FILES]/TOOLS'
-          cp 'build_archive_structure.py' '.[⚙️_AI_FILES]/TOOLS/build_archive_structure.py'
-
-      - name: Build requested archive structure
-        run: |
-          python 'build_archive_structure.py' '.[🎛️_DASHBOARD]/⚒️_STRUCTURE_BUILD.txt' --apply
-
-      - name: Write workflow report
-        if: always()
-        run: |
-          mkdir -p '.[⚙️_AI_FILES]/LOGS/workflows'
-          {
-            echo "WORKFLOW: Build Archive Structure"
-            echo "UTC: $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
-            echo "GITHUB_RUN_ID: $GITHUB_RUN_ID"
-            echo "GITHUB_RUN_ATTEMPT: $GITHUB_RUN_ATTEMPT"
-            echo "GITHUB_SHA: $GITHUB_SHA"
-            echo "STATUS: completed workflow steps; check GitHub Actions UI for step-level failure details if commit is absent"
-          } > ".[⚙️_AI_FILES]/LOGS/workflows/build_archive_structure_last_run.txt"
-
-      - name: Commit generated structure and logs
-        if: always()
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add '.[🎛️_DASHBOARD]' '.[⚙️_AI_FILES]'
-          if git diff --cached --quiet; then
-            echo "No structure changes to commit."
-          else
-            git commit -m "Build SATopedia dashboard and AI files structure"
-            git push
-          fi
+          echo "Legacy build-archive-structure.yml is disabled."
+          echo "It referenced stale dashboard paths."
+          echo "Use Archive Admin for dashboard/AI folder setup and request-driven structure tasks."
