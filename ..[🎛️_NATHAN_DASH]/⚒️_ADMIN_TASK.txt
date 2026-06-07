@@ -1,14 +1,41 @@
-TASK: INDEX_FOLDER
-TARGET: .[⚙️_AI_FILES]/_MIGRATION_HOLD
-MAX_DEPTH: 3
-MAX_ENTRIES: 2000
+TASK: APPEND_DASH_FILE
+FILE: ⚙️_LESSONS_LEARNED.txt
+TEXT:
+DATE: 2026-06-07
+PROBLEM: Archive Admin initially required Nathan to manually click Run Workflow after ChatGPT updated the request file.
+CAUSE: The workflow was configured as workflow_dispatch only, so request-file commits did not automatically execute the admin tool.
+SOLUTION: Configure Archive Admin with both workflow_dispatch and push triggers, and guard the job with if: github.actor != 'github-actions[bot]' to prevent recursive self-triggering. ChatGPT request-file commits can then trigger the workflow automatically; workflow-generated commits are ignored.
+APPLIES TO: .github/workflows/archive-admin.yml, request-driven archive tools
+NOTES: Preferred pattern is now: ChatGPT updates request file → push triggers Archive Admin → Archive Admin logs results → ChatGPT verifies logs. Use manual workflow_dispatch as fallback.
+ENDTEXT
 
-TASK: INDEX_FOLDER
-TARGET: ..📚_NATHAN_WORDS_EXTRACTED
-MAX_DEPTH: 2
-MAX_ENTRIES: 2000
+TASK: APPEND_AI_FILE
+FILE: WATERCOOLER.txt
+TEXT:
 
-TASK: INDEX_FOLDER
-TARGET: .github/workflows
-MAX_DEPTH: 1
-MAX_ENTRIES: 500
+------------------------------------------------------------
+2026-06-07 — Archive Admin auto-run norm
+
+Preferred request-tool pattern:
+
+ChatGPT updates a small request file
+→ GitHub push triggers Archive Admin automatically
+→ Archive Admin performs bounded, allowlisted work
+→ Archive Admin writes logs/results
+→ ChatGPT verifies logs and output
+
+Manual workflow_dispatch remains available as a fallback, but should not be the default for routine request-file operations.
+
+Loop protection: workflow commits by github-actions[bot] should be ignored by the workflow job guard.
+
+This keeps Nathan out of repetitive button-clicking while preserving a clear authorization/audit trail through commits and logs.
+------------------------------------------------------------
+ENDTEXT
+
+TASK: APPEND_AI_FILE
+FILE: ORIENTATION.txt
+TEXT:
+
+Archive Admin request workflow preference:
+For routine archive operations, prefer request-file commits that automatically trigger Archive Admin on push. The workflow should guard against self-trigger loops with github.actor != 'github-actions[bot]'. Manual workflow_dispatch should remain available as a fallback.
+ENDTEXT
