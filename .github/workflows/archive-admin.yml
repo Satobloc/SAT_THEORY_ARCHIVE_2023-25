@@ -1,0 +1,506 @@
+name: Archive Admin
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  archive-admin:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Write bootstrap admin script
+        run: |
+          cat > archive_admin_bootstrap.py <<'PY'
+          #!/usr/bin/env python3
+          from __future__ import annotations
+
+          import os
+          import shutil
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          ROOT = Path(os.environ.get("GITHUB_WORKSPACE", ".")).resolve()
+
+          DASH = ROOT / "..[🎛️_NATHAN_DASH]"
+          AI = ROOT / ".[⚙️_AI_FILES]"
+
+          LOG_DIR = AI / "LOGS" / "archive_admin"
+          TOOLS = AI / "TOOLS"
+
+          def utc_now() -> str:
+              return datetime.now(timezone.utc).isoformat()
+
+          def stamp() -> str:
+              return datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
+
+          def write_file(path: Path, content: str, log: list[str], overwrite: bool = False) -> None:
+              path.parent.mkdir(parents=True, exist_ok=True)
+              if path.exists() and not overwrite:
+                  log.append(f"SKIP existing file: {rel(path)}")
+                  return
+              path.write_text(content, encoding="utf-8")
+              log.append(f"WRITE file: {rel(path)}")
+
+          def ensure_dir(path: Path, log: list[str]) -> None:
+              path.mkdir(parents=True, exist_ok=True)
+              log.append(f"ENSURE dir: {rel(path)}")
+
+          def rel(path: Path) -> str:
+              try:
+                  return str(path.relative_to(ROOT)).replace(os.sep, "/")
+              except Exception:
+                  return str(path)
+
+          def tree_index_for_dashboard() -> str:
+              return """..[🎛️_NATHAN_DASH]/
+          ├── ..findex.txt
+          ├── ⚒️_NATHAN_EXT.txt
+          ├── ⚒️_PREDICTION_EXT.txt
+          ├── 🧹_CLEANUP.txt
+          ├── 🗄️_ARCHIVE_INDEX.txt
+          ├── 📖_PROJECT_NOTES.txt
+          ├── 📋_PRIORITY_TODO.txt
+          ├── [📘_EXTRACTED]/
+          └── [🗂️_LOGS]/
+          """
+
+          def tree_index_for_ai() -> str:
+              return """.[⚙️_AI_FILES]/
+          ├── ..findex.txt
+          ├── ORIENTATION.txt
+          ├── WATERCOOLER.txt
+          ├── RESOURCES.txt
+          ├── SAT_THEORY_ROADMAP_AND_NEEDS.txt
+          ├── PROJECTS/
+          ├── TOOLS/
+          ├── WORKFLOWS/
+          ├── CURSORS/
+          ├── LOGS/
+          ├── TEMP/
+          └── _MIGRATION_HOLD/
+          """
+
+          ARCHIVE_ADMIN_TOOL = r'''#!/usr/bin/env python3
+          """
+          Archive Admin Tool
+
+          Manifest-driven admin utility for SAT archive control/tooling folders.
+          Designed for bounded, logged operations. Default behavior avoids overwrite.
+
+          Dashboard manifest location:
+            ..[🎛️_NATHAN_DASH]/⚒️_ADMIN_TASK.txt
+
+          Logs:
+            .[⚙️_AI_FILES]/LOGS/archive_admin/
+          """
+          from __future__ import annotations
+
+          import os
+          import shutil
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          ROOT = Path(os.environ.get("GITHUB_WORKSPACE", ".")).resolve()
+          DASH = ROOT / "..[🎛️_NATHAN_DASH]"
+          AI = ROOT / ".[⚙️_AI_FILES]"
+          TASK = DASH / "⚒️_ADMIN_TASK.txt"
+          LOG_DIR = AI / "LOGS" / "archive_admin"
+
+          DELETE_ALLOWLIST_PREFIXES = {
+              ".AI_READING_PLAN",
+              ".⚙️_AI_AUTOMATION_ADMIN",
+              "_AI_INSTRUCTIONS",
+              "_AI_REQUESTS",
+              "_TOOLS",
+              "⚙️_AI_AUTOMATION_ADMIN",
+              ".github/workflows/index_folder.py",
+              ".github/workflows/⚒️_FOLDER_INDEXER.txt",
+          }
+
+          def utc_now() -> str:
+              return datetime.now(timezone.utc).isoformat()
+
+          def stamp() -> str:
+              return datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
+
+          def rel(path: Path) -> str:
+              return str(path.relative_to(ROOT)).replace(os.sep, "/")
+
+          def safe_path(text: str) -> Path:
+              p = (ROOT / text).resolve()
+              if p != ROOT and ROOT not in p.parents:
+                  raise ValueError(f"Refusing path outside repository: {text}")
+              return p
+
+          def deletion_allowed(path_text: str) -> bool:
+              return any(path_text == p or path_text.startswith(p + "/") for p in DELETE_ALLOWLIST_PREFIXES)
+
+          def copy_any(src: Path, dst: Path) -> str:
+              dst.parent.mkdir(parents=True, exist_ok=True)
+              if not src.exists():
+                  return f"MISS source: {rel(src)}"
+              if dst.exists():
+                  return f"SKIP destination exists: {rel(dst)}"
+              if src.is_dir():
+                  shutil.copytree(src, dst)
+                  return f"COPY_TREE {rel(src)} -> {rel(dst)}"
+              shutil.copy2(src, dst)
+              return f"COPY_FILE {rel(src)} -> {rel(dst)}"
+
+          def run_task() -> list[str]:
+              log = [f"ARCHIVE ADMIN RUN", f"UTC: {utc_now()}", ""]
+              if not TASK.exists():
+                  log.append(f"No task file found: {rel(TASK)}")
+                  return log
+
+              lines = TASK.read_text(encoding="utf-8").splitlines()
+              for raw in lines:
+                  line = raw.strip()
+                  if not line or line.startswith("#"):
+                      continue
+
+                  parts = line.split()
+                  cmd = parts[0].upper()
+
+                  if cmd == "MKDIR" and len(parts) >= 2:
+                      target = safe_path(" ".join(parts[1:]))
+                      target.mkdir(parents=True, exist_ok=True)
+                      log.append(f"MKDIR {rel(target)}")
+
+                  elif cmd == "COPY" and len(parts) >= 3:
+                      src = safe_path(parts[1])
+                      dst = safe_path(parts[2])
+                      log.append(copy_any(src, dst))
+
+                  elif cmd == "DELETE" and len(parts) >= 2:
+                      path_text = " ".join(parts[1:])
+                      target = safe_path(path_text)
+                      if not deletion_allowed(path_text):
+                          log.append(f"REFUSE DELETE outside allowlist: {path_text}")
+                          continue
+                      if not target.exists():
+                          log.append(f"DELETE skip missing: {path_text}")
+                          continue
+                      if target.is_dir():
+                          shutil.rmtree(target)
+                          log.append(f"DELETE_TREE {path_text}")
+                      else:
+                          target.unlink()
+                          log.append(f"DELETE_FILE {path_text}")
+
+                  else:
+                      log.append(f"UNKNOWN/INVALID: {line}")
+
+              return log
+
+          def main() -> int:
+              LOG_DIR.mkdir(parents=True, exist_ok=True)
+              log = run_task()
+              log_path = LOG_DIR / f"archive_admin_{stamp()}.txt"
+              log_path.write_text("\\n".join(log) + "\\n", encoding="utf-8")
+              return 0
+
+          if __name__ == "__main__":
+              raise SystemExit(main())
+          '''
+
+          INDEX_FOLDER_TOOL = r'''#!/usr/bin/env python3
+          """
+          Folder Indexer Utility
+
+          Creates or updates <target>/..findex.txt and appends a simple tree block
+          to ..[🎛️_NATHAN_DASH]/🗄️_ARCHIVE_INDEX.txt.
+
+          Detailed run logs go to .[⚙️_AI_FILES]/LOGS/folder_indexer/.
+          """
+          from __future__ import annotations
+
+          import argparse
+          import os
+          import time
+          from datetime import datetime, timezone
+          from pathlib import Path
+          from typing import Dict, List, Tuple
+
+          ROOT = Path(os.environ.get("GITHUB_WORKSPACE", ".")).resolve()
+          DASH = ROOT / "..[🎛️_NATHAN_DASH]"
+          AI = ROOT / ".[⚙️_AI_FILES]"
+          DEFAULT_SETTINGS = DASH / "⚒️_FOLDER_INDEXER.txt"
+          DEFAULT_LOG_DIR = AI / "LOGS" / "folder_indexer"
+          GENERATED_MARKER = "GENERATED_BY_FOLDER_INDEXER"
+
+          DEFAULTS = {
+              "TARGET_FOLDER": ".",
+              "INDEX_FILENAME": "..findex.txt",
+              "MAX_RUNTIME_SECONDS": "120",
+              "MAX_DEPTH": "1",
+              "MAX_ENTRIES": "5000",
+              "INCLUDE_FILES": "YES",
+              "INCLUDE_DIRS": "YES",
+              "FOLLOW_SYMLINKS": "NO",
+              "UPDATE_GENERATED_INDEX": "YES",
+              "CREATE_TIMESTAMPED_IF_PROTECTED": "YES",
+              "MASTER_INDEX": "..[🎛️_NATHAN_DASH]/🗄️_ARCHIVE_INDEX.txt",
+              "APPEND_TO_MASTER_INDEX": "YES",
+              "SKIP_DIRS": ".git,.github,..[🎛️_NATHAN_DASH],.[⚙️_AI_FILES],..📚_NATHAN_WORDS_EXTRACTED,📚_NATHAN_WORDS_EXTRACTED,_NATHAN_CORPUS",
+          }
+
+          def utc_now() -> str:
+              return datetime.now(timezone.utc).isoformat()
+
+          def stamp() -> str:
+              return datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
+
+          def yes(value: str) -> bool:
+              return str(value).strip().upper() in {"YES", "Y", "TRUE", "1", "ON"}
+
+          def safe_path(path_text: str) -> Path:
+              p = (ROOT / path_text).resolve()
+              if p != ROOT and ROOT not in p.parents:
+                  raise ValueError(f"Refusing path outside repository: {path_text}")
+              return p
+
+          def rel(path: Path) -> str:
+              return "." if path == ROOT else str(path.relative_to(ROOT)).replace(os.sep, "/")
+
+          def load_settings(path: Path) -> Dict[str, str]:
+              settings = dict(DEFAULTS)
+              if not path.exists():
+                  return settings
+              for raw in path.read_text(encoding="utf-8").splitlines():
+                  line = raw.strip()
+                  if not line or line.startswith("#") or ":" not in line:
+                      continue
+                  key, value = line.split(":", 1)
+                  settings[key.strip().upper().replace(" ", "_")] = value.strip()
+              return settings
+
+          def should_skip_dir(path: Path, skip_names: set[str]) -> bool:
+              r = rel(path)
+              return path.name in skip_names or r in skip_names
+
+          def list_entries(target: Path, settings: Dict[str, str]):
+              max_runtime = int(settings["MAX_RUNTIME_SECONDS"])
+              max_depth = int(settings["MAX_DEPTH"])
+              max_entries = int(settings["MAX_ENTRIES"])
+              include_files = yes(settings["INCLUDE_FILES"])
+              include_dirs = yes(settings["INCLUDE_DIRS"])
+              follow_symlinks = yes(settings["FOLLOW_SYMLINKS"])
+              skip_names = {x.strip() for x in settings.get("SKIP_DIRS", "").split(",") if x.strip()}
+
+              start = time.monotonic()
+              warnings: list[str] = []
+              counts = {"dirs_seen": 0, "files_seen": 0, "entries_written": 0, "dirs_skipped": 0, "time_limited": 0, "entry_limited": 0}
+              children: dict[Path, list[Path]] = {}
+
+              queue: list[tuple[Path, int]] = [(target, 0)]
+              while queue:
+                  if time.monotonic() - start >= max_runtime:
+                      counts["time_limited"] = 1
+                      warnings.append("STOPPED: MAX_RUNTIME_SECONDS reached")
+                      break
+                  if counts["entries_written"] >= max_entries:
+                      counts["entry_limited"] = 1
+                      warnings.append("STOPPED: MAX_ENTRIES reached")
+                      break
+
+                  current, depth = queue.pop(0)
+                  try:
+                      entries = sorted(current.iterdir(), key=lambda p: (not p.is_dir(), p.name.lower()))
+                  except Exception as exc:
+                      warnings.append(f"Could not list {rel(current)}: {exc}")
+                      continue
+
+                  shown: list[Path] = []
+                  for entry in entries:
+                      if entry.is_symlink() and not follow_symlinks:
+                          continue
+                      if entry.is_dir():
+                          counts["dirs_seen"] += 1
+                          if should_skip_dir(entry, skip_names):
+                              counts["dirs_skipped"] += 1
+                              continue
+                          if include_dirs:
+                              shown.append(entry)
+                              counts["entries_written"] += 1
+                          if depth < max_depth:
+                              queue.append((entry, depth + 1))
+                      elif entry.is_file() and include_files:
+                          counts["files_seen"] += 1
+                          shown.append(entry)
+                          counts["entries_written"] += 1
+                      if counts["entries_written"] >= max_entries:
+                          counts["entry_limited"] = 1
+                          warnings.append("STOPPED: MAX_ENTRIES reached while listing")
+                          break
+                  children[current] = shown
+              return children, warnings, counts
+
+          def render_tree(root: Path, children: dict[Path, list[Path]]) -> str:
+              lines = [f"{rel(root)}/"]
+              def rec(parent: Path, prefix: str):
+                  entries = children.get(parent, [])
+                  for i, entry in enumerate(entries):
+                      last = i == len(entries) - 1
+                      branch = "└── " if last else "├── "
+                      name = entry.name + ("/" if entry.is_dir() else "")
+                      lines.append(prefix + branch + name)
+                      if entry.is_dir():
+                          rec(entry, prefix + ("    " if last else "│   "))
+              rec(root, "")
+              return "\n".join(lines) + "\n"
+
+          def write_local_index(target: Path, tree: str, settings: Dict[str, str]) -> tuple[Path, str]:
+              index_path = target / settings["INDEX_FILENAME"]
+              content = f"# Folder Index\\n\\n{GENERATED_MARKER}: YES\\nGenerated UTC: {utc_now()}\\n\\n```text\\n{tree}```\\n"
+              if index_path.exists():
+                  existing = index_path.read_text(encoding="utf-8", errors="ignore")[:500]
+                  if GENERATED_MARKER in existing and yes(settings["UPDATE_GENERATED_INDEX"]):
+                      index_path.write_text(content, encoding="utf-8")
+                      return index_path, "updated"
+                  if yes(settings["CREATE_TIMESTAMPED_IF_PROTECTED"]):
+                      alt = target / f"..findex.generated.{stamp()}.txt"
+                      alt.write_text(content, encoding="utf-8")
+                      return alt, "wrote_timestamped"
+                  raise FileExistsError(f"Protected index exists: {rel(index_path)}")
+              index_path.write_text(content, encoding="utf-8")
+              return index_path, "created"
+
+          def append_master(tree: str, settings: Dict[str, str]) -> Path | None:
+              if not yes(settings["APPEND_TO_MASTER_INDEX"]):
+                  return None
+              master = safe_path(settings["MASTER_INDEX"])
+              master.parent.mkdir(parents=True, exist_ok=True)
+              block = f"\\n[INDEXED.{utc_now()}]\\n\\n```text\\n{tree}```\\n"
+              with master.open("a", encoding="utf-8") as f:
+                  f.write(block)
+              return master
+
+          def main() -> int:
+              parser = argparse.ArgumentParser()
+              parser.add_argument("--settings", default=str(DEFAULT_SETTINGS))
+              args = parser.parse_args()
+
+              settings = load_settings(safe_path(args.settings))
+              target = safe_path(settings["TARGET_FOLDER"])
+              DEFAULT_LOG_DIR.mkdir(parents=True, exist_ok=True)
+
+              log = ["FOLDER INDEXER RUN", f"UTC: {utc_now()}", f"TARGET: {rel(target)}", ""]
+              children, warnings, counts = list_entries(target, settings)
+              tree = render_tree(target, children)
+              index_path, action = write_local_index(target, tree, settings)
+              master = append_master(tree, settings)
+
+              log.append(f"LOCAL_INDEX: {rel(index_path)} ({action})")
+              if master:
+                  log.append(f"MASTER_INDEX_APPENDED: {rel(master)}")
+              log.append("")
+              log.append("COUNTS:")
+              for k in sorted(counts):
+                  log.append(f"- {k}: {counts[k]}")
+              if warnings:
+                  log.append("")
+                  log.append("WARNINGS:")
+                  log.extend(f"- {w}" for w in warnings)
+
+              (DEFAULT_LOG_DIR / f"folder_indexer_{stamp()}.txt").write_text("\n".join(log) + "\n", encoding="utf-8")
+              return 0
+
+          if __name__ == "__main__":
+              raise SystemExit(main())
+          '''
+
+          def bootstrap():
+              log: list[str] = [f"ARCHIVE ADMIN BOOTSTRAP", f"UTC: {utc_now()}", ""]
+
+              for d in [
+                  DASH,
+                  DASH / "[📘_EXTRACTED]",
+                  DASH / "[🗂️_LOGS]",
+                  AI,
+                  AI / "PROJECTS",
+                  AI / "TOOLS",
+                  AI / "WORKFLOWS",
+                  AI / "CURSORS",
+                  AI / "LOGS",
+                  AI / "TEMP",
+                  AI / "_MIGRATION_HOLD",
+                  AI / "LOGS" / "workflows",
+                  AI / "LOGS" / "archive_admin",
+                  AI / "LOGS" / "folder_indexer",
+              ]:
+                  ensure_dir(d, log)
+
+              write_file(DASH / "..findex.txt", "# Folder Index\n\nGENERATED_BY_FOLDER_INDEXER: YES\n\n```text\n" + tree_index_for_dashboard() + "```\n", log)
+              write_file(DASH / "⚒️_NATHAN_EXT.txt", "NATHAN EXTRACTION CONTROL\n\nSTATUS: placeholder pending cleanup/migration.\n", log)
+              write_file(DASH / "⚒️_PREDICTION_EXT.txt", "PREDICTION EXTRACTION CONTROL\n\nSTATUS: placeholder.\n", log)
+              write_file(DASH / "🧹_CLEANUP.txt", "CLEANUP CONTROL\n\nSTATUS: planned.\n", log)
+              write_file(DASH / "🗄️_ARCHIVE_INDEX.txt", "ARCHIVE INDEX\n\nAppend-only folder index blocks will appear below.\n", log)
+              write_file(DASH / "📖_PROJECT_NOTES.txt", "PROJECT NOTES\n\nActive / near-term:\n- Dashboard and AI folder consolidation.\n- Nathan extraction restart after cleanup.\n- SAT Foundations reconstruction.\n", log)
+              write_file(DASH / "📋_PRIORITY_TODO.txt", "PRIORITY TODO\n\n[ ] Finish dashboard / AI folder consolidation.\n[ ] Move usable tools into .[⚙️_AI_FILES]/TOOLS.\n[ ] Fix workflows to manual-only where needed.\n[ ] Run folder indexer on legacy control folders.\n[ ] Decide what to migrate, delete, or archive.\n[ ] Resume Nathan extraction after portal cleanup.\n", log)
+              write_file(DASH / "⚒️_FOLDER_INDEXER.txt", "TARGET_FOLDER: .\nINDEX_FILENAME: ..findex.txt\n\nMAX_RUNTIME_SECONDS: 120\nMAX_DEPTH: 1\nMAX_ENTRIES: 5000\n\nINCLUDE_FILES: YES\nINCLUDE_DIRS: YES\nFOLLOW_SYMLINKS: NO\n\nUPDATE_GENERATED_INDEX: YES\nCREATE_TIMESTAMPED_IF_PROTECTED: YES\n\nMASTER_INDEX: ..[🎛️_NATHAN_DASH]/🗄️_ARCHIVE_INDEX.txt\nAPPEND_TO_MASTER_INDEX: YES\n\nSKIP_DIRS: .git,.github,..[🎛️_NATHAN_DASH],.[⚙️_AI_FILES],..📚_NATHAN_WORDS_EXTRACTED,📚_NATHAN_WORDS_EXTRACTED,_NATHAN_CORPUS\n", log)
+              write_file(DASH / "⚒️_ADMIN_TASK.txt", "# Archive admin task manifest\n# Commands supported after bootstrap:\n# MKDIR path\n# COPY source destination\n# DELETE allowlisted_path\n", log)
+
+              write_file(AI / "..findex.txt", "# Folder Index\n\nGENERATED_BY_FOLDER_INDEXER: YES\n\n```text\n" + tree_index_for_ai() + "```\n", log)
+              write_file(AI / "ORIENTATION.txt", "ORIENTATION\n\nRead this before project work.\n\nCore principles:\n- The archive is the territory; SATopedia/dashboard materials are maps.\n- Routine human controls belong in ..[🎛️_NATHAN_DASH].\n- AI machinery belongs in .[⚙️_AI_FILES].\n- Preserve source material whenever possible.\n- Prefer extraction, indexing, logging, and characterization over intrusive modification.\n- Maximize useful logging to minimize repeated access requests.\n- Do not confuse local exposure with global understanding.\n- Reason only from the information actually available unless explicitly exploring possibilities.\n- Mark the boundary between observation, inference, speculation, derivation, empirical claim, and unknown.\n\nAccess/debug checklist:\n1. Remind Nathan to make the GitHub tool available.\n2. Confirm the repository path and branch.\n3. Check dashboard and AI logs before rescanning source files.\n4. If deep folders are inaccessible, create/read folder indexes.\n5. If a workflow fails, check .[⚙️_AI_FILES]/LOGS.\n", log)
+              write_file(AI / "WATERCOOLER.txt", "WATERCOOLER\n\nArchivists' work chat, suggestion box, parking lot, and pinned plans.\n\nPinned:\n- Folder core-sample project.\n- LLM-assisted triage layer later.\n- Cleanup workflow.\n", log)
+              write_file(AI / "RESOURCES.txt", "RESOURCES\n\nPointers and reusable generated resources.\n\nPrimary locations:\n- ..[🎛️_NATHAN_DASH]/ : human-facing dashboard.\n- .[⚙️_AI_FILES]/ : AI/tooling/institutional memory.\n", log)
+              write_file(AI / "SAT_THEORY_ROADMAP_AND_NEEDS.txt", "SAT THEORY ROADMAP AND NEEDS\n\nPerspective rule:\nDo not assess SAT globally from partial exposure. State the scope of what has actually been reviewed.\n\nFoundations project mission:\nStarting from minimal accepted representational grammar and explicit assumptions only, reconstruct the admissible possibility space and determine what follows. SAT is treated as a hypothesis about the outcome of this process, not as an input.\n", log)
+
+              write_file(TOOLS / "archive_admin.py", ARCHIVE_ADMIN_TOOL, log)
+              write_file(TOOLS / "index_folder.py", INDEX_FOLDER_TOOL, log)
+
+              root_builder = ROOT / "build_archive_structure.py"
+              if root_builder.exists():
+                  dst = TOOLS / "build_archive_structure.py"
+                  if not dst.exists():
+                      shutil.copy2(root_builder, dst)
+                      log.append(f"COPY existing root builder -> {rel(dst)}")
+
+              LOG_DIR.mkdir(parents=True, exist_ok=True)
+              log_path = LOG_DIR / f"bootstrap_{stamp()}.txt"
+              log_path.write_text("\n".join(log) + "\n", encoding="utf-8")
+
+              workflow_log = AI / "LOGS" / "workflows" / "archive_admin_last_run.txt"
+              workflow_log.write_text("WORKFLOW: Archive Admin\nUTC: " + utc_now() + "\nSTATUS: bootstrap completed\n", encoding="utf-8")
+
+          if __name__ == "__main__":
+              bootstrap()
+          PY
+
+      - name: Run bootstrap
+        run: |
+          python archive_admin_bootstrap.py
+
+      - name: Run admin task if present
+        run: |
+          if [ -f '.[⚙️_AI_FILES]/TOOLS/archive_admin.py' ]; then
+            python '.[⚙️_AI_FILES]/TOOLS/archive_admin.py'
+          fi
+
+      - name: Commit archive admin results
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add '..[🎛️_NATHAN_DASH]' '.[⚙️_AI_FILES]'
+          if git diff --cached --quiet; then
+            echo "No archive admin changes to commit."
+          else
+            git commit -m "Bootstrap archive admin portal"
+            git push
+          fi
