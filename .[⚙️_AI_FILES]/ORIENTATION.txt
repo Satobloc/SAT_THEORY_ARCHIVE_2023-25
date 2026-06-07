@@ -19,3 +19,6 @@ Access/debug checklist:
 3. Check dashboard and AI logs before rescanning source files.
 4. If deep folders are inaccessible, create/read folder indexes.
 5. If a workflow fails, check .[⚙️_AI_FILES]/LOGS.
+
+Archive Admin request workflow preference:
+For routine archive operations, prefer request-file commits that automatically trigger Archive Admin on push. The workflow should guard against self-trigger loops with github.actor != 'github-actions[bot]'. Manual workflow_dispatch should remain available as a fallback.

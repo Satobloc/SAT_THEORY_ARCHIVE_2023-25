@@ -6,3 +6,21 @@ Pinned:
 - Folder core-sample project.
 - LLM-assisted triage layer later.
 - Cleanup workflow.
+
+------------------------------------------------------------
+2026-06-07 — Archive Admin auto-run norm
+
+Preferred request-tool pattern:
+
+ChatGPT updates a small request file
+→ GitHub push triggers Archive Admin automatically
+→ Archive Admin performs bounded, allowlisted work
+→ Archive Admin writes logs/results
+→ ChatGPT verifies logs and output
+
+Manual workflow_dispatch remains available as a fallback, but should not be the default for routine request-file operations.
+
+Loop protection: workflow commits by github-actions[bot] should be ignored by the workflow job guard.
+
+This keeps Nathan out of repetitive button-clicking while preserving a clear authorization/audit trail through commits and logs.
+------------------------------------------------------------
