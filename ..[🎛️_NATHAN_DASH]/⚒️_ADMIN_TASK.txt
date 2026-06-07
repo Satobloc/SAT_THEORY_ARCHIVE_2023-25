@@ -2,11 +2,11 @@ TASK: APPEND_DASH_FILE
 FILE: ⚙️_LESSONS_LEARNED.txt
 TEXT:
 DATE: 2026-06-07
-PROBLEM: Archive Admin initially required Nathan to manually click Run Workflow after ChatGPT updated the request file.
-CAUSE: The workflow was configured as workflow_dispatch only, so request-file commits did not automatically execute the admin tool.
-SOLUTION: Configure Archive Admin with both workflow_dispatch and push triggers, and guard the job with if: github.actor != 'github-actions[bot]' to prevent recursive self-triggering. ChatGPT request-file commits can then trigger the workflow automatically; workflow-generated commits are ignored.
-APPLIES TO: .github/workflows/archive-admin.yml, request-driven archive tools
-NOTES: Preferred pattern is now: ChatGPT updates request file → push triggers Archive Admin → Archive Admin logs results → ChatGPT verifies logs. Use manual workflow_dispatch as fallback.
+PROBLEM: A legacy workflow continued failing with "push event contained invalid paths patterns" even after Archive Admin was fixed.
+CAUSE: .github/workflows/index_folder.yml still used push.paths filters that referenced bracketed/emoji dashboard and AI folder paths. GitHub Actions treats paths filters as glob patterns, where square brackets have special meaning. The workflow also referenced stale folder names such as .[🎛️_DASHBOARD] rather than the current ..[🎛️_NATHAN_DASH].
+SOLUTION: Disable or retire legacy workflows with bracket/emoji push.paths filters. Prefer Archive Admin TASK: INDEX_FOLDER for indexing. If push triggers are needed, avoid paths filters on bracketed/emoji folders; use a broad push trigger plus github-actions[bot] loop guard, or trigger from plain ASCII request paths.
+APPLIES TO: .github/workflows/index_folder.yml and any workflow using push.paths with bracketed/emoji paths
+NOTES: Similar filenames are messy but were not the root cause. The root cause was invalid glob-style path patterns in workflow YAML.
 ENDTEXT
 
 TASK: APPEND_AI_FILE
@@ -14,28 +14,23 @@ FILE: WATERCOOLER.txt
 TEXT:
 
 ------------------------------------------------------------
-2026-06-07 — Archive Admin auto-run norm
+2026-06-07 — Legacy workflow path-filter failure
 
-Preferred request-tool pattern:
+Diagnosis:
+The recurring "invalid paths patterns" error came from the old index_folder.yml workflow, not from Archive Admin and not from duplicate-ish filenames.
 
-ChatGPT updates a small request file
-→ GitHub push triggers Archive Admin automatically
-→ Archive Admin performs bounded, allowlisted work
-→ Archive Admin writes logs/results
-→ ChatGPT verifies logs and output
+Root cause:
+GitHub Actions push.paths entries are glob patterns. Literal folder names containing square brackets, emoji, and stale dashboard names can break parsing or become fragile.
 
-Manual workflow_dispatch remains available as a fallback, but should not be the default for routine request-file operations.
+Norm:
+Do not use push.paths filters for bracketed/emoji control folders.
 
-Loop protection: workflow commits by github-actions[bot] should be ignored by the workflow job guard.
+Preferred options:
+1. Put trigger/request files under plain ASCII paths, or
+2. use broad push triggers with a github-actions[bot] loop guard, or
+3. keep legacy workflows manual-only/disabled and route routine work through Archive Admin.
 
-This keeps Nathan out of repetitive button-clicking while preserving a clear authorization/audit trail through commits and logs.
+Also:
+Similar filenames are confusing and should be cleaned up, but they are not the same problem as invalid workflow path globbing.
 ------------------------------------------------------------
-ENDTEXT
-
-TASK: APPEND_AI_FILE
-FILE: ORIENTATION.txt
-TEXT:
-
-Archive Admin request workflow preference:
-For routine archive operations, prefer request-file commits that automatically trigger Archive Admin on push. The workflow should guard against self-trigger loops with github.actor != 'github-actions[bot]'. Manual workflow_dispatch should remain available as a fallback.
 ENDTEXT
