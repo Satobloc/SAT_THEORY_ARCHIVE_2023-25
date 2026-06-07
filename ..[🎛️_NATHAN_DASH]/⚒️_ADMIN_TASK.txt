@@ -1,35 +1,29 @@
-TASK: APPEND_DASH_FILE
-FILE: ⚙️_LESSONS_LEARNED.txt
-TEXT:
-DATE: 2026-06-07
-PROBLEM: Archive Admin did not auto-run after ChatGPT updated the request file.
-CAUSE: The workflow used if: github.actor != 'github-actions[bot]', which can block connector-authored request commits as well as workflow self-commits.
-SOLUTION: Use a commit-message guard instead: skip only when the head commit message contains [skip archive-admin]. Make Archive Admin's own output commits include [skip archive-admin].
-APPLIES TO: .github/workflows/archive-admin.yml and future request-driven workflows
-NOTES: Do not use actor-based bot guards when ChatGPT/connector commits need to trigger the workflow.
-ENDTEXT
+# Archive Admin idle.
+# Add one or more TASK blocks below when needed.
 
-TASK: APPEND_AI_FILE
-FILE: WATERCOOLER.txt
-TEXT:
-
-------------------------------------------------------------
-2026-06-07 — Control-folder naming and index hygiene
-
-Official control-folder naming convention:
-
-.[...]   AI/tool/admin/control layer
-..[...]  Nathan-facing dashboard/control layer
-
-Default indexer behavior should skip:
-- folders beginning .[
-- folders beginning ..[
-- files named ..findex.txt
-- .git
-- __pycache__
-
-However, skipped items must be logged. Unknown .[...] or ..[...] folders should be flagged as possible control-name collisions, because older archive material might accidentally use the same pattern.
-
-The goal is clean source indexes without silently hiding potentially meaningful material.
-------------------------------------------------------------
-ENDTEXT
+# Examples:
+#
+# TASK: INDEX_FOLDER
+# TARGET: .
+# MAX_DEPTH: 0
+# MAX_ENTRIES: 500
+#
+# TASK: INDEX_FOLDER
+# TARGET: .[⚙️_AI_FILES]/_MIGRATION_HOLD
+# MAX_DEPTH: 3
+# MAX_ENTRIES: 2000
+#
+# TASK: APPEND_DASH_FILE
+# FILE: ⚙️_LESSONS_LEARNED.txt
+# TEXT:
+# DATE:
+# PROBLEM:
+# CAUSE:
+# SOLUTION:
+# APPLIES TO:
+# NOTES:
+# ENDTEXT
+#
+# Optional INDEX_FOLDER flags:
+# INCLUDE_CONTROL_FOLDERS: YES
+# INCLUDE_GENERATED_INDEXES: YES
