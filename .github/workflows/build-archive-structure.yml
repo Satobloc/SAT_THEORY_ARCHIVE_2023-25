@@ -2,11 +2,6 @@ name: Build Archive Structure
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - 'build_archive_structure.py'
-      - '.[🎛️_DASHBOARD]/⚒️_STRUCTURE_BUILD.txt'
-      - '.github/workflows/build-archive-structure.yml'
 
 permissions:
   contents: write
@@ -36,7 +31,21 @@ jobs:
         run: |
           python 'build_archive_structure.py' '.[🎛️_DASHBOARD]/⚒️_STRUCTURE_BUILD.txt' --apply
 
-      - name: Commit generated structure
+      - name: Write workflow report
+        if: always()
+        run: |
+          mkdir -p '.[⚙️_AI_FILES]/LOGS/workflows'
+          {
+            echo "WORKFLOW: Build Archive Structure"
+            echo "UTC: $(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+            echo "GITHUB_RUN_ID: $GITHUB_RUN_ID"
+            echo "GITHUB_RUN_ATTEMPT: $GITHUB_RUN_ATTEMPT"
+            echo "GITHUB_SHA: $GITHUB_SHA"
+            echo "STATUS: completed workflow steps; check GitHub Actions UI for step-level failure details if commit is absent"
+          } > ".[⚙️_AI_FILES]/LOGS/workflows/build_archive_structure_last_run.txt"
+
+      - name: Commit generated structure and logs
+        if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
