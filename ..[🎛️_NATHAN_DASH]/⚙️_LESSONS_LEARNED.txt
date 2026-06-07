@@ -73,3 +73,12 @@ SOLUTION: Configure Archive Admin with both workflow_dispatch and push triggers,
 APPLIES TO: .github/workflows/archive-admin.yml, request-driven archive tools
 NOTES: Preferred pattern is now: ChatGPT updates request file → push triggers Archive Admin → Archive Admin logs results → ChatGPT verifies logs. Use manual workflow_dispatch as fallback.
 ------------------------------------------------------------
+
+------------------------------------------------------------
+DATE: 2026-06-07
+PROBLEM: Archive Admin initially required Nathan to manually click Run Workflow after ChatGPT updated the request file.
+CAUSE: The workflow was configured as workflow_dispatch only, so request-file commits did not automatically execute the admin tool.
+SOLUTION: Configure Archive Admin with both workflow_dispatch and push triggers, and guard the job with if: github.actor != 'github-actions[bot]' to prevent recursive self-triggering. ChatGPT request-file commits can then trigger the workflow automatically; workflow-generated commits are ignored.
+APPLIES TO: .github/workflows/archive-admin.yml, request-driven archive tools
+NOTES: Preferred pattern is now: ChatGPT updates request file → push triggers Archive Admin → Archive Admin logs results → ChatGPT verifies logs. Use manual workflow_dispatch as fallback.
+------------------------------------------------------------
