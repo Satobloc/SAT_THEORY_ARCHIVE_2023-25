@@ -1,44 +1,16 @@
-name: Index Folder
+name: Index Folder (Legacy Disabled)
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - '.[🎛️_DASHBOARD]/⚒️_FOLDER_INDEXER.txt'
-      - '.[⚙️_AI_FILES]/TOOLS/index_folder.py'
-      - '.github/workflows/index-folder.yml'
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  index-folder:
+  legacy-index-folder-disabled:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
-
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Run folder indexer
+      - name: Legacy workflow disabled
         run: |
-          python '.[⚙️_AI_FILES]/TOOLS/index_folder.py' --settings '.[🎛️_DASHBOARD]/⚒️_FOLDER_INDEXER.txt'
-
-      - name: Commit folder index and logs
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add .
-          if git diff --cached --quiet; then
-            echo "No folder index changes to commit."
-          else
-            git commit -m "Update folder index"
-            git push
-          fi
+          echo "Legacy index_folder.yml is disabled."
+          echo "Use Archive Admin with TASK: INDEX_FOLDER instead."
