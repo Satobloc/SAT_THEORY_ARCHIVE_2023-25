@@ -12,12 +12,15 @@ Permissions:
   - May index requested repository folders
   - May perform named legacy-control cleanup tasks only by allowlist
   - Must log every run
+  - Must log errors visibly when repo-side execution fails
 """
 
 from __future__ import annotations
 
+import json
 import os
 import shutil
+import traceback
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -28,12 +31,18 @@ AI = ROOT / ".[⚙️_AI_FILES]"
 TASK = DASH / "⚒️_ADMIN_TASK.txt"
 LOG_DIR = AI / "LOGS" / "archive_admin"
 INDEX_LOG_DIR = AI / "LOGS" / "folder_indexer"
+ERROR_DIR = AI / "LOGS" / "errors"
 
 APPROVED_DASH_APPEND = {
     "⚙️_LESSONS_LEARNED.txt",
     "📋_PRIORITY_TODO.txt",
     "📖_PROJECT_NOTES.txt",
     "🗄️_ARCHIVE_INDEX.txt",
+}
+
+KNOWN_CONTROL_FOLDERS = {
+    ".[⚙️_AI_FILES]",
+    "..[🎛️_NATHAN_DASH]",
 }
 
 DASH_PLACEHOLDERS = {
@@ -52,6 +61,7 @@ GENERATED_BY_FOLDER_INDEXER: YES
 ├── 🧹_CLEANUP.txt
 ├── 🗄️_ARCHIVE_INDEX.txt
 ├── 📖_PROJECT_NOTES.txt
+├── 📖_SAT_ARCHIVE_READING_PLAN.txt
 ├── 📋_PRIORITY_TODO.txt
 ├── [📘_EXTRACTED]/
 └── [🗂️_LOGS]/
@@ -77,33 +87,6 @@ CAUSE:
 SOLUTION:
 APPLIES TO:
 NOTES:
-------------------------------------------------------------
-
-------------------------------------------------------------
-DATE: 2026-06-07
-PROBLEM: GitHub Actions workflow failed to parse path filters using dashboard/AI folder names with brackets and emoji.
-CAUSE: GitHub Actions path filters use glob syntax. Square brackets in paths can be interpreted as character classes and can make patterns invalid.
-SOLUTION: Use workflow_dispatch only for dashboard/admin workflows, or trigger from plain ASCII paths.
-APPLIES TO: .github/workflows/*.yml
-NOTES: Manual trigger is safer for archive admin operations anyway.
-------------------------------------------------------------
-
-------------------------------------------------------------
-DATE: 2026-06-07
-PROBLEM: ChatGPT could write some repo files but could not run Python directly inside the GitHub repository.
-CAUSE: GitHub connector file access and GitHub Actions execution are separate capabilities.
-SOLUTION: Use GitHub Actions workflows that run repo-local Python tools from request/control files. ChatGPT updates requests; Nathan runs workflow; workflow logs results.
-APPLIES TO: archive admin, indexing, extraction tooling
-NOTES: This is now the standard architecture pattern.
-------------------------------------------------------------
-
-------------------------------------------------------------
-DATE: 2026-06-07
-PROBLEM: ChatGPT may not always have the GitHub tool available in a given session.
-CAUSE: Tool availability can vary by session/context, and GitHub access may not be enabled or visible.
-SOLUTION: If archive work requires GitHub and the tool is missing, remind Nathan to make the GitHub tool available.
-APPLIES TO: any archive operation requiring repo reads/writes
-NOTES: Do not assume GitHub access exists just because previous sessions had it.
 ------------------------------------------------------------
 """,
     "📋_PRIORITY_TODO.txt": """PRIORITY TODO
@@ -135,33 +118,24 @@ Active / near-term:
 
 Append-only folder index blocks will appear below.
 """,
-    "⚒️_ADMIN_TASK.txt": """# Archive Admin request file
+    "⚒️_ADMIN_TASK.txt": """# Archive Admin idle.
+# Add one or more TASK blocks below when needed.
 
-Examples:
-
-TASK: ENSURE_DASH_PLACEHOLDERS
-
-TASK: INDEX_FOLDER
-TARGET: .[⚙️_AI_FILES]/_MIGRATION_HOLD
-MAX_DEPTH: 3
-MAX_ENTRIES: 2000
-
-TASK: APPEND_DASH_FILE
-FILE: ⚙️_LESSONS_LEARNED.txt
-TEXT:
-DATE:
-PROBLEM:
-CAUSE:
-SOLUTION:
-APPLIES TO:
-NOTES:
-ENDTEXT
-
-TASK: WRITE_AI_FILE
-FILE: WORKFLOWS/example.txt
-TEXT:
-...
-ENDTEXT
+# Examples:
+#
+# TASK: INDEX_FOLDER
+# TARGET: .
+# MAX_DEPTH: 0
+# MAX_ENTRIES: 500
+#
+# TASK: INDEX_FOLDER
+# TARGET: .[⚙️_AI_FILES]/_MIGRATION_HOLD
+# MAX_DEPTH: 3
+# MAX_ENTRIES: 2000
+#
+# Optional INDEX_FOLDER flags:
+# INCLUDE_CONTROL_FOLDERS: YES
+# INCLUDE_GENERATED_INDEXES: YES
 """,
     "⚒️_FOLDER_INDEXER.txt": """TARGET_FOLDER: .
 INDEX_FILENAME: ..findex.txt
@@ -180,7 +154,8 @@ CREATE_TIMESTAMPED_IF_PROTECTED: YES
 MASTER_INDEX: ..[🎛️_NATHAN_DASH]/🗄️_ARCHIVE_INDEX.txt
 APPEND_TO_MASTER_INDEX: YES
 
-SKIP_DIRS: .git,.github,..[🎛️_NATHAN_DASH],.[⚙️_AI_FILES],..📚_NATHAN_WORDS_EXTRACTED,📚_NATHAN_WORDS_EXTRACTED,_NATHAN_CORPUS
+DEFAULT_SKIP_CONTROL_FOLDERS: YES
+DEFAULT_SKIP_GENERATED_INDEXES: YES
 """,
     "⚒️_NATHAN_EXT.txt": "NATHAN EXTRACTION CONTROL\n\nSTATUS: placeholder pending cleanup/migration.\n",
     "⚒️_PREDICTION_EXT.txt": "PREDICTION EXTRACTION CONTROL\n\nSTATUS: placeholder.\n",
@@ -198,6 +173,7 @@ AI_BASE_DIRS = [
     "LOGS/archive_admin",
     "LOGS/workflows",
     "LOGS/folder_indexer",
+    "LOGS/errors",
 ]
 
 LEGACY_CONTROL_PATHS = [
@@ -213,7 +189,7 @@ LEGACY_CONTROL_PATHS = [
 
 DELETE_ALLOWLIST_PREFIXES = set(LEGACY_CONTROL_PATHS)
 
-SKIP_INDEX_NAMES = {
+ALWAYS_SKIP_NAMES = {
     ".git",
     "__pycache__",
 }
@@ -229,6 +205,11 @@ def rel(path: Path) -> str:
         return str(path.relative_to(ROOT)).replace(os.sep, "/")
     except Exception:
         return str(path)
+
+def bool_field(value: str | None, default: bool = False) -> bool:
+    if value is None or value == "":
+        return default
+    return value.strip().upper() in {"YES", "Y", "TRUE", "1", "ON"}
 
 def safe_repo_path(text: str) -> Path:
     p = (ROOT / text).resolve()
@@ -277,6 +258,31 @@ def copy_any(src: Path, dst: Path) -> str:
         return f"COPY_TREE {rel(src)} -> {rel(dst)}"
     shutil.copy2(src, dst)
     return f"COPY_FILE {rel(src)} -> {rel(dst)}"
+
+def write_error_report(context: str, exc: BaseException, request_text: str = "") -> None:
+    ERROR_DIR.mkdir(parents=True, exist_ok=True)
+    tb = traceback.format_exc()
+    content = (
+        "ARCHIVE ADMIN ERROR\n"
+        f"UTC: {utc_now()}\n"
+        f"CONTEXT: {context}\n"
+        f"ERROR_TYPE: {type(exc).__name__}\n"
+        f"ERROR: {exc}\n\n"
+        "TRACEBACK:\n"
+        f"{tb}\n\n"
+        "REQUEST_CONTENTS:\n"
+        f"{request_text}\n"
+    )
+    (ERROR_DIR / "archive_admin_last_error.txt").write_text(content, encoding="utf-8")
+
+    hist = {
+        "utc": utc_now(),
+        "context": context,
+        "error_type": type(exc).__name__,
+        "error": str(exc),
+    }
+    with (ERROR_DIR / "archive_admin_error_history.jsonl").open("a", encoding="utf-8") as f:
+        f.write(json.dumps(hist, ensure_ascii=False) + "\n")
 
 @dataclass
 class TaskBlock:
@@ -458,20 +464,42 @@ def task_append_ai_file(t: TaskBlock, log: list[str]) -> None:
         return
     append_file(path, t.text, log)
 
-def tree_lines(target: Path, max_depth: int, max_entries: int) -> tuple[list[str], list[str]]:
+def is_control_like_dir(path: Path) -> bool:
+    return path.is_dir() and (path.name.startswith(".[") or path.name.startswith("..["))
+
+def skip_reason(path: Path, include_control: bool, include_generated: bool) -> str | None:
+    if path.name in ALWAYS_SKIP_NAMES:
+        return "SKIPPED_SYSTEM"
+    if path.name == "..findex.txt" and not include_generated:
+        return "SKIPPED_GENERATED_INDEX"
+    if is_control_like_dir(path) and not include_control:
+        path_rel = rel(path)
+        if path_rel in KNOWN_CONTROL_FOLDERS:
+            return "SKIPPED_EXPECTED_CONTROL"
+        return "SKIPPED_POSSIBLE_CONTROL_COLLISION"
+    return None
+
+def tree_lines(target: Path, max_depth: int, max_entries: int, include_control: bool, include_generated: bool) -> tuple[list[str], list[str], list[str]]:
     warnings: list[str] = []
+    skipped: list[str] = []
     lines: list[str] = []
     count = 0
 
     def visible_children(path: Path) -> list[Path]:
         try:
-            children = [
-                p for p in path.iterdir()
-                if p.name not in SKIP_INDEX_NAMES
-            ]
+            children_raw = list(path.iterdir())
         except Exception as exc:
             warnings.append(f"Could not list {rel(path)}: {exc}")
             return []
+
+        children: list[Path] = []
+        for p in children_raw:
+            reason = skip_reason(p, include_control, include_generated)
+            if reason:
+                skipped.append(f"{reason}: {rel(p)}")
+                continue
+            children.append(p)
+
         return sorted(children, key=lambda p: (not p.is_dir(), p.name.lower()))
 
     def walk(path: Path, prefix: str, depth: int) -> None:
@@ -495,7 +523,7 @@ def tree_lines(target: Path, max_depth: int, max_entries: int) -> tuple[list[str
     walk(target, "", 0)
     if count >= max_entries:
         warnings.append(f"Index truncated at MAX_ENTRIES={max_entries}")
-    return lines, warnings
+    return lines, warnings, skipped
 
 def task_index_folder(t: TaskBlock, log: list[str]) -> None:
     target_text = t.fields.get("TARGET", "").strip()
@@ -512,6 +540,9 @@ def task_index_folder(t: TaskBlock, log: list[str]) -> None:
     except ValueError:
         max_entries = 2000
 
+    include_control = bool_field(t.fields.get("INCLUDE_CONTROL_FOLDERS"), default=False)
+    include_generated = bool_field(t.fields.get("INCLUDE_GENERATED_INDEXES"), default=False)
+
     target = safe_repo_path(target_text)
     if not target.exists():
         log.append(f"REFUSE INDEX_FOLDER target missing: {target_text}")
@@ -520,7 +551,14 @@ def task_index_folder(t: TaskBlock, log: list[str]) -> None:
         log.append(f"REFUSE INDEX_FOLDER target not directory: {target_text}")
         return
 
-    lines, warnings = tree_lines(target, max_depth=max_depth, max_entries=max_entries)
+    lines, warnings, skipped = tree_lines(
+        target,
+        max_depth=max_depth,
+        max_entries=max_entries,
+        include_control=include_control,
+        include_generated=include_generated,
+    )
+
     generated = [
         "# Folder Index",
         "",
@@ -529,6 +567,8 @@ def task_index_folder(t: TaskBlock, log: list[str]) -> None:
         f"TARGET: {rel(target)}",
         f"MAX_DEPTH: {max_depth}",
         f"MAX_ENTRIES: {max_entries}",
+        f"INCLUDE_CONTROL_FOLDERS: {'YES' if include_control else 'NO'}",
+        f"INCLUDE_GENERATED_INDEXES: {'YES' if include_generated else 'NO'}",
         "",
         "```text",
         *lines,
@@ -537,6 +577,8 @@ def task_index_folder(t: TaskBlock, log: list[str]) -> None:
     ]
     if warnings:
         generated.extend(["Warnings:", *[f"- {w}" for w in warnings], ""])
+    if skipped:
+        generated.extend(["Skipped:", *[f"- {s}" for s in skipped], ""])
 
     index_path = target / "..findex.txt"
     write_file(index_path, "\n".join(generated), log)
@@ -546,12 +588,19 @@ def task_index_folder(t: TaskBlock, log: list[str]) -> None:
         "------------------------------------------------------------",
         f"INDEXED_UTC: {utc_now()}",
         f"TARGET: {rel(target)}",
+        f"MAX_DEPTH: {max_depth}",
+        f"MAX_ENTRIES: {max_entries}",
+        f"INCLUDE_CONTROL_FOLDERS: {'YES' if include_control else 'NO'}",
+        f"INCLUDE_GENERATED_INDEXES: {'YES' if include_generated else 'NO'}",
         "```text",
         *lines,
         "```",
-        "------------------------------------------------------------",
-        "",
     ]
+    if skipped:
+        block.extend(["Skipped:", *[f"- {s}" for s in skipped]])
+    if warnings:
+        block.extend(["Warnings:", *[f"- {w}" for w in warnings]])
+    block.extend(["------------------------------------------------------------", ""])
     append_file(DASH / "🗄️_ARCHIVE_INDEX.txt", "\n".join(block), log)
 
     INDEX_LOG_DIR.mkdir(parents=True, exist_ok=True)
@@ -561,12 +610,16 @@ def task_index_folder(t: TaskBlock, log: list[str]) -> None:
         f"TARGET: {rel(target)}",
         f"MAX_DEPTH: {max_depth}",
         f"MAX_ENTRIES: {max_entries}",
+        f"INCLUDE_CONTROL_FOLDERS: {'YES' if include_control else 'NO'}",
+        f"INCLUDE_GENERATED_INDEXES: {'YES' if include_generated else 'NO'}",
         f"LOCAL_INDEX: {rel(index_path)}",
         "",
         "TREE:",
         *lines,
         "",
     ]
+    if skipped:
+        detail.extend(["SKIPPED ITEMS:", *skipped, ""])
     if warnings:
         detail.extend(["WARNINGS:", *warnings, ""])
     log_path = INDEX_LOG_DIR / f"folder_index_{stamp()}.txt"
@@ -630,47 +683,63 @@ def run_legacy_line(line: str, log: list[str]) -> None:
     else:
         log.append(f"UNKNOWN LEGACY LINE: {line}")
 
-def run_tasks(log: list[str]) -> None:
+def run_tasks(log: list[str], request_text: str) -> None:
     if not TASK.exists():
         log.append(f"No task file found: {rel(TASK)}")
         return
 
-    raw = TASK.read_text(encoding="utf-8")
-    tasks = parse_tasks(raw)
+    tasks = parse_tasks(request_text)
     if not tasks:
         log.append("No tasks parsed.")
         return
 
     for t in tasks:
         log.append(f"TASK: {t.task}")
-
-        if t.task == "ENSURE_DASH_PLACEHOLDERS":
-            ensure_dashboard(log)
-        elif t.task == "APPEND_DASH_FILE":
-            task_append_dash_file(t, log)
-        elif t.task == "WRITE_AI_FILE":
-            task_write_ai_file(t, log)
-        elif t.task == "APPEND_AI_FILE":
-            task_append_ai_file(t, log)
-        elif t.task == "INDEX_FOLDER":
-            task_index_folder(t, log)
-        elif t.task == "QUARANTINE_LEGACY_CONTROL_FOLDERS":
-            task_quarantine_legacy(log)
-        elif t.task == "DELETE_LEGACY_CONTROL_FOLDERS_AFTER_QUARANTINE":
-            task_delete_legacy(log)
-        elif t.task == "LEGACY":
-            for line in t.fields.get("LINES", "").splitlines():
-                run_legacy_line(line, log)
-        else:
-            log.append(f"UNKNOWN TASK: {t.task}")
+        try:
+            if t.task == "ENSURE_DASH_PLACEHOLDERS":
+                ensure_dashboard(log)
+            elif t.task == "APPEND_DASH_FILE":
+                task_append_dash_file(t, log)
+            elif t.task == "WRITE_AI_FILE":
+                task_write_ai_file(t, log)
+            elif t.task == "APPEND_AI_FILE":
+                task_append_ai_file(t, log)
+            elif t.task == "INDEX_FOLDER":
+                task_index_folder(t, log)
+            elif t.task == "QUARANTINE_LEGACY_CONTROL_FOLDERS":
+                task_quarantine_legacy(log)
+            elif t.task == "DELETE_LEGACY_CONTROL_FOLDERS_AFTER_QUARANTINE":
+                task_delete_legacy(log)
+            elif t.task == "LEGACY":
+                for line in t.fields.get("LINES", "").splitlines():
+                    run_legacy_line(line, log)
+            else:
+                log.append(f"UNKNOWN TASK: {t.task}")
+        except Exception as exc:
+            log.append(f"ERROR in task {t.task}: {type(exc).__name__}: {exc}")
+            write_error_report(f"TASK {t.task}", exc, request_text)
+            raise
 
 def main() -> int:
     LOG_DIR.mkdir(parents=True, exist_ok=True)
     INDEX_LOG_DIR.mkdir(parents=True, exist_ok=True)
+    ERROR_DIR.mkdir(parents=True, exist_ok=True)
+
+    request_text = ""
     log = ["ARCHIVE ADMIN RUN", f"UTC: {utc_now()}", ""]
 
-    ensure_dashboard(log)
-    run_tasks(log)
+    try:
+        ensure_dashboard(log)
+        if TASK.exists():
+            request_text = TASK.read_text(encoding="utf-8")
+        run_tasks(log, request_text)
+    except Exception as exc:
+        write_error_report("main", exc, request_text)
+        log.append(f"FATAL ERROR: {type(exc).__name__}: {exc}")
+        # Continue to write/commit logs, then fail the workflow.
+        exit_code = 1
+    else:
+        exit_code = 0
 
     log_path = LOG_DIR / f"archive_admin_{stamp()}.txt"
     log_path.write_text("\n".join(log) + "\n", encoding="utf-8")
@@ -680,11 +749,11 @@ def main() -> int:
     workflow_log.write_text(
         "WORKFLOW: Archive Admin\n"
         f"UTC: {utc_now()}\n"
-        "STATUS: archive_admin.py completed\n"
+        f"STATUS: archive_admin.py {'completed' if exit_code == 0 else 'failed'}\n"
         f"LOG: {rel(log_path)}\n",
         encoding="utf-8",
     )
-    return 0
+    return exit_code
 
 if __name__ == "__main__":
     raise SystemExit(main())
