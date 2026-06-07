@@ -1,5 +1,28 @@
-# Archive admin task manifest
-# Commands supported after bootstrap:
-# MKDIR path
-# COPY source destination
-# DELETE allowlisted_path
+TASK: APPEND_DASH_FILE
+FILE: ⚙️_LESSONS_LEARNED.txt
+TEXT:
+DATE: 2026-06-07
+PROBLEM: Direct GitHub connector edits can be inconsistent or blocked, especially for operational manifests or cleanup-looking content.
+CAUSE: Connector write permissions and safety checks may vary by path/content/context.
+SOLUTION: Prefer the Archive Admin request workflow. ChatGPT updates a small request file when possible; Nathan runs the existing Archive Admin workflow; the workflow performs bounded operations and writes logs.
+APPLIES TO: archive admin, cleanup, dashboard edits, AI tooling edits
+NOTES: Stable edit access should mean request-driven workflow access, not relying on direct connector writes.
+ENDTEXT
+
+TASK: APPEND_DASH_FILE
+FILE: ⚙️_LESSONS_LEARNED.txt
+TEXT:
+DATE: 2026-06-07
+PROBLEM: Workflow warnings about Node.js 20 deprecation appeared during Archive Admin runs.
+CAUSE: GitHub Actions checkout/setup-python actions targeted Node.js 20, but GitHub is forcing Node.js 24.
+SOLUTION: The warning is not currently a failure. Keep FORCE_JAVASCRIPT_ACTIONS_TO_NODE24 enabled in workflow env and monitor future action-version compatibility.
+APPLIES TO: .github/workflows/archive-admin.yml and other workflows using actions/checkout or actions/setup-python
+NOTES: Do not treat the deprecation warning as a failed run unless workflow logs show actual failure.
+ENDTEXT
+
+TASK: APPEND_DASH_FILE
+FILE: 📋_PRIORITY_TODO.txt
+SECTION: PARKING_LOT
+TEXT:
+Use Archive Admin request tasks for future dashboard/AI-folder edits instead of creating separate workflows for each action.
+ENDTEXT
