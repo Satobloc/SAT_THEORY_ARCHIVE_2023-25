@@ -2,6 +2,7 @@ name: Archive Admin
 
 on:
   workflow_dispatch:
+  push:
 
 permissions:
   contents: write
@@ -11,6 +12,7 @@ env:
 
 jobs:
   archive-admin:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
