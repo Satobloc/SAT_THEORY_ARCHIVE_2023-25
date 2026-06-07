@@ -33,8 +33,6 @@ jobs:
           """
           Archive Admin Tool
 
-          General request-driven admin utility for SAT archive control/tooling.
-
           Request file:
             ..[🎛️_NATHAN_DASH]/⚒️_ADMIN_TASK.txt
 
@@ -42,6 +40,7 @@ jobs:
             - May write/append freely inside .[⚙️_AI_FILES]/
             - May create missing placeholders in ..[🎛️_NATHAN_DASH]/
             - May append only to approved dashboard files
+            - May index requested repository folders
             - May perform named legacy-control cleanup tasks only by allowlist
             - Must log every run
           """
@@ -59,6 +58,7 @@ jobs:
           AI = ROOT / ".[⚙️_AI_FILES]"
           TASK = DASH / "⚒️_ADMIN_TASK.txt"
           LOG_DIR = AI / "LOGS" / "archive_admin"
+          INDEX_LOG_DIR = AI / "LOGS" / "folder_indexer"
 
           APPROVED_DASH_APPEND = {
               "⚙️_LESSONS_LEARNED.txt",
@@ -167,26 +167,32 @@ jobs:
           Append-only folder index blocks will appear below.
           """,
               "⚒️_ADMIN_TASK.txt": """# Archive Admin request file
-          # Examples:
-          #
-          # TASK: ENSURE_DASH_PLACEHOLDERS
-          #
-          # TASK: APPEND_DASH_FILE
-          # FILE: ⚙️_LESSONS_LEARNED.txt
-          # TEXT:
-          # DATE:
-          # PROBLEM:
-          # CAUSE:
-          # SOLUTION:
-          # APPLIES TO:
-          # NOTES:
-          # ENDTEXT
-          #
-          # TASK: WRITE_AI_FILE
-          # FILE: WORKFLOWS/example.txt
-          # TEXT:
-          # ...
-          # ENDTEXT
+
+          Examples:
+
+          TASK: ENSURE_DASH_PLACEHOLDERS
+
+          TASK: INDEX_FOLDER
+          TARGET: .[⚙️_AI_FILES]/_MIGRATION_HOLD
+          MAX_DEPTH: 3
+          MAX_ENTRIES: 2000
+
+          TASK: APPEND_DASH_FILE
+          FILE: ⚙️_LESSONS_LEARNED.txt
+          TEXT:
+          DATE:
+          PROBLEM:
+          CAUSE:
+          SOLUTION:
+          APPLIES TO:
+          NOTES:
+          ENDTEXT
+
+          TASK: WRITE_AI_FILE
+          FILE: WORKFLOWS/example.txt
+          TEXT:
+          ...
+          ENDTEXT
           """,
               "⚒️_FOLDER_INDEXER.txt": """TARGET_FOLDER: .
           INDEX_FILENAME: ..findex.txt
@@ -237,6 +243,11 @@ jobs:
           ]
 
           DELETE_ALLOWLIST_PREFIXES = set(LEGACY_CONTROL_PATHS)
+
+          SKIP_INDEX_NAMES = {
+              ".git",
+              "__pycache__",
+          }
 
           def utc_now() -> str:
               return datetime.now(timezone.utc).isoformat()
@@ -478,6 +489,122 @@ jobs:
                   return
               append_file(path, t.text, log)
 
+          def tree_lines(target: Path, max_depth: int, max_entries: int) -> tuple[list[str], list[str]]:
+              warnings: list[str] = []
+              lines: list[str] = []
+              count = 0
+
+              def visible_children(path: Path) -> list[Path]:
+                  try:
+                      children = [
+                          p for p in path.iterdir()
+                          if p.name not in SKIP_INDEX_NAMES
+                      ]
+                  except Exception as exc:
+                      warnings.append(f"Could not list {rel(path)}: {exc}")
+                      return []
+                  return sorted(children, key=lambda p: (not p.is_dir(), p.name.lower()))
+
+              def walk(path: Path, prefix: str, depth: int) -> None:
+                  nonlocal count
+                  if count >= max_entries:
+                      return
+                  children = visible_children(path)
+                  for i, child in enumerate(children):
+                      if count >= max_entries:
+                          return
+                      connector = "└── " if i == len(children) - 1 else "├── "
+                      suffix = "/" if child.is_dir() else ""
+                      lines.append(prefix + connector + child.name + suffix)
+                      count += 1
+                      if child.is_dir() and depth < max_depth:
+                          extension = "    " if i == len(children) - 1 else "│   "
+                          walk(child, prefix + extension, depth + 1)
+
+              root_label = rel(target) + "/"
+              lines.append(root_label)
+              walk(target, "", 0)
+              if count >= max_entries:
+                  warnings.append(f"Index truncated at MAX_ENTRIES={max_entries}")
+              return lines, warnings
+
+          def task_index_folder(t: TaskBlock, log: list[str]) -> None:
+              target_text = t.fields.get("TARGET", "").strip()
+              if not target_text:
+                  log.append("REFUSE INDEX_FOLDER missing TARGET")
+                  return
+
+              try:
+                  max_depth = int(t.fields.get("MAX_DEPTH", "2"))
+              except ValueError:
+                  max_depth = 2
+              try:
+                  max_entries = int(t.fields.get("MAX_ENTRIES", "2000"))
+              except ValueError:
+                  max_entries = 2000
+
+              target = safe_repo_path(target_text)
+              if not target.exists():
+                  log.append(f"REFUSE INDEX_FOLDER target missing: {target_text}")
+                  return
+              if not target.is_dir():
+                  log.append(f"REFUSE INDEX_FOLDER target not directory: {target_text}")
+                  return
+
+              lines, warnings = tree_lines(target, max_depth=max_depth, max_entries=max_entries)
+              generated = [
+                  "# Folder Index",
+                  "",
+                  "GENERATED_BY_FOLDER_INDEXER: YES",
+                  f"INDEXED_UTC: {utc_now()}",
+                  f"TARGET: {rel(target)}",
+                  f"MAX_DEPTH: {max_depth}",
+                  f"MAX_ENTRIES: {max_entries}",
+                  "",
+                  "```text",
+                  *lines,
+                  "```",
+                  "",
+              ]
+              if warnings:
+                  generated.extend(["Warnings:", *[f"- {w}" for w in warnings], ""])
+
+              index_path = target / "..findex.txt"
+              write_file(index_path, "\n".join(generated), log)
+
+              block = [
+                  "",
+                  "------------------------------------------------------------",
+                  f"INDEXED_UTC: {utc_now()}",
+                  f"TARGET: {rel(target)}",
+                  "```text",
+                  *lines,
+                  "```",
+                  "------------------------------------------------------------",
+                  "",
+              ]
+              append_file(DASH / "🗄️_ARCHIVE_INDEX.txt", "\n".join(block), log)
+
+              INDEX_LOG_DIR.mkdir(parents=True, exist_ok=True)
+              detail = [
+                  "FOLDER INDEX RUN",
+                  f"UTC: {utc_now()}",
+                  f"TARGET: {rel(target)}",
+                  f"MAX_DEPTH: {max_depth}",
+                  f"MAX_ENTRIES: {max_entries}",
+                  f"LOCAL_INDEX: {rel(index_path)}",
+                  "",
+                  "TREE:",
+                  *lines,
+                  "",
+              ]
+              if warnings:
+                  detail.extend(["WARNINGS:", *warnings, ""])
+              log_path = INDEX_LOG_DIR / f"folder_index_{stamp()}.txt"
+              log_path.write_text("\n".join(detail) + "\n", encoding="utf-8")
+              log.append(f"INDEX_FOLDER wrote {rel(index_path)}")
+              log.append(f"INDEX_FOLDER log {rel(log_path)}")
+
           def task_quarantine_legacy(log: list[str]) -> None:
               hold = AI / "_MIGRATION_HOLD"
               hold.mkdir(parents=True, exist_ok=True)
@@ -556,6 +683,8 @@ jobs:
                       task_write_ai_file(t, log)
                   elif t.task == "APPEND_AI_FILE":
                       task_append_ai_file(t, log)
+                  elif t.task == "INDEX_FOLDER":
+                      task_index_folder(t, log)
                   elif t.task == "QUARANTINE_LEGACY_CONTROL_FOLDERS":
                       task_quarantine_legacy(log)
                   elif t.task == "DELETE_LEGACY_CONTROL_FOLDERS_AFTER_QUARANTINE":
@@ -568,6 +697,7 @@ jobs:
 
           def main() -> int:
               LOG_DIR.mkdir(parents=True, exist_ok=True)
+              INDEX_LOG_DIR.mkdir(parents=True, exist_ok=True)
               log = ["ARCHIVE ADMIN RUN", f"UTC: {utc_now()}", ""]
 
               ensure_dashboard(log)
