@@ -1,0 +1,44 @@
+name: Index Folder
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.[🎛️_DASHBOARD]/⚒️_FOLDER_INDEXER.txt'
+      - '.[⚙️_AI_FILES]/TOOLS/index_folder.py'
+      - '.github/workflows/index-folder.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  index-folder:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run folder indexer
+        run: |
+          python '.[⚙️_AI_FILES]/TOOLS/index_folder.py' --settings '.[🎛️_DASHBOARD]/⚒️_FOLDER_INDEXER.txt'
+
+      - name: Commit folder index and logs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .
+          if git diff --cached --quiet; then
+            echo "No folder index changes to commit."
+          else
+            git commit -m "Update folder index"
+            git push
+          fi
