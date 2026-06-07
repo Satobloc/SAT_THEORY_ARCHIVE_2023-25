@@ -1,42 +1,17 @@
-name: Extract Nathan Corpus
+name: Extract Nathan Corpus (Legacy Disabled)
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - '.⚙️_AI_AUTOMATION_ADMIN/_AI_REQUESTS/nathan_corpus_extract_request.json'
-      - '.⚙️_AI_AUTOMATION_ADMIN/_TOOLS/extract_nathan_corpus_batched.py'
-      - '.github/workflows/extract-nathan-corpus.yml'
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  extract-nathan-corpus:
+  legacy-nathan-extraction-disabled:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Run batched Nathan corpus extractor
-        run: python '.⚙️_AI_AUTOMATION_ADMIN/_TOOLS/extract_nathan_corpus_batched.py'
-
-      - name: Commit generated corpus files
+      - name: Legacy workflow disabled
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add '..📚_NATHAN_WORDS_EXTRACTED'
-          if git diff --cached --quiet; then
-            echo "No corpus output changes to commit."
-          else
-            git commit -m "Update batched Nathan words extraction output"
-            git push
-          fi
+          echo "Legacy extract-nathan-corpus.yml is disabled."
+          echo "Its request/tool paths used legacy control folders."
+          echo "Use Archive Admin and the next-generation extractor workflow/tooling instead."
