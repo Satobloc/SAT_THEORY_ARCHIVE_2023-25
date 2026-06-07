@@ -145,3 +145,12 @@ SOLUTION: Use a commit-message guard instead: skip only when the head commit mes
 APPLIES TO: .github/workflows/archive-admin.yml and future request-driven workflows
 NOTES: Do not use actor-based bot guards when ChatGPT/connector commits need to trigger the workflow.
 ------------------------------------------------------------
+
+------------------------------------------------------------
+DATE: 2026-06-07
+PROBLEM: Archive Admin did not auto-run after ChatGPT updated the request file.
+CAUSE: The workflow used if: github.actor != 'github-actions[bot]', which can block connector-authored request commits as well as workflow self-commits.
+SOLUTION: Use a commit-message guard instead: skip only when the head commit message contains [skip archive-admin]. Make Archive Admin's own output commits include [skip archive-admin].
+APPLIES TO: .github/workflows/archive-admin.yml and future request-driven workflows
+NOTES: Do not use actor-based bot guards when ChatGPT/connector commits need to trigger the workflow.
+------------------------------------------------------------
