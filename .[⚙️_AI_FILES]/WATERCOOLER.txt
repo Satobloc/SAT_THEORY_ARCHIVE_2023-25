@@ -105,3 +105,24 @@ Preferred options:
 Also:
 Similar filenames are confusing and should be cleaned up, but they are not the same problem as invalid workflow path globbing.
 ------------------------------------------------------------
+
+------------------------------------------------------------
+2026-06-07 — Legacy workflow path-filter failure
+
+Diagnosis:
+The recurring "invalid paths patterns" error came from the old index_folder.yml workflow, not from Archive Admin and not from duplicate-ish filenames.
+
+Root cause:
+GitHub Actions push.paths entries are glob patterns. Literal folder names containing square brackets, emoji, and stale dashboard names can break parsing or become fragile.
+
+Norm:
+Do not use push.paths filters for bracketed/emoji control folders.
+
+Preferred options:
+1. Put trigger/request files under plain ASCII paths, or
+2. use broad push triggers with a github-actions[bot] loop guard, or
+3. keep legacy workflows manual-only/disabled and route routine work through Archive Admin.
+
+Also:
+Similar filenames are confusing and should be cleaned up, but they are not the same problem as invalid workflow path globbing.
+------------------------------------------------------------
