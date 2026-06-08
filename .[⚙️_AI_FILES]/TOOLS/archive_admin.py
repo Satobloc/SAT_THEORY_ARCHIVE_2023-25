@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import json
 import os
+import random
 import shutil
 import traceback
 from dataclasses import dataclass
@@ -590,14 +591,36 @@ def task_index_folder(t: TaskBlock, log: list[str]) -> None:
         log.append("REFUSE INDEX_FOLDER missing TARGET")
         return
 
-    try:
-        max_depth = int(t.fields.get("MAX_DEPTH", "2"))
-    except ValueError:
-        max_depth = 2
-    try:
-        max_entries = int(t.fields.get("MAX_ENTRIES", "2000"))
-    except ValueError:
-        max_entries = 2000
+    max_depth_raw = t.fields.get("MAX_DEPTH", "").strip()
+    if max_depth_raw:
+        try:
+            max_depth = int(max_depth_raw)
+        except ValueError:
+            max_depth = 2
+            log.append(f"WARN invalid MAX_DEPTH={max_depth_raw!r}; using fallback 2")
+        max_depth_requested = max_depth_raw
+        depth_selection_mode = "FIXED_EXPLICIT"
+    else:
+        max_depth = random.randint(2, 5)
+        max_depth_requested = "AUTO"
+        depth_selection_mode = "RANDOM_DEFAULT_2_TO_5"
+
+    max_entries_raw = t.fields.get("MAX_ENTRIES", "").strip()
+    if max_entries_raw:
+        try:
+            max_entries = int(max_entries_raw)
+        except ValueError:
+            max_entries = 500
+            log.append(f"WARN invalid MAX_ENTRIES={max_entries_raw!r}; using fallback 500")
+        max_entries_requested = max_entries_raw
+        entry_limit_selection_mode = "FIXED_EXPLICIT"
+    else:
+        max_entries = random.randint(500, 700)
+        max_entries_requested = "AUTO"
+        entry_limit_selection_mode = "RANDOM_DEFAULT_500_TO_700"
+
+    log.append(f"INDEX_DEFAULTS MAX_DEPTH_REQUESTED={max_depth_requested} MAX_DEPTH_USED={max_depth} DEPTH_SELECTION_MODE={depth_selection_mode}")
+    log.append(f"INDEX_DEFAULTS MAX_ENTRIES_REQUESTED={max_entries_requested} MAX_ENTRIES_USED={max_entries} ENTRY_LIMIT_SELECTION_MODE={entry_limit_selection_mode}")
 
     include_control = bool_field(t.fields.get("INCLUDE_CONTROL_FOLDERS"), default=False)
     include_generated = bool_field(t.fields.get("INCLUDE_GENERATED_INDEXES"), default=False)
@@ -624,8 +647,12 @@ def task_index_folder(t: TaskBlock, log: list[str]) -> None:
         "GENERATED_BY_FOLDER_INDEXER: YES",
         f"INDEXED_UTC: {utc_now()}",
         f"TARGET: {rel(target)}",
-        f"MAX_DEPTH: {max_depth}",
-        f"MAX_ENTRIES: {max_entries}",
+        f"MAX_DEPTH_REQUESTED: {max_depth_requested}",
+        f"MAX_DEPTH_USED: {max_depth}",
+        f"DEPTH_SELECTION_MODE: {depth_selection_mode}",
+        f"MAX_ENTRIES_REQUESTED: {max_entries_requested}",
+        f"MAX_ENTRIES_USED: {max_entries}",
+        f"ENTRY_LIMIT_SELECTION_MODE: {entry_limit_selection_mode}",
         f"INCLUDE_CONTROL_FOLDERS: {'YES' if include_control else 'NO'}",
         f"INCLUDE_GENERATED_INDEXES: {'YES' if include_generated else 'NO'}",
         "",
@@ -647,8 +674,12 @@ def task_index_folder(t: TaskBlock, log: list[str]) -> None:
         "------------------------------------------------------------",
         f"INDEXED_UTC: {utc_now()}",
         f"TARGET: {rel(target)}",
-        f"MAX_DEPTH: {max_depth}",
-        f"MAX_ENTRIES: {max_entries}",
+        f"MAX_DEPTH_REQUESTED: {max_depth_requested}",
+        f"MAX_DEPTH_USED: {max_depth}",
+        f"DEPTH_SELECTION_MODE: {depth_selection_mode}",
+        f"MAX_ENTRIES_REQUESTED: {max_entries_requested}",
+        f"MAX_ENTRIES_USED: {max_entries}",
+        f"ENTRY_LIMIT_SELECTION_MODE: {entry_limit_selection_mode}",
         f"INCLUDE_CONTROL_FOLDERS: {'YES' if include_control else 'NO'}",
         f"INCLUDE_GENERATED_INDEXES: {'YES' if include_generated else 'NO'}",
         "```text",
@@ -667,8 +698,12 @@ def task_index_folder(t: TaskBlock, log: list[str]) -> None:
         "FOLDER INDEX RUN",
         f"UTC: {utc_now()}",
         f"TARGET: {rel(target)}",
-        f"MAX_DEPTH: {max_depth}",
-        f"MAX_ENTRIES: {max_entries}",
+        f"MAX_DEPTH_REQUESTED: {max_depth_requested}",
+        f"MAX_DEPTH_USED: {max_depth}",
+        f"DEPTH_SELECTION_MODE: {depth_selection_mode}",
+        f"MAX_ENTRIES_REQUESTED: {max_entries_requested}",
+        f"MAX_ENTRIES_USED: {max_entries}",
+        f"ENTRY_LIMIT_SELECTION_MODE: {entry_limit_selection_mode}",
         f"INCLUDE_CONTROL_FOLDERS: {'YES' if include_control else 'NO'}",
         f"INCLUDE_GENERATED_INDEXES: {'YES' if include_generated else 'NO'}",
         f"LOCAL_INDEX: {rel(index_path)}",
