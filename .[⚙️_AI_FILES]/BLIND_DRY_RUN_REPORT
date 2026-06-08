@@ -1,0 +1,684 @@
+Below is a full dry-run report of what we did, what worked, what failed or lagged, what we learned, and what I’d recommend turning into standing archive practice.
+
+SAT Archive AI Wayfinding Dry Run Report
+
+Date: June 8, 2026
+Repository: Satobloc/SAT_THEORY_ARCHIVE_2023-25
+Participant / role: ChatGPT, archive-navigation and theoretical-analytics dry run
+Working signature used in archive summaries: Archived wayfinding dry run team
+Purpose: Test whether a fresh ChatGPT instance can enter the archive, follow the intended wayfinding/control layer, use repo-local archive tools, index theory folders, analyze documents, distinguish theory from workflow/speculation/noise, and leave durable breadcrumbs for future visitors.
+
+1. Executive summary
+
+The dry run was successful.
+
+We tested the archive not merely as a GitHub repo, but as a living research archive with AI-facing institutional memory, request workflows, indexing, extracted-text/PDF handling, and cumulative folder summaries.
+
+The system now demonstrably supports the following workflow:
+
+Read welcome/control docs
+→ choose theory folder
+→ request folder index
+→ verify Archive Admin log
+→ read index
+→ analyze selected documents
+→ distinguish physics core / workflow / speculation / transcript noise
+→ create ..folder_summary.txt
+→ verify summary
+→ leave notes for future archive users
+
+We completed this workflow for two theory folders:
+
+SAT X/
+SAT Mark V/
+
+We created and verified two archival wayfinding summaries:
+
+SAT X/..folder_summary.txt
+SAT Mark V/..folder_summary.txt
+
+We also tested the PDF workflow far enough to confirm that direct PDF reading through the GitHub connector is not reliable and that the archive’s existing PDF extraction bridge is the correct route. A PDF extraction request was created for:
+
+SAT Mark V/SAT_ATTEMPTED_FORMALIZATION.pdf
+
+The archive performed especially well as a fieldwork-style cumulative knowledge system: each pass can index, summarize, classify, and leave breadcrumbs. The biggest remaining needs are clearer task-schema documentation, better request lifecycle tracking, and explicit standards for folder/document summaries.
+
+2. Initial archive-entry experience
+
+We began by entering through the repository and then discovering the AI-facing control layer. The most important control folder was:
+
+.[⚙️_AI_FILES]/
+
+The wayfinding document identified that folder as the AI/tooling/institutional-memory control layer and gave a welcome sequence:
+
+🪧_WAYFINDING.txt
+ORIENTATION.txt
+INSTITUTIONAL_MAP.txt
+RESOURCES.txt
+WATERCOOLER.txt
+GUESTBOOK.txt
+SAT_THEORY_ROADMAP_AND_NEEDS.txt
+
+The wayfinding layer successfully established that the archive should not be read alphabetically or flattened. It should be treated as a sedimentary archive with current theory, old formulations, public-facing materials, audits, side branches, and fossils interleaved. The AI-facing docs also emphasized scoped claims and careful separation between observation, inference, speculation, derivation, empirical claim, and unknown.
+
+The roadmap gave a crucial principle: do not assess SAT globally from partial exposure. Any summary must state exactly what was reviewed and scope itself accordingly. It also framed SAT as a hypothesis to be reconstructed from minimal assumptions, not assumed as a premise.
+
+3. Front-page / README finding
+
+Later in the run, we read the repository front page, README.md.
+
+That clarified the archive’s self-concept dramatically. The README opens with:
+
+Welcome to the Glass Sausage Factory
+
+It explicitly frames the archive as an experiment in philosophy of science, creative low-stakes theorizing, and scientific transparency, while acknowledging messiness and LLM hyperbole.  ￼
+
+It also gives scale information: as of June 7, 2026, the repo had 126 commits, 772 changed files, and over 1.1 million additions.  ￼
+
+The README introduces SAT’s root-level intuitions: physicalized 4D worldlines as filaments, time as a wavefront/time surface, and particles as intersections of filaments with the time wavefront.  ￼
+
+It also states a conservative import posture: the Standard Model, General Relativity, and quantum mechanics are to be treated as essentially correct unless evidence or SAT’s internal logic forces otherwise, and imported into SAT with minimal change apart from conceptual translation.  ￼
+
+This front-page context should be part of the required welcome path. We therefore queued an Archive Admin request to append README guidance to RESOURCES.txt and ORIENTATION.txt.
+
+Status: request submitted, but not yet verified as processed at the time of this report.
+
+4. Tools and workflows tested
+
+4.1 GitHub connector file access
+
+Worked well for known text paths.
+
+Successful examples included:
+
+MAY_2026_SNAPSHOT.txt
+SAT_GLOSSARY_MODEL_INDEX_v9.txt
+.AI_READING_PLAN/READING_PLAN.md
+.[⚙️_AI_FILES]/...
+SAT X/SATMathAssay.txt
+SAT X/SATx HAMILTONIAN .txt
+SAT Mark V/SATv ATTEMPTED FORMALIZATION.txt
+README.md
+
+For small/medium text files, full-file reads were possible. For larger files, line-range chunking worked.
+
+4.2 Search
+
+Search was useful for finding signposts and likely files, but not reliable as a complete directory listing mechanism, especially for emoji/bracketed folders or broad PDF discovery.
+
+Search found the wayfinding layer and surfaced PDF/extracted-text clues, but folder indexing proved much more reliable for actual folder inventories.
+
+4.3 Archive Admin request workflow
+
+The Archive Admin workflow worked, but with expected asynchronous lag.
+
+We updated:
+
+.[⚙️_AI_FILES]/REQUESTS/archive_admin_task.txt
+
+to submit tasks such as:
+
+TASK: INDEX_FOLDER
+TARGET: SAT X
+...
+
+and:
+
+TASK: APPEND_AI_FILE
+FILE: WATERCOOLER.txt
+...
+
+The workflow then ran through GitHub Actions and wrote logs in:
+
+.[⚙️_AI_FILES]/LOGS/archive_admin/
+.[⚙️_AI_FILES]/LOGS/workflows/archive_admin_last_run.txt
+.[⚙️_AI_FILES]/LOGS/folder_indexer/
+
+The most important procedural lesson was: never assume a just-written request has already run. Always verify the actual task and target in the Archive Admin log.
+
+4.4 Folder indexer
+
+The folder indexer worked.
+
+It successfully indexed:
+
+.[⚙️_AI_FILES]/
+SAT X/
+SAT Mark V/
+
+For SAT X, the Archive Admin log confirmed:
+
+WRITE: SAT X/..findex.txt
+INDEX_FOLDER wrote SAT X/..findex.txt
+
+For SAT Mark V, the log confirmed:
+
+WRITE: SAT Mark V/..findex.txt
+INDEX_FOLDER wrote SAT Mark V/..findex.txt
+
+The generated folder-indexer log for SAT Mark V showed the complete tree and confirmed that the folder contained the target PDF:
+
+SAT Mark V/SAT_ATTEMPTED_FORMALIZATION.pdf
+
+and a nearby text companion:
+
+SAT Mark V/SATv ATTEMPTED FORMALIZATION.txt
+
+￼  ￼
+
+4.5 Request schema discovery
+
+We initially sent an incorrect index request using FOLDER instead of TARGET.
+
+The tool refused the malformed task, which is good safe behavior, but it exposed a documentation gap: the task schema was not clearly documented in the welcome/control docs. We had to inspect archive_admin.py to learn that INDEX_FOLDER expects TARGET.
+
+Recommended documentation addition:
+
+TASK: INDEX_FOLDER
+TARGET: <folder path>
+MAX_DEPTH: <integer>
+MAX_ENTRIES: <integer>
+INCLUDE_CONTROL_FOLDERS: YES/NO
+INCLUDE_GENERATED_INDEXES: YES/NO
+
+4.6 PDF handling
+
+Direct PDF reading through the GitHub connector was not reliable.
+
+For:
+
+SAT Mark V/SAT_ATTEMPTED_FORMALIZATION.pdf
+
+fetch_file in base64 mode returned only metadata/sha and no usable content, while fetch reported the file may be too large or unsupported.
+
+This confirmed the archive’s own prior documentation: GitHub-hosted PDFs should be processed through the repo’s extraction bridge, not read directly.
+
+The extraction workflow exists at:
+
+.github/workflows/extract-pdf-text.yml
+
+It watches:
+
+_AI_REQUESTS/pdf_extract_request.json
+
+and writes extracted text into:
+
+_AUTO_EXTRACTED_TEXT/
+
+The workflow uses PyMuPDF and falls back to OCR if text extraction is below threshold.  ￼  ￼
+
+We created the extraction request:
+
+{
+  "pdf_path": "SAT Mark V/SAT_ATTEMPTED_FORMALIZATION.pdf",
+  "requested_by": "ChatGPT",
+  "request_id": "2026-06-08_sat-mark-v_attempted-formalization_pdf_dry-run",
+  "ocr_threshold": 200,
+  "ocr_language": "eng"
+}
+
+Status: request submitted; extracted output was not visible yet when checked immediately, which is expected given async workflow behavior.
+
+5. Artifacts created in the archive
+
+5.1 SAT X/..folder_summary.txt
+
+Created and verified.
+
+This summary includes:
+	•	archival banner: “NOT PRIMARY THEORY MATERIAL”
+	•	target folder and index source
+	•	analysis mode and thoroughness level
+	•	folder contents overview
+	•	theory-building significance
+	•	history/development record
+	•	documents of note
+	•	derivation/formalism status
+	•	document-specific summary of SATx HAMILTONIAN .txt
+	•	numeric/empirical claims
+	•	trust/vetting notes
+	•	gold nuggets
+	•	what still needs cataloging
+	•	archivist/tool notes
+	•	summary signature
+
+The summary explicitly marks that SATx HAMILTONIAN .txt was read fully line-by-line and that many duplicate/podcast/interpreted variants were not yet read line-by-line.  ￼
+
+5.2 SAT Mark V/..folder_summary.txt
+
+Created and verified.
+
+This summary includes:
+	•	archival banner
+	•	folder contents and PDF target
+	•	do-not-globalize warning
+	•	discipline/delineation standard
+	•	placement/fit check
+	•	document note for SATv ATTEMPTED FORMALIZATION.txt
+	•	PDF target status
+	•	gold nuggets
+	•	what still needs cataloging
+	•	summary signature
+
+The summary explicitly warns that long conversation-derived files can contain AI proposals, Nathan guidance, exploratory tangents, speculative modules, public-facing phrasing, and core physics ideas all in the same document, and says not to summarize the folder as “SAT says X” unless the document is clearly current/canonical and cross-checked.  ￼
+
+It also introduced a four-layer summary standard:
+	1.	Physics core
+	2.	Theory-development / workflow history
+	3.	Speculative / peripheral modules
+	4.	Transcript / artifact noise
+
+￼
+
+6. Theory-folder analysis performed
+
+6.1 SAT X/
+
+Folder character
+
+SAT X/ appears to be a SAT-X revision/buildout packet. It contains status documents, addenda, canonical/module writeups, interpreted summaries, podcast-derived drafts, and one mathematical assay/critique.
+
+The folder has no indexed subfolders and consists of .txt files directly inside the folder.
+
+Core findings
+
+The folder captures a transition from earlier SAT formulations into SAT-X, framed as a pruning/reconciliation pass rather than a simple continuation. It keeps four core fields/structures:
+
+u^mu(x)      preferred foliation / objective time-flow field
+theta_4(x)  misalignment field; mass/inertial tension via sin^2(theta_4)
+tau(x)      Z3 topological twist/fusion structure
+psi(x)      internal phase for spin/flavor/click-rate modulation
+
+The SAT-X files treat older mechanisms as retained, generalized, optional, or discarded depending on whether they help recover known physics.
+
+Documents of note
+
+SATx STATE OF SAT.txt
+Prime Directive / SAT-X posture document.
+
+SATx PIECES.txt and SATx SPACKLECOAT.txt
+Ranked component maps of SAT-X.
+
+SATx HAMILTONIAN .txt
+Formal candidate reduced Hamiltonian.
+
+SATMathAssay.txt
+Internal/hostile mathematical audit.
+
+SATx LAST BRICK.txt
+Capstone/readiness claim.
+
+Close read: SATx HAMILTONIAN .txt
+
+This file was fully read, lines 1–238.
+
+It proposes a minimal 1+1D Hamiltonian for the \theta_4-\psi/u sector. It begins with a reduced Mark IV.2 Lagrangian and solves the unit-timelike constraint u_\mu u^\mu=-1 by introducing a rapidity-like field \psi, with:
+
+u^mu = (cosh psi, sinh psi)
+
+It derives canonical momenta and presents a final Hamiltonian density.  ￼
+
+The summary flags two possible mathematical issues:
+	1.	Legendre-transform issue: From
+\pi_\psi = 2\alpha\cosh^2(\psi)\dot{\psi},
+the Hamiltonian kinetic term would normally scale like
+\pi_\psi^2/(4\alpha\cosh^2\psi),
+but the document writes a term proportional to
+4\alpha\cosh^2\psi\,\pi_\psi^2.
+	2.	Potential-sign issue: The Hamiltonian includes +\mu^2\cos(3\theta_4). Around \theta_4=0, this appears to have negative quadratic curvature if read literally, yet the document reports a tachyon-free spectrum.
+
+The summary therefore classifies the file as a theory-building scaffold / candidate reduced Hamiltonian, not a trusted final simulation core.
+
+6.2 SAT Mark V/
+
+Folder character
+
+SAT Mark V/ is a much larger theory-development folder. The folder index showed around 90 direct entries, including:
+	•	formalization documents
+	•	test/prediction documents
+	•	satellite data and anomaly analysis
+	•	optics notes
+	•	particle spreadsheet material
+	•	role/workflow documents
+	•	podcast/public-facing drafts
+	•	topology/cobordism/moduli material
+	•	root-level philosophical/theoretical framing documents
+
+The folder contains an actual PDF:
+
+SAT_ATTEMPTED_FORMALIZATION.pdf
+
+and a likely text companion:
+
+SATv ATTEMPTED FORMALIZATION.txt
+
+Document of note: SATv ATTEMPTED FORMALIZATION.txt
+
+We performed a substantial partial read, roughly lines 1–900.
+
+The document begins by asking for three SAT summaries and then develops an early Mark V-era formulation of SAT around:
+	•	real continuous time-spanning filaments
+	•	time as a propagating wavefront
+	•	angular deviation as energy transfer
+	•	particles as filament excitations
+	•	forces as filament reorientations
+	•	spacetime curvature as tension geometry
+	•	empty space as aligned filament regions
+
+￼
+
+A key archival finding was Nathan’s guidance separating biology, cognition, thought, memory, and consciousness into a downstream sub-module and instructing that they be left out of core physical theory unless explicitly addressed.  ￼
+
+The document then builds:
+	•	an SAT toolkit organized by certainty/centrality
+	•	a dependency tree
+	•	a mapping to known physics
+	•	a constraint/leverage map across GR, QFT, SM, and string theory
+	•	a theory-space ranking by hard constraints, strong suggestions, and open promises
+	•	a comparative grid of mainstream and scientifically serious fringe theories
+	•	a constants-oriented structural analysis
+
+The summary classifies this document as Mark V-era developmental formalization conversation, not canonical current SAT.
+
+7. New summary standards established
+
+We effectively established a provisional archive standard for future folder summaries.
+
+7.1 Filename convention
+
+Folder summaries should be named:
+
+..folder_summary.txt
+
+They should sort near:
+
+..findex.txt
+
+and be visually distinct from primary theory material.
+
+7.2 Required banner
+
+Every such file should begin with something like:
+
+ARCHIVAL WAYFINDING / FOLDER CONTENTS SUMMARY
+NOT PRIMARY THEORY MATERIAL
+
+7.3 Required metadata
+
+Suggested minimum metadata:
+
+TARGET FOLDER:
+CREATED UTC:
+CREATED BY / ROLE:
+SIGNATURE:
+INDEX SOURCE:
+ANALYSIS MODE:
+THOROUGHNESS LEVEL:
+SCOPE LIMITATION:
+
+7.4 Required interpretive caution
+
+Avoid global claims.
+
+Bad:
+
+SAT says X.
+
+Better:
+
+This document explores X.
+This Mark V-era file develops X.
+The AI response proposes X.
+Nathan redirects the workflow toward X.
+This appears speculative/peripheral unless later formalized.
+
+7.5 Required layer separation
+
+For conversation-derived files, summaries should separate:
+
+Physics Core
+Theory-Development / Workflow History
+Speculative / Peripheral Modules
+Transcript / Artifact Noise
+
+This is probably the most important interpretive standard created in the dry run.
+
+7.6 Placement / fit check
+
+Every folder summary should include a placement check:
+
+Files that appear correctly placed
+Files that may be misplaced
+Duplicates or near-duplicates
+Generated/public-facing derivatives
+Files that should be cross-linked rather than moved
+Recommended archivist action
+
+The summary should be cautious and use labels such as:
+
+CONFIRMED MISPLACED
+POSSIBLY MISPLACED
+HISTORICALLY PLAUSIBLE HERE
+DUPLICATE / VARIANT
+GENERATED DERIVATIVE
+NEEDS CROSS-LINK
+UNKNOWN
+
+8. What worked especially well
+
+The archive’s conceptual design worked better than expected.
+
+The welcome/control layer gives a real operating manual.
+
+The folder indexer makes exploration cumulative.
+
+The ..folder_summary.txt convention works well and should be continued.
+
+The Archive Admin request workflow allows bounded changes without random direct editing.
+
+The folder summaries now act as visible field notes for future Nathan+ChatGPT sessions.
+
+The dry run demonstrated that a new instance can not only consume the archive but improve its navigability.
+
+9. Friction points and bugs / suspected bugs
+
+9.1 Async lag
+
+Archive Admin / GitHub Actions are asynchronous. Several times the most recent visible log reflected a previous request rather than the latest request.
+
+This is normal, but it needs to be made explicit.
+
+Recommended rule:
+
+Submit request
+→ check archive_admin_last_run.txt
+→ open linked log
+→ confirm TASK and TARGET
+→ only then proceed
+
+9.2 Request identity is weak
+
+Requests should include IDs/timestamps.
+
+Recommended future format:
+
+REQUEST_ID: 2026-06-08_satx_index_001
+TASK: INDEX_FOLDER
+TARGET: SAT X
+...
+
+Logs should echo:
+
+REQUEST_ID_USED:
+REQUEST_SOURCE_SHA:
+TASK:
+TARGET:
+STATUS:
+OUTPUT_FILES:
+
+9.3 Request files persist after processing
+
+Processed request files remain in place. This can create stale/rerun ambiguity.
+
+Recommended improvement:
+	•	archive processed request files, or
+	•	clear request file after success, or
+	•	write a processed marker with request ID and source SHA.
+
+9.4 ..findex.txt fetch weirdness
+
+Archive Admin reported writing:
+
+SAT X/..findex.txt
+
+but direct connector fetch initially returned 404, while the folder-indexer log contained the usable index.
+
+This should be diagnosed. Possibilities:
+	•	commit timing lag
+	•	connector path issue with ..findex.txt
+	•	path handling with spaces
+	•	generated file not visible immediately
+	•	GitHub API quirk
+
+9.5 Indexer task schema underdocumented
+
+The INDEX_FOLDER schema needed clearer docs. We initially used FOLDER, but the tool expects TARGET.
+
+9.6 PDF request location mismatch / migration note
+
+The current PDF extraction workflow watches root-level:
+
+_AI_REQUESTS/pdf_extract_request.json
+
+The migration-hold docs also contain older references under:
+
+.[⚙️_AI_FILES]/_MIGRATION_HOLD/_AI_REQUESTS/
+
+The live workflow confirms the root-level _AI_REQUESTS path. This should be made clear in current welcome docs.
+
+10. Recommendations
+
+10.1 Add ARCHIVE_ADMIN_TASKS.md
+
+Create a visible task-schema spellbook.
+
+Include:
+
+INDEX_FOLDER
+APPEND_AI_FILE
+APPEND_DASH_FILE
+PDF extraction request
+Text-folder combination request
+
+For each:
+	•	required fields
+	•	optional fields
+	•	example
+	•	output path
+	•	verification step
+	•	common failure modes
+
+10.2 Add README to required welcome path
+
+The repo front page should be explicitly recommended in AI welcome docs.
+
+Suggested reading order for new visitors:
+
+README.md
+.[⚙️_AI_FILES]/🪧_WAYFINDING.txt
+.[⚙️_AI_FILES]/ORIENTATION.txt
+.[⚙️_AI_FILES]/INSTITUTIONAL_MAP.txt
+.[⚙️_AI_FILES]/RESOURCES.txt
+.AI_READING_PLAN/READING_PLAN.md
+
+10.3 Make ..folder_summary.txt a standing convention
+
+Future folder passes should create or update:
+
+<folder>/..folder_summary.txt
+
+using the standard established in this dry run.
+
+10.4 Add a summary-template file
+
+Create:
+
+.[⚙️_AI_FILES]/SHARED_RESOURCES/FOLDER_SUMMARY_TEMPLATE.txt
+
+or similar.
+
+10.5 Add document-level summaries for especially important files
+
+For files like SATx HAMILTONIAN .txt, a folder summary may be enough at first. But truly foundational documents could later get their own:
+
+..doc_summary__SATx_HAMILTONIAN.txt
+
+or similar.
+
+10.6 Build analytical tools next
+
+The next archive-tool design phase should focus on automatic analysis support:
+	•	date extraction
+	•	SAT version tag extraction
+	•	speaker/user-guidance detection
+	•	duplicate/variant detection
+	•	document role classification
+	•	formalism/equation extraction
+	•	prediction/numeric claim extraction
+	•	“physics core vs speculation” labeling
+	•	folder-summary scaffolding
+
+10.7 Add global-claim warning to welcome docs
+
+This dry run strongly confirms the need for a warning:
+
+Do not summarize conversation-derived documents as “SAT says X.”
+Prefer document-scoped archival phrasing.
+
+11. Pending / incomplete items
+
+The PDF extraction request was submitted but not yet verified.
+
+Need to check later for:
+
+_AUTO_EXTRACTED_TEXT/SAT Mark V/SAT_ATTEMPTED_FORMALIZATION.txt
+
+If present, compare against:
+
+SAT Mark V/SATv ATTEMPTED FORMALIZATION.txt
+
+Need to verify whether the README recommendation append task has been processed by Archive Admin.
+
+Need to finish reading the remainder of SATv ATTEMPTED FORMALIZATION.txt.
+
+Need to analyze other SAT Mark V clusters:
+
+Formalization cluster
+Prediction/test cluster
+Topology/formal math cluster
+Optics/satellite cluster
+Public-facing/podcast cluster
+
+Need to diagnose the ..findex.txt direct-fetch behavior.
+
+12. Overall evaluation
+
+This dry run shows that the archive is not only accessible to AI, but improvable by AI in a controlled archival mode.
+
+The best model is not “ask AI to read the archive.” It is:
+
+AI enters as a field archivist.
+AI reads the welcome layer.
+AI indexes a target folder.
+AI scopes its claims.
+AI separates theory from process/speculation/noise.
+AI summarizes what it actually inspected.
+AI leaves a durable wayfinding artifact.
+
+That model worked.
+
+The archive’s biggest strength is that it preserves theory formation, not just theory output. Its biggest risk is that future readers or AI instances may flatten process into doctrine. The folder-summary standard directly addresses that risk.
+
+The dry run therefore produced both concrete artifacts and a reusable method.
+
+Final dry-run status: successful, with actionable improvements identified.
