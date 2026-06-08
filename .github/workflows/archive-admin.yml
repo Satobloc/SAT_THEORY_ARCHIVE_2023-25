@@ -34,12 +34,24 @@ jobs:
       - name: Commit archive admin results
         if: always()
         run: |
+          set +e
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add '..[🎛️_NATHAN_DASH]' '.[⚙️_AI_FILES]' '..findex.txt'
           if git diff --cached --quiet; then
             echo "No archive admin changes to commit."
-          else
-            git commit -m "Run archive admin [skip archive-admin]"
-            git push
+            exit 0
           fi
+          git commit -m "Run archive admin [skip archive-admin]"
+          COMMIT_STATUS=$?
+          if [ $COMMIT_STATUS -ne 0 ]; then
+            echo "Commit failed with status $COMMIT_STATUS"
+            exit 0
+          fi
+          git push
+          PUSH_STATUS=$?
+          if [ $PUSH_STATUS -ne 0 ]; then
+            echo "Push failed with status $PUSH_STATUS"
+            exit 0
+          fi
+          exit 0
