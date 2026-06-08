@@ -25,3 +25,6 @@ For routine archive operations, prefer request-file commits that automatically t
 
 Archive Admin request workflow preference:
 For routine archive operations, prefer request-file commits that automatically trigger Archive Admin on push. The workflow should guard against self-trigger loops with github.actor != 'github-actions[bot]'. Manual workflow_dispatch should remain available as a fallback.
+
+Front-page context note:
+Before drawing conclusions from folder-level documents, read the repository README.md. It is the public front page of the archive and provides essential context about the archive's purpose, roughness, experimental/philosophy-of-science framing, current scale, and root-level SAT intuitions. Treat it as orientation context, not as a substitute for scoped folder/document analysis.
