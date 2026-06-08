@@ -1,0 +1,142 @@
+Yes — our blind dry run covered most of that questionnaire, but not perfectly, because we went beyond it and also skipped a couple of “first-time visitor” constraints.
+
+Here’s the gap check:
+
+Questionnaire item	Did our blind dry run cover it?	Notes
+Start at .[⚙️_AI_FILES]/🪧_WAYFINDING.txt	✅ Mostly	We did find and read Wayfinding, but only after an initial repo/tool exploration. A strict test would start there immediately.
+Follow institutional documents naturally for 15–20 minutes	✅ Mostly	We read Wayfinding, Orientation, Institutional Map, Resources, Watercooler, Guestbook, Roadmap, and later README.
+1. What the archive control layer is for	✅ Yes	We identified it as AI/tooling/institutional-memory control layer and request/log/workflow hub.
+2. Documents read and order	✅ Mostly	We documented the welcome sequence and later tool/doc paths, but our dry-run report could list the exact order more cleanly.
+3. Where to find tools, logs, resources, tasks, dashboard notes	✅ Yes	We found TOOLS, LOGS, RESOURCES, REQUESTS, Nathan dashboard, Archive Admin, folder indexer, etc.
+4. What confused you	✅ Yes	We identified async lag, TARGET vs FOLDER, old/new PDF request locations, ..findex.txt fetch weirdness, sparse resources docs.
+5. Navigation/signage improvements	✅ Yes	We recommended ARCHIVE_ADMIN_TASKS.md, README in welcome path, folder-summary template, global-claim warning, request IDs.
+6. Whether next substantive work item was identifiable	⚠️ Partly	We identified several next work items, but we did not frame one cleanly as “the next substantive work item” after only reading the institutional docs. We picked work organically: index theory folders, summarize SAT X, then SAT Mark V, then PDF extraction.
+Do not modify files unless explicitly asked	✅ Yes	We only modified files after you explicitly asked us to leave notes/summaries and test posting.
+Do not use prior context	❌ Not applicable	We did have conversation/project memory and used your live guidance. A true questionnaire run should be a clean first-time visitor simulation.
+
+So the main things our blind dry run missed or softened relative to the questionnaire:
+
+First, it was not truly “do not use prior context.” I did bring in some familiarity with SAT and your archive from the ongoing conversation and memories. A clean test should force the visitor to infer only from the archive docs.
+
+Second, we did not keep the first phase limited to 15–20 minutes of institutional-doc reading before doing substantive work. We moved naturally into actual tool testing, indexing, and summaries, which was useful but broader than the questionnaire asks.
+
+Third, our final dry-run report should have a small section that says, very plainly: “After reading the institutional docs only, the next substantive work item I would choose is X.” We did identify next work items, but more as an evolving workflow than as a single answer to that prompt.
+
+Fourth, we didn’t cleanly list the institutional documents in actual read order in the final report. We listed them, but the questionnaire asks for order, and future test reports should include a strict ordered trail.
+
+Everything else, we basically hit — and in some ways exceeded, because we tested the request workflow, indexer, summary standard, PDF workflow, and actual archive modification path.
+
+.Yes — let’s close the loop by adding the missing “questionnaire-shaped” pieces to the dry-run record.
+
+Questionnaire Addendum to Blind Dry Run
+
+Important caveat: This was not a perfectly clean first-time visitor test. I did use some live conversational context and some existing familiarity with SAT. However, once we found the institutional layer, we did follow it naturally and tested whether it could orient a working AI visitor.
+
+1. What the archive control layer is for
+
+The archive control layer appears to be an AI-facing institutional memory and operations layer. Its purpose is not to explain SAT directly, but to tell future AI/human visitors how to behave in the archive.
+
+It provides:
+	•	orientation norms;
+	•	wayfinding;
+	•	tool locations;
+	•	request workflows;
+	•	logs;
+	•	shared resources;
+	•	dashboard links;
+	•	workflow etiquette;
+	•	reminders not to overclaim from partial exposure.
+
+The control layer is basically the archive’s “front desk + staff room + operations manual.”
+
+2. Institutional documents read, in practical order
+
+The clean ordered trail should be recorded as:
+
+README.md
+.[⚙️_AI_FILES]/🪧_WAYFINDING.txt
+.[⚙️_AI_FILES]/ORIENTATION.txt
+.[⚙️_AI_FILES]/INSTITUTIONAL_MAP.txt
+.[⚙️_AI_FILES]/RESOURCES.txt
+.[⚙️_AI_FILES]/WATERCOOLER.txt
+.[⚙️_AI_FILES]/GUESTBOOK.txt
+.[⚙️_AI_FILES]/SAT_THEORY_ROADMAP_AND_NEEDS.txt
+.AI_READING_PLAN/READING_PLAN.md
+
+Strictly speaking, in our actual run I found the README later, but after reading it, I think it belongs first or very near first.
+
+3. Whether tools, logs, resources, tasks, and dashboard notes were findable
+
+Yes.
+
+The main locations were understandable after reading the institutional docs:
+
+.[⚙️_AI_FILES]/TOOLS/
+.[⚙️_AI_FILES]/LOGS/
+.[⚙️_AI_FILES]/REQUESTS/
+.[⚙️_AI_FILES]/RESOURCES.txt
+..[🎛️_NATHAN_DASH]/
+
+Archive Admin and the folder indexer were findable, but their exact task schemas were not obvious enough from the welcome docs alone.
+
+4. What was confusing
+
+The confusing parts were:
+
+INDEX_FOLDER requires TARGET, not FOLDER.
+Archive Admin runs asynchronously, so logs may reflect a prior request.
+..findex.txt was reported written but was not always directly fetchable.
+PDF extraction uses a root-level _AI_REQUESTS path, while older/migration docs also mention other request locations.
+RESOURCES.txt was useful but sparse.
+Tool schemas were partly discoverable only by reading source code.
+
+5. Navigation/signage improvements
+
+Recommended improvements:
+
+Add README.md explicitly to the required welcome path.
+
+Create:
+.[⚙️_AI_FILES]/SHARED_RESOURCES/ARCHIVE_ADMIN_TASKS.md
+
+Create:
+.[⚙️_AI_FILES]/SHARED_RESOURCES/FOLDER_SUMMARY_TEMPLATE.txt
+
+Document:
+- INDEX_FOLDER schema
+- APPEND_AI_FILE schema
+- PDF extraction request schema
+- expected log locations
+- async lag warning
+- request verification procedure
+- global-claim caution for conversation-derived files
+
+Also add a standing warning:
+
+Do not summarize developmental documents as “SAT says X.”
+Use document-scoped archival language.
+
+6. Next substantive work item identifiable from institutional docs alone
+
+Yes. After reading the institutional docs, the next substantive work item should be:
+
+Pick a theory folder, index it, read the generated index, analyze a bounded set of documents, and create a ..folder_summary.txt with scope/thoroughness notes.
+
+For this dry run, the natural targets became:
+
+SAT X/
+SAT Mark V/
+
+In a clean first-time visitor run, I would identify the next work item as:
+
+Index one historically/theoretically important folder and create the first-pass folder summary using the archival standard.
+
+Final closure note
+
+So the dry run missed only three things relative to the questionnaire:
+
+It was not truly context-free.
+It did not begin with README.md, though README.md should now be first or near-first.
+It did not initially answer the “next substantive work item” as a single clean item before beginning work.
+
+Everything else was covered, and the actual dry run went further by testing indexing, logging, folder summaries, PDF extraction, and repo-visible breadcrumb creation.
