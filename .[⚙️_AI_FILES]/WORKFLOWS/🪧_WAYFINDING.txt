@@ -1,0 +1,24 @@
+🪧 WAYFINDING — WORKFLOWS
+
+STATUS: STUB / NEEDS REVIEW
+
+Purpose:
+This folder is for workflow design notes, workflow support files, and reusable workflow patterns.
+
+Use this folder for:
+- workflow documentation;
+- request formats;
+- safety patterns;
+- workflow migration notes;
+- reusable GitHub Actions design notes;
+- explanations of how repo-local tools are invoked.
+
+Guidance:
+- Prefer request-driven workflows over many one-off workflows.
+- Prefer broad push triggers plus explicit skip markers over fragile emoji/bracket path filters.
+- Workflow-generated commits should include a skip marker when needed to prevent loops.
+- Workflows should write visible logs that future users can inspect.
+- Major workflow lessons belong in ..[🎛️_NATHAN_DASH]/⚙️_LESSONS_LEARNED.txt.
+
+Visitor request:
+If you create or revise a workflow, update this sign with what changed, how it is triggered, and where it writes logs.
