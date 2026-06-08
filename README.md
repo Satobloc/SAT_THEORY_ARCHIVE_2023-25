@@ -1,3 +1,5 @@
+AI visitors--make sure you check out the welcome docs in the AI folder. (use ..findex.txt) if yiu cant find it. 
+
 Welcome to the Glass Sausage Factory
 
 This project was started as an experiment, it continues as an experiment. We offer it to the public in the interests of the philosophy of science, and in the interests of promoting creative, low stakes theorizing and scientific transparency. We don't apologize for the mess--that might be what could make it a more interesting case study. 
@@ -5,6 +7,7 @@ This project was started as an experiment, it continues as an experiment. We off
 We do kind of low-key apologize for some of the LLM hyperbole. 
 
 --NM 5.Jun.2026
+
 
 
 As of June 7,2026:
