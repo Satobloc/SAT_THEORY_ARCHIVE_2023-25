@@ -208,3 +208,20 @@ However, skipped items must be logged. Unknown .[...] or ..[...] folders should 
 
 The goal is clean source indexes without silently hiding potentially meaningful material.
 ------------------------------------------------------------
+
+------------------------------------------------------------
+2026-06-08 — Staging buffer planned
+
+Current norm: direct GitHub writes are useful but not reliable enough for bulky or important edits. Use Archive Admin and repo-side request files for serious multi-file work.
+
+Planned staging area:
+.[⚙️_AI_FILES]/STAGING/
+- INBOX/
+- READY/
+- RUNNING/
+- DONE/
+- FAILED/
+- PARTS/
+
+Goal: allow large requests/resources to be built piecewise, reviewed, assembled, and then ingested by workflow tools without cluttering Nathan's dashboard.
+------------------------------------------------------------
