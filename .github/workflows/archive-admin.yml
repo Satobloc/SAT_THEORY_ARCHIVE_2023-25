@@ -27,6 +27,37 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Patch randomized index defaults
+        run: |
+          python <<'PY'
+          from pathlib import Path
+
+          path = Path('.[⚙️_AI_FILES]/TOOLS/archive_admin.py')
+          text = path.read_text(encoding='utf-8')
+
+          if 'import random\n' not in text:
+              text = text.replace('import os\n', 'import os\nimport random\n')
+
+          old_block = '''    try:\n        max_depth = int(t.fields.get("MAX_DEPTH", "2"))\n    except ValueError:\n        max_depth = 2\n    try:\n        max_entries = int(t.fields.get("MAX_ENTRIES", "2000"))\n    except ValueError:\n        max_entries = 2000\n\n    include_control = bool_field(t.fields.get("INCLUDE_CONTROL_FOLDERS"), default=False)\n'''
+          new_block = '''    max_depth_raw = t.fields.get("MAX_DEPTH", "").strip()\n    if max_depth_raw:\n        try:\n            max_depth = int(max_depth_raw)\n        except ValueError:\n            max_depth = 2\n            log.append(f"WARN invalid MAX_DEPTH={max_depth_raw!r}; using fallback 2")\n        max_depth_requested = max_depth_raw\n        depth_selection_mode = "FIXED_EXPLICIT"\n    else:\n        max_depth = random.randint(2, 5)\n        max_depth_requested = "AUTO"\n        depth_selection_mode = "RANDOM_DEFAULT_2_TO_5"\n\n    max_entries_raw = t.fields.get("MAX_ENTRIES", "").strip()\n    if max_entries_raw:\n        try:\n            max_entries = int(max_entries_raw)\n        except ValueError:\n            max_entries = 500\n            log.append(f"WARN invalid MAX_ENTRIES={max_entries_raw!r}; using fallback 500")\n        max_entries_requested = max_entries_raw\n        entry_limit_selection_mode = "FIXED_EXPLICIT"\n    else:\n        max_entries = random.randint(500, 700)\n        max_entries_requested = "AUTO"\n        entry_limit_selection_mode = "RANDOM_DEFAULT_500_TO_700"\n\n    log.append(f"INDEX_DEFAULTS MAX_DEPTH_REQUESTED={max_depth_requested} MAX_DEPTH_USED={max_depth} DEPTH_SELECTION_MODE={depth_selection_mode}")\n    log.append(f"INDEX_DEFAULTS MAX_ENTRIES_REQUESTED={max_entries_requested} MAX_ENTRIES_USED={max_entries} ENTRY_LIMIT_SELECTION_MODE={entry_limit_selection_mode}")\n\n    include_control = bool_field(t.fields.get("INCLUDE_CONTROL_FOLDERS"), default=False)\n'''
+          if old_block in text:
+              text = text.replace(old_block, new_block)
+          elif 'max_depth_requested = "AUTO"' not in text:
+              raise SystemExit('Expected MAX_DEPTH/MAX_ENTRIES parsing block not found.')
+
+          text = text.replace(
+              '        f"MAX_DEPTH: {max_depth}",\n        f"MAX_ENTRIES: {max_entries}",',
+              '        f"MAX_DEPTH_REQUESTED: {max_depth_requested}",\n        f"MAX_DEPTH_USED: {max_depth}",\n        f"DEPTH_SELECTION_MODE: {depth_selection_mode}",\n        f"MAX_ENTRIES_REQUESTED: {max_entries_requested}",\n        f"MAX_ENTRIES_USED: {max_entries}",\n        f"ENTRY_LIMIT_SELECTION_MODE: {entry_limit_selection_mode}",'
+          )
+
+          text = text.replace(
+              '        f"MAX_DEPTH: {max_depth}",\n        f"MAX_ENTRIES: {max_entries}",',
+              '        f"MAX_DEPTH_REQUESTED: {max_depth_requested}",\n        f"MAX_DEPTH_USED: {max_depth}",\n        f"DEPTH_SELECTION_MODE: {depth_selection_mode}",\n        f"MAX_ENTRIES_REQUESTED: {max_entries_requested}",\n        f"MAX_ENTRIES_USED: {max_entries}",\n        f"ENTRY_LIMIT_SELECTION_MODE: {entry_limit_selection_mode}",'
+          )
+
+          path.write_text(text, encoding='utf-8')
+          PY
+
       - name: Run archive admin
         run: |
           python '.[⚙️_AI_FILES]/TOOLS/archive_admin.py'
