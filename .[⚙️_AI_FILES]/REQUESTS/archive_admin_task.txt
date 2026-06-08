@@ -1,6 +1,41 @@
-# Archive Admin AI-side request file.
-# Bulky/machine-oriented Archive Admin requests go here.
-# Dashboard-facing requests may still fall back to:
-# ..[🎛️_NATHAN_DASH]/⚒️_ADMIN_TASK.txt
+TASK: APPEND_DASH_FILE
+FILE: ⚙️_LESSONS_LEARNED.txt
+TEXT:
+DATE: 2026-06-08
+PROBLEM: Direct GitHub writes and large request payloads are hit-or-miss; bulky multi-file edits can be blocked or awkward to paste.
+CAUSE: Connector writes may be safety-filtered before reaching the repo, and large operational requests do not belong in Nathan's dashboard folder.
+SOLUTION: Prefer repo-side request tooling for significant edits. Use .[⚙️_AI_FILES]/REQUESTS/archive_admin_task.txt for bulky Archive Admin requests, and plan a STAGING buffer with INBOX/READY/RUNNING/DONE/FAILED/PARTS so large requests can be assembled piecewise and run through workflows.
+APPLIES TO: Archive Admin, future editing tools, signage/resource rollouts, extractor setup
+NOTES: Direct GitHub writes are opportunistic. Staged repo-side requests should become the reliable path for bulky, repeatable, or important edits.
+ENDTEXT
 
-# Idle: no active TASK blocks.
+TASK: APPEND_AI_FILE
+FILE: WATERCOOLER.txt
+TEXT:
+
+------------------------------------------------------------
+2026-06-08 — Staging buffer planned
+
+Current norm: direct GitHub writes are useful but not reliable enough for bulky or important edits. Use Archive Admin and repo-side request files for serious multi-file work.
+
+Planned staging area:
+.[⚙️_AI_FILES]/STAGING/
+- INBOX/
+- READY/
+- RUNNING/
+- DONE/
+- FAILED/
+- PARTS/
+
+Goal: allow large requests/resources to be built piecewise, reviewed, assembled, and then ingested by workflow tools without cluttering Nathan's dashboard.
+------------------------------------------------------------
+ENDTEXT
+
+TASK: APPEND_AI_FILE
+FILE: RESOURCES.txt
+TEXT:
+
+Staging / request infrastructure:
+- .[⚙️_AI_FILES]/REQUESTS/archive_admin_task.txt — primary AI-side Archive Admin request file for bulky/machine-oriented tasks.
+- Planned: .[⚙️_AI_FILES]/STAGING/ — staged editing/request buffer for large multi-part resources and workflow requests.
+ENDTEXT
