@@ -27,6 +27,38 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Patch archive admin request-source handling
+        run: |
+          python <<'PY'
+          from pathlib import Path
+
+          path = Path('.[⚙️_AI_FILES]/TOOLS/archive_admin.py')
+          text = path.read_text(encoding='utf-8')
+
+          text = text.replace(
+              'Request file:\n  ..[🎛️_NATHAN_DASH]/⚒️_ADMIN_TASK.txt',
+              'Request files:\n  Primary: .[⚙️_AI_FILES]/REQUESTS/archive_admin_task.txt\n  Fallback: ..[🎛️_NATHAN_DASH]/⚒️_ADMIN_TASK.txt'
+          )
+
+          text = text.replace(
+              'TASK = DASH / "⚒️_ADMIN_TASK.txt"\nLOG_DIR = AI / "LOGS" / "archive_admin"',
+              'AI_TASK = AI / "REQUESTS" / "archive_admin_task.txt"\nDASH_TASK = DASH / "⚒️_ADMIN_TASK.txt"\nLOG_DIR = AI / "LOGS" / "archive_admin"'
+          )
+
+          marker = 'def write_error_report(context: str, exc: BaseException, request_text: str = "") -> None:\n'
+          helper = '''def request_has_real_tasks(text: str) -> bool:\n    for raw_line in text.splitlines():\n        stripped = raw_line.strip()\n        if not stripped or stripped.startswith("#"):\n            continue\n        if stripped.upper().startswith("TASK:"):\n            return True\n    return False\n\ndef load_request_text(log: list[str]) -> str:\n    candidates = [\n        ("AI_PRIMARY", AI_TASK),\n        ("DASH_FALLBACK", DASH_TASK),\n    ]\n    for label, path in candidates:\n        if not path.exists():\n            log.append(f"REQUEST_SOURCE_MISSING {label}: {rel(path)}")\n            continue\n        text = path.read_text(encoding="utf-8")\n        if request_has_real_tasks(text):\n            log.append(f"REQUEST_SOURCE_USED {label}: {rel(path)}")\n            return text\n        log.append(f"REQUEST_SOURCE_IDLE {label}: {rel(path)}")\n    return ""\n\n'''
+          if helper.strip() not in text:
+              text = text.replace(marker, helper + marker)
+
+          old = '''    try:\n        ensure_dashboard(log)\n        if TASK.exists():\n            request_text = TASK.read_text(encoding="utf-8")\n        run_tasks(log, request_text)\n'''
+          new = '''    try:\n        ensure_dashboard(log)\n        (AI / "REQUESTS").mkdir(parents=True, exist_ok=True)\n        request_text = load_request_text(log)\n        run_tasks(log, request_text)\n'''
+          if old not in text:
+              raise SystemExit('Expected main request-loading block not found; archive_admin.py not patched.')
+          text = text.replace(old, new)
+
+          path.write_text(text, encoding='utf-8')
+          PY
+
       - name: Run archive admin
         run: |
           python '.[⚙️_AI_FILES]/TOOLS/archive_admin.py'
