@@ -2,8 +2,9 @@
 """
 Archive Admin Tool
 
-Request file:
-  ..[🎛️_NATHAN_DASH]/⚒️_ADMIN_TASK.txt
+Request files:
+  Primary: .[⚙️_AI_FILES]/REQUESTS/archive_admin_task.txt
+  Fallback: ..[🎛️_NATHAN_DASH]/⚒️_ADMIN_TASK.txt
 
 Permissions:
   - May write/append freely inside .[⚙️_AI_FILES]/
@@ -28,7 +29,8 @@ from pathlib import Path
 ROOT = Path(os.environ.get("GITHUB_WORKSPACE", ".")).resolve()
 DASH = ROOT / "..[🎛️_NATHAN_DASH]"
 AI = ROOT / ".[⚙️_AI_FILES]"
-TASK = DASH / "⚒️_ADMIN_TASK.txt"
+AI_TASK = AI / "REQUESTS" / "archive_admin_task.txt"
+DASH_TASK = DASH / "⚒️_ADMIN_TASK.txt"
 LOG_DIR = AI / "LOGS" / "archive_admin"
 INDEX_LOG_DIR = AI / "LOGS" / "folder_indexer"
 ERROR_DIR = AI / "LOGS" / "errors"
@@ -258,6 +260,31 @@ def copy_any(src: Path, dst: Path) -> str:
         return f"COPY_TREE {rel(src)} -> {rel(dst)}"
     shutil.copy2(src, dst)
     return f"COPY_FILE {rel(src)} -> {rel(dst)}"
+
+def request_has_real_tasks(text: str) -> bool:
+    for raw_line in text.splitlines():
+        stripped = raw_line.strip()
+        if not stripped or stripped.startswith("#"):
+            continue
+        if stripped.upper().startswith("TASK:"):
+            return True
+    return False
+
+def load_request_text(log: list[str]) -> str:
+    candidates = [
+        ("AI_PRIMARY", AI_TASK),
+        ("DASH_FALLBACK", DASH_TASK),
+    ]
+    for label, path in candidates:
+        if not path.exists():
+            log.append(f"REQUEST_SOURCE_MISSING {label}: {rel(path)}")
+            continue
+        text = path.read_text(encoding="utf-8")
+        if request_has_real_tasks(text):
+            log.append(f"REQUEST_SOURCE_USED {label}: {rel(path)}")
+            return text
+        log.append(f"REQUEST_SOURCE_IDLE {label}: {rel(path)}")
+    return ""
 
 def write_error_report(context: str, exc: BaseException, request_text: str = "") -> None:
     ERROR_DIR.mkdir(parents=True, exist_ok=True)
@@ -730,8 +757,8 @@ def main() -> int:
 
     try:
         ensure_dashboard(log)
-        if TASK.exists():
-            request_text = TASK.read_text(encoding="utf-8")
+        (AI / "REQUESTS").mkdir(parents=True, exist_ok=True)
+        request_text = load_request_text(log)
         run_tasks(log, request_text)
     except Exception as exc:
         write_error_report("main", exc, request_text)
