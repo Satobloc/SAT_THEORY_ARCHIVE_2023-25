@@ -1,0 +1,22 @@
+🪧 WAYFINDING — CURSORS
+
+STATUS: STUB / NEEDS REVIEW
+
+Purpose:
+This folder is for state files used by bounded/resumable archive tools.
+
+Cursors may track:
+- crawl position;
+- processed files;
+- pending batches;
+- output part counters;
+- resumable extraction/indexing state.
+
+Guidance:
+- Cursor files are operational state, not archive source material.
+- Do not delete or edit a cursor unless you understand which tool uses it.
+- If a tool is restarted intentionally, document whether the cursor should be preserved, archived, or reset.
+- Tools using cursors should log their cursor path and resume/reset behavior.
+
+Visitor request:
+If you build or revise a resumable tool, document its cursor behavior here or in the tool’s own documentation.
