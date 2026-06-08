@@ -171,6 +171,8 @@ AI_BASE_DIRS = [
     "CURSORS",
     "LOGS",
     "TEMP",
+    "REQUESTS",
+    "SHARED_RESOURCES",
     "_MIGRATION_HOLD",
     "LOGS/archive_admin",
     "LOGS/workflows",
@@ -196,11 +198,14 @@ ALWAYS_SKIP_NAMES = {
     "__pycache__",
 }
 
+
 def utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
+
 def stamp() -> str:
     return datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
+
 
 def rel(path: Path) -> str:
     try:
@@ -208,10 +213,12 @@ def rel(path: Path) -> str:
     except Exception:
         return str(path)
 
+
 def bool_field(value: str | None, default: bool = False) -> bool:
     if value is None or value == "":
         return default
     return value.strip().upper() in {"YES", "Y", "TRUE", "1", "ON"}
+
 
 def safe_repo_path(text: str) -> Path:
     p = (ROOT / text).resolve()
@@ -219,13 +226,16 @@ def safe_repo_path(text: str) -> Path:
         raise ValueError(f"Refusing path outside repository: {text}")
     return p
 
+
 def inside(path: Path, root: Path) -> bool:
     path = path.resolve()
     root = root.resolve()
     return path == root or root in path.parents
 
+
 def ensure_parent(path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
+
 
 def write_if_missing(path: Path, content: str, log: list[str]) -> None:
     ensure_parent(path)
@@ -235,19 +245,23 @@ def write_if_missing(path: Path, content: str, log: list[str]) -> None:
     path.write_text(content, encoding="utf-8")
     log.append(f"CREATE: {rel(path)}")
 
+
 def append_file(path: Path, text: str, log: list[str]) -> None:
     ensure_parent(path)
     with path.open("a", encoding="utf-8") as f:
         f.write(text.rstrip() + "\n")
     log.append(f"APPEND: {rel(path)}")
 
+
 def write_file(path: Path, text: str, log: list[str]) -> None:
     ensure_parent(path)
     path.write_text(text.rstrip() + "\n", encoding="utf-8")
     log.append(f"WRITE: {rel(path)}")
 
+
 def deletion_allowed(path_text: str) -> bool:
     return any(path_text == p or path_text.startswith(p + "/") for p in DELETE_ALLOWLIST_PREFIXES)
+
 
 def copy_any(src: Path, dst: Path) -> str:
     dst.parent.mkdir(parents=True, exist_ok=True)
@@ -261,6 +275,7 @@ def copy_any(src: Path, dst: Path) -> str:
     shutil.copy2(src, dst)
     return f"COPY_FILE {rel(src)} -> {rel(dst)}"
 
+
 def request_has_real_tasks(text: str) -> bool:
     for raw_line in text.splitlines():
         stripped = raw_line.strip()
@@ -269,6 +284,7 @@ def request_has_real_tasks(text: str) -> bool:
         if stripped.upper().startswith("TASK:"):
             return True
     return False
+
 
 def load_request_text(log: list[str]) -> str:
     candidates = [
@@ -285,6 +301,7 @@ def load_request_text(log: list[str]) -> str:
             return text
         log.append(f"REQUEST_SOURCE_IDLE {label}: {rel(path)}")
     return ""
+
 
 def write_error_report(context: str, exc: BaseException, request_text: str = "") -> None:
     ERROR_DIR.mkdir(parents=True, exist_ok=True)
@@ -311,11 +328,13 @@ def write_error_report(context: str, exc: BaseException, request_text: str = "")
     with (ERROR_DIR / "archive_admin_error_history.jsonl").open("a", encoding="utf-8") as f:
         f.write(json.dumps(hist, ensure_ascii=False) + "\n")
 
+
 @dataclass
 class TaskBlock:
     task: str
     fields: dict[str, str]
     text: str = ""
+
 
 def parse_tasks(raw: str) -> list[TaskBlock]:
     lines = raw.splitlines()
@@ -374,6 +393,7 @@ def parse_tasks(raw: str) -> list[TaskBlock]:
     finish_current()
     return tasks
 
+
 def ensure_dashboard(log: list[str]) -> None:
     DASH.mkdir(parents=True, exist_ok=True)
     (DASH / "[📘_EXTRACTED]").mkdir(parents=True, exist_ok=True)
@@ -395,16 +415,21 @@ GENERATED_BY_FOLDER_INDEXER: YES
 ```text
 .[⚙️_AI_FILES]/
 ├── ..findex.txt
+├── 🪧_WAYFINDING.txt
+├── INSTITUTIONAL_MAP.txt
 ├── ORIENTATION.txt
 ├── WATERCOOLER.txt
 ├── RESOURCES.txt
+├── GUESTBOOK.txt
 ├── SAT_THEORY_ROADMAP_AND_NEEDS.txt
 ├── PROJECTS/
 ├── TOOLS/
 ├── WORKFLOWS/
+├── REQUESTS/
 ├── CURSORS/
 ├── LOGS/
 ├── TEMP/
+├── SHARED_RESOURCES/
 └── _MIGRATION_HOLD/
 ```
 """,
@@ -448,6 +473,7 @@ Starting from minimal accepted representational grammar and explicit assumptions
         log,
     )
 
+
 def task_append_dash_file(t: TaskBlock, log: list[str]) -> None:
     filename = t.fields.get("FILE", "").strip()
     if filename not in APPROVED_DASH_APPEND:
@@ -469,6 +495,7 @@ def task_append_dash_file(t: TaskBlock, log: list[str]) -> None:
     else:
         append_file(path, "\n------------------------------------------------------------\n" + text + "\n------------------------------------------------------------", log)
 
+
 def task_write_ai_file(t: TaskBlock, log: list[str]) -> None:
     filename = t.fields.get("FILE", "").strip()
     if not filename:
@@ -479,6 +506,7 @@ def task_write_ai_file(t: TaskBlock, log: list[str]) -> None:
         log.append(f"REFUSE WRITE_AI_FILE outside AI folder: {filename}")
         return
     write_file(path, t.text, log)
+
 
 def task_append_ai_file(t: TaskBlock, log: list[str]) -> None:
     filename = t.fields.get("FILE", "").strip()
@@ -491,8 +519,10 @@ def task_append_ai_file(t: TaskBlock, log: list[str]) -> None:
         return
     append_file(path, t.text, log)
 
+
 def is_control_like_dir(path: Path) -> bool:
     return path.is_dir() and (path.name.startswith(".[") or path.name.startswith("..["))
+
 
 def skip_reason(path: Path, include_control: bool, include_generated: bool) -> str | None:
     if path.name in ALWAYS_SKIP_NAMES:
@@ -505,6 +535,7 @@ def skip_reason(path: Path, include_control: bool, include_generated: bool) -> s
             return "SKIPPED_EXPECTED_CONTROL"
         return "SKIPPED_POSSIBLE_CONTROL_COLLISION"
     return None
+
 
 def tree_lines(target: Path, max_depth: int, max_entries: int, include_control: bool, include_generated: bool) -> tuple[list[str], list[str], list[str]]:
     warnings: list[str] = []
@@ -551,6 +582,7 @@ def tree_lines(target: Path, max_depth: int, max_entries: int, include_control: 
     if count >= max_entries:
         warnings.append(f"Index truncated at MAX_ENTRIES={max_entries}")
     return lines, warnings, skipped
+
 
 def task_index_folder(t: TaskBlock, log: list[str]) -> None:
     target_text = t.fields.get("TARGET", "").strip()
@@ -654,6 +686,7 @@ def task_index_folder(t: TaskBlock, log: list[str]) -> None:
     log.append(f"INDEX_FOLDER wrote {rel(index_path)}")
     log.append(f"INDEX_FOLDER log {rel(log_path)}")
 
+
 def task_quarantine_legacy(log: list[str]) -> None:
     hold = AI / "_MIGRATION_HOLD"
     hold.mkdir(parents=True, exist_ok=True)
@@ -662,6 +695,7 @@ def task_quarantine_legacy(log: list[str]) -> None:
         dst_name = src_text.replace("/", "__")
         dst = hold / dst_name
         log.append(copy_any(src, dst))
+
 
 def task_delete_legacy(log: list[str]) -> None:
     for path_text in LEGACY_CONTROL_PATHS:
@@ -678,6 +712,7 @@ def task_delete_legacy(log: list[str]) -> None:
         else:
             target.unlink()
             log.append(f"DELETE_FILE {path_text}")
+
 
 def run_legacy_line(line: str, log: list[str]) -> None:
     parts = line.split()
@@ -710,11 +745,8 @@ def run_legacy_line(line: str, log: list[str]) -> None:
     else:
         log.append(f"UNKNOWN LEGACY LINE: {line}")
 
-def run_tasks(log: list[str], request_text: str) -> None:
-    if not TASK.exists():
-        log.append(f"No task file found: {rel(TASK)}")
-        return
 
+def run_tasks(log: list[str], request_text: str) -> None:
     tasks = parse_tasks(request_text)
     if not tasks:
         log.append("No tasks parsed.")
@@ -746,6 +778,7 @@ def run_tasks(log: list[str], request_text: str) -> None:
             log.append(f"ERROR in task {t.task}: {type(exc).__name__}: {exc}")
             write_error_report(f"TASK {t.task}", exc, request_text)
             raise
+
 
 def main() -> int:
     LOG_DIR.mkdir(parents=True, exist_ok=True)
@@ -781,6 +814,7 @@ def main() -> int:
         encoding="utf-8",
     )
     return exit_code
+
 
 if __name__ == "__main__":
     raise SystemExit(main())
