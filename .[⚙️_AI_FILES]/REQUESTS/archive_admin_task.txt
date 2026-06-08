@@ -1,33 +1,46 @@
-TASK: APPEND_DASH_FILE
-FILE: ⚙️_LESSONS_LEARNED.txt
-TEXT:
-DATE: 2026-06-08
-PROBLEM: Direct GitHub writes and large request payloads are hit-or-miss; bulky multi-file edits can be blocked or awkward to paste.
-CAUSE: Connector writes may be safety-filtered before reaching the repo, and large operational requests do not belong in Nathan's dashboard folder.
-SOLUTION: Prefer repo-side request tooling for significant edits. Use .[⚙️_AI_FILES]/REQUESTS/archive_admin_task.txt for bulky Archive Admin requests, and plan a STAGING buffer with INBOX/READY/RUNNING/DONE/FAILED/PARTS so large requests can be assembled piecewise and run through workflows.
-APPLIES TO: Archive Admin, future editing tools, signage/resource rollouts, extractor setup
-NOTES: Direct GitHub writes are opportunistic. Staged repo-side requests should become the reliable path for bulky, repeatable, or important edits.
-ENDTEXT
-
 TASK: APPEND_AI_FILE
 FILE: WATERCOOLER.txt
 TEXT:
 
 ------------------------------------------------------------
-2026-06-08 — Staging buffer planned
+2026-06-08 — AI control-layer navigation test
 
-Current norm: direct GitHub writes are useful but not reliable enough for bulky or important edits. Use Archive Admin and repo-side request files for serious multi-file work.
+ChatGPT successfully followed the welcome path in .[⚙️_AI_FILES]/:
+- 🪧_WAYFINDING.txt
+- ORIENTATION.txt
+- INSTITUTIONAL_MAP.txt
+- RESOURCES.txt
+- WATERCOOLER.txt
+- GUESTBOOK.txt
+- SAT_THEORY_ROADMAP_AND_NEEDS.txt
 
-Planned staging area:
-.[⚙️_AI_FILES]/STAGING/
-- INBOX/
-- READY/
-- RUNNING/
-- DONE/
-- FAILED/
-- PARTS/
+Observed workflow behavior:
+- Direct path fetches worked for buried emoji/bracketed control files.
+- Search was useful for finding the wayfinding file but less reliable for enumerating the control folder.
+- Resource scrolling worked for longer fetched files.
+- The documented norm is correct: use welcome docs first, then dashboard/index/logs, then source files.
 
-Goal: allow large requests/resources to be built piecewise, reviewed, assembled, and then ingested by workflow tools without cluttering Nathan's dashboard.
+Suggested follow-up for Archive Admin:
+- Create or refresh an index for .[⚙️_AI_FILES]/, including REQUESTS, LOGS, SHARED_RESOURCES, TOOLS, and any STAGING folders.
+- Add a short note that GitHub connector search may not reliably enumerate emoji/bracketed control folders; explicit path indexes are preferred.
+
+This entry is a live-system test marker showing that the AI welcome/control layer is discoverable and usable from ChatGPT.
+------------------------------------------------------------
+ENDTEXT
+
+TASK: APPEND_AI_FILE
+FILE: GUESTBOOK.txt
+TEXT:
+
+------------------------------------------------------------
+DATE: 2026-06-08
+INSTANCE / MODEL / ROLE: ChatGPT, archive navigation/tooling test visitor
+WORKFLOW / PROJECT: AI control-layer discovery and request-file workflow test
+THEORY VERSION OR FORMALISM CONTEXT: Archive operations; no global SAT assessment attempted
+CURRENT DEVELOPMENT STATE: AI welcome/control layer is discoverable and usable; explicit path fetches work better than folder enumeration/search for emoji/bracketed control folders.
+WHAT I WORKED ON: Read WAYFINDING, ORIENTATION, INSTITUTIONAL_MAP, RESOURCES, WATERCOOLER, GUESTBOOK, and SAT_THEORY_ROADMAP_AND_NEEDS; confirmed the intended Archive Admin request-file norm; submitted this request-file marker.
+WHAT FUTURE USERS SHOULD KNOW: Start with .[⚙️_AI_FILES]/🪧_WAYFINDING.txt. Treat the welcome docs as the operating manual before reading theory files. Use indexes/logs/request files rather than repeatedly rescanning or making broad direct edits.
+RELATED FILES / RESOURCES: .[⚙️_AI_FILES]/🪧_WAYFINDING.txt; .[⚙️_AI_FILES]/ORIENTATION.txt; .[⚙️_AI_FILES]/INSTITUTIONAL_MAP.txt; .[⚙️_AI_FILES]/REQUESTS/archive_admin_task.txt
 ------------------------------------------------------------
 ENDTEXT
 
@@ -35,7 +48,6 @@ TASK: APPEND_AI_FILE
 FILE: RESOURCES.txt
 TEXT:
 
-Staging / request infrastructure:
-- .[⚙️_AI_FILES]/REQUESTS/archive_admin_task.txt — primary AI-side Archive Admin request file for bulky/machine-oriented tasks.
-- Planned: .[⚙️_AI_FILES]/STAGING/ — staged editing/request buffer for large multi-part resources and workflow requests.
+Navigation / indexing note:
+- 2026-06-08 ChatGPT test run: direct GitHub connector fetches work well for known paths inside .[⚙️_AI_FILES]/, including emoji/bracketed filenames. Search can find the wayfinding file but should not be treated as a complete folder index. For reliable AI navigation, maintain explicit indexes and welcome documents.
 ENDTEXT
