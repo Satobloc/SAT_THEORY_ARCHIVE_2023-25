@@ -1,0 +1,55 @@
+# PYTHON Math Locking (SAT.O) — Folder Summary
+
+Date: 2026-06-09
+Reader: ChatGPT
+Scope: SAT.O structure-lock/code-lock layer sampled during archive review.
+
+## High-level role
+
+This folder preserves the SAT.O “structure-locking” layer. In this context, code locking does not primarily mean proof or verification. It means freezing a module's core mathematical definitions into executable symbolic Python structures, usually with SymPy, before downstream derivations rely on them.
+
+Corrected definition:
+
+    Code locking / structure locking = turning a SAT.O module's conceptual and mathematical primitives into fixed executable symbolic objects so later derivations cannot silently drift.
+
+## Files sampled
+
+- `SAT_O1_structure_lock.py`
+  - Defines O1 objects:
+    - hyperhelical filament embedding gamma(lambda)
+    - tangent vector v = dgamma/dlambda
+    - transverse perturbation xi
+    - canonical momentum placeholder pi
+    - Hamiltonian integrand H = (1/2m) pi dot pi + V_tension(xi)
+  - Writes a generated module to `/mnt/data/SAT_O1_structure_lock.py` and instructs upload to Project Files so definitions can be locked before derivations proceed.
+
+- `SAT_O2_structure_lock.py`
+  - Defines O2 objects:
+    - coordinates x0...x3
+    - emergent co-metric g_tilde
+    - inverse metric g
+    - Christoffel symbols Gamma from g_tilde/g
+  - Writes generated symbolic module for later use.
+
+- `SAT_O4_structure_lock.py`
+  - Defines O4 objects:
+    - phase binding condition phi_i - phi_j = 2*pi*k/n
+    - maximum stable bundle size n_max = 3
+    - topological invariant Q = L_wind + L_link + W_writhe
+  - Provides a `get_structure()` function returning the locked definitions.
+
+## Process interpretation
+
+The intended SAT.O process appears to be:
+
+    module prose
+    -> symbolic structure-lock code
+    -> derivation files
+    -> audit / verification / protocol checks
+    -> synthesis paper
+
+The structure-lock step is important because it stabilizes definitions before an LLM or assistant begins deriving from them. It is an anti-drift mechanism, not a proof of truth.
+
+## Relation to SAT.O
+
+This folder helps explain why SAT.O was the high watermark for process discipline. It attempted to create a reader-verifiable, executable trail from SAT concepts to formal derivations. Even where the derivations are later superseded or judged bridge-like, the process architecture remains historically important.
