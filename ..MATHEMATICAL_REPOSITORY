@@ -1,0 +1,865 @@
+# SAT Mathematical Repository
+
+Status: living clearinghouse / visitor-maintained
+Created: 2026-06-08
+Created by: ChatGPT dry-run visitor, at Nathan McKnight's request
+
+Purpose:
+This file is intended to serve as a central index of important equations, numerical relationships, extraction formulas, and mathematical claims found across the SAT archive. It is not itself a proof document. It records where equations were found, what they appear to mean, and what kind of follow-up is needed.
+
+Use this file as a clearinghouse, not as canon. Each entry should preserve provenance.
+
+Recommended entry fields:
+- Equation / relationship
+- Plain-language role
+- Source file
+- Source location / section / lines if known
+- Date or era if known
+- Status: current, historical, draft, speculative, needs audit, superseded, or unknown
+- Notes / open questions
+
+---
+
+## ENTRY 001 — Projection Constant B: geometric definition
+
+Equation:
+
+```text
+B = 3 / (4π) ≈ 0.23873241
+```
+
+Plain-language role:
+Geometric definition of the Projection Constant B. In several SAT documents, B functions as a primary scaling / projection / gear-ratio constant connecting 4D geometry, projection effects, mass hierarchy, critical velocity, and metrological recovery.
+
+Provenance:
+- Source file: `MAY_2026_SNAPSHOT.txt`
+- Location: Geometric Invariants section
+- Text: Projection Constant listed with geometric origin `B_0 = 3/4π ≈ 0.238732`; renormalized physical eigenvalue `B_stable ≈ 0.24177`.
+- Dry-run citation: `turn38file0`, lines 31–37.
+
+Additional provenance:
+- Source file: `_AUTO_EXTRACTED_TEXT/% BIG PAPER (nolat).txt`
+- Source PDF: `% BIG PAPER (nolat).pdf`
+- Location: Emergent Invariants and Zero-Parameter Economy / Derivation of the Projection Constant
+- Text: `B = 3/(4π) ≈ 0.23873241`; described as minimal angular separation permitted by lattice geometry and setting `v_crit = B · c`.
+- Dry-run citation: `turn61file0`, lines 119–130.
+
+Additional provenance:
+- Source file: `_AUTO_EXTRACTED_TEXT/FINAL.txt`
+- Source PDF: `FINAL.pdf`
+- Location: Section 1.3, Derivation of the Projection Constant
+- Text: `B = 3/(4π) ≈ 0.23873241 rad`; described as derived from projected 3D volume / total manifold surface density and as a primary scaling factor for mass hierarchy.
+- Dry-run citation: `turn51file0`, lines 211–224.
+
+Status:
+Needs audit. Appears central and recurring. Distinguish geometric value `B_0 ≈ 0.238732` from renormalized/stabilized value `B_stable ≈ 0.24177` where used.
+
+Notes / open questions:
+- Determine whether `B_stable` is derived, fitted, calibrated, or inferred.
+- Track all formulas in which B appears, especially mass ratio, critical velocity, phase snap, and scattering surplus.
+
+---
+
+## ENTRY 002 — Projection Constant B: scattering-surplus extraction
+
+Equation:
+
+```text
+B = (σ_exp − σ_KN) / ℓ_f²
+```
+
+Given values in source:
+
+```text
+ℓ_f ≈ 0.7937 fm
+σ_exp − σ_KN ≈ 0.1504 fm²
+B ≈ 0.2387 rad
+```
+
+Plain-language role:
+Empirical / experimental extraction pathway for B. The source frames B as recoverable from a high-energy scattering surplus in dense molecular lattices, normalized by the square of the filament scale. This may be important for resolving recent Projection Constant calculation issues.
+
+Provenance:
+- Source file: `_AUTO_EXTRACTED_TEXT/% BIG PAPER (nolat).txt`
+- Source PDF: `% BIG PAPER (nolat).pdf`
+- Extraction metadata: Request ID `2026-05-30T-big-paper-nolat`; extracted with PyMuPDF; 7 pages; 8790 characters.
+- Location: Experimental Predictions and Methodology / Signal Isolation: Extraction of the Projection Constant (B)
+- Dry-run citation: `turn62file0`, lines 1–14.
+
+Status:
+Important / needs audit. Marked during second dry run as potentially misplaced and relevant to recent B-calculation issues.
+
+Notes / open questions:
+- Verify source/context against PDF layout if needed.
+- Identify what `σ_KN` denotes in this SAT usage. It likely refers to a Klein–Nishina baseline, but confirm from surrounding documents before using.
+- Check dimensional consistency: `(fm²)/(fm²)` is dimensionless, while source labels recovered B as approximately `0.2387 rad`.
+- Determine whether `σ_exp − σ_KN ≈ 0.1504 fm²` comes from a data source, example calculation, fit, or placeholder.
+- Compare this empirical extraction route against geometric `B = 3/(4π)` and any `B_stable` renormalization.
+
+---
+
+## ENTRY 003 — Critical velocity threshold
+
+Equation:
+
+```text
+v_crit = B · c ≈ 0.2387 c
+```
+
+Plain-language role:
+SAT threshold separating continuous perceived motion from a discretized or staccato regime, with stability maintained through the Achromatic Phase Snap.
+
+Provenance:
+- Source file: `_AUTO_EXTRACTED_TEXT/FINAL.txt`
+- Source PDF: `FINAL.pdf`
+- Location: Section 1.2, Metric Recovery and Lorentzian Emergence
+- Text: `vcrit = B · c ≈ 0.2387c`; above this threshold motion enters a discretized / staccato regime, stabilized by Achromatic Phase Snap.
+- Dry-run citation: `turn51file0`, lines 195–210.
+
+Additional provenance:
+- Source file: `_AUTO_EXTRACTED_TEXT/% BIG PAPER (nolat).txt`
+- Source PDF: `% BIG PAPER (nolat).pdf`
+- Location: Metric Foundation and Lorentzian Recovery
+- Dry-run citation: `turn61file0`, lines 77–84 and 124–130.
+
+Status:
+Needs audit. Recurs in formal/presentation-layer documents.
+
+Notes / open questions:
+- Clarify whether this is intended as physical velocity, projection threshold, lattice transition, or formal/geometric threshold.
+- Connect to Achromatic Phase Snap entry.
+
+---
+
+## ENTRY 004 — Achromatic Phase Snap Φ
+
+Equation / value:
+
+```text
+Φ ≈ 0.246 rad ≈ 14.1°
+```
+
+Plain-language role:
+Discrete angular/phase transition required for metric continuity, holonomy closure, and/or lattice-boundary stability when misalignment reaches a geometric corner.
+
+Provenance:
+- Source file: `MAY_2026_SNAPSHOT.txt`
+- Location: Geometric Invariants
+- Text: Achromatic Phase Snap `Φ ≈ 0.246 rad (14.1°)` required for metric continuity at lattice boundaries.
+- Dry-run citation: `turn38file0`, lines 31–37.
+
+Additional provenance:
+- Source file: `SAT_CONCEPTS__May2026.txt`
+- Location: Geometric Discretization and Stability
+- Text: `Achromatic Phase Snap (Φ): A discrete 0.246 rad (14.1°) jump required to maintain metric continuity when θ₄ reaches the lattice Geometric Corner.`
+- Dry-run citation: `turn39file0`, lines 15–20.
+
+Additional provenance:
+- Source file: `_AUTO_EXTRACTED_TEXT/FINAL.txt`
+- Source PDF: `FINAL.pdf`
+- Location: Section 1.2, Metric Recovery and Lorentzian Emergence
+- Text: Phase Snap `Φ ≈ 14.1°` maintains holonomy closure and worldline stability.
+- Dry-run citation: `turn51file0`, lines 204–210.
+
+Status:
+Central / needs derivation audit.
+
+Notes / open questions:
+- Track relationship between Φ, B, θ₄, Dirac CP phase lock, phase snaps, and 24-cell / HSUCV lattice.
+- Confirm whether `0.246 rad` is derived from B, geometric cornering, empirical fit, or separate invariant.
+
+---
+
+## ENTRY 005 — Filament scale ℓ_f
+
+Equation / value:
+
+```text
+ℓ_f ≈ 0.7937 fm
+```
+
+Plain-language role:
+Characteristic filament scale used in metrological recoveries, B scattering-surplus extraction, and dimensional normalization.
+
+Provenance:
+- Source file: `MAY_2026_SNAPSHOT.txt`
+- Location: Geometric Invariants
+- Text: `Filament Scale (ℓ_f): ℓ_f ≈ 0.7937 fm.`
+- Dry-run citation: `turn38file0`, lines 31–37.
+
+Additional provenance:
+- Source file: `_AUTO_EXTRACTED_TEXT/% BIG PAPER (nolat).txt`
+- Source PDF: `% BIG PAPER (nolat).pdf`
+- Location: notation standards and B extraction section
+- Text: `\ell_f ≈ 0.7937 fm`; used in `B = (σ_exp − σ_KN)/ℓ_f²`.
+- Dry-run citation: `turn61file0`, lines 27–31; `turn62file0`, lines 1–14.
+
+Status:
+Needs audit.
+
+Notes / open questions:
+- Determine derivation source for ℓ_f.
+- Determine whether ℓ_f is independent, derived from m0/B/ℏ, fitted, or chosen from nuclear scale.
+
+---
+
+## ENTRY 006 — Proton–electron mass ratio from B
+
+Equation as represented in May 2026 text:
+
+```text
+μ = (3 / (2 B^5)) · (1 + δ_elastic) ≈ 1836.152673
+```
+
+Plain-language role:
+Claimed structural derivation/recovery of the proton–electron mass ratio from Projection Constant B with an elastic correction.
+
+Provenance:
+- Source file: `MAY_2026_SNAPSHOT.txt`
+- Location: Dimensionless Ratios and Species Mapping
+- Text: `Proton–Electron Mass Ratio (μ): μ = 3/(2B^5) · (1 + δ_elastic) ≈ 1836.152673.`
+- Dry-run citation: `turn38file0`, lines 43–47.
+
+Additional provenance:
+- Source file: `SAT_CONCEPTS__May2026.txt`
+- Location: Metrological Scaling and Particle Hierarchies
+- Same expression listed.
+- Dry-run citation: `turn39file0`, lines 27–31.
+
+Additional provenance / caution:
+- Source file: `_AUTO_EXTRACTED_TEXT/FINAL.txt`
+- Source PDF: `FINAL.pdf`
+- Location: Section 1.3, Derivation of the Projection Constant
+- OCR/layout appears to mangle the exact formula around this item, but text says substituting B yields `μ ≈ 1836.152` matching CODATA.
+- Dry-run citation: `turn51file0`, lines 221–236.
+
+Status:
+Important / needs audit.
+
+Notes / open questions:
+- Verify exact formula visually from PDF or cleaner source because OCR may mangle exponents/factors.
+- Determine status and derivation of `δ_elastic`.
+- Distinguish exact geometric recovery from fitted/stabilized correction.
+
+---
+
+## ENTRY 007 — Mass as θ₄ / projective resistance / energy transfer
+
+Equation / relationship:
+
+```text
+Mass or matter-energy instantiation is a function of θ₄, the angle of intersection/misalignment between filament/worldline and time surface/timesheet.
+```
+
+Possible early notation from notebook, as described during dry run:
+
+```text
+E_T → E_M(θ₄)
+```
+
+Plain-language role:
+Core SAT mass bridge. Greater filament/timesheet misalignment or intersection angle corresponds to greater energy transfer / projective resistance / mass instantiation.
+
+Provenance:
+- Source file: `THE LOGIC OF SAT.txt`
+- Location: Explanations of Physical Phenomena within SAT Geometry / Mass
+- Text: gross or absolute angle of intersection `theta_4` is a primary contributor to imparting mass, understood as energetic transfer from wavefront to filaments; greater angle means more energy transferred and more mass instantiated.
+- Dry-run citation: `turn42file0`, lines 31–37.
+
+Additional provenance:
+- Source: user-provided handwritten notebook images during second dry run
+- Date visible/reported: 15 Apr. 2025
+- Content as described in dry run: θ₄ shown as angle between filament/vacuum structure and time/energy surface; nonzero flux / matter energy expressed as a function of θ₄.
+- Status: private/notebook evidence; not yet repo-indexed in this file.
+
+Additional provenance:
+- Source file: `SAT_CONCEPTS__May2026.txt`
+- Location: Mechanical Mass Generation and Metrics
+- Text: Mass as Projective Resistance; inertia as mechanical back-push generated by dot product of filament tangent and timesheet unit normal.
+- Dry-run citation: `turn39file0`, lines 9–14.
+
+Status:
+Central / current concept with early private provenance.
+
+Notes / open questions:
+- Create formal equation index for θ₄ variants across archive.
+- Distinguish early notebook/conceptual origin from public statement and formal consolidation.
+- Connect to older formal expression `m = τ_μ v^μ` in `SAT_GLOSSARY_MODEL_INDEX_v9.txt`.
+
+---
+
+## ENTRY 008 — Older formal mass expression
+
+Equation:
+
+```text
+m = τ_μ v^μ
+```
+
+Plain-language role:
+Older formal/gauge-geometric layer expression of mass as scalar invariant: contraction of time 1-form with worldline tangent. Possibly a formal ancestor or coordinate-language counterpart of later θ₄/projective-resistance mass bridge.
+
+Provenance:
+- Source file: `SAT_GLOSSARY_MODEL_INDEX_v9.txt`
+- Location: SAT 20 Glossary and Model Index
+- Text: `τ` defined as smooth, nowhere-vanishing 1-form / time volume element; `m` defined as `m = τ_μ v^μ`.
+- Dry-run citation: `turn41file0`, lines 8–16.
+
+Status:
+Historical/formal bridge / needs mapping.
+
+Notes / open questions:
+- Determine whether this expression is superseded, equivalent, or complementary to θ₄ mass/projective resistance.
+- Useful bridge to conventional differential geometry language.
+
+---
+
+## ENTRY 009 — Master SAT Lagrangian: May 2026 compact form
+
+Equation:
+
+```text
+L_SAT = (κ/2)|H''(λ)|²
+      + α(Ḣ · T̂)²
+      + Σ_j κ F_braid
+      + (1/2) E_f (|dλ/dX| − L_0)²
+      + T_hist
+```
+
+Plain-language role:
+Compact master action / Lagrangian form combining bending/torsion, timewave coupling/projective resistance, braid interaction, filamental elasticity, and historical tension.
+
+Provenance:
+- Source file: `MAY_2026_SNAPSHOT.txt`
+- Location: The Master Action (Lagrangian) and Trajectory Generation
+- Dry-run citation: `turn38file0`, lines 15–25.
+
+Status:
+Important / current-ish May 2026 compact formulation; needs formal audit.
+
+Notes / open questions:
+- Verify notation against later PDFs or most recent archive material.
+- Determine which terms are derived, assumed, fitted, or schematic.
+- Compare to `FINAL.pdf` ontological and operationalized Lagrangians.
+
+---
+
+## ENTRY 010 — Ontological Master Lagrangian from FINAL.pdf
+
+Equation as extracted/OCR-rendered:
+
+```text
+L_SAT = Σ_{i,o} [ (1/(2 μ_i)) |dH/dλ|² + Σ_j κ F_braid + α(dH/dλ · T)² + V_geom(λ) ]
+```
+
+Plain-language role:
+Ontological Lagrangian for fundamental filamental dynamics in the 4D bulk before projection into observable physical histories.
+
+Provenance:
+- Source file: `_AUTO_EXTRACTED_TEXT/FINAL.txt`
+- Source PDF: `FINAL.pdf`
+- Location: Preface / Ontological Master Lagrangian
+- Text describes terms: topological inertia, braid force, expansion coupling, geometric potential.
+- Dry-run citation: `turn51file0`, lines 60–118.
+
+Status:
+Important but OCR-sensitive. Needs visual/formula verification.
+
+Notes / open questions:
+- Confirm exact denominator/factor and summation notation from PDF image.
+- Compare against May 2026 compact Lagrangian and later 4DHH Lagrangian documents.
+
+---
+
+## ENTRY 011 — Operationalized Master Lagrangian / Geometric Transform Analysis
+
+Equation:
+
+```text
+L_total = (κ/2)|H''(λ)|²
+        + (λ_s/2)(|H|² − R²(λ))²
+        + (k/2)|H(λ) − G(λ)|²
+```
+
+Plain-language role:
+Operationalized Lagrangian used for Geometric Transform Analysis: finding efficient/minimal-action derivation paths between theoretical regimes by converting logical effort into mechanical bending energy.
+
+Provenance:
+- Source file: `_AUTO_EXTRACTED_TEXT/FINAL.txt`
+- Source PDF: `FINAL.pdf`
+- Location: Preface / Operationalized Master Lagrangian
+- Dry-run citation: `turn51file0`, lines 119–153.
+
+Additional provenance:
+- Source file: `_AUTO_EXTRACTED_TEXT/% BIG PAPER (nolat).txt`
+- Source PDF: `% BIG PAPER (nolat).pdf`
+- Location: Formalism / Total SAT Lagrangian and Coefficient Mapping
+- Dry-run citation: `turn61file0`, lines 101–118.
+
+Status:
+Important / needs audit.
+
+Notes / open questions:
+- Distinguish physical ontology use from derivational/path-optimization use.
+- Determine whether `k` is a free parameter or functional of overlap/Obscuration Constant as claimed in `FINAL.pdf`.
+
+---
+
+## ENTRY 012 — Harmonic resonance / quantum click relation
+
+Equation(s):
+
+```text
+κ ω⁴ + 2 λ_s r_h² = 0
+```
+
+and/or, as extracted from FINAL.pdf:
+
+```text
+ω⁴ = −(2 λ_s r_h²) / κ
+```
+
+Plain-language role:
+Defines stable frequency / quantum click rate / harmonic resonance condition from balancing bending resistance and restoring manifold tension.
+
+Provenance:
+- Source file: `MAY_2026_SNAPSHOT.txt`
+- Location: Dynamics, Stability, and Discretization / Quantum Click Rate
+- Dry-run citation: `turn38file0`, lines 61–72.
+
+Additional provenance:
+- Source file: `SAT_CONCEPTS__May2026.txt`
+- Location: Geometric Discretization and Stability / Quantum Click Rate
+- Dry-run citation: `turn39file0`, lines 15–20.
+
+Additional provenance:
+- Source file: `_AUTO_EXTRACTED_TEXT/FINAL.txt`
+- Source PDF: `FINAL.pdf`
+- Location: Preface / Unification and Metric Stability
+- Dry-run citation: `turn51file0`, lines 154–170.
+
+Status:
+Needs audit.
+
+Notes / open questions:
+- Sign convention needs review because equation gives negative RHS for positive κ, λ_s, r_h² unless λ_s has sign convention or complex/oscillatory interpretation.
+- Determine relation to time flow, discrete temporal flow, and phase snap.
+
+---
+
+## ENTRY 013 — Z₃ Fusion Gate
+
+Equation:
+
+```text
+Σ τ_i ≡ 0 mod 3
+```
+
+Plain-language role:
+Stability constraint for vertices/fusion: stable vertices require net null torsion under Z₃.
+
+Provenance:
+- Source file: `MAY_2026_SNAPSHOT.txt`
+- Location: Dynamics, Stability, and Discretization / Z₃ Fusion Gate
+- Dry-run citation: `turn38file0`, lines 69–72.
+
+Additional provenance:
+- Source file: `SAT_CONCEPTS__May2026.txt`
+- Location: Geometric Discretization and Stability
+- Dry-run citation: `turn39file0`, lines 15–20.
+
+Status:
+Important / needs derivation and mapping to particle sectors.
+
+Notes / open questions:
+- Connect to quark/baryon/meson mappings, confinement-like behavior, and generation/interference factors.
+
+---
+
+## ENTRY 014 — Homecoming Circuit / Dirac CP phase lock
+
+Equation / relationship:
+
+```text
+Full trifold rotation = 1080° = 6π rad
+72 phase snaps restore baseline holonomy
+Dirac CP Phase Lock = 270.0° = 3π/2 rad
+```
+
+Plain-language role:
+Holonomy / phase-snap closure relation linking internal rotation, discrete phase snaps, and the claimed Dirac CP phase recovery.
+
+Provenance:
+- Source file: `MAY_2026_SNAPSHOT.txt`
+- Location: Dynamics, Stability, and Discretization / Homecoming Circuit
+- Dry-run citation: `turn38file0`, lines 69–72.
+
+Additional provenance:
+- Source file: `SAT_CONCEPTS__May2026.txt`
+- Location: Geometric Discretization and Stability / 1080° Homecoming Circuit
+- Dry-run citation: `turn39file0`, lines 15–20.
+
+Status:
+Important / needs audit.
+
+Notes / open questions:
+- Verify exact derivation and whether phase-snap count `72` comes from `1080° / 15°`, `6π / Φ`, lattice combinatorics, or another mechanism.
+- Compare Φ = 14.1° against 72 snaps over 1080°; direct division gives 15°, so the relation may involve correction/renormalization or different snap definition.
+
+---
+
+## ENTRY 015 — Neutrino-photon pseudomass relation
+
+Equation:
+
+```text
+m_γ = m_ν · cos²(B) · B⁴ · ρ_embed ≈ 10⁻²³ eV
+```
+
+Plain-language role:
+Claimed relation mapping photon pseudomass to neutrino mass, Projection Constant B, and lattice attenuation coefficient.
+
+Provenance:
+- Source file: `MAY_2026_SNAPSHOT.txt`
+- Location: Dimensionless Ratios and Species Mapping
+- Dry-run citation: `turn38file0`, lines 43–47.
+
+Status:
+Speculative / needs audit.
+
+Notes / open questions:
+- Clarify whether this is intended as an effective/pseudo-mass, physical photon mass, propagation correction, or sector-mapping relation.
+- Determine source/derivation of `ρ_embed`.
+
+---
+
+## ENTRY 016 — Lattice attenuation coefficient
+
+Value:
+
+```text
+ρ_embed ≈ 10⁻¹⁹
+```
+
+Plain-language role:
+Statistical / embedding attenuation coefficient used to scale raw 4D tension or sector effects down to observed gravitational or pseudomass limits.
+
+Provenance:
+- Source file: `SAT_CONCEPTS__May2026.txt`
+- Location: Metrological Scaling and Particle Hierarchies
+- Text: `Lattice Attenuation Coefficient (ρ_embed ≈ 10^-19): A statistical filter scaling raw 4D tension to the observed Newtonian gravitational limit.`
+- Dry-run citation: `turn39file0`, lines 27–31.
+
+Additional provenance:
+- Source file: `MAY_2026_SNAPSHOT.txt`
+- Location: Physical Constants Recovery and neutrino-photon relation
+- Used in G and photon pseudomass relations.
+- Dry-run citation: `turn38file0`, lines 38–47.
+
+Status:
+Needs audit; likely high-priority parameter-risk item.
+
+Notes / open questions:
+- Determine whether `ρ_embed` is derived or fitted.
+- Audit whether it functions as a hidden free parameter.
+
+---
+
+## ENTRY 017 — Gravitational constant recovery
+
+Equation as given:
+
+```text
+G = ρ_embed² · (c² ℓ_f / m_0) ≈ 6.674 × 10⁻¹¹ m³/(kg·s²)
+```
+
+Plain-language role:
+Claimed recovery of Newtonian gravitational constant from lattice attenuation, speed of light, filament scale, and universal mass anchor.
+
+Provenance:
+- Source file: `MAY_2026_SNAPSHOT.txt`
+- Location: Physical Constants Recovery
+- Dry-run citation: `turn38file0`, lines 38–42.
+
+Status:
+Important / needs dimensional and parameter audit.
+
+Notes / open questions:
+- Check dimensional consistency and value using stated m0, ℓ_f, ρ_embed.
+- Determine derivation/source of `m0`, `ℓ_f`, and `ρ_embed`.
+
+---
+
+## ENTRY 018 — Reduced Planck constant recovery
+
+Equation:
+
+```text
+ℏ = m_0 c ℓ_f B ≈ 1.054 × 10⁻³⁴ J·s
+```
+
+Plain-language role:
+Claimed recovery of reduced Planck constant from universal mass anchor, speed of light, filament scale, and Projection Constant.
+
+Provenance:
+- Source file: `MAY_2026_SNAPSHOT.txt`
+- Location: Physical Constants Recovery
+- Dry-run citation: `turn38file0`, lines 38–42.
+
+Status:
+Important / needs audit.
+
+Notes / open questions:
+- Check numerical consistency with stated `m0 ≈ 1.0073 × 10^-27 kg`, `ℓ_f ≈ 0.7937 fm`, and B.
+- Determine whether this equation defines ℓ_f, m0, or predicts ℏ.
+
+---
+
+## ENTRY 019 — Fine structure constant recovery
+
+Equation:
+
+```text
+α ≈ [E_turn / (T · ℓ_f)] · (1 − δ_elastic) ≈ 1/137.036
+```
+
+Plain-language role:
+Claimed recovery of fine structure constant from turning energy, raw tension, filament scale, and elastic correction.
+
+Provenance:
+- Source file: `MAY_2026_SNAPSHOT.txt`
+- Location: Physical Constants Recovery
+- Dry-run citation: `turn38file0`, lines 38–42.
+
+Status:
+Important / needs audit.
+
+Notes / open questions:
+- Define and trace `E_turn`, `T`, and `δ_elastic`.
+- Determine whether this is derived, calibrated, or heuristic.
+
+---
+
+## ENTRY 020 — Hubble constant value
+
+Equation / value:
+
+```text
+H_0 ≈ 71.2 km/s/Mpc
+```
+
+Plain-language role:
+Claimed SAT cosmological expansion value / Hubble constant prediction or recovery.
+
+Provenance:
+- Source file: `MAY_2026_SNAPSHOT.txt`
+- Location: Physical Constants Recovery
+- Dry-run citation: `turn38file0`, lines 38–42.
+
+Status:
+Important / needs timeline and public-priority audit.
+
+Notes / open questions:
+- Track public statement dates separately from conceptual/private origin.
+- User has previously corrected H0 as 71.2–71.3 and noted public announcement around May 18, 2026 in podcast context.
+
+---
+
+## ENTRY 021 — Universal Indicatrix mapping
+
+Equation:
+
+```text
+y^μ(λ) = r(λ) R^μ_ν(λ) x_0^ν
+r(λ) = cλ
+R(λ) ∈ SO(4)
+```
+
+Plain-language role:
+Maps 4D filamental geometry to observable 3D trajectories, with radial expansion and SO(4) orientation management in the 24-cell / HSUCV lattice.
+
+Provenance:
+- Source file: `MAY_2026_SNAPSHOT.txt`
+- Location: The Universal Indicatrix (TX)
+- Dry-run citation: `turn38file0`, lines 26–30.
+
+Status:
+Important / needs audit.
+
+Notes / open questions:
+- Trace later Universal Indicatrix documents and determine whether this mapping remains current.
+
+---
+
+## ENTRY 022 — Recursive 4D superhelix parameterization
+
+Equation:
+
+```text
+H(λ) = ( R(λ) cos(ω_s λ + φ_0),
+         R(λ) sin(ω_s λ + φ_0),
+         r_h cos(ω_h λ + ψ_0),
+         r_h sin(ω_h λ + ψ_0) )
+```
+
+Plain-language role:
+Simple extracted representation of 4D superhelical worldline used to stabilize higher-order derivatives and model recursive curvature/torsion.
+
+Provenance:
+- Source file: `_AUTO_EXTRACTED_TEXT/% BIG PAPER (nolat).txt`
+- Source PDF: `% BIG PAPER (nolat).pdf`
+- Location: Formalism / Recursive Superhelical Parameterization
+- Dry-run citation: `turn61file0`, lines 85–100.
+
+Status:
+Needs audit / likely simplified draft expression.
+
+Notes / open questions:
+- Compare with May 2026 trajectory equation in `MAY_2026_SNAPSHOT.txt` and hyperhelical/4DHH Lagrangian documents.
+
+---
+
+## ENTRY 023 — May 2026 filament trajectory equation
+
+Equation as extracted:
+
+```text
+x(λ) = Σ_{k=1}^{n} R_k cos(n_k λ + φ_k) Π_{j=1}^{k-1} cos(m_j λ + ψ_j)
+```
+
+Plain-language role:
+Recursive trajectory equation for nth-order superhelical filament, using coiling radii and winding frequencies.
+
+Provenance:
+- Source file: `MAY_2026_SNAPSHOT.txt`
+- Location: Axiomatic Ontology of the 4D Manifold / Filament Trajectory Equation
+- Dry-run citation: `turn38file0`, lines 5–14.
+
+Status:
+Important / needs audit.
+
+Notes / open questions:
+- Check whether this is one component, a scalar shorthand, or full vector parameterization.
+- Compare with 4DHH and hyperhelical worldline formulations.
+
+---
+
+## ENTRY 024 — Fundamental fourth-order equation of motion
+
+Equation:
+
+```text
+κ H_i^(4) + 2 λ_s (r² − R²) H_i + k(H_i − G_i) = 0
+```
+
+Plain-language role:
+Fundamental deterministic response equation for worldline evolution, balancing fourth-order bending, manifold embedding/restoring term, and inter-curve coupling.
+
+Provenance:
+- Source file: `MAY_2026_SNAPSHOT.txt`
+- Location: Dynamics, Stability, and Discretization / Fundamental Equation of Motion
+- Dry-run citation: `turn38file0`, lines 61–68.
+
+Status:
+Important / needs audit.
+
+Notes / open questions:
+- Compare with Euler-Lagrange derivation from operationalized Lagrangian.
+- Confirm variables and sign conventions.
+
+---
+
+## ENTRY 025 — Obscuration Constant / topological overlap
+
+Equation:
+
+```text
+Ω_ij = [∫ δ(X_i − X_j, ε) dλ] / [∫ dλ]
+```
+
+Plain-language role:
+Quantifies topological overlap between worldlines; linked to UV finiteness and coupling/obscuration logic.
+
+Provenance:
+- Source file: `_AUTO_EXTRACTED_TEXT/% BIG PAPER (nolat).txt`
+- Source PDF: `% BIG PAPER (nolat).pdf`
+- Location: The Obscuration Constant (Ω) and UV Finiteness
+- Dry-run citation: `turn61file0`, lines 131–141.
+
+Status:
+Needs audit.
+
+Notes / open questions:
+- Trace relation to Jarlskog Shadow, UV finiteness, dark-sector/obscuration claims, and coupling constant k.
+
+---
+
+## ENTRY 026 — Mass suppression function / Q scaling example
+
+Equation(s):
+
+```text
+m_linear = (Q · m_0) / (2B)
+M_eff = m_linear · S
+S ≈ 0.2621
+```
+
+Example in source:
+
+```text
+Q = 294
+m_linear ≈ 6.2024 × 10⁻²⁵ kg
+M_eff ≈ 1.6256 × 10⁻²⁵ kg
+```
+
+Plain-language role:
+Draft mass-scaling relation using Q, universal mass anchor, Projection Constant B, and smoothing factor S. Source example applies to Technetium-98.
+
+Provenance:
+- Source file: `_AUTO_EXTRACTED_TEXT/% BIG PAPER (nolat).txt`
+- Source PDF: `% BIG PAPER (nolat).pdf`
+- Location: Mass Topology and Standard Model Recovery / Numeric Derivation: The Mass Suppression Function
+- Dry-run citation: `turn61file0`, lines 142–159.
+
+Status:
+Draft / needs audit.
+
+Notes / open questions:
+- Determine whether `S ≈ 0.2621` is derived, fitted, or heuristic.
+- Determine current status of Q-scaling and Technetium-98 example.
+
+---
+
+## ENTRY 027 — Lattice implementation action
+
+Equation:
+
+```text
+S = Σ (α κ² + β τ² + γ T_topo) Δλ
+```
+
+Plain-language role:
+Action used in a proposed lattice minimization algorithm to reproduce lattice QFT results: initialize lattice, define filament path, evaluate action, then solve for stable worldline path via variational gradient descent.
+
+Provenance:
+- Source file: `_AUTO_EXTRACTED_TEXT/% BIG PAPER (nolat).txt`
+- Source PDF: `% BIG PAPER (nolat).pdf`
+- Location: Relativistic-Quantum Isomorphism and Lattice Implementation
+- Dry-run citation: `turn62file0`, lines 15–29.
+
+Status:
+Needs audit / draft algorithmic scaffold.
+
+Notes / open questions:
+- Determine relationship between α, β, γ and the later/other Lagrangian coefficients.
+- Determine whether implementation code exists in archive.
+
+---
+
+## Maintenance Notes
+
+- Add new entries at the end using the same fields.
+- Do not overwrite provenance. If an equation appears in multiple documents, append provenance rather than replacing earlier provenance.
+- Mark OCR-sensitive equations clearly and verify from PDF images or source LaTeX where possible.
+- Distinguish conceptual/private origin, public statement, formal consolidation, and current formulation when timeline matters.
+- Use this repository to collect equations first; proof/audit status should be handled in downstream derivation/audit documents.
