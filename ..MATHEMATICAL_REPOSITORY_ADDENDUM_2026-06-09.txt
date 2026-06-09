@@ -1,0 +1,342 @@
+# SAT Mathematical Repository Addendum
+
+Created UTC: 2026-06-09
+Created by: ChatGPT — SAT archive reading / provenance pass
+Intended disposition: Merge into `..MATHEMATICAL_REPOSITORY` after review.
+Reason for addendum: The master repository is a long living file. This addendum avoids accidental overwrite from truncated reads while preserving important mathematical breadcrumbs.
+
+Important framing:
+These are equations and derivation-status notes found in SAT records from particular stages. They are not proof by inclusion. Preserve provenance and audit status.
+
+---
+
+## ADDENDUM ENTRY A001 — SAT-O derivation rule / formal statement standard
+
+Relationship / rule:
+
+```text
+Every formal statement must be either:
+1. fully derived in-line, or
+2. linked to a standalone derivation document (SAT.OX.D).
+
+No placeholder terms or speculative leaps are allowed without explicit flagging.
+```
+
+Plain-language role:
+SAT-O rule governing what counts as derivation-stable within the clean core. This is not a physical equation but is mathematically important because it defines the standard for accepting formal claims.
+
+Provenance:
+- Source file: `SAT O Core Modules/SAT.O Official Directives.txt`
+- Date in source: July 2025
+- Location: Official Directive Two: Goal of Theory Construction
+- Directly read 2026-06-09.
+
+Status:
+Operational / methodological directive. Use as a reading standard for SAT-O and later derivation/audit records.
+
+Notes / open questions:
+- Check whether each SAT-O module O1–O8/O9 has linked SAT.OX.D derivations.
+- Use this rule to classify formulas in later synthesis/backbone documents.
+
+---
+
+## ADDENDUM ENTRY A002 — SAT-O emergence condition from filament geometry and time surface
+
+Relationship / rule:
+
+```text
+mass, charge, curvature, interaction
+must emerge from filament geometry
+and intersection with a propagating 3D wavefront Σ_t ⊂ M
+```
+
+Plain-language role:
+SAT-O core construction constraint. It restricts allowable explanations to SAT-native filament geometry/topology and wavefront intersection, excluding extrinsic or handwaved dynamics from primary derivation.
+
+Provenance:
+- Source file: `SAT O Core Modules/SAT.O Official Directives.txt`
+- Date in source: July 2025
+- Location: Official Directive One: Purpose and Boundaries
+- Directly read 2026-06-09.
+
+Status:
+Operational / core-boundary directive for SAT-O.
+
+Notes / open questions:
+- Use to test whether later constants like S, Phi, J_eff, and B_stable are SAT-native derivations or imported/calibrated additions.
+
+---
+
+## ADDENDUM ENTRY A003 — Interaction potential for N=3 phase offsets
+
+Equation:
+
+```text
+V_int = k R^2 Σ_{i<j} (1 − cos(δ_i − δ_j))
+```
+
+Plain-language role:
+Interaction potential used in the 2026 mini-audit to analyze N=3 interacting curves/filaments through phase offsets. It supports an S3 permutation symmetry and contains a Z3 cyclic subgroup, but the audit explicitly says this symmetry alone does not derive a modulo-3 physical constraint.
+
+Provenance:
+- Source file: `2026/SAT AUDIT — Refine .txt`
+- Location: Cycle 10 review; Cycle 11 corrected baseline
+- Directly read 2026-06-09.
+
+Status:
+Validated within that mini-audit as an interaction potential / variational object. Not sufficient by itself to derive the Z3 Fusion Gate.
+
+Notes / open questions:
+- Trace prior Cycle 7–8 references if available.
+- Determine relationship to earlier Mark V Z3/tau binding terms.
+
+---
+
+## ADDENDUM ENTRY A004 — S3 symmetry / Z3 subgroup is valid but not a physical constraint
+
+Relationship:
+
+```text
+V_int invariant under permutations of {1,2,3}
+Symmetry group: S3
+Contains cyclic subgroup: Z3
+```
+
+Plain-language role:
+Surviving result from Cycle 10 audit. The existence of the Z3 subgroup is mathematically valid but does not by itself enforce `Στ_i ≡ 0 mod 3` or any physical fusion gate.
+
+Provenance:
+- Source file: `2026/SAT AUDIT — Refine .txt`
+- Location: Cycle 10 Review
+- Directly read 2026-06-09.
+
+Status:
+Partially validated / narrowed.
+
+Notes / open questions:
+- Prevents upgrading symmetry language into a conservation law without additional derivation.
+- Need minimization condition, conserved quantity, or topological invariant defined on configuration space before a discrete physical rule can emerge.
+
+---
+
+## ADDENDUM ENTRY A005 — Rejected Z3 Fusion Gate derivation attempt
+
+Rejected relationship:
+
+```text
+Σ τ_i ≡ 0 (mod 3)
+```
+
+Attempted role:
+Proposed torsional balance / Z3 Fusion Gate / UV finiteness lock condition for stable three-filament intersections.
+
+Audit outcome:
+The Cycle 10 review rejects the derivation. Reasons include:
+
+```text
+Presence of Z3 subgroup ≠ constraint enforcing modulo-3 condition.
+τ_i not defined in current formal system.
+No torsion functional present in Lagrangian.
+No Frenet–Serret or higher-curvature structure introduced.
+Energy term ∫τ² dλ unsupported.
+```
+
+Provenance:
+- Source file: `2026/SAT AUDIT — Refine .txt`
+- Location: Cycle 10 Review
+- Directly read 2026-06-09.
+
+Status:
+Rejected derivation attempt in that mini-audit. The concept may exist elsewhere in SAT records, but this derivation chain does not validate it.
+
+Notes / open questions:
+- Compare to Mark V `SAT MARK V.txt` where Z3/tau binding appears in a field-theory scaffold.
+- Look for a later valid derivation or a formal tau definition.
+
+---
+
+## ADDENDUM ENTRY A006 — 120-degree stationary phase configuration
+
+Equation / configuration:
+
+```text
+δ = {0, 2π/3, 4π/3}
+```
+
+Plain-language role:
+N=3 symmetric stationary configuration for the phase-offset interaction potential. The 2026 audit retains this as a variationally selected configuration.
+
+Provenance:
+- Source file: `2026/SAT AUDIT — Refine .txt`
+- Location: Cycle 11 validation review and corrected baseline
+- Directly read 2026-06-09.
+
+Status:
+Retained / variationally selected in the mini-audit.
+
+Notes / open questions:
+- The audit explicitly says this is variationally selected, not topologically enforced.
+- Stability remains unresolved until full operator spectrum is computed.
+
+---
+
+## ADDENDUM ENTRY A007 — Hessian spectrum for interaction sector
+
+Equation / spectrum:
+
+```text
+λ = {0, −3/2 k R^2, −3/2 k R^2}
+```
+
+Plain-language role:
+Hessian spectrum at the N=3 stationary phase configuration for the interaction sector. The zero mode corresponds to global phase shift. Negative modes indicate instability in the interaction sector alone, pending full operator analysis.
+
+Provenance:
+- Source file: `2026/SAT AUDIT — Refine .txt`
+- Location: Cycle 11 corrected baseline
+- Directly read 2026-06-09.
+
+Status:
+Retained in mini-audit baseline; stability unresolved for full operator.
+
+Notes / open questions:
+- Continue Cycle 12 to see whether κD^4 and constraint terms stabilize the configuration.
+
+---
+
+## ADDENDUM ENTRY A008 — Rejected W winding-index repair
+
+Attempted invariant:
+
+```text
+Configuration space: T^N = (S^1)^N
+State vector: δ = (δ1, ..., δN)
+Proposed W = (1/2π) ∮_γ Σ_i dδ_i
+```
+
+Audit outcome:
+The configuration-space construction is accepted, but W is rejected because `Σ_i δ_i` is the global phase direction. Since the Lagrangian is invariant under uniform phase shift `δ_i → δ_i + α`, W measures a symmetry/gauge direction rather than a constrained physical/topological sector.
+
+Provenance:
+- Source file: `2026/SAT AUDIT — Refine .txt`
+- Location: Cycle 11 validation review
+- Directly read 2026-06-09.
+
+Status:
+Rejected as meaningful invariant for the interacting system.
+
+Notes / open questions:
+- Valid invariants must instead be constructed on the reduced space `T^N / S^1` from independent phase differences such as θ12, θ13.
+
+---
+
+## ADDENDUM ENTRY A009 — Full spectral problem required for stability closure
+
+Equation / task:
+
+```text
+L η = Λ η
+```
+
+Operator components named in source:
+
+```text
+κ D^4 term
+constraint term / λ_s terms
+coupling matrix kC
+```
+
+Plain-language role:
+Required next step after Cycle 11. The audit forbids further topological claims until either a valid invariant on reduced phase space is constructed or full spectral stability is computed.
+
+Provenance:
+- Source file: `2026/SAT AUDIT — Refine .txt`
+- Location: Cycle 11 next required step; Cycle 12 opening
+- Directly read 2026-06-09.
+
+Status:
+Required unresolved derivation task.
+
+Notes / open questions:
+- Continue reading Cycle 12 to determine whether the full operator stabilizes the 120-degree configuration.
+- Important for assessing the stability of N=3 / braid / generation-related claims.
+
+---
+
+## ADDENDUM ENTRY A010 — B_stable / Holonomy Bridge correction trail
+
+Relationships reported in source:
+
+```text
+B = 3/(4π) ≈ 0.2387
+B_stable ≈ 0.24177
+μ = 3/(2B^5)(1 + Δ_bridge) ≈ 1836.152673
+Δ_bridge ≈ 8.2 × 10^-5
+```
+
+Plain-language role:
+Later correction/renormalization layer for the Projection Constant and proton/electron ratio. Important because earlier/later SAT records may use raw geometric B, stabilized B, δ_elastic, or Δ_bridge differently.
+
+Provenance:
+- Source file: `2026/SAT MATH — BACKBONE.txt`
+- Location: F1 Backbone, Mass Derivations and Fundamental Constants
+- Directly read 2026-06-09.
+
+Status:
+Needs derivation trace.
+
+Notes / open questions:
+- Determine whether B_stable and Δ_bridge are derived, fitted, calibrated, or inherited from another SAT record.
+- Reconcile with existing `..MATHEMATICAL_REPOSITORY` Entry 006, which uses δ_elastic.
+
+---
+
+## ADDENDUM ENTRY A011 — Phi / theta_obs / theta4 near-0.246 rad trace warning
+
+Values / names encountered:
+
+```text
+Φ ≈ 0.246 rad       Achromatic Phase Snap / holonomy-locking quantity
+θ_obs ≈ 0.246 rad   obscuration / dark-sector projection angle in some backbone language
+θ4 ≈ 0.24 rad       critical geometric rotation used in visible-matter fraction arguments
+```
+
+Plain-language role:
+Important constant-family warning. These may be related within SAT, but the reviewed records do not yet derive their equivalence. Treat as a trace target, not a settled identity.
+
+Provenance:
+- Source file: `2026/SAT MATH — BACKBONE.txt`
+- Related sources already in master repository: `MAY_2026_SNAPSHOT.txt`, `SAT_CONCEPTS__May2026.txt`, `_AUTO_EXTRACTED_TEXT/FINAL.txt`
+- Directly read / compared 2026-06-09.
+
+Status:
+Needs disambiguation.
+
+Notes / open questions:
+- Determine whether 0.246 rad has one derivation with multiple interpretations, or multiple near-equal constants conflated in summary/backbone layers.
+- SAT-O directive requires this to be derived or explicitly marked provisional before clean-core use.
+
+---
+
+## ADDENDUM ENTRY A012 — SAT records vs archive/navigation layer distinction
+
+Relationship / interpretive rule:
+
+```text
+SAT records may be early SAT, older SAT, rejected SAT derivation attempts,
+audit-corrected SAT, transitional SAT, public-facing SAT, or late-stage SAT.
+
+The archive is the repository/navigation layer preserving those records.
+```
+
+Plain-language role:
+Not a mathematical equation, but a critical provenance rule for reading derivation history. Contradictions between records may reflect theory development, versioning, or audit correction, not an opposition between SAT and the archive.
+
+Provenance:
+- User correction during 2026-06-09 archive pass.
+
+Status:
+Archive-reading rule.
+
+Notes / open questions:
+- Future folder summaries should use provenance labels rather than permanent current/canonical labels.
