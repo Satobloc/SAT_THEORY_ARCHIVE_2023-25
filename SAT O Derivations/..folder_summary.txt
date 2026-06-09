@@ -1,0 +1,54 @@
+# SAT O Derivations — Folder Summary
+
+Date: 2026-06-09
+Reader: ChatGPT
+Scope: SAT.O derivation/process layer sampled during archive review.
+
+## High-level role
+
+This folder preserves the SAT.O derivation and process layer surrounding the June 2025 SAT.O big-paper effort. It should be read as a high-coverage formalization phase: an attempt to translate the original SAT intuition stack into module-bounded derivations, audit packages, falsifiability checks, and computationally inspectable artifacts.
+
+SAT.O appears to be the archive's high watermark for broad physics coverage and process discipline. It is not necessarily the most native or latest SAT formulation, but it is the most explicit attempt seen so far to cover the full physics stack while constraining LLM drift.
+
+## Important files sampled
+
+- `ACTION PLAN.txt`
+  - Declares O1–O8 structure-locked and consistent.
+  - SAT4DCORE and MASTER_STRUCTURE locks active.
+  - O9/O10 predictive modules functional.
+  - Plans simulation/diagnostic tools: bundle evaluator, strain/curvature engine, topological invariant calculator, alpha_top diagnostic, particle spectrum calibration, falsifiability scan, coupling ratio checker, CP encoder, cosmology verifier, and quantum completion tools.
+
+- `SAT_Completion_Protocol_v1.txt`
+  - Defines Producer -> Verifier -> Acceptor handshake.
+  - Uses ledger rows, SHA hashes, formal gating, reverse cascades after invalidation, and two-signature merge discipline.
+  - Verification criteria include allowed-constant linting, mode conformance, Lean/Agda/SymPy/unit-test checks, performance thresholds, and backlink documentation.
+
+- `audit_results.txt`
+  - Shows adversarial process: flags hidden assumptions, unsafe hash/context stability, unsafe tracker writes, missing docstrings/types/linting, missing perturbation tests, and missing observable post-condition invariants.
+  - Important because it demonstrates that SAT.O was not merely generating formal-looking derivations; it was also attempting to identify process failure modes.
+
+- `CODE-LOCKED DERIVS.txt`
+  - Consolidates D1–D6-style derivation content.
+  - Includes canonical quantization, normal modes, Q mass suppression, strain-curvature mapping, gauge coupling from linking density, and legacy translation to SAT action.
+  - Contains both brief summary blocks and expanded derivation text.
+
+- `SAT_D1_CANONICAL_QUANTIZATION.txt` and `SAT_D2_MODE_EXPANSION.txt`
+  - Useful scaffolds for quantization and normal modes.
+  - These are field/QFT-style bridge documents rather than fully SAT-native derivations.
+
+## Interpretation note
+
+Earlier read: “code locking” was mistaken as mainly proof/verification. Corrected read after inspecting `PYTHON Math Locking (SAT.O)`: code/structure locking means freezing a module's core mathematical definitions into executable symbolic Python objects before using them downstream.
+
+Pipeline visible from the archive:
+
+    original SAT intuitions
+    -> SAT.O module prose
+    -> structure-lock Python definitions
+    -> derivation attempts
+    -> audit/protocol checks
+    -> June 2025 SAT big-paper synthesis
+
+## Caution
+
+SAT.O imports and translates many existing physics structures because the original formulation treated SM/GR/QM as boundary constraints. This makes EFT/QFT-style bridge work understandable, but not final. SAT.O should be read as the strongest process-and-coverage phase, not necessarily as the final native SAT geometry.
