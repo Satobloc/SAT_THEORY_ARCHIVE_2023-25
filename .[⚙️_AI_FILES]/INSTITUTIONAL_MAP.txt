@@ -1,45 +1,102 @@
 INSTITUTIONAL MAP
 
 Purpose:
-This document explains the institutional knowledge layer and how the major navigation documents relate to one another.
+This document maps the archive's institutional knowledge layer: where orientation lives, where reusable knowledge belongs, where tools/logs live, and how to distinguish SAT artifacts from archive machinery.
+
+<.! Unsure where you are?
+    Read README.md, then ORIENTATION.txt, then this map. >
 
 QUICK START
 
 Read in this order:
-1. 🪧_WAYFINDING.txt
-2. ORIENTATION.txt
-3. RESOURCES.txt
-4. WATERCOOLER.txt
-5. GUESTBOOK.txt
+1. Repository README.md
+2. .[⚙️_AI_FILES]/🪧_WAYFINDING.txt
+3. ORIENTATION.txt
+4. INSTITUTIONAL_MAP.txt
+5. RESOURCES.txt
+6. WATERCOOLER.txt when looking for informal current advice
+7. GUESTBOOK.txt when looking for prior visitor/handoff context
+
+CORE TAXONOMY
+
+SAT ARTIFACTS
+- Primary or derived SAT-content documents.
+- Examples: theory drafts, PDFs, equations, derivations, predictions, experimental proposals, curated SAT compilations.
+
+ARTIFACT CATALOGS
+- Maps to SAT artifacts.
+- Examples: ..folder_summary.txt, bibliographic notes, equation indexes, prediction indexes, version indexes, metadata notes.
+
+ARCHIVE MACHINERY
+- Tools that help find, preserve, stage, describe, or navigate the archive.
+- Examples: Archive Admin, indexers, request files, logs, templates, staging buffers, wayfinding, orientation docs.
+
+See SHARED_RESOURCES/ARCHIVE_TAXONOMY.txt for the canonical short taxonomy.
 
 DOCUMENT ROLES
 
 ORIENTATION.txt
-- Quick-start guide.
-- Explains archive norms and where to begin.
+- Core norms and operating principles.
+- Explains chunk-awareness, local vs global understanding, staging, indexing, and archive taxonomy.
 
 RESOURCES.txt
 - Durable catalog of reusable resources.
-- Tools, indexes, guides, maps, audits, and navigation aids.
+- Put stable guides, templates, tools, indexes, maps, and repeated lessons here.
 
 WATERCOOLER.txt
-- Community bulletin board.
-- Tips, requests, warnings, suggestions, and resource-drop notices.
+- Informal bulletin board.
+- Tips, warnings, temporary discoveries, suggestions, and current working notes.
 
 GUESTBOOK.txt
-- Visitor log and major workflow handoff notes.
+- Voluntary visitor/handoff context.
+- Not mandatory; tool logs and generated indexes carry operational provenance.
 
 SAT_THEORY_ROADMAP_AND_NEEDS.txt
 - Theory-development framing and open needs.
+- Use for SAT work priorities, not routine archive operations.
 
 SHARED_RESOURCES/
-- Intake and triage area for reusable resources.
-- Resources should be cataloged into RESOURCES.txt once established.
+- Reusable institutional references.
+- Current important files include:
+  - ARCHIVE_TAXONOMY.txt
+  - ARCHIVE_ADMIN_TASKS.md
+  - FOLDER_SUMMARY_TEMPLATE.txt
+  - README.txt
+
+STAGING/
+- Holding area for large, fragile, chunked, or unfinished material.
+- Use before committing final resources, long requests, or assembled reports.
+- Basic flow: INBOX → PARTS → READY → RUNNING → DONE / FAILED.
+
+REQUESTS/
+- AI-side request files for Archive Admin and future workflow tools.
+- Prefer this for bulky machine-oriented operations rather than cluttering Nathan's dashboard.
+
+TOOLS/
+- Source code for archive machinery.
+- Tools should log their work and gently point users back to orientation/resources where helpful.
+
+WORKFLOWS/
+- Workflow-facing notes and control context.
+
+LOGS/
+- Tool and workflow logs.
+- Logs record what happened; summaries/catalog notes explain what it means.
+
+CURSORS/
+- Reserved for progress cursors, resume points, and future long-running archive processes.
+
+_MIGRATION_HOLD/
+- Older/relocated automation files preserved for provenance.
+- Do not treat as current machinery unless confirmed.
 
 DASHBOARD DOCUMENTS
 
 Located in:
 ..[🎛️_NATHAN_DASH]/
+
+Role:
+Human-facing command center and project dashboard.
 
 Key files:
 - ⚙️_LESSONS_LEARNED.txt
@@ -47,6 +104,27 @@ Key files:
 - 📖_PROJECT_NOTES.txt
 - 📖_SAT_ARCHIVE_READING_PLAN.txt
 - 🗄️_ARCHIVE_INDEX.txt
+- ⚒️_ADMIN_TASK.txt
+
+Breadcrumb conventions
+
+..findex.txt
+- Generated structure inventory.
+- Says what files/folders exist.
+- Does not interpret meaning.
+
+..folder_summary.txt
+- Human/AI wayfinding note for a folder.
+- Says what the folder appears to mean.
+- Should state coverage limits and avoid globalizing from partial reads.
+
+Bibliographic packet notes
+- Describe groups of SAT artifacts.
+- Should be neutral, provenance-aware, and descriptive before evaluative.
+
+Tool logs
+- Record tool actions, targets, warnings, and generated files.
+- Use logs to discover recent activity, then inspect artifacts/catalogs for interpretation.
 
 KNOWLEDGE TYPES
 
@@ -54,10 +132,16 @@ KNOWLEDGE TYPES
    What exists in the archive.
 
 2. Theory Knowledge
-   What SAT claims.
+   What SAT documents claim, derive, predict, or explore.
 
 3. Process Knowledge
-   How people work on SAT and the archive.
+   How people and tools work on SAT and the archive.
+
+4. Institutional Knowledge
+   How this archive teaches future visitors to navigate itself.
+
+<.! Local understanding achieved?
+    Re-check ORIENTATION.txt before global claims. >
 
 Visitor request:
-If you discover a better structure for the institutional layer, improve this map.
+If you discover a better structure for the institutional layer, improve this map or leave a note in WATERCOOLER.txt.
