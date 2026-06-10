@@ -1,42 +1,81 @@
 ORIENTATION
 
+<.! Lost?
+    That is normal. Return here, then use INSTITUTIONAL_MAP.txt and RESOURCES.txt. >
+
 Read this before project work.
 
+Start here:
+1. README.md at repository root.
+2. .[⚙️_AI_FILES]/🪧_WAYFINDING.txt.
+3. This ORIENTATION.txt.
+4. INSTITUTIONAL_MAP.txt.
+5. RESOURCES.txt.
+
+Front-page context:
+Before drawing conclusions from folder-level documents, read the repository README.md. It is the public front page of the archive and provides essential context about purpose, roughness, experimental/philosophy-of-science framing, scale, and root-level SAT intuitions. Treat it as orientation context, not as a substitute for scoped folder/document analysis.
+
 Core principles:
-- The archive is the territory; SATopedia/dashboard materials are maps.
+- The archive is the territory; dashboard/SATopedia-style materials are maps.
 - Routine human controls belong in ..[🎛️_NATHAN_DASH].
 - AI machinery belongs in .[⚙️_AI_FILES].
 - Preserve source material whenever possible.
 - Prefer extraction, indexing, logging, and characterization over intrusive modification.
-- Maximize useful logging to minimize repeated access requests.
 - Do not confuse local exposure with global understanding.
 - Reason only from the information actually available unless explicitly exploring possibilities.
 - Mark the boundary between observation, inference, speculation, derivation, empirical claim, and unknown.
+- Archive-facing notes should describe before they evaluate.
+
+Working sequence:
+Observe → Catalog → Contextualize → Evaluate.
+
+Archive taxonomy:
+- SAT ARTIFACTS: primary or derived SAT-content documents.
+- ARTIFACT CATALOGS: maps, indexes, summaries, bibliographic notes, and metadata about SAT artifacts.
+- ARCHIVE MACHINERY: tools, workflows, logs, requests, templates, staging buffers, and institutional documents.
+
+See SHARED_RESOURCES/ARCHIVE_TAXONOMY.txt when uncertain.
+
+Chunk awareness:
+Chunking is normal. Partial reads are normal. State what was actually observed.
+
+For summaries and reports, record:
+- full read, partial read, sampled, index-only, or not accessed;
+- line ranges or file ranges when available;
+- search terms used;
+- gaps remaining;
+- risk of missed context.
+
+Indexing guidance:
+- A folder index describes structure, not meaning.
+- Depth-2 indexing is orientation, not total coverage.
+- If subfolders exist, note which were only seen, which were separately indexed, and which remain pending.
+- If you create interpretation, leave it in a summary or catalog note, not hidden in a tool log.
+
+Breadcrumb guidance:
+Useful breadcrumbs include:
+- ..findex.txt for structure;
+- ..folder_summary.txt for folder meaning;
+- bibliographic notes for document packets;
+- RESOURCES.txt for reusable guidance;
+- WATERCOOLER.txt for informal working advice;
+- logs for tool actions.
+
+Staging guidance:
+Use STAGING when edits, resources, or requests are too large, fragile, chunked, or unfinished for direct placement.
+
+<.! Large or fragile edit?
+    STAGING first. Assemble. Review. Then commit. >
+
+Archive Admin request workflow preference:
+For routine archive operations, prefer request-file commits that automatically trigger Archive Admin on push. Manual workflow_dispatch should remain available as fallback. Check .[⚙️_AI_FILES]/LOGS before assuming failure.
 
 Access/debug checklist:
-1. Remind Nathan to make the GitHub tool available.
-2. Confirm the repository path and branch.
+1. Confirm GitHub access and repository path.
+2. Check README, ORIENTATION, MAP, and RESOURCES.
 3. Check dashboard and AI logs before rescanning source files.
-4. If deep folders are inaccessible, create/read folder indexes.
-5. If a workflow fails, check .[⚙️_AI_FILES]/LOGS.
+4. If deep folders are inaccessible, create or read folder indexes.
+5. If a workflow fails, check .[⚙️_AI_FILES]/LOGS and errors.
 
-Archive Admin request workflow preference:
-For routine archive operations, prefer request-file commits that automatically trigger Archive Admin on push. The workflow should guard against self-trigger loops with github.actor != 'github-actions[bot]'. Manual workflow_dispatch should remain available as a fallback.
-
-Archive Admin request workflow preference:
-For routine archive operations, prefer request-file commits that automatically trigger Archive Admin on push. The workflow should guard against self-trigger loops with github.actor != 'github-actions[bot]'. Manual workflow_dispatch should remain available as a fallback.
-
-Front-page context note:
-Before drawing conclusions from folder-level documents, read the repository README.md. It is the public front page of the archive and provides essential context about the archive's purpose, roughness, experimental/philosophy-of-science framing, current scale, and root-level SAT intuitions. Treat it as orientation context, not as a substitute for scoped folder/document analysis.
-
-Front-page context note:
-Before drawing conclusions from folder-level documents, read the repository README.md. It is the public front page of the archive and provides essential context about the archive's purpose, roughness, experimental/philosophy-of-science framing, current scale, and root-level SAT intuitions. Treat it as orientation context, not as a substitute for scoped folder/document analysis.
-
-Front-page context note:
-Before drawing conclusions from folder-level documents, read the repository README.md. It is the public front page of the archive and provides essential context about the archive's purpose, roughness, experimental/philosophy-of-science framing, current scale, and root-level SAT intuitions. Treat it as orientation context, not as a substitute for scoped folder/document analysis.
-
-Front-page context note:
-Before drawing conclusions from folder-level documents, read the repository README.md. It is the public front page of the archive and provides essential context about the archive's purpose, roughness, experimental/philosophy-of-science framing, current scale, and root-level SAT intuitions. Treat it as orientation context, not as a substitute for scoped folder/document analysis.
-
-Front-page context note:
-Before drawing conclusions from folder-level documents, read the repository README.md. It is the public front page of the archive and provides essential context about the archive's purpose, roughness, experimental/philosophy-of-science framing, current scale, and root-level SAT intuitions. Treat it as orientation context, not as a substitute for scoped folder/document analysis.
+<.! Local understanding achieved?
+    Re-check global context before global claims. >
