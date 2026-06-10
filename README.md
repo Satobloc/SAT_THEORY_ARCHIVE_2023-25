@@ -1,445 +1,1331 @@
-AI visitors--make sure you check out the welcome docs in the AI folder. (use ..findex.txt) if yiu cant find it. 
+<main>
 
-Welcome to the Glass Sausage Factory
+  <h1>Welcome to the Glass Sausage Factory</h1>
 
-This project was started as an experiment, it continues as an experiment. We offer it to the public in the interests of the philosophy of science, and in the interests of promoting creative, low stakes theorizing and scientific transparency. We don't apologize for the mess--that might be what could make it a more interesting case study. 
+  <p><strong>AI visitors:</strong> start with the welcome docs in the <code>AI</code> folder. Use <code>..findex.txt</code> if you cannot find them.</p>
 
-We do kind of low-key apologize for some of the LLM hyperbole. 
+  <p>This project started as an experiment, and it continues as an experiment. I’m offering it publicly in the interests of philosophy of science, creative low-stakes theorizing, and scientific transparency. I don’t apologize for the mess; the mess may be part of what makes this useful as a case study.</p>
 
---NM 5.Jun.2026
+  <p>I do kind of low-key apologize for some of the LLM hyperbole.</p>
 
+  <p>— Nathan McKnight<br>
+  5 Jun 2026</p>
 
+  <p>As of 7 Jun 2026: excluding merges, 2 authors have pushed 126 commits to <code>main</code> and 126 commits to all branches. On <code>main</code>, 772 files have changed, with 1,121,642 additions and 56 deletions.</p>
 
-As of June 7,2026:
-Excluding merges, 2 authors have pushed 126 commits to main and 126 commits to all branches.
-On main, 772 files have changed and there have been 1,121,642 additions and 56 deletions
+  <hr>
 
-######################
-###  MAY 31, 2026  ###
-######################
+  <section>
+<h2>Contact / Affiliation</h2>
 
-AFFILIATION: Currently considering going back to school [remedial math?] looking for program recommendations. Suggestions welcome nathanmcknight@gmail.com
+<p>As of 31 May 2026: currently considering going back to school, possibly for remedial math and/or formal physics preparation. Program recommendations welcome.</p>
 
-Feel free go clone or fork. Hell, feel free to publish if you want--but cite me if you would. 
+<p>Contact: <a href="mailto:nathanmcknight@gmail.com">nathanmcknight@gmail.com</a></p>
 
-If you find anything useful or interesting, please, drop a comment ! I'm always open for a good chat. :)
+<p>Feel free to clone or fork. If you use, publish, or build on anything here, please cite me. If you find anything useful, interesting, or broken, drop a comment. I’m always open to a good conversation.</p>
+  </section>
 
-######################
-###  FAIR WARNING  ###
-######################
+  <hr>
 
+  <section>
+<h2>Fair Warning</h2>
 
+<p>The materials here are roughly sorted and roughly written. They are not exactly “roughly thought through” so much as “rough-and-readily thought through.”</p>
 
-THE MATERIALS CONTAINED HEREIN ARE ROUGHLY SORTED, ROUGHLY WRITTEN, AND... NOT ROUGHLY THOUGHT THROUGH, BUT MORE "ROUGH-AND-READILY THOUGHT THROUGH" 
-Direct any questions to Nathan McKnight (nathanmcknight@gmail.com)
+<p>This is a working archive, not a polished paper. It contains native notes, AI-assisted drafts, speculative branches, formalization attempts, prediction records, critique cycles, visual aids, and process artifacts. Not every file is equally central. Not every claim is equally mature. Some documents preserve false starts or abandoned branches because those are part of the history.</p>
 
+<p>Direct questions to Nathan McKnight: <a href="mailto:nathanmcknight@gmail.com">nathanmcknight@gmail.com</a></p>
+  </section>
 
-INTRODUCTION TO THE INDEX
-----------------------------------------
+  <hr>
 
-This is basically a personal archive and indexing system for my own use, so that I can access my files more conveniently. 
-That said, it's also an idea that anybody is welcome to consider, share, and work with.
-Started very small, and only grew because once the original ontological commitments were established, so many other things fell into place. Naturally, intuitively. 
-If you decide to make use of this material, feel free to strike up a conversation. It's been a lot to work on for a long time, and it's about time it had a public face. 
-This is the start. 
+  <section>
+<h2>Introduction to the Archive</h2>
 
-SAT - Scalar-Angular-Torsion Theory
+<p>This is primarily a personal archive and indexing system, built so I can access and track my own files more easily. That said, the underlying idea is public: anyone is welcome to consider it, criticize it, share it, fork it, test it, or ignore it.</p>
 
-The FUNDAMENTAL INTUITIONS of SAT
+<p>The project started small. It grew because once the original ontological commitments were established, many later structures seemed to fall into place naturally and intuitively. The archive records that development: the intuitions, the translations, the overextensions, the corrections, the audits, the prediction attempts, and the ongoing effort to separate what is solid from what is speculative.</p>
 
-0th: The "real world" is the world of particle worldlines plotted in four dimensions; it is a hypercomplex tangled "Zottenwelt" of worldlines--SAT calls these worldlines *filaments* (to distinguish from strings in String Theory proper).
+<p>The archive should be read as a theory-building record, not as a finished theory.</p>
+  </section>
 
-1st: Time moves like a wavefront through these worldlines--SAT calls this wavefront *the time surface*.
+  <hr>
 
-2nd: What we perceive as a fundamental particle is the intersection of the particle's worldline with the time wavefront.
+  <section>
+<h1>SAT = Scalar–Angular Theory / Scalar–Angular–Torsion Theory</h1>
 
-PILLAR NUMBER ONE: The Standard Model of Particle Physics is the evolving three-dimensional structure of everything--from quarks to organisms to the entire observable universe, and probably beyond. The organizational structure of the universe can be viewed as braided threads, tangled yarns, thick ropes, and ultimately a vast complex and highly structured literal *fabric* of reality, and envisioning these structures and their interactions in four dimensions (or scaled down to three) may give useful intuitive insights into actual physical phenomena. 
+<p>Earlier SAT = Stringing-Along Theory.</p>
 
-PROPOSITION A: Unless forced to do otherwise by evidence or the internal logic of SAT, the theory will treat the entirety of the Standard Model of Particle Physics as essentially accurate, and will consider it fully imported into the theory with little or no change, apart from conceptual translation into the geometry of SAT.
+<p>The original name was informal and partly self-deprecating. The later names reflect the framework’s central geometric vocabulary: scalar structure, angular interaction, and torsion/twist in four-dimensional worldline geometry.</p>
+  </section>
 
-3rd: There must be a real interaction between the time wavefront and these worldlines--a transfer of energy from the wavefront to the worldlines, vice versa, or (most likely), both.
+  <hr>
 
-4th: These interactions govern particle formation and stability.
+  <section>
+<h2>Core Idea</h2>
 
-5th: These interactions must exert a force back on the wavefront as well.
+<p>SAT begins from a simple geometric reversal:</p>
 
-6th: This back-transmission of energy from the filament network (Zottenwelt) creates curvature of the time surface.
+<p>The real physical object is not the point-particle as seen at an instant. The real physical object is the extended four-dimensional worldline.</p>
 
-PILLAR NUMBER TWO: The back-pull of the filament structure on the time surface creates curvatures of the time surface that re-create the curved spacetime of General Relativity very naturally from within SAT. 
+<p>SAT calls these physicalized worldlines <strong>filaments</strong>.</p>
 
-PROPOSITION B: Unless forced to do otherwise by the evidence or the internal logic of the theory, SAT will treat General Relativity as essentially correct, and *fully importable* into SAT's construction of the Standard Model of particle physics with little to no change beyond conceptual translations into the geometry of SAT. 
-7th: The 4-dimensional extent of a particle's worldline and the time wavefront are physical, not just conceptual or historical objects and therefore, the forces these fundamental structures exert upon one another are quite likely transfered along each filament's extension in the fourth-dimensional extent of the filaments, both forward (in the direction of the wavefront's travel, "futureward"), and backward (in the opposite direction, "pastward"), creating both the possibility the future affecting the present just as the past affects the future. However: See the 8th Fundamental Intuition.
+<p>A particle, as we observe it, is the intersection between a filament and a moving/resolving time surface.</p>
+  </section>
 
-PROPOSITION C: The structure and properties of these fundamental structures (filaments and the time surface) create an intuitive way to understand the limits of these "backbleed" effects; that is, filaments experience tensions, have tensile strength and limitations on their flexibility, and the same should be true of the time surface--thus, backward-propogation in time is structurally self-limiting by the geometry of SAT, the backbleed effects of any tension exerted by interactions in the future-direction are in a sense "baked in" to every interaction as it happens. This would naturally prevent causality violations except perhaps on a very fine--perhaps quantum--scale. This could account for the "wierd" and intuition-breaking implications of quantum physics. 
+  <hr>
 
-PILLAR NUMBER THREE: Unless forced to do otherwise by the evidence or the internal logic of the theory, SAT will treat the enirety of quantum mechanics as essentially correct, and fully importable into the theory, apart from conceptual translation into the geometry of SAT. 
+  <section>
+<h2>Fundamental Intuitions of SAT</h2>
 
-PRIME GENERAL PREDICTION PATHWAY: The tensions exerted upon the past by the future and the future by the past are essentially not accounted for in the Standard Model, General Relativity, or Quantum Mechanics, and this blind spot is likely to produce observable anomolies in the actual behavior of physical systems in the world. 
+<h3>0th —</h3>
+<ul>
+  <li>the real world is the world of particle worldlines plotted in four dimensions</li>
+  <li>this world is a hypercomplex tangled Zottenwelt of worldlines</li>
+  <li>SAT calls these worldlines filaments</li>
+</ul>
 
-8th: Known observational deviations from the Standard Model, General Relativity, and Quantum Mechanics may be explainable by general principles derived intuitively from the geometry of SAT. 
+<h3>1st —</h3>
+<ul>
+  <li>time moves like a wavefront through these worldlines</li>
+  <li>SAT calls this wavefront the time surface</li>
+</ul>
 
-9th: The nature of the interaction between the time surface and filaments likely encode all of the properties observed in real world particle systems in ways that directly map onto the particle properties and families described by the Standard Model of Particle Physics. As the worldlines of particles (as "hard-coded" into filaments) would likely create complex patterns and structures at the point of intersection with the time surface, it is probable that particle behaviors are described by their intersectional geometry with the wavefront; e.g. the gross or absolute angle of intersection (labeled theta_4) is currently considered to be a primary contributor to imparting mass as an energetic transfer to the filaments from the wavefront--grossly speaking, the greater the angle, the more energy imparted, and the more mass instantiated at the intersection.
+<h3>2nd —</h3>
+<ul>
+  <li>a fundamental particle is the intersection of a filament with the time surface</li>
+</ul>
 
-PILLAR NUMBER FOUR: The exact geometry of intersection depends also upon the behavior of the filaments; SAT currently treats them as analagous to vibrating guitar strings; the intersectional traces, projected over time of the contact with the wavefront and any given filament should produce helical patterns with variable dimensions and degrees of complexity; this is how SAT interprets the particle interaction laws described by the standard model--for example, quantum chromodynamics interactions are likely to be the result of a bi- and tri-partite limitation on the geometry, possibly modelable by physical coil- or twist-locking mechanisms, spin and flavor are likely mappable to other geometric morphologies present in the SAT geometry. Identifying the structures implicit in this intuition should give new key insights into relationships between the properties that govern the behaviors of particles. 
-
-10th: Fundamental physical constants should be natural and intuitive implications about the structure and properties of the SAT geometry or phenomena arising emergently therefrom. For example, the Fine Structure Constant may be an absolute or average tensional limit on the transfer of force from the time surface to the filament network, or a limitation on the torsional limits of the filaments themselves. The Planck Constants should be similarly mappable. Identifying the structural implications of the SAT geometry should provide key insights into the nature and value of these, and other constants. 
-
-PROPOSITION D: Light, along with other forces modeled by force-carrying particles (bosons) in the Standard Model, is likely not truly particulate in nature, but rather phenomena that arise from force-transfer across the filament network by the (fermionic) filaments themselves. SAT currently models light as a sort of "energy transfer release valve" triggered by the absorption of more energy from the time wavefront than the filament's structures and properties can tolerate; a ripple in the filament network. 
-
-PROPOSITION E: Because mass is considered to be proportional or approximately proportional to a filament's angle of intersection with the time surface (theta_4), it is proposed that the vacuum of space too is filled with an aligned lattice of filaments whose angle of intersection is near-zero or otherwise very low compared to the filaments that give rise to mass-bearing particles. The low-misalignment allows the time surface to pass with little to no transfer of energy from the time surface to the aligned vacuum filament network. This suggests a number of related interpretations: i. Light travels through the vacuum as localized excitation waves moving roughly perpenducular to the long axes of the aligned filaments. ii. Depending upon the gross large-scale structure of the filament network, there may be multiple vacuum states arising directly from the average regional angle of intersection between this filament lattice and the time surface. 
-
-KEY INSIGHT: Both mass-bearing particles and the underlying filamental-latice that fill the vacuum of space are *made of the same fundamental structures* interacting with the time surface in different ways. That is, *both vacuum and matter lie along a single continuum* which defines the local landscape of the intersectional array, and determines the nature of physical systems at any given point in the universe. 
-
-PROPOSITION F: Depending upon the exact geometry of intersections and the patterns those intersections trace out when projected over time, it may be that various interpretations of String Theory can be seen as a successful partial-mapping of filament-wavefront geometry. This would allow some version of String Theory to be imported more or less in its entirety with minimal changes apart from translation into the geometric language of SAT. 
-
-
-
-
-
-
-
--------------------------------------
--------------------------------------
-CHRONOLOGICAL DEVELOPMENT OF SCALAR–ANGULAR THEORY (SAT)
-(Canonical Name: Scalar–Angular Theory or Scalar–Angular Torsion Theory)
--------------------------------------
--------------------------------------
-DRAFT TIMELINE 1
-The development of the Speculative Framework on Strings and Time (SAT) spans several decades, evolving from purely philosophical geometric visualizations into a complex geometric-topological field theory. Its history tracks the transition of its foundational structures—known initially only as particle worldlines—into formalized, physical entities called filaments.
-
-=============================================
-SAT DEVELOPMENT TIMELINE (Text-Only, Detailed)
-=============================================
-
-PRE-FORMAL CONCEPTION (Circa 1991 - Decades Later)
---------------------------------------------------
-
-*   **Circa 1991: The Origin of the Core Insight**
-    The precursor to SAT began with the visualization of particles in four
-    dimensions. This involved modeling particle movements on a flat
-    spacetime plane using four-dimensional particle vector geometry, inspired
-    by *Asimov On Mathematics*. The idea was treated
-    only as **pure visualization** for decades. At this
-    stage, the conceptual elements were referred to as **particle worldlines**
-    or **4-dimensional/4D structure**.
-
-*   **Circa 2000: Proto-Structural Theorizing**
-    Early exchanges explored metatheoretical scaffolds, asserting that
-    **geometry is the binding logic**.
-
-*   **Decades Later: The Radical Leap**
-    The central ontological shift occurred when the visualization of particle
-    paths through time was reconsidered as **real physical objects**, not just
-    abstract histories or diagrams. This physical
-    reality of the extended path became the **filament**.
-    This move positioned SAT as a realist approach, proposing that the particle
-    *is* the trajectory.
-
-*   **The Emergence of Cross-Temporal Force**
-    Following the physicalization of the filament, the radical proposition
-    emerged: if filaments are continuous physical entities stretching across
-    time, then **force can be transmitted along them, cross-temporarily**
-   . This lead to the idea of **Gravity** as an
-    **emergent force** resulting from the cumulative "tugs" exerted by these
-    filaments across present, past, and future interactions [242, 446, 517,
-    586, 779].
-
-
-EARLY FORMALIZATION (Pre-November 2024)
----------------------------------------
-2024
-March 13: A chat titled "Moral Realism: Two Camps" is recorded under the Radical Meta-Skepticism (RMS) project.
-March 24: The conversation "DIMENSIONAL GRAVITY" begins, exploring the geometric idea of mapping motion as the intersection of a line and a plane.
-August 8: A conversation titled "Forces Across Temporal Points" discusses filament dynamics and the SAT speculative context.
-November 8: Metadata shows a ChatGPT memory save for equations including EB=0.60∗b/(1−(b/2)) and the definition of the filament scale.
-November 12: The conversation "Theory Building with AI" takes place, noting that SAT is a "toy theory" illustrating the equivalence principle.
-November 28: The file CANONICAL READINGS.txt is created/modified, containing early conceptual anchors.
-
-*   **Naming and Definition:**
-    The framework was provisionally named **Stringing Along Theory (SAT)**
-   . It was often characterized as a **"toy theory"**
-    or heuristic meant to explore theory-making and ground ideas derived from
-    Radical Meta-Skepticism (RMS).
-
-*   **Core Ontology Defined:**
-    SAT explicitly posits a **four-dimensional spacetime structure** [239,
-    271, 341]. Time is defined not as a dimension but as a **three-dimensional
-    'Time Surface'** or **wavefront** propagating outward from a central origin
-    (the Big Bang). **Filaments** were defined as
-    string-like entities extending radially from the origin [242, 271, 338,
-    495]. **Particles** (bosons and fermions) are the intersection points of
-    filaments with the Time Surface.
-
-*   **The Angular Insight ($\theta$) Introduced:**
-    The idea that the core interaction is angular emerged: the interaction of a
-    filament slicing through a time surface is an **angular event**.
-    This concept was later formalized as $\theta_4$. Mass was
-    first hinted to be related to this angle-tension resonance.
-
-*   **Filament Hierarchy Established (Braids/Twines/Threads/Ropes/Bundles):**
-    A composite taxonomy was developed to classify complex matter structures
-    based on filament entanglement:
-    *   **Filaments** (elementary particles/quarks/photons/electrons).
-    *   **Threads** (simple composites, mesons/baryons like protons/neutrons)
-       .
-    *   **Twines** (more complicated structures, atoms).
-    *   **Yarns** (molecules).
-    *   **Bundles** (interacting molecular systems, everyday objects/small
-        asteroids).
-    *   **Ropes** (large, gravitationally cohesive bodies like planets/stars)
-       .
-    *   **Strands** was adopted as a collective term for the thread, twine,
-        yarn, and bundle levels.
-    *   **Heloids/Loops/Tethers** were defined as 4D morphologies of Ropes
-        (orbital systems, unbound bodies).
-
-STRUCTURAL CONSOLIDATION (Mark III - Mark IV)
----------------------------------------------
-
-*   **SAT Mark III (Consolidation: Late Stage):**
-    This version served as a **crystallization event**.
-    *   **Filaments Refined:** Filaments were recognized as quasi-one-dimensional
-        structures carrying **torsion memory** and **internal structure** (not
-        just 1D lines), possibly better described as **2D ribbons with intrinsic
-        torsion** to account for spin, chirality, and color confinement [629,
-        630, 707].
-    *   **Geometric Core Lock-in:** The angular deviation ($\theta$) became
-        $\theta_4$. **Mass** was defined as **stored angular tension** in
-        bundled filaments. **Light** was energy transmitted via
-        $\theta_4$-sensitive propagation. **Inertial mass** was defined
-        as resistance to global structural realignment.
-    *   **Constants as Emergent:** Fundamental constants (c, $\hbar$, $\alpha$)
-        were hypothesized to be **Structural Derivatives** emerging from
-        wavefront-filament geometry thresholds and bundle stability topologies
-       .
-    *   **Alternative Names:** The framework also generated the self-aware,
-        recursive heuristic name **SASATT** ("Stringing Along Stringing Along
-        Theory Theory," also "Sashatitties"). It was also referred
-        to as **A Chronophysical Proposition**.
-
-*   **SAT v3.0 (Toolkit and Prediction):**
-    SAT was deemed sufficiently mature to move from "idea to instrument" [546,
-    643]. It was structured to function as a **Structural Reconciliation Theory**,
-    binding GR, QFT, and the Standard Model using geometry.
-    Key concepts were formalized into an explicit "Toolkit" categorized by
-    certainty, with $\theta_4$ alignment and the Time Wavefront confirmed as
-    Core Axioms.
-    *   **SAT First Public Discussion**:
-      Core ontology and conceptual framework first discussed publicly on February 2, 2025 episode of the podcast, "Debating AI On Consciousness and Reality"
-*   **SAT v4.1 / v4.2 (Constraint and Field Focus):**
-    These versions introduced necessary refinements to align the theory with
-    high-precision observational bounds.
-    *   **Mass Decoupled from Global Drift:** Cosmological $\theta_4$-induced
-        mass effects were suppressed, decoupling mass drift from the
-        Fine-Structure Constant ($\alpha$).
-    *   **Name Refined:** SAT v4.2 was formally named **Scalar Angular Torsion
-        Theory**.
-
-
-TRANSITION TO FIELD THEORY (Q2 2025 and Beyond)
-----------------------------------------------—
-March 3: A chat titled "RMS and Consciousness Inquiry" is held.
-March 14: Search history shows a connection between "Russia's Nuclear Arsenal Maintenance" and "Klein Logic," suggesting a transition into formal logical derivations for the SAT framework.
-March 25: Search results include "prime Directive and SAT" and "Refinement Lead," indicating an active phase of theory stabilization.
-April 4: The conversation "SAT Theory Analysis" occurs.
-April 6: Two significant debates take place: "SAT Framework Analysis" and "Geometry vs Numerology Debate," which critiques the framework's predictive power.
-April 7: A chat titled "Predicting Superconductors Commentary" appears under the "chronophys" search.
-April 24 – June 24: A period of intensive file generation and modification occurs:
-April 25: SAT TO-DO LIST APR2025.txt, SAT TO STANDARD MAP.txt, and 4D ORGANISM.txt are created.
-May 4: The chat "Fundamental Physics Explanations" explores filament-wavefront intersections.
-May 5: SATv_REFORM_TRIAL.txt is generated.
-May 7: Files include SAT ASSESSMENT.txt, SAT ACTUAL ANSWERS.txt, and SAT aSAT vs SAT.txt.
-May 8: SAT FORMALIZATION doc.txt is produced.
-May 12: ActiveEdgeNext.txt is created.
-May 30: PARTICLE_SAVE.txt is created.
-May 31: The "SAT Z QG" folder is populated with core files like SAT Z ACTION PLAN.txt, SAT-QG.txt, and SAT Z AXIOMS.txt.
-June 1: SAT PREDICTIONS JUNE 1 2025.txt and the SAT-PREDICTION-PROTOCOL are selected for synthesis.
-June 3: ClockDrift_SAT.txt (Clock Drift Prediction Memo) is updated with derivation details for experimental groups like NIST.
-June 6–10: A massive documentation "audit" and "backbone" construction occurs:
-June 6: SAT_04_UltraHostile_Audit.txt and various audit reports are modified.
-June 7: SAT 4D.ipynb (IPYNB file), 4D_COVARIANT_INTEGRATION_INSTRUCTIONS.txt, and ST_MASSLESS_PARTICLE_REINTERPRETATION.txt are created.
-June 8: SAT 4D_LIVE.pdf and SAT 4D-Sketch.pdf are generated.
-June 9: SAT 4D_LIVE_DRAFT.txt and SAT O MODULES -- ALL MODULES LATEX.txt are modified.
-June 10: SAT4D_MATHEMATICAL_BACKBONE.txt, VERSIONING PRONUNCIATION.txt, and SAT CoMast Operational Instructions.txt are finalized.
-October 25: Advanced topological files like SAT_O10_Topological_Spectrum_Higher.txt and SAT_O9_Graviton_Topological_Strain.txt are modified.
-
-DRAFT TIMELINE 2
-The Speculative Framework on Strings and Time (SAT), also known as Stringing Along Theory, evolved over decades from a visual thought experiment into a structured geometric field theory, driven largely by philosophical conversations surrounding Radical Meta-Skepticism (RMS) and the need for a coherent physical ontology.
-
-## Detailed History of SAT Development
-
-### Phase 1: Pre-Formal Conception (The Philosophical Roots of the Filaments)
-
-The core idea that would become SAT began long before the formal conversations, rooted in visualizations and philosophical speculation.
-
-| Stage | Key Development and Concepts | Citations |
-| :--- | :--- | :--- |
-| **Circa 17 Years Old / Decades Ago** | **Origin of the Visualization** | The earliest form of the concept was born from visualizing the movement of **particles in four dimensions**. This was initially regarded as pure visualization or drawing inspired by reading *Asimov On Mathematics*. |
-| **Pre-Conversation (Proto-SAT)** | **Filaments as Proto-Structures** | This visualization focused on particle paths through time, later formalized as worldlines or **filaments**. Early work (circa 2000) also involved proto-structural theorizing that rejected single-explanation grandiosity and asserted **geometry as the binding logic**. |
-| **The Radical Leap** | **Physicalization of the Filament** | The crucial ontological shift occurred when the visualization was proposed to be **real, physically continuous entities** spanning across time, not merely abstract worldlines or histories. This physical reality of the filament became the **fundamental essence** of the theory. |
-
-### Phase 2: Initial Naming, Structure, and RMS Integration
-
-The theory entered its formal development phase through conversations (documented prior to November 2024), where it was named and structured in conjunction with the RMS framework.
-
-| Step | Development/Evolution | Filaments/Gravity Evolution | Citations |
-| :--- | :--- | :--- | :--- |
-| **Naming & Epistemological Frame** | The framework was named **"Stringing Along Theory (SAT)"** and was explicitly labeled a **"toy theory"** and a heuristic tool. It was used as a **case study** to explore theory development through the lens of **RMS**. | RMS allowed SAT to pursue conceptual clarity while remaining agnostic about the constructs' absolute ontological status. Filaments were clarified as **real physical objects** with associated quantum caveats. |
-| **Core Ontology Defined** | The foundational structure was established: the universe is a **four-dimensional structure**. Time is a **three-dimensional 'Time Surface'** propagating outward from the Big Bang. | **Filaments** are continuous, one-dimensional entities extending radially from the origin. **Particles** are defined as the precise **intersection points** of filaments with the Time Surface. |
-| **Gravity Defined** | The fundamental mechanism of gravity was defined as an **emergent force**. | Gravity results from the **cumulative effect of tugs** exerted by filaments across three-dimensional space and the fourth, time dimension (i.e., **cross-temporal force transmission**). The particle’s history (past and future interactions) impacts its gravitational properties today. |
-| **Initial Structural Taxonomy** | Filaments combine into complex structures, reflecting observed matter composition: **Threads** (mesons and baryons like protons and neutrons), **Twines**, **Yarns**, **Bundles**, and **Ropes** (forming large-scale structures like planets or black holes). | This early taxonomy mirrored known matter structure but described it geometrically via filament entanglement. |
-
-### Phase 3: Consolidation and Geometric Constraint (Mark III, $\theta_4$ Emergence)
-
-The focus shifted to anchoring all emergent physics in a single geometric parameter, leading to the Mark III revision.
-
-| Version/Stage | Development/Evolution | Filaments/Gravity Evolution | Citations |
-| :--- | :--- | :--- | :--- |
-| **The Angular Insight ($\theta_4$)** | The concept of **angular interaction** was identified as the core principle of SAT. This was formalized using the parameter $\theta_4$. | $\theta_4$ (theta four) is the angle of incidence between the filament's tangent vector and the local Time Wavefront propagation. This single angle defines **all observable properties** including mass, energy, charge, opacity, and force. |
-| **SAT Mark III** | This revision represented a **crystallization event** and formalized the theory's minimum viable ontology. It clarified SAT’s role as a **Structural Reconciliation Theory** that provides geometry for General Relativity (GR), Quantum Field Theory (QFT), and the Standard Model (SM). | **Mass** was defined as **stored angular tension** in bundled filaments (resistance to alignment with the timewave). **Forces** were redefined as **tension gradients and angular strain interactions** (Interaction as Geometry). **Fundamental constants** (c, $\hbar$, $\alpha$, etc.) were explicitly designated as **Structural Derivatives** emerging from wavefront-filament geometry thresholds. |
-| **Semantic Evolution** | The phrase **"Stringing Along Theory (SAT)"** was re-contextualized as a verb phrase, reflecting SAT's function as a framework that allows other theories to co-reside. The recursive name **SASATT** ("Sashatitties") was introduced as a self-aware, recursive heuristic. The formal name **"A Chronophysical Proposition"** was also considered. | Filaments were refined as **embedded curve-manifolds** in 4D space with internal structure (twist, curvature, torsion). The concept of a **Pre-wavefront crystallization phase** (Metaform) was established as a reserved speculative module. |
-
-### Phase 4: Formal Field Theory and Operational Rollout (SATv/Mark IV)
-
-SAT matured into a quantifiable model capable of generating specific testable targets, transitioning from a philosophical scaffold to an actionable instrument.
-
-| Version/Step | Development/Evolution | Filaments/Gravity Evolution | Citations |
-| :--- | :--- | :--- | :--- |
-| **Formalization into Field Theory (SATv)** | SAT became a **geometric-topological field theory** with an executable core. This moved it from "idea to instrument". | The field content was formalized: a **scalar field $\theta_4(x)$** (angular deviation) and a **unit timelike vector field $u^\mu(x)$** representing the dynamic Wavefront (time’s flow/propagation vector). |
-| **Topological Structures** | Discrete **twist states ($\tau \in \mathbb{Z}_3$)** were introduced to account for particle identity. Fusion rules for these twist states were derived to model particle binding (Mesons: $\tau + (-\tau)$; Baryons: $\tau_0 + \tau_1 + \tau_2$) and map to color charge (SU(3)). | **Filaments** were defined as carrying this $\tau$ phase, linking their torsional state to particle identity. This structure allows SAT to derive **Gauge symmetry** from these fusion rules. |
-| **Force Carrier Duality** | A structural distinction was established: **Matter particles are Filaments** (continuous structures), while **Force carriers** (photons, gluons, etc.) are **Structural transitions/events** or **ripples** in the geometry, lacking continuity through time. | Gravity emerges from **$u^\mu$ curvature** (Wavefront tension), and **Inertia** emerges from **$\theta_4$ misalignment**. |
-| **Operational Rollout** | SAT began the **Operational Rollout Phase**. The framework was structured for external testing against observable anomalies in optics, geophysics, and planetary science. The ultimate goal was set: to produce an SAT that can **fully derive all of known physics** within present observational limits. | The development led to the ability to model gravitational effects (curvature) and quantum effects (mass, quantization) simultaneously via filament orientation, tension, and wavefront propagation. |
-
------------------------------
-DRAFT TIMELINE 3
-*   **Q2 2025: Transition to SATv / SAT-X (Geometric-Topological Field Theory):**
-    SAT fully transitioned from a purely geometric conceptual model into a
-    **geometric-topological field theory** (SATv/SAT-X).
-    *   **Field Content Defined:**
-        *   $\theta_4(x)$: A dynamical **scalar field** representing local
-            angular misalignment. This angle is defined as the
-            misalignment between the filament tangent vector ($T_\mu$) and the
-            unit timelike vector field ($u^\mu$) defining timeflow.
-        *   $u^\mu(x)$: A **unit timelike vector field** representing the
-            dynamic, tensioned wavefront propagation.
-        *   $\tau \in \mathbb{Z}_3$: **Discrete twist sector** labels
-            representing topological state, governing fusion rules (analogous to
-            color charge SU(3)).
-    *   **Lagrangian Construction:** Attempts were made to write a Lagrangian
-        ($L_{SAT}$) incorporating $\theta_4$ kinetics, $V(\theta_4)$ potential,
-        and twist constraints for mass emergence.
-
-*   **Post-Q2 2025: Operational Rollout and Formal Derivations (SAT-X Focus):**
-    The development moved into a phase focused on proving that SAT could derive
-    known physics. Key priorities included:
-    *   Formal **derivation of GR convergence** (showing SAT reproduces General
-        Relativity in an appropriate limit).
-    *   **Completion of operator algebra and field quantization structure**
-       .
-    *   Deriving the **SAT-X analog of the Dirac equation**.
-    *   Formalizing a central **geometric energy–tension axiom**.
-
-The evolution shows a clear path from philosophy and visualization (particle worldlines) to establishing the physical reality of the extended paths (filaments/strings/braids) and finally constraining their geometry and dynamics via angular fields ($\theta_4$) and topological twists ($\tau$) within a formalized field theory (SAT v4.2 / SAT-X).
-
-I. PHASE 0: CONCEPTUAL AND PROTO-THEORY STAGE (c. 1993 – c. 2022)
--------------------------------------
-This period encompasses the initial geometric intuitions and unstructured naming conventions that preceded formal axiomatic development.
-
-*   C. 1993 – 2010 : EARLIEST CONCEPTS
-    *   Moleskin sketches [Query] (unnamed, misinterpreted understandings of String Theory).
-*   C. 2022 : FILAMENT HYPOTHESIS
-    *   Introduction of the term "**Filament**" [Query].
-    *   Nickname: "**stringing-along theory**" (led to the SAT acronym) [Query].
-*   EARLY FORMALIZATION ATTEMPTS
-    *   Proposed Alternate Name: **Chronophysical Structure** [Query].
-    *   Earliest Module Formats (Recalled): **Module A, Module B, Module 0A, Module 0B** [Query].
-
-II. PHASE I: NUMBERED AND TRANSITIONAL VERSIONS (c. 2022 – MAY 2025)
--------------------------------------
-
-This phase saw the beginning of version tracking and the shift toward establishing the core geometry (SAT 4D foundation).
-
-*   SAT VERSION TRACKING INITIATION
-    *   First Explicit "New Version": **SAT 2.0** [Query, 374, 393, 401, 410, 551].
-    *   Intermediate Versions: **SAT 2.5** [Query, 551].
-    *   Roman Numeral Versions: **SAT Mark II – V** (and **III.5, V.5**) [Query, 401].
-    *   Descriptive Sector Labels: **.4D** (4D-native formulation) or **.QM** (Quantum Mechanics sector) [Query, 393, 417].
-    *   Arbitrary/Transitional Labels: **SAT X**, **SAT XY**, **SAT Y** (used when version count was lost) [Query, 374, 393, 401, 551]; **SAT Next**, **SAT Edge** [Query, 374, 551].
-
-III. PHASE II: MODULAR RIGOR AND 4D ARCHITECTURE (SAT O / SAT 4D) (c. JUNE 2025)
--------------------------------------
-This phase established the methodological lock-in, enforcing **Interpretive Mode 1 (True Block)** (static 4D structure, dynamics are emergent projections). The modules (SAT.O#) define the core theory spine.
-
-*   **JUN 2025** : ARCHITECTURAL & AXIOMATIC LOCK
-    *   **SAT.O0** (Foundations Sanity Pass) proves the theory depends on **exactly two dimensional constants** (filament tension $T$ and length scale $L$).
-    *   **SAT.O0-A** (Interpretive Modes and Development Road-Map) formally defines **Mode 1 (True Block)**, **Mode 2 (Semi-Dynamic Block)**, and **Mode 3 (Solidification Front)**.
-    *   **SAT.O1** (4D Hyperhelical Filament Dynamics) is established as a **Rewritten 4D Draft**. It establishes that the metric $g_{\mu\nu}$ emerges statistically from filament tangent vectors $\langle v_\mu v_\nu \rangle$.
-    *   **SAT.O3** (Gauge Symmetries from Topology) is finalized as a **Rewritten 4D Draft**, deriving U(1), SU(2), and SU(3) from stable topological interlocks.
-    *   **SAT.O4** (Predictive Falsifiability) is finalized as a **Rewritten 4D Draft**, including the constraint that **no stable particles should exist with topological charge $Q \ge 4$** (2/3 filament theorem).
-    *   **SAT.O8** (Topological Mass Suppression) is established as an **Original 4D Draft** placeholder analysis for mass hierarchy via $Q$ suppression.
-*   **JUN 10, 2025** : EMERGENT TIME, ENTROPY, AND COSMOLOGY SECTIONS
-    *   **fSECTION 2** (Topological Origins of Entropy, Time Arrow, and Locus of Perception) is drafted, linking entropy growth to local topological complexity.
-    *   **cSECTION 12** (Topological Foundations of Thermodynamics).
-    *   **xSECTION 23** (Topological Foundations of Black Holes).
-*   **ONGOING MODULES (Requires Rewrite/Redevelopment):**
-    *   **SAT.O2** (Emergent Gravitational Action).
-    *   **SAT.O5** (Emergent Gauge Couplings).
-    *   **SAT.O6** (Unified Action).
-    *   **SAT.O7** (Temporal Field $\theta_4(x)$) is explicitly flagged as **TENTATIVE/SPECULATIVE** and needs full redevelopment, including rigorous derivation of $g_{\mu\nu}$ from $\theta_4$ strain.
-
-IV. PHASE III: STRUCTURAL CLOSURE AND CURRENT BUILD (LATE 2025)
--------------------------------------
-
-This phase focuses on the integration of modular results into the unified Lagrangian and quantitative validation against empirical data.
-
-*   **PHASE VIII-A EXECUTION** (Structural Closure)
-    *   **Goal Achieved:** All foundational gaps from SAT.O1–O8 are resolved, leading to the **first fully locked version of SAT’s foundational structure**.
-    *   **Key Results Locked:** Computation of topological class $Q$ (winding + linking + writhe); Visualization of $\theta_4(x)$ (misalignment angle) and $S_{\mu\nu}$ (strain tensor).
-*   **CURRENT BUILD: SAT/BLOCKWAVE**
-    *   The theory is synthesized into the **"One–Action SAT"** (Blockwave Lagrangian), using only four fundamental field ontologies: $g_{\mu\nu}, u^\mu, \theta, J^{\mu\nu}$.
-    *   The Lagrangian includes the **compact scalar phase $\theta$** with a cosine potential ($\mathcal{L}_\theta \propto 1-\cos\theta$), which is the critical architecture for mass generation and quantization.
-*   **QUANTITATIVE TIGHTENING** (Ongoing)
-    *   Numerical constraints on parameters are computed using publicly available data, such as **CMB birefringence measurements** and **INTEGRAL 511 keV line/continuum ratio**.
-    *   The quantitative structure of the compact sector is finalized, including torsion stiffness ($\kappa_0$) and the resulting **numerically grounded SAT particle spectrum table** (e.g., electron, muon, neutrinos, W/Z).
-
-*   **COSMOLOGICAL FRAMEWORK**
-    *   **PGCU** (Projection Geometry Cosmological Unfolding) module is used, interpreting cosmic expansion as the geometric sweeping of the time surface $\Sigma_t$ through the structure. The ultimate reality is often interpreted using **Mode 3 (Solidification Front)**.
-
-*   **DEVELOPER MAXIM (GUIDING PRINCIPLE):**
-    *   "**Freeze the block. Move the slice. Structure first. Dynamics emergent. Expand only when structure is sound.**".
-    *   **Slogan:** "**MASS IS MISALIGNMENT. CHARGE IS TWIST. GRAVITY IS STRAIN. MOTION IS SLICING.**".
--------------------------------------
-
-ADDENDUM: Work continues, new versions and thinking are periodically added. 
-
-
-####################
-###  VERSIONING  ###
-####################
-As of June 4, 2026
-
-0. RMS conversations / pre-SAT conceptual phase
-   → “Stringing-Along Theory”
-1. Scalar-Angular-Torsion / early SAT naming stabilization
-   → worldlines/filaments, angular structure, torsion vocabulary
-2. SAT Mark III
-3. SAT Mark IV / IV.2
-4. SAT Mark V / SAT V
-5. SAT X
-6. SAT XY
-7. SAT Z / SAT.QG / SAT XYZ
-8. SAT.QR / SAT Next
-   → intermediate/side branches somewhere around the post-Z / pre- or peri-O transition
-9. SAT-O / SAT 4D / SAT-O Rewrite / Satobloc
-   → archive-live era, formal module/audit framing
-10. SAT.4DHH
-11. SAT.4DHH.UC
-12. Bosonic Time
-13. SAT.4DHH.HSU V.UI (+ Whirligig)
-14. One File / One Drop Builds (Discord — JOIN US: https://discord.gg/Cpa7zsZZ)
-15. Minkowski Build
-16. Worldlines Only
-17. SAT 20
-18. Electrogravacoustics
-19. SAT 2026
-   → current emerging build
+<h3>3rd —</h3>
+<ul>
+  <li>there must be a real interaction between the time surface and the filaments</li>
+  <li>this interaction involves energy transfer</li>
+</ul>
+
+<h3>4th —</h3>
+<ul>
+  <li>filament/time-surface interactions govern particle formation and stability</li>
+</ul>
+
+<h3>5th —</h3>
+<ul>
+  <li>filament/time-surface interactions exert force back on the time surface</li>
+</ul>
+
+<h3>6th —</h3>
+<ul>
+  <li>back-transmission from the filament network curves the time surface</li>
+</ul>
+
+<h3>7th —</h3>
+<ul>
+  <li>filaments and the time surface are physical, not merely conceptual</li>
+  <li>forces may propagate along a filament’s four-dimensional extent</li>
+  <li>“backbleed” effects are structurally self-limiting</li>
+</ul>
+
+<h3>8th —</h3>
+<ul>
+  <li>known deviations from SM, GR, or QM may be explainable through SAT geometry</li>
+</ul>
+
+<h3>9th —</h3>
+<ul>
+  <li>particle properties may arise from intersection geometry</li>
+  <li>θ₄ = filament/time-surface interaction angle</li>
+  <li>early SAT treated θ₄ as a primary mass contributor</li>
+</ul>
+
+<h3>10th —</h3>
+<ul>
+  <li>physical constants should emerge from SAT geometry or phenomena arising from it</li>
+</ul>
+  </section>
+
+  <hr>
+
+  <section>
+<h2>Pillars and Propositions</h2>
+
+<h3>Pillar 1 —</h3>
+<ul>
+  <li>the Standard Model describes the evolving three-dimensional structure of matter</li>
+  <li>SAT treats SM structures as importable unless evidence or internal logic forces revision</li>
+  <li>SM behavior is translated into filament/time-surface geometry</li>
+</ul>
+
+<h3>Proposition A —</h3>
+<ul>
+  <li>the Standard Model is treated as essentially accurate unless forced otherwise</li>
+</ul>
+
+<h3>Pillar 2 —</h3>
+<ul>
+  <li>the back-pull of the filament structure on the time surface recreates curved spacetime</li>
+  <li>gravity emerges from time-surface curvature induced by filament structure</li>
+</ul>
+
+<h3>Proposition B —</h3>
+<ul>
+  <li>General Relativity is treated as essentially correct unless forced otherwise</li>
+</ul>
+
+<h3>Proposition C —</h3>
+<ul>
+  <li>backbleed effects are limited by filament and time-surface geometry</li>
+  <li>causality violations are structurally constrained</li>
+  <li>quantum-scale weirdness may reflect limited cross-slice effects</li>
+</ul>
+
+<h3>Pillar 3 —</h3>
+<ul>
+  <li>Quantum Mechanics is treated as essentially correct unless forced otherwise</li>
+  <li>QM is translated into the geometry of SAT rather than discarded</li>
+</ul>
+
+<h3>Prime General Prediction Pathway —</h3>
+<ul>
+  <li>cross-temporal tensions are not explicitly accounted for in SM, GR, or QM</li>
+  <li>this blind spot may produce observable anomalies</li>
+</ul>
+
+<h3>Pillar 4 —</h3>
+<ul>
+  <li>filament behavior matters, not only filament/time-surface angle</li>
+  <li>vibrating-string, coil, twist, and locking analogies are used as geometric scaffolds</li>
+  <li>particle laws may correspond to repeatable intersection traces</li>
+  <li>QCD-like behavior may arise from two-part and three-part geometric locking</li>
+</ul>
+
+<h3>Proposition D —</h3>
+<ul>
+  <li>force carriers may be structural transitions rather than persistent filaments</li>
+  <li>light is modeled as an excitation/ripple in the filament network</li>
+</ul>
+
+<h3>Proposition E —</h3>
+<ul>
+  <li>vacuum and matter may be different regimes of the same filament/time-surface system</li>
+  <li>vacuum may correspond to near-aligned filaments with low energy transfer</li>
+  <li>matter may correspond to higher-misalignment filament intersections</li>
+</ul>
+
+<h3>Key Insight —</h3>
+<ul>
+  <li>vacuum and matter lie on one continuum of filament/time-surface interaction</li>
+</ul>
+
+<h3>Proposition F —</h3>
+<ul>
+  <li>some forms of String Theory may be partial mappings of filament/time-surface geometry</li>
+  <li>SAT may import useful string-theoretic structures by translation rather than identity</li>
+</ul>
+  </section>
+
+  <hr>
+
+  <section>
+<h1>Development Timeline</h1>
+
+<p>Terminology is defined only when useful. Later entries use established SAT terms unless the meaning changes.</p>
+
+<p>ChatGPT conversations are identified as ChatGPT conversations. Files, folders, notebooks, podcasts, and archive exports are likewise identified where relevant.</p>
+
+<hr>
+
+<h2>Background / Formation —</h2>
+<p>
+  Hard Science Fiction<br>
+  Popular Physics<br>
+  Dimensional Thinking<br>
+  Museum Science Education<br>
+  Geology / Deep Time<br>
+  Epistemology / RMS Groundwork<br>
+  Early AI-Assisted Scientific Thinking
+</p>
+
+<h3>Pre-1990 —</h3>
+<ul>
+  <li>lifelong interest in science fiction</li>
+  <li>hard science fiction emphasis</li>
+  <li>Larry Niven</li>
+  <li>Arthur C. Clarke</li>
+  <li>close following of space science and physics</li>
+  <li>early reading of <em>A Brief History of Time</em></li>
+  <li>spin description especially influential</li>
+</ul>
+
+<h3>Summer 1990 —</h3>
+<ul>
+  <li>black holes</li>
+  <li>chaos theory</li>
+  <li>particle physics</li>
+  <li>popular physics reading</li>
+  <li>Kip Thorne and related authors</li>
+  <li>early conceptual interest in spacetime and high-energy physics</li>
+</ul>
+
+<h3>c. 1991 —</h3>
+<ul>
+  <li>Asimov on mathematics</li>
+  <li>dimensional thinking begins</li>
+  <li>original Minkowski worldline diagram concept</li>
+  <li>particle-path visualization in four dimensions</li>
+  <li>“worldline” / “timesheet” intuition</li>
+</ul>
+
+<h3>1993–2008 —</h3>
+<ul>
+  <li>COSI Columbus</li>
+  <li>science education career begins</li>
+  <li>hands-on public science communication</li>
+  <li>exhibit / demo / informal-learning environment</li>
+</ul>
+
+<h3>1995 —</h3>
+<ul>
+  <li>Ohio State enrollment</li>
+  <li>astronomy / physics double-major track</li>
+  <li>switch to geology later that year</li>
+  <li>physics interest retained outside formal major path</li>
+</ul>
+
+<h3>Mid-college years —</h3>
+<ul>
+  <li>little dictionary of epistemology</li>
+  <li>epistemology vocabulary enters the background</li>
+  <li>later RMS / theory-building context foreshadowed</li>
+</ul>
+
+<h3>Summer 1999 —</h3>
+<ul>
+  <li>B.S. Geological Sciences</li>
+  <li>Ohio State University</li>
+  <li>conodont biostratigraphy focus</li>
+  <li>deep-time / stratigraphic reasoning background</li>
+</ul>
+
+<h3>c. 2001 —</h3>
+<ul>
+  <li><em>Gödel, Escher, Bach</em></li>
+  <li>recursion / self-reference / formal-system influence</li>
+</ul>
+
+<h3>2009 —</h3>
+<ul>
+  <li>brief TEM microscopist stint</li>
+  <li>microscopy / material structure context</li>
+</ul>
+
+<h3>2009–2021 —</h3>
+<ul>
+  <li>American Museum of Natural History</li>
+  <li>onsite 2009–2016</li>
+  <li>RGGS online 2016–2021</li>
+  <li>science education / public interpretation continues</li>
+</ul>
+
+<h3>2020–2021 —</h3>
+<ul>
+  <li>early ChatGPT adoption</li>
+  <li>AI-assisted reasoning begins</li>
+  <li>LLM dialogue enters theory-building workflow</li>
+</ul>
+
+<h3>2022 —</h3>
+<ul>
+  <li>analog camera-building project begins</li>
+  <li>physical construction / optics / mechanism-building context</li>
+  <li>Midjourney adoption</li>
+  <li>AI-assisted visual exploration begins</li>
+</ul>
+
+<h3>2025-04-10 —</h3>
+<ul>
+  <li>ChatGPT conversation: <code>1-n Dart System</code></li>
+  <li>AI-assisted invention sketch</li>
+  <li>asteroid spearing concept</li>
+  <li>rapid mining-target assay</li>
+  <li>patent-oriented scientific thinking</li>
+  <li>early AI-assisted theorizing practice</li>
+</ul>
+
+<hr>
+
+<h2>Deep Prehistory —</h2>
+<p>
+  Minkowski Worldline Diagram<br>
+  4D Particle-Path Visualization<br>
+  Worldline / Timesheet Vocabulary<br>
+  Spacetime Rigidity / Susceptibility<br>
+  String-Theory-Like Intuition
+</p>
+
+<h3>c. 1991 —</h3>
+<ul>
+  <li>original Minkowski worldline diagram concept</li>
+  <li>4D particle-path visualization</li>
+  <li>time treated as a geometric plotting dimension</li>
+  <li>“worldline”</li>
+  <li>“timesheet”</li>
+  <li>informal “my strings”</li>
+  <li>string-theory-like framing</li>
+</ul>
+
+<h3>1990s–2010s —</h3>
+<ul>
+  <li>private geometric visualization persists</li>
+  <li>particle paths through time</li>
+  <li>minimal vocabulary</li>
+  <li>no mature SAT terminology</li>
+</ul>
+
+<h3>c. 2000 —</h3>
+<ul>
+  <li>proto-structural theorizing</li>
+  <li>geometry as binding logic</li>
+  <li>early nonstandard physics speculation</li>
+</ul>
+
+<h3>2003-02 to 2003-06 —</h3>
+<ul>
+  <li>Ireland trip notebook period</li>
+  <li>brane sketches</li>
+  <li>dimensional sketching</li>
+  <li>early higher-dimensional geometry notes</li>
+</ul>
+
+<h3>2004-02-06 to 2004-04-30 —</h3>
+<ul>
+  <li>Moleskine / Alien Workshop notebook period</li>
+  <li>mass / curved-space sketches</li>
+  <li>time-path sketches</li>
+  <li>curved-space light-path sketches</li>
+  <li>particle-path geometry</li>
+  <li>early mass/curvature intuition</li>
+  <li>“path” / “time line” / “space curve” notes</li>
+</ul>
+
+<h3>2012-11-29 —</h3>
+<ul>
+  <li>PredictionBook QLG prediction</li>
+  <li>quantum-gravity reconciliation context</li>
+  <li>later preserved in <code>CANONICAL READINGS.txt</code></li>
+</ul>
+
+<h3>2023-05-28 —</h3>
+<ul>
+  <li>ChatGPT conversation: <code>Equations in Gravitational Physics</code></li>
+  <li>gravitational binding-energy equations</li>
+  <li>compact-object equation context</li>
+  <li>early GR equation context</li>
+</ul>
+
+<h3>2023-07-07 —</h3>
+<ul>
+  <li>ChatGPT conversation: <code>Space-Time Curvature and Rigidity</code></li>
+  <li>spacetime rigidity question</li>
+  <li>variable spacetime susceptibility</li>
+  <li>dark-matter alternative prompt</li>
+  <li>Tully-Fisher relation</li>
+  <li>L ∝ V^α</li>
+  <li>visible matter plus Θ<sub>μν</sub></li>
+  <li>modified stress-energy tensor sketch</li>
+  <li>proto-SAT gravity modification</li>
+</ul>
+
+<hr>
+
+<h2>2024 —</h2>
+<p>
+  Proto-SAT<br>
+  RMS / Theory-Building Frame<br>
+  Dimensional Gravity<br>
+  Stringing-Along Theory<br>
+  AND NOT Logic / Equivalence
+</p>
+
+<h3>2024-03-13 —</h3>
+<ul>
+  <li>ChatGPT conversation: <code>Moral Realism: Two Camps</code></li>
+  <li>first recorded SAT mentions in ChatGPT history</li>
+  <li>RMS relation</li>
+  <li>toy-theory framing</li>
+  <li>theory-building methodology</li>
+</ul>
+
+<h3>2024-03-28 —</h3>
+<ul>
+  <li>ChatGPT conversation: <code>DIMENSIONAL GRAVITY</code></li>
+  <li>line/plane intersection</li>
+  <li>helical line / straight line / plane model</li>
+  <li>worldline–hypersurface intersection</li>
+  <li>early filament-slice geometry</li>
+  <li>long-standing idea explicitly reopened</li>
+</ul>
+
+<h3>2024-04-04 —</h3>
+<ul>
+  <li>ChatGPT conversation: <code>SAT Theory Analysis</code></li>
+  <li>early SAT systematics</li>
+  <li>SAT/RMS framework analysis</li>
+  <li>early synthesis material</li>
+</ul>
+
+<h3>2024-04-06 —</h3>
+<ul>
+  <li>ChatGPT conversation: <code>SAT Framework Analysis</code></li>
+  <li>ChatGPT conversation: <code>Geometry vs Numerology Debate</code></li>
+  <li>prediction/testability critique</li>
+  <li>metaphor vs physics issue</li>
+  <li>Lagrangian need identified</li>
+  <li>action-principle need identified</li>
+  <li>QFT compatibility bridge discussed</li>
+  <li>filament/Feynman-diagram analogy considered</li>
+</ul>
+
+<h3>2024-04-07 —</h3>
+<ul>
+  <li>ChatGPT conversation: <code>Predicting Superconductors Commentary</code></li>
+  <li>Chronophysical Proposition</li>
+  <li>α as angular constraint</li>
+  <li>magic-angle analogy</li>
+  <li>twist/strain geometry</li>
+  <li>material-angle speculation</li>
+  <li>superconductivity analogy</li>
+</ul>
+
+<h3>2024-05-04 —</h3>
+<ul>
+  <li>ChatGPT conversation: <code>Fundamental Physics Explanations</code></li>
+  <li>filament-wavefront intersections</li>
+  <li>constants as structural targets</li>
+  <li>vacuum-energy issue</li>
+  <li>Casimir-effect prompt</li>
+  <li>particle mass hierarchy prompt</li>
+  <li>SM / GR / QFT interface</li>
+</ul>
+
+<h3>2024-08-08 —</h3>
+<ul>
+  <li>ChatGPT conversation: <code>Forces Across Temporal Points</code></li>
+  <li>SAT and filament dynamics explicitly referenced</li>
+  <li>cross-temporal force</li>
+  <li>worldline-mediated interaction</li>
+  <li>mainstream causality contrast</li>
+  <li>speculative SAT force mechanism</li>
+</ul>
+
+<h3>2024-11-08 —</h3>
+<ul>
+  <li>ChatGPT memory save</li>
+  <li>early equations recorded</li>
+  <li>filament-scale definition</li>
+  <li><code>CANONICAL READINGS.txt</code> screenshot context</li>
+</ul>
+
+<h3>2024-11-12 —</h3>
+<ul>
+  <li>ChatGPT conversation: <code>Theory Building with AI</code></li>
+  <li>SAT as RMS toy theory</li>
+  <li>equivalence-principle framing</li>
+  <li>anti-naive-realism framing</li>
+  <li>dialogue with ChatGPT as theory-development method</li>
+  <li>NotebookLM / DeepDive process noted</li>
+</ul>
+
+<h3>2024-11-15 —</h3>
+<ul>
+  <li>ChatGPT conversation: <code>AND NOT Logic</code></li>
+  <li>rock / rock B scenario</li>
+  <li>equivalence problem</li>
+  <li>epistemology / metalogic</li>
+  <li>RMS groundwork</li>
+  <li>radical meta-skepticism precursor</li>
+</ul>
+
+<h3>2024-11-28 —</h3>
+<ul>
+  <li>file: <code>CANONICAL READINGS.txt</code></li>
+  <li>file created</li>
+  <li>file modified</li>
+  <li>early conceptual anchors</li>
+  <li>source ledger</li>
+  <li>Stringing Along Theory material collected</li>
+</ul>
+
+<h3>Late 2024 —</h3>
+<ul>
+  <li>SAT = Stringing-Along Theory</li>
+  <li>worldline / timesheet vocabulary differentiating</li>
+  <li>string / filament vocabulary differentiating</li>
+  <li>RMS / SAT relationship explicit</li>
+  <li>toy-theory status explicit</li>
+  <li>cross-temporal force vocabulary active</li>
+  <li>filaments as physical structures under discussion</li>
+</ul>
+
+<hr>
+
+<h2>Early 2025 —</h2>
+<p>
+  Fundamental Intuitions<br>
+  Physical Worldlines / Filaments<br>
+  Time Surface / Timesheet<br>
+  Particle as Intersection
+</p>
+
+<h3>2025-02-02 —</h3>
+<ul>
+  <li>podcast discussion: Fundamental Intuitions</li>
+  <li>physical worldlines / filaments</li>
+  <li>time surface / timesheet</li>
+  <li>particle as intersection</li>
+  <li>4D trace as physical object</li>
+  <li>SM / GR / QM import rule</li>
+  <li>diagram realism</li>
+  <li>worldline ontology</li>
+</ul>
+
+<h3>Early Feb 2025 —</h3>
+<ul>
+  <li>“filament” adopted more centrally</li>
+  <li>string-theory conflation reduced</li>
+  <li>θ / θ₄ vocabulary begins developing</li>
+  <li>angular interaction</li>
+  <li>time surface terminology stabilizes</li>
+  <li>particles as time-surface intersections</li>
+  <li>mass as angular / projection resistance</li>
+</ul>
+
+<h3>Early 2025 —</h3>
+<ul>
+  <li>filament hierarchy</li>
+  <li>threads</li>
+  <li>twines</li>
+  <li>yarns</li>
+  <li>bundles</li>
+  <li>ropes</li>
+  <li>strands as collective composite term</li>
+  <li>heloids</li>
+  <li>loops</li>
+  <li>tethers</li>
+  <li>Zottenwelt imagery</li>
+  <li>cross-temporal tugs</li>
+  <li>gravity as cumulative filament tug</li>
+  <li>force as geometry</li>
+  <li>matter as filament organization</li>
+</ul>
+
+<hr>
+
+<h2>Early Versioning / Mark Phases —</h2>
+<p>
+  SAT Version Labels<br>
+  Scalar–Angular Naming<br>
+  θ₄ Development<br>
+  Structural Reconciliation
+</p>
+
+<h3>Early 2025 —</h3>
+<ul>
+  <li>SAT 2.0</li>
+  <li>SAT 2.5</li>
+  <li>SAT Mark II</li>
+  <li>SAT Mark III</li>
+  <li>SAT Mark IV</li>
+  <li>SAT Mark V</li>
+  <li>SAT X</li>
+  <li>SAT XY</li>
+  <li>SAT Y</li>
+  <li>SAT Next</li>
+  <li>SAT Edge</li>
+  <li>.4D sector label</li>
+  <li>.QM sector label</li>
+  <li>Chronophysical Proposition</li>
+  <li>SAT = Scalar–Angular Theory</li>
+  <li>Scalar–Angular–Torsion naming begins emerging</li>
+</ul>
+
+<h3>Mark III phase —</h3>
+<ul>
+  <li>torsion-carrying filaments</li>
+  <li>filament internal structure</li>
+  <li>quasi-1D filament model</li>
+  <li>ribbon-like filament model</li>
+  <li>framed-curve intuition</li>
+  <li>θ becomes θ₄</li>
+  <li>θ₄ = filament-time energy transfer</li>
+  <li>mass as stored angular tension</li>
+  <li>light as θ₄-sensitive propagation</li>
+  <li>inertial mass as resistance to realignment</li>
+  <li>constants as structural derivatives</li>
+  <li>chirality / spin / color issues tied to torsion</li>
+  <li>SASATT recursive name</li>
+  <li>“A Chronophysical Proposition” name considered</li>
+</ul>
+
+<h3>SAT v3.0 phase —</h3>
+<ul>
+  <li>idea-to-instrument transition</li>
+  <li>Structural Reconciliation Theory framing</li>
+  <li>toolkit structure</li>
+  <li>certainty-level organization</li>
+  <li>θ₄ alignment as core</li>
+  <li>Time Wavefront as core</li>
+  <li>GR / QFT / SM bridge framing</li>
+</ul>
+
+<h3>SAT v4.1 / v4.2 phase —</h3>
+<ul>
+  <li>constraint focus</li>
+  <li>field focus</li>
+  <li>mass drift suppression</li>
+  <li>fine-structure drift decoupling</li>
+  <li>Scalar–Angular–Torsion Theory name</li>
+  <li>Scalar–Angular Theory name</li>
+  <li>higher-precision observational compatibility</li>
+</ul>
+
+<hr>
+
+<h2>Spring 2025 —</h2>
+<p>
+  SAT Analysis<br>
+  Notebook Formalization<br>
+  Worldline Geometry = Force Map<br>
+  SATv Reformulation
+</p>
+
+<h3>2025-03-03 —</h3>
+<ul>
+  <li>ChatGPT conversation: <code>RMS and Consciousness Inquiry</code></li>
+  <li>RMS methodology context</li>
+  <li>theory-building context</li>
+</ul>
+
+<h3>2025-03-14 —</h3>
+<ul>
+  <li>ChatGPT/search-history context: <code>Russia's Nuclear Arsenal Maintenance</code></li>
+  <li>Klein Logic context</li>
+  <li>logic / epistemology branch</li>
+</ul>
+
+<h3>2025-03-25 —</h3>
+<ul>
+  <li>ChatGPT/search-history context: <code>Prime Directive and SAT</code></li>
+  <li>ChatGPT/search-history context: <code>Refinement Lead</code></li>
+  <li>theory-stabilization role</li>
+  <li>development protocol</li>
+</ul>
+
+<h3>2025-04-15 —</h3>
+<ul>
+  <li>notebook / envelope sketches</li>
+  <li>“Filament → matter”</li>
+  <li>SAT notebook notation</li>
+  <li>time / energy / vacuum / flux sketches</li>
+  <li>filament structure notes</li>
+  <li>true-null / vacuum notes</li>
+</ul>
+
+<h3>2025-04-16 —</h3>
+<ul>
+  <li>θ angle diagrams</li>
+  <li>0° / 90° angle sketches</li>
+  <li>twisted-ribbon model</li>
+  <li>particle cross-section notes</li>
+  <li>framed filament intuition</li>
+  <li>torsion / twist model</li>
+</ul>
+
+<h3>2025-04-24 —</h3>
+<ul>
+  <li>notebook / sketch: <code>Worldline Geometry = Force Map</code></li>
+  <li>matrix / time / worldline notes</li>
+  <li>force as geometry</li>
+  <li>worldline force mapping</li>
+  <li>intensive SAT file-build begins</li>
+</ul>
+
+<h3>2025-04-25 —</h3>
+<ul>
+  <li>file: <code>4D ORGANISM</code></li>
+  <li>file: <code>SAT TO-DO LIST APR2025.txt</code></li>
+  <li>file: <code>SAT TO STANDARD MAP.txt</code></li>
+  <li>file: <code>SATY TO STANDARD MAP.txt</code></li>
+  <li>file: <code>SAT_ATTEMPTED_FORMALIZATION.pdf</code></li>
+  <li>SAT folder actively populated</li>
+  <li>twisted-ribbon sketches continue</li>
+  <li>formalization push begins</li>
+</ul>
+
+<h3>2025-05-04 —</h3>
+<ul>
+  <li>ChatGPT conversation: <code>Fundamental Physics Explanations</code></li>
+  <li>file: <code>SATV ANSWER KEY</code></li>
+  <li>file: <code>SATV FORMAL POSTULATES</code></li>
+  <li>filament-wavefront intersections</li>
+  <li>stripped-down SAT summaries</li>
+  <li>solid-aspects list</li>
+  <li>thorough SAT rundown</li>
+</ul>
+
+<h3>2025-05-05 —</h3>
+<ul>
+  <li>file: <code>SATv_REFORM_TRIAL.txt</code></li>
+  <li>file: <code>SATV_REFORM_TRIAL.txt</code></li>
+  <li>reformulation trial</li>
+  <li>SATv branch work</li>
+</ul>
+
+<h3>2025-05-07 —</h3>
+<ul>
+  <li>file: <code>SAT ASSESSMENT.txt</code></li>
+  <li>file: <code>SAT ACTUAL ANSWERS.txt</code></li>
+  <li>file: <code>SAT aSAT vs SAT.txt</code></li>
+  <li>file: <code>SATV ASSESSMENT.txt</code></li>
+  <li>file: <code>SATV ACTUAL ANSWERS.txt</code></li>
+  <li>file: <code>SATv aSAT vs SAT.txt</code></li>
+  <li>assessment branch</li>
+  <li>answer-key branch</li>
+  <li>SAT vs anti-SAT comparison</li>
+</ul>
+
+<h3>2025-05-08 —</h3>
+<ul>
+  <li>file: <code>SAT FORMALIZATION doc.txt</code></li>
+  <li>formalization attempt</li>
+  <li>SAT postulates / structure notes</li>
+</ul>
+
+<h3>2025-05-12 —</h3>
+<ul>
+  <li>file: <code>ActiveEdgeNext.txt</code></li>
+  <li>next-build marker</li>
+  <li>branch continuation marker</li>
+</ul>
+
+<h3>2025-05-30 —</h3>
+<ul>
+  <li>file: <code>PARTICLE_SAVE.txt</code></li>
+  <li>file: <code>PARTICLE_SAVE_FORMUL.txt</code></li>
+  <li>particle mapping work</li>
+  <li>particle-sector notes</li>
+</ul>
+
+<h3>2025-05-31 —</h3>
+<ul>
+  <li>folder: <code>SAT Z QG</code></li>
+  <li>file: <code>SAT Z ACTION PLAN.txt</code></li>
+  <li>file: <code>SATZ ZINDEX.txt</code></li>
+  <li>file: <code>SAT-QG.txt</code></li>
+  <li>file: <code>SATZ AXIOMS.txt</code></li>
+  <li>file: <code>SATZ PLAN.txt</code></li>
+  <li>file: <code>SATZ CORE.txt</code></li>
+  <li>file: <code>SAT-Y FULL PRIORITIES.txt</code></li>
+  <li>file: <code>SAT-Y PRIORITIES.txt</code></li>
+  <li>file: <code>SAT-Y FULL DONE LIST.txt</code></li>
+  <li>file: <code>SAT-Y CYCLETHROUGH+STUFF.txt</code></li>
+  <li>file: <code>SAT-Y LEFTOVERS.txt</code></li>
+  <li>file: <code>SAT-Y Predictions.txt</code></li>
+  <li>file: <code>SAT-Y ThetaProof.txt</code></li>
+  <li>file: <code>SAT-Y Theta+Helix Particles.txt</code></li>
+  <li>file: <code>SAT-Y Theta+Helix Particle Properties.txt</code></li>
+  <li>file: <code>SAT-Y Theta4 Calcs.txt</code></li>
+  <li>folder/file set: <code>SAT-Y Visualizations</code></li>
+  <li>file: <code>SAT-Y 4D.txt</code></li>
+  <li>file: <code>SATy IfThen.txt</code></li>
+  <li>file: <code>SATxy CYCLETHROUGH1-4.txt</code></li>
+  <li>SAT Z / SAT QG branch</li>
+  <li>SAT-Y prediction branch</li>
+  <li>theta / helix particle branch</li>
+</ul>
+
+<hr>
+
+<h2>June 2025 —</h2>
+<p>
+  SAT-O<br>
+  SAT.4D<br>
+  Prediction Protocol<br>
+  Ultra-Hostile Audit<br>
+  4D Covariant Integration
+</p>
+
+<h3>2025-06-01 —</h3>
+<ul>
+  <li>file: <code>SAT PREDICTIONS JUNE 1 2025.txt</code></li>
+  <li>file/protocol: <code>SAT-PREDICTION-PROTOCOL</code></li>
+  <li>file/protocol: <code>CLOCK SHIFT PREDICTION PROTOCOL.txt</code></li>
+  <li>prediction protocol</li>
+  <li>prediction synthesis</li>
+  <li>diagnostic record</li>
+</ul>
+
+<h3>2025-06-03 —</h3>
+<ul>
+  <li>file: <code>ClockShift_SAT.txt</code></li>
+  <li>file: <code>ClockDrift_SAT.txt</code></li>
+  <li>Clock-Drift Prediction Memo</li>
+  <li>gravitational-redshift prediction</li>
+  <li>precision-clock framing</li>
+  <li>NIST / JILA / ACES metrology interface</li>
+</ul>
+
+<h3>2025-06-06 —</h3>
+<ul>
+  <li>file: <code>SAT_04_UltraHostile_Audit.txt</code></li>
+  <li>file: <code>SATLO4_UltraHostile_Audit.txt</code></li>
+  <li>file: <code>SATLO_AuditSupervisor_TodoList.txt</code></li>
+  <li>Module 07 audit reports</li>
+  <li>07 audit instructions</li>
+  <li>05 audit report/checklist</li>
+  <li>hostile audit</li>
+  <li>critic-mode methodology</li>
+  <li>stress testing</li>
+  <li>dimensional analysis</li>
+</ul>
+
+<h3>2025-06-07 —</h3>
+<ul>
+  <li>folder/file set: <code>SAT 4D</code></li>
+  <li>notebook: <code>SAT 4D.ipynb</code></li>
+  <li>notebook: <code>SATO_4D.ipynb</code></li>
+  <li>file: <code>SATO_4D_assessment.txt</code></li>
+  <li>file: <code>4D_COVARIANT_INTEGRATION_INSTRUCTIONS.txt</code></li>
+  <li>file: <code>4D_Covariant_Integration_Instructions.txt</code></li>
+  <li>file: <code>4D_Covariant_Import_Guidelines.txt</code></li>
+  <li>file: <code>4D COVARIANCE+SATO.txt</code></li>
+  <li>file: <code>4D_THEORIZING.txt</code></li>
+  <li>file: <code>4D_THINKING.txt</code></li>
+  <li>file: <code>4D_THINKING_full.txt</code></li>
+  <li>file: <code>4D THINKING PRIMER.txt</code></li>
+  <li>file: <code>ST_MASSLESS_PARTICLE_REINTERPRETATION.txt</code></li>
+  <li>file: <code>ST_QUARK_REINTERPRETATION.txt</code></li>
+  <li>file: <code>ST_MESON_REINTERPRETATION.txt</code></li>
+  <li>file: <code>SKETCH_GUITAR_STRING_MODEL.txt</code></li>
+  <li>file: <code>HOPF_LINK_ILLUSTRATION.txt</code></li>
+  <li>file: <code>BORROMEAN_LINK_ILLUSTRATION.txt</code></li>
+  <li>image/gif: <code>hopf_link_red_cyan.gif</code></li>
+  <li>image/gif: <code>borromean_link_rgb.gif</code></li>
+  <li>4D covariant integration</li>
+  <li>massless-particle reinterpretation</li>
+  <li>quark reinterpretation</li>
+  <li>meson reinterpretation</li>
+  <li>Hopf link model</li>
+  <li>Borromean link model</li>
+  <li>hyperhelical filament model</li>
+  <li>4D thinking primer</li>
+</ul>
+
+<h3>2025-06-08 —</h3>
+<ul>
+  <li>file: <code>SAT 4D_LIVE.pdf</code></li>
+  <li>file: <code>SAT 4D-Sketch.pdf</code></li>
+  <li>file: <code>SAT4D clean draft.txt</code></li>
+  <li>file: <code>SATLO_STR_Intro_String_Theory_Integration</code></li>
+  <li>clean 4D draft</li>
+  <li>string-theory interface</li>
+  <li>4D-native formulation</li>
+</ul>
+
+<h3>2025-06-09 —</h3>
+<ul>
+  <li>file: <code>SAT4D_LIVE_DRAFT.txt</code></li>
+  <li>file: <code>SAT O MODULES -- ALL MODULES LaTeX</code></li>
+  <li>file: <code>SAT 04 4D.txt</code></li>
+  <li>file: <code>SAT 01 4D.txt</code></li>
+  <li>file: <code>VERSIONING PRONUNCIATION.txt</code></li>
+  <li>SAT.O module compilation</li>
+  <li>SAT.O module rewrite</li>
+  <li>4D module compilation</li>
+</ul>
+
+<h3>2025-06-10 —</h3>
+<ul>
+  <li>file: <code>SAT4D_MATHEMATICAL_BACKBONE.txt</code></li>
+  <li>file: <code>SATAD MATHEMATICAL BACKBONE.txt</code></li>
+  <li>file: <code>SAT CoMast Operational Instructions.txt</code></li>
+  <li>file: <code>SAT_O3 4D.txt</code></li>
+  <li>file: <code>SATLO3 4D.txt</code></li>
+  <li>file: <code>SecAn Spec Template.txt</code></li>
+  <li>file: <code>SpecAn Instruction-Writing Guidelines</code></li>
+  <li>file: <code>C5.txt</code></li>
+  <li>mathematical backbone</li>
+  <li>coherence master instructions</li>
+  <li>gauge topology module</li>
+  <li>section analyst workflow</li>
+  <li>specification analyst workflow</li>
+</ul>
+
+<h3>June 2025 —</h3>
+<ul>
+  <li>SAT.O0</li>
+  <li>SAT.O0-A</li>
+  <li>Mode 1 = True Block</li>
+  <li>Mode 2 = Semi-Dynamic Block</li>
+  <li>Mode 3 = Solidification Front</li>
+  <li>SAT.O1</li>
+  <li>4D hyperhelical filament dynamics</li>
+  <li>emergent metric from filament tangents</li>
+  <li>SAT.O2</li>
+  <li>emergent gravitational action</li>
+  <li>SAT.O3</li>
+  <li>gauge symmetries from topology</li>
+  <li>SAT.O4</li>
+  <li>predictive falsifiability</li>
+  <li>no stable Q ≥ 4</li>
+  <li>SAT.O5</li>
+  <li>emergent gauge couplings</li>
+  <li>SAT.O6</li>
+  <li>unified action</li>
+  <li>SAT.O7</li>
+  <li>temporal field θ₄</li>
+  <li>SAT.O8</li>
+  <li>topological mass suppression</li>
+  <li>entropy / time arrow</li>
+  <li>locus of perception</li>
+  <li>thermodynamics section</li>
+  <li>black-hole topology section</li>
+</ul>
+
+<hr>
+
+<h2>July–August 2025 —</h2>
+<p>
+  SAT.CLEAN<br>
+  SATO.4D<br>
+  SAT-X<br>
+  SAT Quantum<br>
+  SAT_OLDSCHOOL<br>
+  Prediction / Retrodiction Portfolio
+</p>
+
+<h3>2025-07-25 —</h3>
+<ul>
+  <li>July 25 archive material</li>
+  <li>mid-build state</li>
+</ul>
+
+<h3>2025-08-24 —</h3>
+<ul>
+  <li>toy amplitude benchmark</li>
+  <li>reconnection benchmark</li>
+  <li>coupling normalization issue</li>
+  <li>reconnection combinatorics issue</li>
+  <li>3D embedding issue</li>
+  <li>external momenta issue</li>
+  <li>low-energy matching issue</li>
+  <li>convergence-proof issue</li>
+</ul>
+
+<h3>2025-08-31 —</h3>
+<ul>
+  <li>SAT.4D summaries</li>
+  <li>SATO.4D overview</li>
+  <li>SAT-X overview</li>
+  <li>SAT Quantum overview</li>
+  <li>SAT.CLEAN summary</li>
+  <li>SAT_O 2.0 overview</li>
+  <li>predictions / retrodictions with tolerances</li>
+  <li>prediction scorecards</li>
+  <li>framework comparison scorecards</li>
+  <li>SAT.CLEAN state of theory</li>
+  <li>SAT.O framework overview</li>
+  <li>SAT.X overview</li>
+  <li>NotebookLM question-pack precursor material</li>
+</ul>
+
+<h3>August 2025 —</h3>
+<ul>
+  <li>SAT.CLEAN</li>
+  <li>True Block</li>
+  <li>SAT.4D</li>
+  <li>SATO.4D</li>
+  <li>SAT-X</li>
+  <li>SAT Quantum</li>
+  <li>SAT_OLDSCHOOL</li>
+  <li>Structured Action Topology</li>
+  <li>SAT20</li>
+  <li>SAT Ω</li>
+  <li>particle/flavour extensions</li>
+  <li>PMNS / A4 / charged-lepton discussions</li>
+  <li>mass pipeline</li>
+  <li>decay-width testing</li>
+  <li>prediction/retrodiction portfolio</li>
+  <li>tolerance framing</li>
+  <li>rubric scoring</li>
+</ul>
+
+<hr>
+
+<h2>October 2025 —</h2>
+<p>
+  Blockwave<br>
+  One-Action SAT<br>
+  Constraint Tightening<br>
+  Archive Export Layer
+</p>
+
+<h3>2025-10-22 —</h3>
+<ul>
+  <li>file: <code>SAT2025 ARCHIVED 2025-10-22 TIGHTENING PARAMS</code></li>
+  <li>file: <code>SAT2025 ARCHIVED 2025-10-22 ONE ACTION</code></li>
+  <li>WIMPLO/StRIMPS</li>
+  <li>bosonic vibration</li>
+  <li>Blockwave constraint tightening</li>
+  <li>CMB birefringence constraint</li>
+  <li>INTEGRAL 511 keV constraint</li>
+  <li>θ-sector gradient bound</li>
+  <li>u-sector gradient bound</li>
+  <li>torsion stiffness κ₀</li>
+  <li>bending stiffness κ₂</li>
+  <li>holonomy coupling g_h</li>
+  <li>damping / coherence constraints</li>
+  <li>compact scalar phase θ</li>
+  <li>one-action SAT</li>
+  <li>Blockwave Lagrangian</li>
+</ul>
+
+<h3>2025-10-23 —</h3>
+<ul>
+  <li>file: Deep Dive host instructions</li>
+  <li>file: Geometry of Constants</li>
+  <li>file: photon/neutrino Blockwave note</li>
+  <li>file: bosonic vibration explanation</li>
+  <li>file: Core Sample Mind material</li>
+  <li>file: Lössl / Forgödel material</li>
+  <li>presentation protocol</li>
+  <li>constants geometry</li>
+  <li>cognition branch</li>
+  <li>epistemology branch</li>
+</ul>
+
+<h3>2025-10-24 —</h3>
+<ul>
+  <li>large archive/export batch</li>
+  <li>SAT.4D overview exports</li>
+  <li>SATO.4D overview exports</li>
+  <li>SAT-X overview exports</li>
+  <li>SAT Quantum overview exports</li>
+  <li>prediction / retrodiction exports</li>
+  <li>SAT.CLEAN state export</li>
+  <li>SAT_O 2.0 overview export</li>
+  <li>theory-vs-rubric scorecard</li>
+  <li>NotebookLM question pack</li>
+  <li>parameter scans</li>
+  <li>gate scans</li>
+  <li>operator inventory</li>
+  <li>theory comparison scorecard</li>
+  <li>SAT.4D predictions summary</li>
+  <li>SAT.O predictions summary</li>
+  <li>SAT.CLEAN state summary</li>
+</ul>
+
+<h3>2025-10-25 —</h3>
+<ul>
+  <li>file: <code>CANONICAL READINGS.txt</code> accessed</li>
+  <li>file: <code>SAT_O10_Topological_Spectrum_Higher.txt</code></li>
+  <li>file: <code>SAT_O9_Graviton_Topological_Strain.txt</code></li>
+  <li>higher topological spectrum</li>
+  <li>graviton as topological strain</li>
+  <li>topological mass excitations</li>
+</ul>
+
+<h3>Late 2025 —</h3>
+<ul>
+  <li>One-Action SAT</li>
+  <li>Blockwave Lagrangian</li>
+  <li>g<sub>μν</sub>, u<sup>μ</sup>, θ, J<sup>μν</sup></li>
+  <li>compact scalar θ</li>
+  <li>cosine potential</li>
+  <li>PGCU</li>
+  <li>geometric cosmological unfolding</li>
+  <li>mass is misalignment</li>
+  <li>charge is twist</li>
+  <li>gravity is strain</li>
+  <li>motion is slicing</li>
+  <li>Freeze the block / move the slice maxim</li>
+</ul>
+
+<h3>2025-12-28 —</h3>
+<ul>
+  <li>SAT Theory Archive public on GitHub</li>
+  <li>public provenance layer</li>
+</ul>
+
+<hr>
+
+<h2>February–March 2026 —</h2>
+<p>
+  4DHH = HyperHelical Reformulation<br>
+  Universal Indicatrix = Geometric Solver<br>
+  Unit Cell Cosmology<br>
+  Fundamental Intuitions Extended
+</p>
+
+<h3>2026-02-26 —</h3>
+<ul>
+  <li>Fundamental Intuitions Extended</li>
+  <li>backbleed effects</li>
+  <li>Jarlskog Shadow</li>
+  <li>transient neutrino filament</li>
+  <li>Q=1 transient filament</li>
+</ul>
+
+<h3>2026-02-28 —</h3>
+<ul>
+  <li>Unit Cell</li>
+  <li>2D overlapping-circle model</li>
+  <li>3D overlapping-sphere model</li>
+  <li>4D overlapping-hypersphere model</li>
+  <li>L = T − V + R + Ω</li>
+  <li>toy action skeleton</li>
+  <li>hypersphere packing</li>
+  <li>geometric generator</li>
+</ul>
+
+<h3>2026-03-07 —</h3>
+<ul>
+  <li>UI Configuration</li>
+  <li>Standard Atom</li>
+  <li>Gravitational Nanostructure</li>
+  <li>4DHH Lagrangian</li>
+  <li>Quantum Gravityfoam</li>
+  <li>SAT Particle Zoo Lagrangian</li>
+  <li>Relativistic–Quantum Isomorphism</li>
+  <li>Universal Indicatrix</li>
+  <li>scale-plus-rotation generator</li>
+  <li>y<sup>μ</sup>(λ)=r(λ)R<sup>μ</sup><sub>ν</sub>(λ)x₀<sup>ν</sup></li>
+  <li>nth-order superhelical filament</li>
+  <li>Standard Atom / He-3 model</li>
+  <li>Photoneutrino sector</li>
+  <li>4DHH formalization</li>
+  <li>UI formalization</li>
+  <li>nolat formalization burst</li>
+</ul>
+
+<h3>2026-03-12 —</h3>
+<ul>
+  <li>March 12 Synthesis</li>
+  <li>integrated framework summary</li>
+  <li>synthesis layer</li>
+</ul>
+
+<h3>2026-03-13 —</h3>
+<ul>
+  <li>translation/caution notes</li>
+  <li>metaphor vs formal claim</li>
+  <li>tentative branch status</li>
+  <li>native intuition vs LLM formalization</li>
+  <li>terminology discipline</li>
+  <li>provenance discipline</li>
+</ul>
+
+<hr>
+
+<h2>Spring–Summer 2026 —</h2>
+<p>
+  Prediction Scorecards<br>
+  Public Expansion-Rate Record<br>
+  Archive Navigation / Public Provenance<br>
+  SAT 2026
+</p>
+
+<h3>Spring 2026 —</h3>
+<ul>
+  <li>prediction scorecards</li>
+  <li>H₀ tracking</li>
+  <li>expansion-rate tracking</li>
+  <li>DESI / Planck comparison work</li>
+  <li>NANOGrav comparison work</li>
+  <li>Holometer comparison work</li>
+  <li>public diagnostic work</li>
+  <li>theory landscape comparison</li>
+  <li>philosophy-of-science framing</li>
+</ul>
+
+<h3>2026-05-18 —</h3>
+<ul>
+  <li>public expansion-rate calculation</li>
+  <li>H₀ ≈ 71.2–71.3</li>
+  <li>public prediction record</li>
+  <li>Super Helical Lagrangian Dynamics framing</li>
+</ul>
+
+<h3>2026-05–06 —</h3>
+<ul>
+  <li>GitHub engagement tracking</li>
+  <li>clone/download monitoring</li>
+  <li>SAT as philosophy-of-science case study</li>
+  <li>public archive reception</li>
+</ul>
+
+<h3>2026-06-04 —</h3>
+<ul>
+  <li>versioning snapshot through SAT 2026</li>
+  <li>RMS → SAT → SAT-O → 4DHH → UI → SAT2026 sequence</li>
+</ul>
+
+<h3>2026-06-05 —</h3>
+<ul>
+  <li>SAT public archive live-analysis context</li>
+  <li>GitHub archive overview</li>
+</ul>
+
+<h3>2026-06-09 —</h3>
+<ul>
+  <li>GitHub archive AI navigation test</li>
+  <li>archive usability evaluation</li>
+  <li>SAT literature survey pilot context</li>
+</ul>
+
+<h3>2026-06-10 —</h3>
+<ul>
+  <li>archive timeline cleanup</li>
+  <li>versioning cleanup</li>
+  <li>SAT-to-standard terminology mapping</li>
+  <li>long granular timeline build</li>
+</ul>
+
+  </section>
+
+  <hr>
+
+  <section>
+<h1>Versioning Snapshot</h1>
+<p>As of 4 Jun 2026</p>
+
+<p>
+  RMS conversations / pre-SAT conceptual phase<br>
+  → Stringing-Along Theory<br>
+  → Scalar–Angular Theory / Scalar–Angular–Torsion<br>
+  → SAT Mark III<br>
+  → SAT Mark IV / IV.2<br>
+  → SAT Mark V / SAT V<br>
+  → SAT X<br>
+  → SAT XY<br>
+  → SAT Z / SAT.QG / SAT XYZ<br>
+  → SAT.QR / SAT Next<br>
+  → SAT-O / SAT 4D / SAT-O Rewrite / Satobloc<br>
+  → SAT.4DHH<br>
+  → SAT.4DHH.UC<br>
+  → Bosonic Time<br>
+  → SAT.4DHH.HSU V.UI / Whirligig<br>
+  → One File / One Drop Builds<br>
+  → Minkowski Build<br>
+  → Worldlines Only<br>
+  → SAT 20<br>
+  → Electrogravacoustics<br>
+  → SAT 2026
+</p>
+
+<p>Discord: <a href="https://discord.gg/Cpa7zsZZ">https://discord.gg/Cpa7zsZZ</a></p>
+  </section>
+
+  <hr>
+
+  <p><strong>Addendum:</strong> work continues. New versions, corrections, branches, and archive notes are added periodically.</p>
+
+</main>
