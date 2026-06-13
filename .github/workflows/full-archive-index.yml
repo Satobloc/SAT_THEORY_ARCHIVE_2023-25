@@ -1,0 +1,63 @@
+name: Full Archive Structural Index
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  full-archive-index:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out archive
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Verify indexer and config
+        run: |
+          echo "Repository root: $PWD"
+          test -f '.[⚙️_AI_FILES]/TOOLS/index_folder.py'
+          test -f '.[⚙️_AI_FILES]/CONFIG/folder_indexer_full_archive.txt'
+          echo "Indexer and config found."
+
+      - name: Run full archive structural index
+        run: |
+          python '.[⚙️_AI_FILES]/TOOLS/index_folder.py' \
+            --settings '.[⚙️_AI_FILES]/CONFIG/folder_indexer_full_archive.txt'
+
+      - name: Inspect generated index artifacts
+        run: |
+          echo "=== Root index ==="
+          ls -la '..findex.txt' || true
+          echo ""
+          echo "=== Dashboard index ==="
+          ls -la '..[🎛️_NATHAN_DASH]' || true
+          echo ""
+          echo "=== Folder indexer logs ==="
+          ls -la '.[⚙️_AI_FILES]/LOGS/folder_indexer' || true
+          echo ""
+          echo "=== Latest folder indexer log ==="
+          latest_log=$(ls -t '.[⚙️_AI_FILES]/LOGS/folder_indexer'/folder_indexer_*.txt 2>/dev/null | head -n 1 || true)
+          if [ -n "$latest_log" ]; then
+            echo "$latest_log"
+            cat "$latest_log"
+          else
+            echo "No folder indexer log found."
+          fi
+
+      - name: Commit generated archive index
+        run: |
+          git config user.name "SAT Archive Index Bot"
+          git config user.email "bot@github.local"
+          git add '..findex.txt' '..[🎛️_NATHAN_DASH]/🗄️_ARCHIVE_INDEX.txt' '.[⚙️_AI_FILES]/LOGS/folder_indexer/' || true
+          git status
+          git commit -m "Run full archive structural index" || echo "No changes to commit"
+          git push || echo "Push failed or no changes"
