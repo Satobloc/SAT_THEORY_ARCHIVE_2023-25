@@ -1,0 +1,17 @@
+# Full archive structural indexing pass
+# Purpose: build a current whole-archive file/folder map before semantic tagging.
+# This config intentionally leaves the user-driven indexer settings untouched.
+
+TARGET_FOLDER: .
+INDEX_FILENAME: ..findex.txt
+MAX_RUNTIME_SECONDS: 900
+MAX_DEPTH: 8
+MAX_ENTRIES: 50000
+INCLUDE_FILES: YES
+INCLUDE_DIRS: YES
+FOLLOW_SYMLINKS: NO
+UPDATE_GENERATED_INDEX: YES
+CREATE_TIMESTAMPED_IF_PROTECTED: YES
+MASTER_INDEX: ..[🎛️_NATHAN_DASH]/🗄️_ARCHIVE_INDEX.txt
+APPEND_TO_MASTER_INDEX: YES
+SKIP_DIRS: .git,.github,..[🎛️_NATHAN_DASH],.[⚙️_AI_FILES],..📚_NATHAN_WORDS_EXTRACTED,📚_NATHAN_WORDS_EXTRACTED,_NATHAN_CORPUS
