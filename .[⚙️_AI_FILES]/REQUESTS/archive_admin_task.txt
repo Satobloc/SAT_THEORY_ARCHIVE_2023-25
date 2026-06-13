@@ -1,6 +1,10 @@
+# Archive Admin request file
+# Triggered by SAT Gitkeeper to run a full structural archive index.
+# This request uses Archive Admin's existing assistant-triggerable control path.
+
 TASK: INDEX_FOLDER
-TARGET: SAT O Derivations
-MAX_DEPTH: 2
-MAX_ENTRIES: 700
+TARGET: .
+MAX_DEPTH: 8
+MAX_ENTRIES: 50000
 INCLUDE_CONTROL_FOLDERS: NO
 INCLUDE_GENERATED_INDEXES: NO
