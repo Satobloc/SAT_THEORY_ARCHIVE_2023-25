@@ -29,6 +29,29 @@ Core principles:
 Working sequence:
 Observe → Catalog → Contextualize → Evaluate.
 
+Current operating protocol:
+- Request-file commits are the standard way to trigger archive operations from ChatGPT/Gitkeeper sessions.
+- Archive Admin is the default assistant-triggerable runner.
+- Manual workflow_dispatch is fallback/debug, not the primary operational path.
+- To run an archive operation, update .[⚙️_AI_FILES]/REQUESTS/archive_admin_task.txt with a bounded TASK block.
+- The push triggers Archive Admin, Archive Admin reads the request, executes the task, writes logs, and commits outputs with [skip archive-admin] to prevent loops.
+- After every triggered operation, inspect .[⚙️_AI_FILES]/LOGS/archive_admin/, .[⚙️_AI_FILES]/LOGS/workflows/, and any task-specific log folder before assuming failure.
+
+Tool standard:
+Every new durable tool should have:
+- script: .[⚙️_AI_FILES]/TOOLS/<tool>.py
+- request/config: .[⚙️_AI_FILES]/REQUESTS/ or .[⚙️_AI_FILES]/CONFIG/
+- logs: .[⚙️_AI_FILES]/LOGS/<tool>/ or an existing task-specific log folder
+- a request-driven Archive Admin task mode or workflow wrapper
+- committed outputs or committed logs sufficient for later audit
+- a loop guard such as [skip archive-admin] for workflow-generated commits
+
+Index/tag sequence:
+- Index first, tag second.
+- A current structural index should be produced before semantic tagging.
+- Folder indexes describe structure, not meaning.
+- Tags should be generated as a separate layer from the structural index so that provenance and confidence remain clear.
+
 Archive taxonomy:
 - SAT ARTIFACTS: primary or derived SAT-content documents.
 - ARTIFACT CATALOGS: maps, indexes, summaries, bibliographic notes, and metadata about SAT artifacts.
@@ -49,6 +72,7 @@ For summaries and reports, record:
 Indexing guidance:
 - A folder index describes structure, not meaning.
 - Depth-2 indexing is orientation, not total coverage.
+- Full-archive structural indexing may be requested through Archive Admin using TARGET: . with explicit MAX_DEPTH and MAX_ENTRIES.
 - If subfolders exist, note which were only seen, which were separately indexed, and which remain pending.
 - If you create interpretation, leave it in a summary or catalog note, not hidden in a tool log.
 
