@@ -3,45 +3,43 @@ RESOURCES
 Pointers and reusable generated resources.
 
 Primary locations:
-- ..[🎛️_NATHAN_DASH]/ : human-facing dashboard.
+- README.md : public front page and essential context for new archive visitors.
+- ..[🎛️_NATHAN_DASH]/ : human-facing dashboard/control folder.
 - .[⚙️_AI_FILES]/ : AI/tooling/institutional memory.
 
 Staging / request infrastructure:
-- .[⚙️_AI_FILES]/REQUESTS/archive_admin_task.txt — primary AI-side Archive Admin request file for bulky/machine-oriented tasks.
+- .[⚙️_AI_FILES]/REQUESTS/archive_admin_task.txt — primary AI-side Archive Admin request file for bounded repo-side tasks.
+- .[⚙️_AI_FILES]/CONFIG/ — reusable tool configuration files.
 - Planned: .[⚙️_AI_FILES]/STAGING/ — staged editing/request buffer for large multi-part resources and workflow requests.
 
+Current operating standard:
+- Request-file commits are the default trigger path for routine archive operations.
+- Archive Admin is the default assistant-triggerable runner.
+- Manual workflow_dispatch is fallback/debug only.
+- Generated outputs should be committed with logs.
+- Workflow-generated commits should use a skip marker such as [skip archive-admin] to prevent loops.
+
+Tool standard:
+Every durable archive tool should have:
+- script: .[⚙️_AI_FILES]/TOOLS/<tool>.py
+- request/config file: .[⚙️_AI_FILES]/REQUESTS/ or .[⚙️_AI_FILES]/CONFIG/
+- logs: .[⚙️_AI_FILES]/LOGS/<tool>/ or another explicit task log location
+- Archive Admin task mode or workflow wrapper
+- committed outputs or committed audit logs
+
 Navigation / indexing note:
-- 2026-06-08 ChatGPT test run: direct GitHub connector fetches work well for known paths inside .[⚙️_AI_FILES]/, including emoji/bracketed filenames. Search can find the wayfinding file but should not be treated as a complete folder index. For reliable AI navigation, maintain explicit indexes and welcome documents.
+- Direct GitHub connector fetches work well for known paths inside .[⚙️_AI_FILES]/, including emoji/bracketed filenames.
+- Search can find key files but should not be treated as a complete folder index.
+- For reliable AI navigation, maintain explicit indexes and welcome documents.
 
 Recommended starting read:
 - README.md should be treated as essential front-page context for new archive visitors before deep folder analysis. It gives the archive's self-description as a public, messy, transparent theory-building experiment; states the rough scale of the archive; introduces the fundamental SAT intuitions; and warns implicitly against mistaking rough/LLM-generated material for polished canonical theory. Read it alongside .[⚙️_AI_FILES]/🪧_WAYFINDING.txt and ORIENTATION.txt.
 
-Recommended starting read:
-- README.md should be treated as essential front-page context for new archive visitors before deep folder analysis. It gives the archive's self-description as a public, messy, transparent theory-building experiment; states the rough scale of the archive; introduces the fundamental SAT intuitions; and warns implicitly against mistaking rough/LLM-generated material for polished canonical theory. Read it alongside .[⚙️_AI_FILES]/🪧_WAYFINDING.txt and ORIENTATION.txt.
-
-Recommended starting read:
-- README.md should be treated as essential front-page context for new archive visitors before deep folder analysis. It gives the archive's self-description as a public, messy, transparent theory-building experiment; states the rough scale of the archive; introduces the fundamental SAT intuitions; and warns implicitly against mistaking rough/LLM-generated material for polished canonical theory. Read it alongside .[⚙️_AI_FILES]/🪧_WAYFINDING.txt and ORIENTATION.txt.
-
-Recommended starting read:
-- README.md should be treated as essential front-page context for new archive visitors before deep folder analysis. It gives the archive's self-description as a public, messy, transparent theory-building experiment; states the rough scale of the archive; introduces the fundamental SAT intuitions; and warns implicitly against mistaking rough/LLM-generated material for polished canonical theory. Read it alongside .[⚙️_AI_FILES]/🪧_WAYFINDING.txt and ORIENTATION.txt.
-
-Recommended starting read:
-- README.md should be treated as essential front-page context for new archive visitors before deep folder analysis. It gives the archive's self-description as a public, messy, transparent theory-building experiment; states the rough scale of the archive; introduces the fundamental SAT intuitions; and warns implicitly against mistaking rough/LLM-generated material for polished canonical theory. Read it alongside .[⚙️_AI_FILES]/🪧_WAYFINDING.txt and ORIENTATION.txt.
-
-Folder-summary standard:
-- .[⚙️_AI_FILES]/SHARED_RESOURCES/FOLDER_SUMMARY_TEMPLATE.txt — template for future ..folder_summary.txt artifacts.
-
-Folder-summary standard:
-- .[⚙️_AI_FILES]/SHARED_RESOURCES/FOLDER_SUMMARY_TEMPLATE.txt — template for future ..folder_summary.txt artifacts.
-
-Folder-summary standard:
-- .[⚙️_AI_FILES]/SHARED_RESOURCES/FOLDER_SUMMARY_TEMPLATE.txt — template for future ..folder_summary.txt artifacts.
-
-Folder-summary standard:
-- .[⚙️_AI_FILES]/SHARED_RESOURCES/FOLDER_SUMMARY_TEMPLATE.txt — template for future ..folder_summary.txt artifacts.
-
-Folder-summary standard:
-- .[⚙️_AI_FILES]/SHARED_RESOURCES/FOLDER_SUMMARY_TEMPLATE.txt — template for future ..folder_summary.txt artifacts.
+Indexing and tagging resources:
+- ..findex.txt — structural index at the root or folder level.
+- ..[🎛️_NATHAN_DASH]/🗄️_ARCHIVE_INDEX.txt — accumulated archive index blocks.
+- .[⚙️_AI_FILES]/LOGS/folder_indexer/ — folder indexer run logs.
+- .[⚙️_AI_FILES]/CONFIG/folder_indexer_full_archive.txt — full archive structural index configuration.
 
 Folder-summary standard:
 - .[⚙️_AI_FILES]/SHARED_RESOURCES/FOLDER_SUMMARY_TEMPLATE.txt — template for future ..folder_summary.txt artifacts.
