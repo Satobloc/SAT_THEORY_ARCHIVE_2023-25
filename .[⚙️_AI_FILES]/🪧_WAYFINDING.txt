@@ -8,22 +8,37 @@ This folder contains:
 - institutional knowledge documents;
 - shared resource intake;
 - tools and workflow support files;
+- requests/configs for assistant-triggerable operations;
 - logs and cursors;
 - migration/reference material from earlier control folders.
 
 Start here:
-1. ORIENTATION.txt — quick-start guide for archive work.
+1. ORIENTATION.txt — quick-start guide for archive work and current operating protocol.
 2. INSTITUTIONAL_MAP.txt — map of the institutional knowledge layer.
 3. RESOURCES.txt — durable catalog of reusable tools/resources.
 4. WATERCOOLER.txt — bulletin board: tips, requests, warnings, resource-drop notes.
 5. GUESTBOOK.txt — visitor/workflow handoff log.
 6. SAT_THEORY_ROADMAP_AND_NEEDS.txt — current theory-work framing and needs.
 
+Current operating standard:
+- Routine archive operations should be request-driven.
+- ChatGPT/Gitkeeper updates .[⚙️_AI_FILES]/REQUESTS/archive_admin_task.txt with a bounded TASK block.
+- The push triggers Archive Admin.
+- Archive Admin executes the task, writes logs, and commits outputs with [skip archive-admin].
+- Manual workflow_dispatch is fallback/debug only.
+
 Important nearby locations:
 - ..[🎛️_NATHAN_DASH]/ — Nathan-facing dashboard/control folder.
+- .[⚙️_AI_FILES]/REQUESTS/ — request files used to trigger repo-side work.
+- .[⚙️_AI_FILES]/CONFIG/ — reusable tool configuration files.
 - .[⚙️_AI_FILES]/SHARED_RESOURCES/ — intake for reusable resources needing cataloging or triage.
 - .[⚙️_AI_FILES]/TOOLS/ — repo-local tools used by workflows/admin tasks.
 - .[⚙️_AI_FILES]/LOGS/ — workflow/tool logs.
+
+Indexing rule:
+- Index first, tag second.
+- Structural indexes describe what is present; semantic tags should be layered later with provenance/confidence.
+- For current index status, check ..findex.txt, ..[🎛️_NATHAN_DASH]/🗄️_ARCHIVE_INDEX.txt, and .[⚙️_AI_FILES]/LOGS/folder_indexer/.
 
 Visitor request:
 If you substantially improve your understanding of this folder or the archive workflow, consider updating this wayfinding document for future users.
