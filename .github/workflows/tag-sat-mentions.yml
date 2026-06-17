@@ -1,0 +1,41 @@
+name: Tag SAT Mentions
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  tag-sat-mentions:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out archive
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run SAT mention tagger
+        run: |
+          python '.[⚙️_AI_FILES]/TOOLS/tag_sat_mentions.py' --max-files 50000 --max-runtime-seconds 900
+
+      - name: Inspect tag outputs
+        run: |
+          ls -la '.[⚙️_AI_FILES]/TAGS' || true
+          test -f '.[⚙️_AI_FILES]/TAGS/sat_mentions_summary.md' && head -n 80 '.[⚙️_AI_FILES]/TAGS/sat_mentions_summary.md' || true
+
+      - name: Commit SAT mention tags
+        run: |
+          git config user.name 'SAT Tag Bot'
+          git config user.email 'bot@github.local'
+          git add '.[⚙️_AI_FILES]/TAGS' '.[⚙️_AI_FILES]/LOGS/tag_sat_mentions' || true
+          git status
+          git commit -m 'Run SAT mention tagging [skip tag-sat-mentions]' || echo 'No changes to commit'
+          git push || echo 'Push failed or no changes'
