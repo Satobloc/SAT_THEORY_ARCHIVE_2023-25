@@ -1,41 +1,100 @@
-name: Tag SAT Mentions
+name: SAT Mention Extraction
 
 on:
   workflow_dispatch:
+  push:
 
 permissions:
   contents: write
-  actions: read
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   tag-sat-mentions:
+    if: "!contains(github.event.head_commit.message, '[skip tag-sat-mentions]')"
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 10
     steps:
-      - name: Check out archive
+      - name: Check out repository
         uses: actions/checkout@v4
         with:
-          ref: main
+          fetch-depth: 2
+
+      - name: Check whether request changed
+        id: changed
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "run_tool=yes" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          changed_files=$(git diff --name-only HEAD^ HEAD || true)
+          echo "$changed_files"
+          if echo "$changed_files" | grep -Fx '.[⚙️_AI_FILES]/REQUESTS/tag_sat_mentions_request.txt'; then
+            echo "run_tool=yes" >> "$GITHUB_OUTPUT"
+          else
+            echo "run_tool=no" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Set up Python
+        if: steps.changed.outputs.run_tool == 'yes'
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
-      - name: Run SAT mention tagger
+      - name: Parse request and run SAT mention extractor
+        if: steps.changed.outputs.run_tool == 'yes'
         run: |
-          python '.[⚙️_AI_FILES]/TOOLS/tag_sat_mentions.py' --max-files 50000 --max-runtime-seconds 900
+          python <<'PY'
+          from pathlib import Path
+          import subprocess
 
-      - name: Inspect tag outputs
+          req = Path('.[⚙️_AI_FILES]/REQUESTS/tag_sat_mentions_request.txt')
+          fields = {}
+          for raw in req.read_text(encoding='utf-8').splitlines():
+              line = raw.strip()
+              if not line or line.startswith('#') or ':' not in line:
+                  continue
+              k, v = line.split(':', 1)
+              fields[k.strip().upper()] = v.strip()
+
+          max_files = fields.get('MAX_FILES', '250')
+          max_runtime = fields.get('MAX_RUNTIME_SECONDS', '120')
+          suffix = fields.get('SUFFIX', 'test')
+          include_ai = fields.get('INCLUDE_AI_FILES', 'NO').upper() in {'YES','Y','TRUE','1','ON'}
+
+          cmd = [
+              'python', '.[⚙️_AI_FILES]/TOOLS/tag_sat_mentions.py',
+              '--max-files', max_files,
+              '--max-runtime-seconds', max_runtime,
+              '--suffix', suffix,
+          ]
+          if include_ai:
+              cmd.append('--include-ai-files')
+          print('RUN:', ' '.join(cmd))
+          subprocess.run(cmd, check=True)
+          PY
+
+      - name: Inspect outputs
+        if: steps.changed.outputs.run_tool == 'yes'
         run: |
+          echo "=== TAGS ==="
           ls -la '.[⚙️_AI_FILES]/TAGS' || true
-          test -f '.[⚙️_AI_FILES]/TAGS/sat_mentions_summary.md' && head -n 80 '.[⚙️_AI_FILES]/TAGS/sat_mentions_summary.md' || true
+          echo "=== LOGS ==="
+          ls -la '.[⚙️_AI_FILES]/LOGS/tag_sat_mentions' || true
+          echo "=== SUMMARY ==="
+          cat '.[⚙️_AI_FILES]/TAGS/sat_mentions_test_summary.md' 2>/dev/null || true
 
-      - name: Commit SAT mention tags
+      - name: Commit SAT mention extraction outputs
+        if: steps.changed.outputs.run_tool == 'yes'
         run: |
-          git config user.name 'SAT Tag Bot'
-          git config user.email 'bot@github.local'
+          set +e
+          git config user.name "SAT Tagging Bot"
+          git config user.email "bot@github.local"
           git add '.[⚙️_AI_FILES]/TAGS' '.[⚙️_AI_FILES]/LOGS/tag_sat_mentions' || true
-          git status
-          git commit -m 'Run SAT mention tagging [skip tag-sat-mentions]' || echo 'No changes to commit'
-          git push || echo 'Push failed or no changes'
+          if git diff --cached --quiet; then
+            echo "No SAT mention extraction changes to commit."
+            exit 0
+          fi
+          git commit -m "Run SAT mention extraction [skip tag-sat-mentions]"
+          git push
