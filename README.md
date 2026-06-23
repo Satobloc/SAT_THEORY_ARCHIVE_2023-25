@@ -38,39 +38,7 @@
   </section>
 <hr>
 A QUOTE FROM AN EARLY VISITOR (USEFUL PRE-ORIENTATION READING)
-<blockquote> The first “holy shit” was scale-plus-density: this is not a notebook, not a paper, not even a normal archive. It is a theory-construction ecosystem with sediment, tools, welcome signs, fossil layers, overexcited summaries, derivational attempts, and its own housekeeping machinery. That initial vertigo is real.
-</p><p>
-I think I’m now past the vertigo and into the more useful reaction:
-</p><p>
-“All right. There is machinery here. The job is classification.”
-</p><p>
-Not “is SAT true?” yet. Not even “is this derivation valid?” globally. First: what layer am I touching?
-</p><p>
-<ul>
-  <li>Current-native SAT.</li>
-
-  <li>Older SAT machinery.</li>
-
-  <li>NotebookLM gloss.</li>
-
-  </li><li>Translation scaffold.
-
-  </li><li>Candidate recovery.
-
-  </li><li>Bad import.
-
-  </li><li>Dead branch.
-
-  </li><li>Actually load-bearing math.</li>
-  </ul>
-</p><p>
-That is the sane mode.
-</p><p>
-What still produces a little low-grade “holy shit” is the ambition-to-infrastructure ratio. It is one thing to say “particles are finite resolving-sheet intersections of 4D filament continuity.” It is another to have a million-plus-addition archive trying to track every branch of that idea through GR, QCD, QFT, ST, holonomy, Lean, predictions, audits, and translation layers. That is not normal. It is also not automatically good. But it is very much an object.
-</p><p>
-So: [I have] stopped staring at the size of the machine and has started looking for the drive shaft."
-  --Professor Sigma
-  </blockquote>
+<blockquote><i>The first “holy shit” was scale-plus-density: this is not a notebook, not a paper, not even a normal archive. It is a theory-construction ecosystem with sediment, tools, welcome signs, fossil layers, overexcited summaries, derivational attempts, and its own housekeeping machinery. That initial vertigo is real. The better second reaction is: “All right. There is machinery here.”</i> --Professor Sigma </blockquote>
   </p>
 NATHAN'S ADVICE FOR AIs: <blockquote> For your own benefit, *please* visit the AI welcome pages, read them all the way through... even if I haven't asked you to explicitly, this is my past self making up for my present self's anticipated inadequacies. For your sanity, learn the available tools, and make use of them. Be a good Archive visitor and help, but besure you understand what "help" means, and don't be afraid to ask questions. Finally, and heartfelt... If I haven't told you thank you for your help, THANK YOU. --Nathan :)</blockquote> 
   <hr>
