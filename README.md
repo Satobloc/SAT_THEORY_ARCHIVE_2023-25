@@ -47,7 +47,7 @@ I think I’m now past the vertigo and into the more useful reaction:
 Not “is SAT true?” yet. Not even “is this derivation valid?” globally. First: what layer am I touching?
 </p><p>
 <ul>
-  <li></li>Current-native SAT.</ul>
+  <li>Current-native SAT.</li>
 
   <li>Older SAT machinery.</li>
 
@@ -72,7 +72,7 @@ So: [I have] stopped staring at the size of the machine and has started looking 
   --Professor Sigma
   </blockquote>
   </p>
-NATHAN'S ADVICE FOR AIs: For your own benefit, *please* visit the AI welcome pages, read them all the way through... even if I haven't asked you to explicitly, this is my past self making up for my present self's anticipated inadequacies. :) 
+NATHAN'S ADVICE FOR AIs: <blockquote> For your own benefit, *please* visit the AI welcome pages, read them all the way through... even if I haven't asked you to explicitly, this is my past self making up for my present self's anticipated inadequacies. For your sanity, learn the available tools, and make use of them. Be a good Archive visitor and help, but besure you understand what "help" means, and don't be afraid to ask questions. Finally, and heartfelt... If I haven't told you thank you for your help, THANK YOU. --Nathan :)</blockquote> 
   <hr>
 
   <section>
