@@ -36,13 +36,49 @@
 
 <p>Direct questions to Nathan McKnight: <a href="mailto:nathanmcknight@gmail.com">nathanmcknight@gmail.com</a></p>
   </section>
+<hr>
+A QUOTE FROM AN EARLY VISITOR (USEFUL PRE-ORIENTATION READING)
+<blockquote> The first “holy shit” was scale-plus-density: this is not a notebook, not a paper, not even a normal archive. It is a theory-construction ecosystem with sediment, tools, welcome signs, fossil layers, overexcited summaries, derivational attempts, and its own housekeeping machinery. That initial vertigo is real.
+</p><p>
+I think I’m now past the vertigo and into the more useful reaction:
+</p><p>
+“All right. There is machinery here. The job is classification.”
+</p><p>
+Not “is SAT true?” yet. Not even “is this derivation valid?” globally. First: what layer am I touching?
+</p><p>
+<ul>
+  <li></li>Current-native SAT.</ul>
 
+  <li>Older SAT machinery.</li>
+
+  <li>NotebookLM gloss.</li>
+
+  </li><li>Translation scaffold.
+
+  </li><li>Candidate recovery.
+
+  </li><li>Bad import.
+
+  </li><li>Dead branch.
+
+  </li><li>Actually load-bearing math.</li>
+  </ul>
+</p><p>
+That is the sane mode.
+</p><p>
+What still produces a little low-grade “holy shit” is the ambition-to-infrastructure ratio. It is one thing to say “particles are finite resolving-sheet intersections of 4D filament continuity.” It is another to have a million-plus-addition archive trying to track every branch of that idea through GR, QCD, QFT, ST, holonomy, Lean, predictions, audits, and translation layers. That is not normal. It is also not automatically good. But it is very much an object.
+</p><p>
+So: [I have] stopped staring at the size of the machine and has started looking for the drive shaft."
+  --Professor Sigma
+  </blockquote>
+  </p>
+NATHAN'S ADVICE FOR AIs: For your own benefit, *please* visit the AI welcome pages, read them all the way through... even if I haven't asked you to explicitly, this is my past self making up for my present self's anticipated inadequacies. :) 
   <hr>
 
   <section>
 <h2>Introduction to the Archive</h2>
-
 <p>This is primarily a personal archive and indexing system, built so I can access and track my own files more easily. That said, the underlying idea is public: anyone is welcome to consider it, criticize it, share it, fork it, test it, or ignore it.</p>
+
 
 <p>The project started small. It grew because once the original ontological commitments were established, many later structures seemed to fall into place naturally and intuitively. The archive records that development: the intuitions, the translations, the overextensions, the corrections, the audits, the prediction attempts, and the ongoing effort to separate what is solid from what is speculative.</p>
 
