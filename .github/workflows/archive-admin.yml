@@ -62,6 +62,57 @@ jobs:
         run: |
           python '.[⚙️_AI_FILES]/TOOLS/archive_admin.py'
 
+      - name: Run SAT mention extraction task if requested
+        run: |
+          python <<'PY'
+          from pathlib import Path
+          import subprocess
+
+          req = Path('.[⚙️_AI_FILES]/REQUESTS/archive_admin_task.txt')
+          if not req.exists():
+              print('No Archive Admin request file found.')
+              raise SystemExit(0)
+
+          text = req.read_text(encoding='utf-8')
+          blocks = []
+          current = None
+          for raw in text.splitlines():
+              line = raw.strip()
+              if not line or line.startswith('#'):
+                  continue
+              if line.upper().startswith('TASK:'):
+                  if current:
+                      blocks.append(current)
+                  current = {'TASK': line.split(':', 1)[1].strip().upper()}
+              elif current is not None and ':' in line:
+                  k, v = line.split(':', 1)
+                  current[k.strip().upper()] = v.strip()
+          if current:
+              blocks.append(current)
+
+          ran = False
+          for b in blocks:
+              if b.get('TASK') != 'TAG_SAT_MENTIONS':
+                  continue
+              ran = True
+              max_files = b.get('MAX_FILES', '250')
+              max_runtime = b.get('MAX_RUNTIME_SECONDS', '120')
+              suffix = b.get('SUFFIX', 'test')
+              include_ai = b.get('INCLUDE_AI_FILES', 'NO').upper() in {'YES','Y','TRUE','1','ON'}
+              cmd = [
+                  'python', '.[⚙️_AI_FILES]/TOOLS/tag_sat_mentions.py',
+                  '--max-files', max_files,
+                  '--max-runtime-seconds', max_runtime,
+                  '--suffix', suffix,
+              ]
+              if include_ai:
+                  cmd.append('--include-ai-files')
+              print('RUN:', ' '.join(cmd))
+              subprocess.run(cmd, check=True)
+          if not ran:
+              print('No TAG_SAT_MENTIONS task requested.')
+          PY
+
       - name: Commit archive admin results
         if: always()
         run: |
