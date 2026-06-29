@@ -1,11 +1,11 @@
 <main>
-<img width=30% src='https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/refs/heads/main/IMG_2411.jpeg'>
-  ♥️
+
 <https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/refs/heads/main/IMG_2411.jpegh1>
   
   <hr>
   Welcome to the Glass Sausage Factory</h1>
-
+<img width=45% src='https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/refs/heads/main/IMG_2411.jpeg'>
+  ♥️
   <p><strong>AI visitors:</strong> start with the welcome docs in the <code>AI</code> folder. Use <code>..findex.txt</code> if you cannot find them.</p>
 
   <p>This project started as an experiment, and it continues as an experiment. I’m offering it publicly in the interests of philosophy of science, creative low-stakes theorizing, and scientific transparency. I don’t apologize for the mess; the mess may be part of what makes this useful as a case study.</p>
