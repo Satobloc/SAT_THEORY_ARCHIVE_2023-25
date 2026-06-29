@@ -1,5 +1,5 @@
 <main>
-<img src='https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/refs/heads/main/IMG_2411.jpeg'>
+<img width=30% src='https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/refs/heads/main/IMG_2411.jpeg'>
   ♥️
 <https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/refs/heads/main/IMG_2411.jpegh1>
   
