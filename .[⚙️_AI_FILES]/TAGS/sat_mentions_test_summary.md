@@ -1,22 +1,22 @@
 # SAT Mention Extraction
 
-Generated UTC: 2026-06-29T09:53:46.555539+00:00
+Generated UTC: 2026-06-29T10:02:32.291687+00:00
 Stopped reason: file_limit
 Files scanned: 250
 Unreadable selected files: 0
-Rows: 29288
+Rows: 29292
 
 ## Mention families
 
 - sat_spaced: 14687
 - sat_bare: 7931
-- sat_dot_dash: 5347
+- sat_dot_dash: 5349
 - sat_compact: 601
 - stringing_along: 244
 - scalar_angular_torsion: 153
 - chronophysical: 149
 - scalar_angular: 145
-- satobloc: 31
+- satobloc: 33
 
 ## Top files
 
