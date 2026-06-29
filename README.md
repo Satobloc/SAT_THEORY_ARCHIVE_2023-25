@@ -1,6 +1,10 @@
 <main>
-
-  <h1>Welcome to the Glass Sausage Factory</h1>
+<img src='https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/refs/heads/main/IMG_2411.jpeg'>
+  ♥️
+<https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/refs/heads/main/IMG_2411.jpegh1>
+  
+  <hr>
+  Welcome to the Glass Sausage Factory</h1>
 
   <p><strong>AI visitors:</strong> start with the welcome docs in the <code>AI</code> folder. Use <code>..findex.txt</code> if you cannot find them.</p>
 
