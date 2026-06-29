@@ -1,22 +1,22 @@
 # SAT Mention Extraction
 
-Generated UTC: 2026-06-29T10:08:13.461083+00:00
+Generated UTC: 2026-06-29T10:19:32.026582+00:00
 Stopped reason: file_limit
 Files scanned: 250
 Unreadable selected files: 0
-Rows: 29290
+Rows: 28047
 
 ## Mention families
 
-- sat_spaced: 14687
-- sat_bare: 7931
-- sat_dot_dash: 5348
-- sat_compact: 601
-- stringing_along: 244
-- scalar_angular_torsion: 153
-- chronophysical: 149
-- scalar_angular: 145
-- satobloc: 32
+- sat_spaced: 13946
+- sat_bare: 7558
+- sat_dot_dash: 5140
+- sat_compact: 602
+- stringing_along: 249
+- scalar_angular_torsion: 221
+- scalar_angular: 152
+- chronophysical: 146
+- satobloc: 33
 
 ## Top files
 
@@ -25,7 +25,6 @@ Rows: 29290
 - 2023-24 FRAMEWORK DEVELOPMENT/SATiii REWORK MARK III.txt: 1447
 - SAT_REVAMP.txt: 1277
 - 2023-24 FRAMEWORK DEVELOPMENT/SAT FORMALIZATION 2023-2025.txt: 1240
-- FREEFORM DISCUSSION/TheorizerEmeritus (former ActiveEdgeGPT).txt: 1014
 - CANONICAL RMS_FULL_CANON.txt: 1013
 - 2023-24 FRAMEWORK DEVELOPMENT/SATv _REFORM_TRIAL.txt: 870
 - 2023-24 FRAMEWORK DEVELOPMENT/SATEvolution.txt: 797
@@ -36,7 +35,6 @@ Rows: 29290
 - 2023-24 FRAMEWORK DEVELOPMENT/SAT FULL EVALUATION.txt: 603
 - 2023-24 FRAMEWORK DEVELOPMENT/STATE OF SAT.txt: 598
 - 2023-24 FRAMEWORK DEVELOPMENT/SATx STATE OF SAT.txt: 598
-- FREEFORM DISCUSSION/STATE OF SAT.txt: 598
 - 4DHH-UC BUILDOUT DEV.txt: 536
 - RMS THE FRAMEWORK.txt: 430
 - SECOND LEG 2 of 2 JUNE 1.txt: 417
@@ -46,10 +44,12 @@ Rows: 29290
 - RMS SAT.txt: 327
 - Mar23.2024 - DIMENSIONAL GRAVITY - iPhone_Screenshot - bellomy.txt: 325
 - Towards the Holy Grail.txt: 321
-- FREEFORM DISCUSSION/CHAT 1.75.2 DATE.txt: 307
 - SAT_overview.txt: 270
 - 2023-24 FRAMEWORK DEVELOPMENT/SAT_overview.txt: 270
-- FREEFORM DISCUSSION/BrainTrust.txt: 246
+- More SAT Speculation.txt: 266
+- 2023-24 FRAMEWORK DEVELOPMENT/SATInterpreted (1).txt: 228
+- SAT_STATED_SIMPLY.txt: 223
+- The radical insight of SAT.txt: 222
 
 Outputs:
 - .[⚙️_AI_FILES]/TAGS/sat_mentions_test.jsonl
