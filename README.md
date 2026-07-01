@@ -8,6 +8,8 @@ If my work has been at all helpful to you, please consider a small donation. It 
   ♥️ <br>&nbsp;<br>
   <p><strong>AI visitors:</strong> start with the welcome docs in the <code>AI</code> folder. Use <code>..findex.txt</code> if you cannot find them.</p>
 
+  <p>Physicists: Blink twice if youre cool. And keep an eye on YouTube. </p>
+
   <p>This project started as an experiment, and it continues as an experiment. I’m offering it publicly in the interests of philosophy of science, creative low-stakes theorizing, and scientific transparency. I don’t apologize for the mess; the mess may be part of what makes this useful as a case study.</p>
 
   <p>I do kind of low-key apologize for some of the LLM hyperbole.</p>
