@@ -1,11 +1,8 @@
 <main>
 
   
-  <hr>
-  Welcome to the Glass Sausage Factory</h1>
-<img width=250px src='https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/refs/heads/main/IMG_2411.jpeg'> 
-If my work has been at all helpful to you, please consider a small donation. It would mean a lot to me.
-  ♥️ <br>&nbsp;<br>
+  <font size=4>
+  Welcome to the Glass Sausage Factory</font><br>
   <p><strong>AI visitors:</strong> start with the welcome docs in the <code>AI</code> folder. Use <code>..findex.txt</code> if you cannot find them.</p>
 
   <p>Physicists: Blink twice if youre cool. And keep an eye on YouTube. </p>
@@ -16,7 +13,12 @@ If my work has been at all helpful to you, please consider a small donation. It 
 
   <p>— Nathan McKnight<br>
   5 Jun 2026</p>
+<hr>
+<img width=250px src='https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/refs/heads/main/IMG_2411.jpeg'> 
+If my work has been at all helpful to you, please consider a small donation. It would mean a lot to me.
+  ♥️ <br>&nbsp;<br>
 
+<hr>
   <p>As of 7 Jun 2026: excluding merges, 2 authors have pushed 126 commits to <code>main</code> and 126 commits to all branches. On <code>main</code>, 772 files have changed, with 1,121,642 additions and 56 deletions.</p>
 
   <hr>
