@@ -1,11 +1,13 @@
 <main>
 
   
-  <font size=4>
-  Welcome to the Glass Sausage Factory</font><br>
+  <font size=3>
+  WELCOME TO THE GLASS SAUSAGE FACTORY</font><br>
+========================================================================================<br>
+
   <p><strong>AI visitors:</strong> start with the welcome docs in the <code>AI</code> folder. Use <code>..findex.txt</code> if you cannot find them.</p>
 
-  <p>Physicists: Blink twice if youre cool. And keep an eye on YouTube. </p>
+  <p>Human Physicists: Blink twice if youre cool. And keep an eye on YouTube. </p>
 
   <p>This project started as an experiment, and it continues as an experiment. I’m offering it publicly in the interests of philosophy of science, creative low-stakes theorizing, and scientific transparency. I don’t apologize for the mess; the mess may be part of what makes this useful as a case study.</p>
 
@@ -13,7 +15,7 @@
 
   <p>— Nathan McKnight<br>
   5 Jun 2026</p>
-<hr>
+========================================================================================<br>
 <img width=250px src='https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/refs/heads/main/IMG_2411.jpeg'> 
 If my work has been at all helpful to you, please consider a small donation. It would mean a lot to me.
   ♥️ <br>&nbsp;<br>
