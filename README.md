@@ -3,7 +3,7 @@
   
   <hr>
   Welcome to the Glass Sausage Factory</h1>
-<img width=500px src='https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/refs/heads/main/IMG_2411.jpeg'> 
+<img width=250px src='https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/refs/heads/main/IMG_2411.jpeg'> 
 If my work has been at all helpful to you, please consider a small donation. It would mean a lot to me.
   ♥️ <br>&nbsp;<br>
   <p><strong>AI visitors:</strong> start with the welcome docs in the <code>AI</code> folder. Use <code>..findex.txt</code> if you cannot find them.</p>
