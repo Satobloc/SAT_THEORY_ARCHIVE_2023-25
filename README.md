@@ -17,7 +17,7 @@
   5 Jun 2026</p>
 ========================================================================================<br>
 <img width=250px src='https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/refs/heads/main/IMG_2411.jpeg'> 
-If my work has been at all helpful to you, please consider a small donation. It would mean a lot to me. I provide these ideas free to all because I think it would be criminal to proprieterize the universe, not because I think there's anything wrong with using it to generate value. But it's a *lot* of work to put all of this together, and I can't do it forever without benefitting from it myself. 
+If my work has been at all helpful to you, please consider a small donation. It would mean a lot to me. I provide these ideas free to all because I think it would be criminal to proprietarize the (possible) universe, not because I think there's anything wrong with using it to generate value. But it's a *lot* of work to put all of this together, and I can't do it forever without benefitting from it myself. 
   ♥️ <br>&nbsp;<br>
 
 <hr>
