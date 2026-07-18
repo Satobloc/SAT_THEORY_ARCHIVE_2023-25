@@ -1,55 +1,55 @@
 # SAT Mention Extraction
 
-Generated UTC: 2026-07-12T22:59:29.314280+00:00
+Generated UTC: 2026-07-18T03:35:50.536927+00:00
 Stopped reason: file_limit
 Files scanned: 250
 Unreadable selected files: 0
-Rows: 28032
+Rows: 42382
 
 ## Mention families
 
-- sat_spaced: 13936
-- sat_bare: 7553
-- sat_dot_dash: 5140
-- sat_compact: 602
-- stringing_along: 249
-- scalar_angular_torsion: 221
-- scalar_angular: 152
-- chronophysical: 146
-- satobloc: 33
+- sat_spaced: 21122
+- sat_dot_dash: 10391
+- sat_bare: 8249
+- sat_compact: 1448
+- satobloc: 309
+- stringing_along: 290
+- scalar_angular_torsion: 236
+- scalar_angular: 204
+- chronophysical: 133
 
 ## Top files
 
+- ..[🎛️_NATHAN_DASH]/🗄️_ARCHIVE_INDEX.txt: 12153
 - FileIndex.csv: 3151
 - 2023-24 FRAMEWORK DEVELOPMENT/SATv EXPLORATIONS.txt: 2115
+- SAT DEVELOPMENT/CARROLL-HAWKING DISCO.txt: 2102
+- SAT Mark III/SATiii REWORK MARK III.txt: 1447
+- SAT XY/PHYSICS BEYOND MATHEMATICS.txt: 1447
 - 2023-24 FRAMEWORK DEVELOPMENT/SATiii REWORK MARK III.txt: 1447
 - SAT_REVAMP.txt: 1277
-- 2023-24 FRAMEWORK DEVELOPMENT/SAT FORMALIZATION 2023-2025.txt: 1240
 - CANONICAL RMS_FULL_CANON.txt: 1013
-- 2023-24 FRAMEWORK DEVELOPMENT/SATv _REFORM_TRIAL.txt: 870
-- 2023-24 FRAMEWORK DEVELOPMENT/SATEvolution.txt: 797
-- SAT Z QG/SAT XYZ/STANDALONE CODES.txt: 680
-- 2023-24 FRAMEWORK DEVELOPMENT/SATv ATTEMPTED FORMALIZATION.txt: 640
+- SAT History/SATEvolution (1).txt: 797
+- SAT History/SATEvolution.txt: 797
 - ..findex.txt: 624
-- SAT Z QG/SAT XYZ/SAT Z FIRST LEG.txt: 621
 - 2023-24 FRAMEWORK DEVELOPMENT/SAT FULL EVALUATION.txt: 603
 - 2023-24 FRAMEWORK DEVELOPMENT/STATE OF SAT.txt: 598
 - 2023-24 FRAMEWORK DEVELOPMENT/SATx STATE OF SAT.txt: 598
+- SAT XY/JUNE 1 PHASE V-.txt: 577
 - 4DHH-UC BUILDOUT DEV.txt: 536
 - RMS THE FRAMEWORK.txt: 430
 - SECOND LEG 2 of 2 JUNE 1.txt: 417
-- 2023-24 FRAMEWORK DEVELOPMENT/SAT SCALAR ANGULAR THEORY.txt: 374
-- SAT Z QG/SAT XYZ/SAT_20_PLANNING_DISCUSSION_LOG.txt: 368
-- 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt: 329
+- SAT Z/SECOND LEG 2 of 2 JUNE 1.txt: 417
+- FUN STUFF/GREAT MOMENTS IN PERSONAL SICENCE HISTORY/Alberr/text 24.txt: 396
+- FUN STUFF/GREAT MOMENTS IN PERSONAL SICENCE HISTORY/Alberr/text 25.txt: 396
+- Alberr/text 25.txt: 396
 - RMS SAT.txt: 327
 - Mar23.2024 - DIMENSIONAL GRAVITY - iPhone_Screenshot - bellomy.txt: 325
 - Towards the Holy Grail.txt: 321
+- SAT DEVELOPMENT/ChatGPT_28MAY25_MEMORY.txt: 321
 - SAT_overview.txt: 270
-- 2023-24 FRAMEWORK DEVELOPMENT/SAT_overview.txt: 270
-- More SAT Speculation.txt: 266
-- 2023-24 FRAMEWORK DEVELOPMENT/SATInterpreted (1).txt: 228
-- SAT_STATED_SIMPLY.txt: 223
-- The radical insight of SAT.txt: 222
+- SAT & String Theory/SAT & String Theory(1).txt: 270
+- SAT & String Theory/SAT & String Theory.txt: 270
 
 Outputs:
 - .[⚙️_AI_FILES]/TAGS/sat_mentions_test.jsonl
