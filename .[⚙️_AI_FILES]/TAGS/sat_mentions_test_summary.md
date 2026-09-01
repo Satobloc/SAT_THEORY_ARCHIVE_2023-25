@@ -1,25 +1,26 @@
 # SAT Mention Extraction
 
-Generated UTC: 2026-08-27T05:36:30.096826+00:00
+Generated UTC: 2026-09-01T13:38:35.121470+00:00
 Stopped reason: file_limit
 Files scanned: 250
 Unreadable selected files: 0
-Rows: 28056
+Rows: 33808
 
 ## Mention families
 
-- sat_spaced: 14778
-- sat_bare: 7772
-- sat_dot_dash: 4424
-- scalar_angular_torsion: 316
-- stringing_along: 241
-- sat_compact: 208
-- scalar_angular: 161
-- chronophysical: 123
-- satobloc: 33
+- sat_spaced: 15966
+- sat_bare: 8136
+- sat_dot_dash: 6620
+- satobloc: 1915
+- scalar_angular_torsion: 356
+- sat_compact: 255
+- stringing_along: 246
+- scalar_angular: 184
+- chronophysical: 130
 
 ## Top files
 
+- 🏯 SAT GITKEEPER — raw.json: 5758
 - FileIndex.csv: 3151
 - FREEFORM DISCUSSION/CARROLL-HAWKING DISCO.txt: 2102
 - SAT DEVELOPMENT/CARROLL-HAWKING DISCO.txt: 2102
@@ -49,7 +50,6 @@ Rows: 28056
 - FREEFORM DISCUSSION/CHAT 1.75.2 DATE.txt: 307
 - SAT_overview.txt: 270
 - More SAT Speculation.txt: 266
-- FREEFORM DISCUSSION/BrainTrust.txt: 246
 
 Outputs:
 - .[⚙️_AI_FILES]/TAGS/sat_mentions_test.jsonl
