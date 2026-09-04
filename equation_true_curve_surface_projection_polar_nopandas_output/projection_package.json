@@ -1,0 +1,130 @@
+{
+  "equation": "(x**2 + y**2 - 1)**3 - x**2*y**3 = 0",
+  "canonical_residual": "-x**2*y**3 + (x**2 + y**2 - 1)**3",
+  "config": {
+    "equation": "(x**2 + y**2 - 1)**3 - x**2*y**3 = 0",
+    "outdir": "equation_true_curve_surface_projection_polar_nopandas_output",
+    "x_range": [
+      -1.6,
+      1.6
+    ],
+    "y_range": [
+      -1.4,
+      1.8
+    ],
+    "grid_nx": 1100,
+    "grid_ny": 1100,
+    "min_branch_points": 40,
+    "resample_points_per_branch": 3600,
+    "sphere_radius": 0.5,
+    "torus_major_radius": 1.0,
+    "torus_minor_radius": 0.5,
+    "winding_count": 2,
+    "sphere_theta_base": 1.5707963267948966,
+    "sphere_theta_amplitude": 1.18,
+    "sphere_polar_margin": 0.1,
+    "exact_line_width": 0.75,
+    "display_line_width": 2.65,
+    "surface_u": 240,
+    "surface_v": 160,
+    "display_offset_sphere": 0.035,
+    "display_offset_torus": 0.045,
+    "dpi": 210,
+    "residual_tolerance_warning": 0.005,
+    "reconstruction_tolerance": 1e-10
+  },
+  "branch_count": 1,
+  "branches": [],
+  "modes": {
+    "arclength_y": {
+      "branches": [
+        {
+          "branch_id": 0,
+          "channel": "y",
+          "channel_degenerate": false,
+          "sphere_surface_error": 1.1102230246251565e-16,
+          "torus_surface_error": 3.608224830031759e-16,
+          "sphere_reconstruction_error": 0.0,
+          "torus_reconstruction_error": 0.0,
+          "max_abs_F": 4.282910897968062e-05,
+          "mean_abs_F": 1.0577385684660808e-05,
+          "score": 0.99999883628486,
+          "csv": "branch_00_arclength_y_data.csv"
+        }
+      ],
+      "score_mean": 0.99999883628486
+    },
+    "arclength_curvature": {
+      "branches": [
+        {
+          "branch_id": 0,
+          "channel": "curvature",
+          "channel_degenerate": false,
+          "sphere_surface_error": 5.551115123125783e-17,
+          "torus_surface_error": 3.885780586188048e-16,
+          "sphere_reconstruction_error": 0.0,
+          "torus_reconstruction_error": 0.0,
+          "max_abs_F": 4.282910897968062e-05,
+          "mean_abs_F": 1.0577385684660808e-05,
+          "score": 0.9987474749821019,
+          "csv": "branch_00_arclength_curvature_data.csv"
+        }
+      ],
+      "score_mean": 0.9987474749821019
+    },
+    "arclength_gradient": {
+      "branches": [
+        {
+          "branch_id": 0,
+          "channel": "gradient",
+          "channel_degenerate": false,
+          "sphere_surface_error": 1.1102230246251565e-16,
+          "torus_surface_error": 3.885780586188048e-16,
+          "sphere_reconstruction_error": 0.0,
+          "torus_reconstruction_error": 0.0,
+          "max_abs_F": 4.282910897968062e-05,
+          "mean_abs_F": 1.0577385684660808e-05,
+          "score": 0.9999966329331125,
+          "csv": "branch_00_arclength_gradient_data.csv"
+        }
+      ],
+      "score_mean": 0.9999966329331125
+    },
+    "arclength_radius": {
+      "branches": [
+        {
+          "branch_id": 0,
+          "channel": "radius",
+          "channel_degenerate": false,
+          "sphere_surface_error": 1.1102230246251565e-16,
+          "torus_surface_error": 3.885780586188048e-16,
+          "sphere_reconstruction_error": 0.0,
+          "torus_reconstruction_error": 0.0,
+          "max_abs_F": 4.282910897968062e-05,
+          "mean_abs_F": 1.0577385684660808e-05,
+          "score": 0.9999944037620431,
+          "csv": "branch_00_arclength_radius_data.csv"
+        }
+      ],
+      "score_mean": 0.9999944037620431
+    }
+  },
+  "final_acceptance": {
+    "all_diagnostics_pass": true,
+    "warnings_present": false,
+    "symbolic_reconstruction_claimed": false,
+    "sampled_source_and_surface_curves_reconstruct": true,
+    "clean_carrier_surfaces": true,
+    "display_layer_excluded_from_reconstruction": true
+  },
+  "mode_comparison": {
+    "scores": {
+      "arclength_y": 0.99999883628486,
+      "arclength_curvature": 0.9987474749821019,
+      "arclength_gradient": 0.9999966329331125,
+      "arclength_radius": 0.9999944037620431
+    },
+    "best_mode_by_simple_score": "arclength_y",
+    "score_note": "Simple score = Q coverage minus roughness penalty; visual inspection still required."
+  }
+}
