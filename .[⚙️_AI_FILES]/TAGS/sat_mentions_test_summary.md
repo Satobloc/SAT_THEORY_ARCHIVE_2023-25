@@ -1,22 +1,22 @@
 # SAT Mention Extraction
 
-Generated UTC: 2026-09-04T18:59:47.019530+00:00
+Generated UTC: 2026-09-04T19:02:11.393917+00:00
 Stopped reason: file_limit
 Files scanned: 250
 Unreadable selected files: 0
-Rows: 66913
+Rows: 66303
 
 ## Mention families
 
-- sat_spaced: 34881
-- sat_bare: 17152
-- sat_dot_dash: 10639
-- satobloc: 2183
+- sat_spaced: 34289
+- sat_bare: 17123
+- sat_dot_dash: 10616
+- satobloc: 2193
 - stringing_along: 729
-- sat_compact: 448
-- scalar_angular: 316
-- scalar_angular_torsion: 288
-- chronophysical: 277
+- sat_compact: 449
+- scalar_angular_torsion: 365
+- scalar_angular: 311
+- chronophysical: 228
 
 ## Top files
 
@@ -32,7 +32,6 @@ Rows: 66913
 - ChatGPT Voice Glitch — raw.txt: 1137
 - CANONICAL RMS_FULL_CANON.txt: 1013
 - 2023-24 FRAMEWORK DEVELOPMENT/SATv _REFORM_TRIAL.txt: 870
-- 2023-24 FRAMEWORK DEVELOPMENT/SATEvolution.txt: 797
 - DEV CONVERSATION/KEY CALCULATIONS.txt: 729
 - 2023-24 FRAMEWORK DEVELOPMENT/SATv ATTEMPTED FORMALIZATION.txt: 640
 - ..findex.txt: 624
@@ -46,10 +45,11 @@ Rows: 66913
 - SECOND LEG 2 of 2 JUNE 1.txt: 417
 - DEV CONVERSATION/SAT SCALAR ANGULAR THEORY (1).txt: 374
 - DEV CONVERSATION/SAT SCALAR ANGULAR THEORY.txt: 374
-- 2023-24 FRAMEWORK DEVELOPMENT/SAT SCALAR ANGULAR THEORY.txt: 374
+- H(s)H HEAVY TOOLBOX.txt: 334
 - 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt: 329
 - RMS SAT.txt: 327
 - Mar23.2024 - DIMENSIONAL GRAVITY - iPhone_Screenshot - bellomy.txt: 325
+- Towards the Holy Grail.txt: 321
 
 Outputs:
 - .[⚙️_AI_FILES]/TAGS/sat_mentions_test.jsonl
