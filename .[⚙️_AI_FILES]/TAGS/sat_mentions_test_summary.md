@@ -1,22 +1,22 @@
 # SAT Mention Extraction
 
-Generated UTC: 2026-09-04T18:31:41.823957+00:00
+Generated UTC: 2026-09-04T18:36:10.434894+00:00
 Stopped reason: file_limit
 Files scanned: 250
 Unreadable selected files: 0
-Rows: 65752
+Rows: 66870
 
 ## Mention families
 
-- sat_spaced: 34493
-- sat_bare: 16960
-- sat_dot_dash: 10340
-- satobloc: 1919
-- stringing_along: 724
-- sat_compact: 440
+- sat_spaced: 34855
+- sat_bare: 17139
+- sat_dot_dash: 10635
+- satobloc: 2183
+- stringing_along: 729
+- sat_compact: 448
 - scalar_angular: 316
-- scalar_angular_torsion: 286
-- chronophysical: 274
+- scalar_angular_torsion: 288
+- chronophysical: 277
 
 ## Top files
 
@@ -29,6 +29,7 @@ Rows: 65752
 - 2023-24 FRAMEWORK DEVELOPMENT/SATiii REWORK MARK III.txt: 1447
 - SAT_REVAMP.txt: 1277
 - 2023-24 FRAMEWORK DEVELOPMENT/SAT FORMALIZATION 2023-2025.txt: 1240
+- ChatGPT Voice Glitch — raw.txt: 1137
 - CANONICAL RMS_FULL_CANON.txt: 1013
 - 2023-24 FRAMEWORK DEVELOPMENT/SATv _REFORM_TRIAL.txt: 870
 - 2023-24 FRAMEWORK DEVELOPMENT/SATEvolution.txt: 797
@@ -49,7 +50,6 @@ Rows: 65752
 - 2023-24 FRAMEWORK DEVELOPMENT/SATx ADDENDUM3.txt: 329
 - RMS SAT.txt: 327
 - Mar23.2024 - DIMENSIONAL GRAVITY - iPhone_Screenshot - bellomy.txt: 325
-- Towards the Holy Grail.txt: 321
 
 Outputs:
 - .[⚙️_AI_FILES]/TAGS/sat_mentions_test.jsonl
