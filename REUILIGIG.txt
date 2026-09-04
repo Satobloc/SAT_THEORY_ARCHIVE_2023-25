@@ -1,0 +1,69 @@
+Agreed. I’ll maintain a running dependency graph from here forward.
+
+Initial backbone:
+
+```text
+UI-0: Euclidean R4 bulk
+  ↓
+UI-1: radial flow u
+  ↓
+UI-2: resolving surface Sigma_t
+  ↓
+UI-3: projector P = delta - u⊗u
+  ↓
+UI-4: effective Lorentzian shadow metric
+  ↓
+UI-5: UI trajectory Y = r R x0
+  ↓
+UI-6: connection Omega = Rdot R^-1
+  ↓
+UI-7: worldtube/superhelix generator
+  ↓
+UI-8: closure / bending / resistance functional
+  ↓
+PHYS-1: mass as timesheet-intersection resistance
+  ↓
+KNDS-1: M_UI, a_UI, Q_UI, Lambda_UI map
+  ↓
+KNDS-2: Delta_r[UI]
+  ↓
+BOUND-1: Delta_r = 0 as resolving-boundary condition
+  ↓
+BOUND-2: horizon / ergosphere / ER-boundary comparison
+  ↓
+TOPO-1: ring, throat, tube, Möbius/Klein/global topology
+  ↓
+PAULI-1: exclusion via boundary, exchange topology, or both
+```
+
+And I’ll tag every new claim like this:
+
+```text
+Claim ID:
+Depends on:
+Equation(s):
+Status: definition / derived / conjecture / analogy / failed
+Failure condition:
+```
+
+First live node to audit:
+
+```text
+BOUND-1
+
+Claim:
+Delta_r[UI] = 0 corresponds to boundary of timesheet resolvability.
+
+Depends on:
+UI-0 through UI-6
+KNDS-1
+KNDS-2
+
+Status:
+Conjecture, not derived yet.
+
+Failure condition:
+If Delta_r = 0 cannot be connected to degeneration of g_eff, Sigma_t, lapse, projection rank, or worldtube intersection geometry.
+```
+
+That gives us a trail. No more free-floating wins.
