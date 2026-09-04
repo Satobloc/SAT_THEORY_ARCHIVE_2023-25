@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/hsh/mapping_result.schema.json",
+  "title": "H(s)H mapping result",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "mapping_id",
+    "equation_id",
+    "backend",
+    "status",
+    "object_map",
+    "operator_map",
+    "constraint_realization",
+    "solver",
+    "readout_map",
+    "observables",
+    "residuals",
+    "diagnostics"
+  ],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "mapping_id": {"type": "string"},
+    "equation_id": {"type": "string"},
+    "backend": {"const": "spherical_constraint"},
+    "status": {
+      "enum": [
+        "exact_identity",
+        "exact_identity_with_numerical_verification",
+        "coordinate_rewrite",
+        "controlled_approximation",
+        "calibrated_representation",
+        "candidate_extension",
+        "failed_mapping"
+      ]
+    },
+    "object_map": {"type": "object"},
+    "operator_map": {"type": "object"},
+    "constraint_realization": {"type": "object"},
+    "solver": {"type": "object"},
+    "readout_map": {"type": "object"},
+    "observables": {"type": "object"},
+    "residuals": {"type": "object"},
+    "diagnostics": {"type": "object"}
+  },
+  "additionalProperties": true
+}

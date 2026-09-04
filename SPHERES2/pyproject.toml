@@ -1,0 +1,22 @@
+[project]
+name = "hsh-spherical-backend"
+version = "0.2.0"
+description = "A modular spherical-constraint backend for H(s)H equation round trips"
+requires-python = ">=3.11"
+dependencies = [
+  "numpy>=2.0",
+  "scipy>=1.13",
+]
+
+[project.scripts]
+hsh-spheres = "hsh_spheres.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

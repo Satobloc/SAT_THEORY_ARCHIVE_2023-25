@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/hsh/equation_packet.schema.json",
+  "title": "H(s)H standard-equation packet",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "equation_id",
+    "title",
+    "authority",
+    "equations",
+    "variables",
+    "domain",
+    "assumptions",
+    "symmetries",
+    "constraints",
+    "known_solution",
+    "mapping_request",
+    "tolerances"
+  ],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "equation_id": {"type": "string", "minLength": 1},
+    "title": {"type": "string", "minLength": 1},
+    "authority": {
+      "type": "object",
+      "required": ["status", "source"],
+      "properties": {
+        "status": {"const": "authoritative_standard_input"},
+        "source": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": true
+    },
+    "equations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["label", "expression"],
+        "properties": {
+          "label": {"type": "string"},
+          "expression": {"type": "string"}
+        }
+      }
+    },
+    "variables": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["symbol", "role", "unit", "dimensions"],
+        "properties": {
+          "symbol": {"type": "string"},
+          "role": {"type": "string"},
+          "unit": {"type": "string"},
+          "dimensions": {
+            "type": "object",
+            "required": ["M", "L", "T"],
+            "properties": {
+              "M": {"type": "number"},
+              "L": {"type": "number"},
+              "T": {"type": "number"}
+            },
+            "additionalProperties": {"type": "number"}
+          }
+        }
+      }
+    },
+    "domain": {"type": "object"},
+    "assumptions": {"type": "array", "items": {"type": "string"}},
+    "symmetries": {"type": "array", "items": {"type": "string"}},
+    "constraints": {"type": "array", "items": {"type": "string"}},
+    "boundary_conditions": {"type": "array", "items": {"type": "string"}},
+    "known_solution": {"type": "object"},
+    "empirical_anchors": {"type": "array"},
+    "mapping_request": {
+      "type": "object",
+      "required": ["backend", "parameters"],
+      "properties": {
+        "backend": {"const": "spherical_constraint"},
+        "operation": {
+          "enum": ["equal_s3_static", "one_shell_shape_oscillation"]
+        },
+        "parameters": {"type": "object"}
+      }
+    },
+    "tolerances": {"type": "object"}
+  },
+  "additionalProperties": true
+}
