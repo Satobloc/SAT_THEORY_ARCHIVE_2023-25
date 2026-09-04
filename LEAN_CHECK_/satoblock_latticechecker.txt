@@ -1,0 +1,43 @@
+/- 
+SATO/Blockwave SAT Theory
+Automated Lattice Particle Spectrum
+-/ 
+
+import Mathlib.Data.List.Basic
+import Mathlib.Data.Fin.Basic
+import Mathlib.Analysis.Calculus.Deriv
+import Mathlib.Data.Real.Basic
+
+-- I. Particle spectrum generation function
+def particle_spectrum_site (params : SATParams) (τ : TopoInv) (fil : Filament) : List ℝ :=
+  fil.modes.map (fun mode =>
+    let N := mode.n
+    let Q_val := Q τ
+    -- Combined O9/O10 formula: string + topological mass
+    Real.sqrt (m2_string params.k params.β params.a N Q_val + m_topo params.T τ)
+  )
+
+-- II. Full lattice spectrum
+def full_lattice_spectrum (params : SATParams) (τ_list : List TopoInv) (fil_list : List Filament) : List ℝ :=
+  τ_list.bind (fun τ =>
+    fil_list.bind (fun fil => particle_spectrum_site params τ fil)
+  )
+
+-- III. Example: lattice sites, topo charges, filament modes
+def lattice_sites : List TopoInv := 
+  [{L_wind := 1, L_link := 0, W_writhe := 1},
+   {L_wind := 0, L_link := 1, W_writhe := 1},
+   {L_wind := 1, L_link := 1, W_writhe := 1}]
+
+def filament_modes_example : List StringMode :=
+  [{n := 1, α_x := 0.1, α_y := 0.1, φ_x := 0.0, φ_y := 0.0},
+   {n := 2, α_x := 0.05, α_y := 0.05, φ_x := 0.1, φ_y := 0.1}]
+
+def filaments_example : List Filament :=
+  [{X := fun z t => 0, Y := fun z t => 0, modes := filament_modes_example, L := 1.0, ω₀ := 1.0}]
+
+-- IV. Compute full particle spectrum
+def example_spectrum : List ℝ :=
+  full_lattice_spectrum example_params lattice_sites filaments_example
+
+#eval example_spectrum

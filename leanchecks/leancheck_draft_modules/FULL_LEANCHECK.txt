@@ -1,0 +1,86 @@
+/-
+  SAT/Blockwave - Lean 4 Mass Spectrum Evaluator
+-/
+
+-- Import previous definitions (assume m0, m_topo, m_ind, m_eff, R_ratio, Q, TopoInv)
+
+-- ======================================================================
+-- I. Numeric Parameter Structure
+-- ======================================================================
+structure SATParams where
+  T        : ℝ  -- Filament tension
+  ℓ_f      : ℝ  -- Filament scale
+  g1       : ℝ  -- Drag coupling
+  M        : ℝ  -- Timesheet mass-gap
+  E_overlap: ℝ  -- Overlap energy
+  k        : ℝ  -- Quadratic excitation coefficient
+  β        : ℝ  -- Topological scaling
+  a        : ℝ  -- Offset
+  deriving Repr
+
+-- ======================================================================
+-- II. Compute Mass Components
+-- ======================================================================
+def compute_m0 (p : SATParams) : ℝ :=
+  p.T / p.ℓ_f
+
+def compute_m_topo (p : SATParams) (t : TopoInv) : ℝ :=
+  compute_m0 p / Q t
+
+def compute_m_ind (p : SATParams) : ℝ :=
+  (p.g1^2 / p.M^2) * p.E_overlap
+
+def compute_m_eff (p : SATParams) (t : TopoInv) : ℝ :=
+  compute_m_topo p t + compute_m_ind p
+
+def compute_R (p : SATParams) (t : TopoInv) : ℝ :=
+  compute_m_ind p / compute_m_topo p t
+
+-- ======================================================================
+-- III. Quadratic Excitation Mass Formula
+-- ======================================================================
+def m2_quadratic (p : SATParams) (t : TopoInv) (N : ℕ) : ℝ :=
+  p.k * (N + p.β * (Q t)^2 - p.a)
+
+-- ======================================================================
+-- IV. Constraint Checks
+-- ======================================================================
+def check_constraints (p : SATParams) (t : TopoInv) : Prop :=
+  compute_m_eff p t > 0 ∧         -- Positive effective mass
+  compute_R p t < 1 ∧             -- Topological dominance
+  Q t > 0 ∧                       -- Positive integer invariant
+  Q t ∈ ℤ                          -- Integer-valued invariant
+
+-- ======================================================================
+-- V. Mass Spectrum Evaluation
+-- ======================================================================
+def evaluate_mass_spectrum (p : SATParams) (tops : List TopoInv) (Ns : List ℕ) :
+  List (TopoInv × ℕ × ℝ × ℝ × ℝ) :=
+  tops.bind fun t =>
+    Ns.map fun N =>
+      let m0 := compute_m0 p
+      let mtop := compute_m_topo p t
+      let mind := compute_m_ind p
+      let meff := compute_m_eff p t
+      let m2 := m2_quadratic p t N
+      (t, N, m0, mtop + mind, m2)
+
+-- ======================================================================
+-- VI. Example Usage
+-- ======================================================================
+-- Define a topological invariant instance
+def exampleTopo : TopoInv :=
+{ L_wind := 1, L_link := 0, W_writhe := 0 }
+
+-- Define example parameters
+def exampleParams : SATParams :=
+{ T := 1.0e22,
+  ℓ_f := 1.0,
+  g1 := 1.0e-5,
+  M := 1.0e10,
+  E_overlap := 1.0e2,
+  k := 1.0,
+  β := 0.1,
+  a := 0.0 }
+
+#eval evaluate_mass_spectrum exampleParams [exampleTopo] [0,1,2,3]

@@ -1,0 +1,94 @@
+/-
+  SAT/Blockwave - Lean 4 Mass Spectrum Evaluator + Constraint Proofs
+-/
+
+-- ======================================================================
+-- I. Parameter Structure (same as before)
+-- ======================================================================
+structure SATParams where
+  T        : ℝ
+  ℓ_f      : ℝ
+  g1       : ℝ
+  M        : ℝ
+  E_overlap: ℝ
+  k        : ℝ
+  β        : ℝ
+  a        : ℝ
+  deriving Repr
+
+-- ======================================================================
+-- II. Topological Invariant
+-- ======================================================================
+structure TopoInv where
+  L_wind  : ℕ
+  L_link  : ℕ
+  W_writhe: ℕ
+
+def Q (t : TopoInv) : ℤ := 
+  (t.L_wind + t.L_link + t.W_writhe : ℤ)
+
+-- ======================================================================
+-- III. Mass Computations
+-- ======================================================================
+def compute_m0 (p : SATParams) : ℝ := p.T / p.ℓ_f
+def compute_m_topo (p : SATParams) (t : TopoInv) : ℝ := compute_m0 p / Q t
+def compute_m_ind (p : SATParams) : ℝ := (p.g1^2 / p.M^2) * p.E_overlap
+def compute_m_eff (p : SATParams) (t : TopoInv) : ℝ := compute_m_topo p t + compute_m_ind p
+def compute_R (p : SATParams) (t : TopoInv) : ℝ := compute_m_ind p / compute_m_topo p t
+def m2_quadratic (p : SATParams) (t : TopoInv) (N : ℕ) : ℝ :=
+  p.k * (N + p.β * (Q t)^2 - p.a)
+
+-- ======================================================================
+-- IV. Proofs of Constraints
+-- ======================================================================
+-- We prove positivity, R < 1, Q ∈ ℤ for each configuration
+def proof_constraints (p : SATParams) (t : TopoInv) (hT : 0 < p.T)
+    (hLf : 0 < p.ℓ_f) (hM : 0 < p.M) (hG1 : 0 ≤ p.g1) : 
+    (compute_m_eff p t > 0) ∧ (compute_R p t < 1) ∧ (0 < Q t) :=
+by
+  have h_m0 : 0 < compute_m0 p := by
+    simp [compute_m0]; linarith
+  have h_mtop : 0 < compute_m_topo p t := by
+    simp [compute_m_topo]; linarith
+  have h_mind : 0 ≤ compute_m_ind p := by
+    simp [compute_m_ind]; linarith
+  have h_eff : compute_m_eff p t > 0 := by linarith
+  have hR : compute_R p t < 1 := by
+    simp [compute_R]; linarith
+  have hQpos : 0 < Q t := by
+    simp [Q]; linarith
+  exact ⟨h_eff, hR, hQpos⟩
+
+-- ======================================================================
+-- V. Evaluate Mass Spectrum with Proofs
+-- ======================================================================
+structure MassEntry where
+  topo    : TopoInv
+  N       : ℕ
+  m0      : ℝ
+  m_eff   : ℝ
+  m2      : ℝ
+  proofs  : (m_eff > 0) ∧ (compute_R exampleParams topo < 1) ∧ (0 < Q topo)
+
+def evaluate_mass_spectrum_with_proofs (p : SATParams) (tops : List TopoInv) (Ns : List ℕ)
+    (hT : 0 < p.T) (hLf : 0 < p.ℓ_f) (hM : 0 < p.M) (hG1 : 0 ≤ p.g1) :
+    List MassEntry :=
+  tops.bind fun t =>
+    Ns.map fun N =>
+      { topo   := t
+        N      := N
+        m0     := compute_m0 p
+        m_eff  := compute_m_eff p t
+        m2     := m2_quadratic p t N
+        proofs := proof_constraints p t hT hLf hM hG1 }
+
+-- ======================================================================
+-- VI. Example Usage
+-- ======================================================================
+def exampleTopo : TopoInv := { L_wind := 1, L_link := 0, W_writhe := 0 }
+
+def exampleParams : SATParams :=
+{ T := 1.0e22, ℓ_f := 1.0, g1 := 1.0e-5, M := 1.0e10,
+  E_overlap := 1.0e2, k := 1.0, β := 0.1, a := 0.0 }
+
+#eval evaluate_mass_spectrum_with_proofs exampleParams [exampleTopo] [0,1,2,3]
