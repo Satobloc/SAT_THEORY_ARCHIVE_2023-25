@@ -1,0 +1,130 @@
+SAT GEOMETRIC SOLVERS
+
+Yes. I think that should become a separate locked layer of the project, independent of whether SAT/H(s)H survives.
+
+I’d freeze the taxonomy roughly like this:
+
+**1. Universal Indicatrix (UI/TX)**
+A dimension-general relative-frame / metrology solver.
+
+Its irreducible construction is not the sphere. It is two coincident sets of axes with a controllable relative state. The essential operator is relative scaling; rotation is an additional native operator; unit spheres are optional calibration/visualization surfaces.
+
+For (UI_n):
+
+[
+F_1,F_2\cong \mathbb R^n,
+]
+
+with relative transformation something like
+
+[
+G(\lambda)=D(\lambda)R(\lambda),
+]
+
+where (D) handles expansion/contraction and (R\in SO(n)) handles rotation. In the simplest isotropic version,
+
+[
+D=q(\lambda)I.
+]
+
+Its original purpose was geometric comparison. Its emergent strength is broader: it is a reference space in which extension and rotation are native variables/operators. It can work forward, backward, or variationally:
+
+[
+\text{controls}\to\text{geometry},
+]
+
+[
+\text{geometry}\to\text{controls},
+]
+
+[
+L+\text{partial controls}\to\text{forced geometry},
+]
+
+and it can project, reduce dimension, sweep surfaces, compare ruler systems, decompose trajectories, and so forth.
+
+It is Hilbert-space-like in function, and appropriate spaces of UI histories can literally be given Hilbert-space structure.
+
+The spheres are optional. The doubled frame is partly bookkeeping. The invariant content is the relative transformation.
+
+**2. Proto-UI comparison machine**
+Not a separate solver so much as the original intended use of UI.
+
+Two curves are encoded on coupled surfaces; radial traversal plus controlled expansion/contraction creates coincidence events permitting a switch from one encoded curve to the other, producing a composite trace.
+
+This matters historically because it tells us what UI was initially supposed to accomplish: force relationships between mathematical structures geometrically.
+
+Its weakness was excessive freedom: timing, phase, ray choice, parametrization, switching point, etc. could determine the answer. It did not constrain the comparison tightly enough.
+
+That failure led directly to—
+
+**3. Whirligig / Donut**
+A constrained geometric comparison/composition solver.
+
+This is the machine specifically designed to do what proto-UI could not reliably do: encode two structures faithfully, place them into a rigid mechanical/geometric transformation grammar, and make their interaction produce an output that is forced as much as possible by the permitted transformations.
+
+So:
+
+[
+A\to R,\qquad B\to Q,
+]
+
+then
+
+[
+(R,Q)+\text{hard constraints}
+\to C(R,Q).
+]
+
+The important idea is not “curves on a torus.” It is **constrained transformation with information preservation**.
+
+And preservation need not mean keeping every constraint unchanged. A rule may be relaxed if the transformation itself carries the resulting structural difference intrinsically. The box-to-cylinder example belongs here.
+
+Its potential outputs include genuine equivalence, weaker shared structure, common invariant, intersection regime, or explicit residual showing exactly what had to be changed.
+
+The major unfinished job is reconstructing the exact correct mechanical implementation: rolling/contact constraints, forcing relation, output tracer, closure, reversibility, and uniqueness.
+
+**4. Spheres**
+Third independent solver.
+
+This one should remain **provisional** until we do the same reconstruction. We know it involves interacting/overlapping spheres, evolving intersection loci, carrier circles, bifurcations, chained response, handedness, and transition rules. But we have not yet cleanly separated your intended machine from implementations and later physical assignments.
+
+So I would not freeze its definition yet.
+
+Then there is an important meta-category:
+
+**5. Applications are not solvers.**
+
+SAT/H(s)H particle geometry, pulsars, cosmology, paired space/time metrology, Lagrangians, quantum/classical correspondence, etc. are assignments made *using* these machines.
+
+Likewise, (B=3/4\pi), (0.246), 24-cells, Z3, filament scales, particle identifications, and so on are not intrinsic properties of UI, Whirligig, or Spheres.
+
+That boundary should be rigid.
+
+And I think there’s a useful higher-level taxonomy:
+
+[
+\boxed{\text{UI: broad representational/control space}}
+]
+
+[
+\boxed{\text{Whirligig: constrained comparison/transform engine}}
+]
+
+[
+\boxed{\text{Spheres: constrained interaction/bifurcation engine?}}
+]
+
+The question mark on the last one is intentional.
+
+That gives us three genuinely different tools rather than three visualizations of SAT.
+
+And yes, I think these deserve development on their own terms. Even if SAT died tomorrow, a useful way to decompose arbitrary trajectories into scale/rotation histories, a mechanically constrained method for comparing mathematical representations, or a clean geometry-of-intersections solver could remain useful mathematics/computation.
+
+My next move would be to create a **Solver Canon** containing only:
+
+purpose, primitive objects, allowed operators, input types, output types, invariants, ambiguities/gauges, information-preservation rules, known failure modes, and validation tests.
+
+No physics assignments at all.
+
+And I would freeze UI first, Whirligig second, then reconstruct Spheres against the same template.
