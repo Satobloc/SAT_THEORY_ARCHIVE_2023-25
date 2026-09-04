@@ -1,0 +1,1013 @@
+{
+  "schema_version": "0.1.0",
+  "equation_id": "STD-GEO-S3X3-R4-DEFORM-0002",
+  "title": "Carrier evolution under a volume-preserving oscillatory deformation of one 3-sphere",
+  "authority": {
+    "status": "authoritative_standard_input",
+    "source": "Standard implicit differential geometry and moving-constraint kinematics"
+  },
+  "equations": [
+    {
+      "label": "fixed_shells",
+      "expression": "F_a(x)=||x-c_a||^2-R^2=0, a=2,3"
+    },
+    {
+      "label": "deformed_shell",
+      "expression": "F_1(x,phi)=(x-c_1)^T A_1(phi)(x-c_1)-R^2=0"
+    },
+    {
+      "label": "shape",
+      "expression": "A_1(phi)=diag(1,1,exp(-2 epsilon),exp(2 epsilon)), epsilon=amplitude sin(phi)"
+    },
+    {
+      "label": "moving_constraint",
+      "expression": "J dx/dphi = -partial_phi F"
+    }
+  ],
+  "variables": [
+    {
+      "symbol": "x",
+      "role": "ambient point",
+      "unit": "normalized_length",
+      "dimensions": {"M": 0, "L": 1, "T": 0}
+    },
+    {
+      "symbol": "R",
+      "role": "undeformed shell radius",
+      "unit": "normalized_length",
+      "dimensions": {"M": 0, "L": 1, "T": 0}
+    },
+    {
+      "symbol": "d",
+      "role": "equilateral center separation",
+      "unit": "normalized_length",
+      "dimensions": {"M": 0, "L": 1, "T": 0}
+    },
+    {
+      "symbol": "phi",
+      "role": "deformation-cycle phase",
+      "unit": "radian",
+      "dimensions": {"M": 0, "L": 0, "T": 0}
+    },
+    {
+      "symbol": "epsilon",
+      "role": "logarithmic anisotropic deformation",
+      "unit": "dimensionless",
+      "dimensions": {"M": 0, "L": 0, "T": 0}
+    }
+  ],
+  "domain": {
+    "ambient_space": "R^4",
+    "ambient_dimension": 4,
+    "shell_type": "one quadratic ellipsoid plus two S^3 shells",
+    "expected_regular_intersection": "closed one-dimensional carrier"
+  },
+  "assumptions": [
+    "All undeformed shells have common radius R.",
+    "The centers remain fixed at an equilateral separation d.",
+    "Only the first shell deforms.",
+    "The deformation matrix is symmetric positive definite and has determinant one.",
+    "Phase is a solver parameter, not physical time."
+  ],
+  "symmetries": [
+    "Global translation invariance",
+    "Global O(4) covariance when the shell system and deformation tensor transform together",
+    "Full-cycle periodicity in phi"
+  ],
+  "constraints": [
+    "rank(J)=3 on every regular frame",
+    "det(A_1)=1",
+    "the traced carrier closes at every sampled phase"
+  ],
+  "boundary_conditions": [
+    "Each carrier is closed.",
+    "The shell geometry at phi=0 and phi=2*pi is identical."
+  ],
+  "known_solution": {
+    "kind": "analytic endpoints plus numerical continuation",
+    "endpoint_carrier_radius": "sqrt(R^2-d^2/3)",
+    "cycle_period": "2*pi",
+    "bifurcation_diagnostic": "min singular value of J"
+  },
+  "empirical_anchors": [],
+  "mapping_request": {
+    "backend": "spherical_constraint",
+    "operation": "one_shell_shape_oscillation",
+    "parameters": {
+      "R": 1.0,
+      "d": 1.0,
+      "trace_step": 0.035,
+      "radius_rate": 0.0,
+      "internal_speed": 0.25,
+      "deformation_amplitude": 0.35,
+      "frame_count": 25,
+      "bifurcation_tolerance": 1e-5
+    }
+  },
+  "tolerances": {
+    "constraint_absolute": 1e-9,
+    "cycle_closure_absolute": 1e-8,
+    "endpoint_circumference_relative": 0.003,
+    "moving_constraint_absolute": 1e-9,
+    "shape_determinant_absolute": 1e-12
+  }
+}
+
+
+"""Small dependency-free runtime validation for backend contracts."""
+
+from __future__ import annotations
+
+import json
+from pathlib import Path
+from typing import Any
+
+
+class ContractError(ValueError):
+    """Raised when an equation packet violates the backend contract."""
+
+
+REQUIRED_PACKET_FIELDS = {
+    "schema_version",
+    "equation_id",
+    "title",
+    "authority",
+    "equations",
+    "variables",
+    "domain",
+    "assumptions",
+    "symmetries",
+    "constraints",
+    "known_solution",
+    "mapping_request",
+    "tolerances",
+}
+
+MAPPING_STATUSES = {
+    "exact_identity",
+    "exact_identity_with_numerical_verification",
+    "coordinate_rewrite",
+    "controlled_approximation",
+    "calibrated_representation",
+    "candidate_extension",
+    "failed_mapping",
+}
+
+
+def _require(condition: bool, message: str) -> None:
+    if not condition:
+        raise ContractError(message)
+
+
+def validate_equation_packet(packet: dict[str, Any]) -> dict[str, Any]:
+    """Validate the subset of the JSON contract required by v0.1."""
+
+    missing = REQUIRED_PACKET_FIELDS.difference(packet)
+    _require(not missing, f"Equation packet is missing fields: {sorted(missing)}")
+    _require(packet["schema_version"] == "0.1.0", "Unsupported schema_version")
+    _require(bool(packet["equation_id"]), "equation_id must be non-empty")
+    _require(
+        packet["authority"].get("status") == "authoritative_standard_input",
+        "authority.status must be authoritative_standard_input",
+    )
+    _require(bool(packet["authority"].get("source")), "authority.source is required")
+    _require(isinstance(packet["equations"], list) and packet["equations"], "equations must be non-empty")
+    _require(isinstance(packet["variables"], list), "variables must be a list")
+
+    for variable in packet["variables"]:
+        for key in ("symbol", "role", "unit", "dimensions"):
+            _require(key in variable, f"Variable is missing {key}: {variable}")
+        dims = variable["dimensions"]
+        _require(all(k in dims for k in ("M", "L", "T")), f"Variable dimensions need M, L, T: {variable}")
+
+    request = packet["mapping_request"]
+    _require(request.get("backend") == "spherical_constraint", "Unsupported mapping backend")
+    _require(isinstance(request.get("parameters"), dict), "mapping_request.parameters must be an object")
+    operation = request.get("operation", "equal_s3_static")
+    _require(
+        operation in {"equal_s3_static", "one_shell_shape_oscillation"},
+        f"Unsupported spherical_constraint operation: {operation}",
+    )
+    parameters = request["parameters"]
+    for key in ("R", "d", "trace_step", "radius_rate", "internal_speed"):
+        _require(key in parameters, f"mapping_request.parameters is missing {key}")
+    _require(float(parameters["R"]) > 0.0, "R must be positive")
+    _require(float(parameters["d"]) > 0.0, "d must be positive")
+    _require(float(parameters["trace_step"]) > 0.0, "trace_step must be positive")
+
+    if operation == "one_shell_shape_oscillation":
+        for key in ("deformation_amplitude", "frame_count", "bifurcation_tolerance"):
+            _require(key in parameters, f"deformation parameters are missing {key}")
+        _require(float(parameters["deformation_amplitude"]) >= 0.0, "deformation_amplitude must be non-negative")
+        _require(int(parameters["frame_count"]) >= 3, "frame_count must be at least three")
+        _require(float(parameters["bifurcation_tolerance"]) > 0.0, "bifurcation_tolerance must be positive")
+
+    return packet
+
+
+def validate_mapping_result(result: dict[str, Any]) -> dict[str, Any]:
+    _require(result.get("schema_version") == "0.1.0", "Unsupported result schema_version")
+    _require(result.get("status") in MAPPING_STATUSES, "Invalid mapping status")
+    for key in (
+        "mapping_id",
+        "equation_id",
+        "backend",
+        "object_map",
+        "operator_map",
+        "constraint_realization",
+        "solver",
+        "readout_map",
+        "observables",
+        "residuals",
+        "diagnostics",
+    ):
+        _require(key in result, f"Mapping result is missing {key}")
+    return result
+
+
+def load_equation_packet(path: str | Path) -> dict[str, Any]:
+    with Path(path).open("r", encoding="utf-8") as handle:
+        packet = json.load(handle)
+    return validate_equation_packet(packet)
+
+
+"""One-shell deformation cycle for the spherical-constraint backend."""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+from math import cos, exp, pi, sin
+from typing import Any, Sequence
+
+import numpy as np
+from numpy.typing import NDArray
+
+from .contracts import validate_equation_packet, validate_mapping_result
+from .geometry import ConstraintSystem, QuadraticShell, TraceResult, analytic_equal_s3_carrier, equal_s3_system, trace_closed_carrier
+
+
+Vector = NDArray[np.float64]
+Matrix = NDArray[np.float64]
+
+
+@dataclass(frozen=True)
+class CurveMetrics:
+    circumference: float
+    curvature_mean: float
+    curvature_min: float
+    curvature_max: float
+
+
+@dataclass(frozen=True)
+class DeformationFrame:
+    phase: float
+    epsilon: float
+    shape_determinant: float
+    trace: TraceResult
+    metrics: CurveMetrics
+    seed: Vector
+    surface_forced: Vector
+    internal_tangent: Vector
+    total_velocity: Vector
+    moving_constraint_residual: float
+    minimum_jacobian_singular_value: float
+    bifurcation_flag: bool
+
+
+@dataclass(frozen=True)
+class DeformationCycle:
+    frames: tuple[DeformationFrame, ...]
+    seed_cycle_error: float
+    maximum_constraint_residual: float
+    minimum_jacobian_singular_value: float
+
+
+def oscillating_shape(phase: float, amplitude: float) -> tuple[Matrix, Matrix, float]:
+    """Return A(phi), dA/dphi, and epsilon for a determinant-one deformation."""
+
+    epsilon = float(amplitude) * sin(float(phase))
+    epsilon_rate = float(amplitude) * cos(float(phase))
+    a2 = exp(-2.0 * epsilon)
+    a3 = exp(2.0 * epsilon)
+    shape = np.diag([1.0, 1.0, a2, a3])
+    shape_rate = np.diag([0.0, 0.0, -2.0 * epsilon_rate * a2, 2.0 * epsilon_rate * a3])
+    return shape, shape_rate, epsilon
+
+
+def one_shell_deformed_system(
+    radius: float,
+    separation: float,
+    phase: float,
+    amplitude: float,
+) -> tuple[ConstraintSystem, tuple[dict[str, object], ...], float]:
+    base = equal_s3_system(radius, separation)
+    shape, shape_rate, epsilon = oscillating_shape(phase, amplitude)
+    shells = list(base.shells)
+    shells[0] = QuadraticShell(shells[0].center, shape, radius, label="S3_1_deformed")
+    rates: tuple[dict[str, object], ...] = (
+        {"shape_rate": shape_rate},
+        {},
+        {},
+    )
+    return ConstraintSystem(shells), rates, epsilon
+
+
+def discrete_curve_metrics(points: Matrix) -> CurveMetrics:
+    """Calculate closed-polyline length and a discrete curvature estimate in R^D."""
+
+    points = np.asarray(points, dtype=float)
+    if points.shape[0] < 5:
+        raise ValueError("At least four unique closed-curve points are required")
+    unique = points[:-1] if np.linalg.norm(points[0] - points[-1]) < 1e-10 else points
+    previous = np.roll(unique, 1, axis=0)
+    following = np.roll(unique, -1, axis=0)
+    backward_segments = unique - previous
+    forward_segments = following - unique
+    ds_back = np.linalg.norm(backward_segments, axis=1)
+    ds_forward = np.linalg.norm(forward_segments, axis=1)
+    if np.any(ds_back <= 0.0) or np.any(ds_forward <= 0.0):
+        raise ValueError("Curve contains repeated adjacent points")
+    tangent_back = backward_segments / ds_back[:, None]
+    tangent_forward = forward_segments / ds_forward[:, None]
+    local_ds = 0.5 * (ds_back + ds_forward)
+    curvature = np.linalg.norm(tangent_forward - tangent_back, axis=1) / local_ds
+    circumference = float(np.sum(ds_forward))
+    return CurveMetrics(
+        circumference=circumference,
+        curvature_mean=float(np.mean(curvature)),
+        curvature_min=float(np.min(curvature)),
+        curvature_max=float(np.max(curvature)),
+    )
+
+
+def trace_deformation_cycle(
+    *,
+    radius: float,
+    separation: float,
+    amplitude: float,
+    frame_count: int,
+    trace_step: float,
+    internal_speed: float,
+    bifurcation_tolerance: float,
+) -> DeformationCycle:
+    rho, _ = analytic_equal_s3_carrier(radius, separation)
+    phases = np.linspace(0.0, 2.0 * pi, int(frame_count), endpoint=True)
+    initial_seed = np.array([0.0, 0.0, rho, 0.0])
+    seed = initial_seed.copy()
+    tangent_reference: Vector | None = None
+    frames: list[DeformationFrame] = []
+
+    for index, phase in enumerate(phases):
+        system, rates, epsilon = one_shell_deformed_system(radius, separation, float(phase), amplitude)
+        if index > 0:
+            if tangent_reference is None:
+                raise RuntimeError("Missing tangent reference")
+            seed = system.correct_to_carrier(seed, tangent_reference)
+        tangent_reference = system.tangent(seed, reference=tangent_reference)
+        trace = trace_closed_carrier(system, seed, step_size=trace_step)
+        metrics = discrete_curve_metrics(trace.points)
+        velocity = system.velocity_decomposition(
+            seed,
+            rates,
+            internal_speed=internal_speed,
+            tangent_reference=tangent_reference,
+        )
+        moving_residual = float(
+            np.linalg.norm(system.jacobian(seed) @ velocity.surface_forced + velocity.parameter_derivatives)
+        )
+        singular_minimum = min(float(system.singular_values(point)[-1]) for point in trace.points[:-1])
+        frames.append(
+            DeformationFrame(
+                phase=float(phase),
+                epsilon=epsilon,
+                shape_determinant=float(np.linalg.det(system.shells[0].shape)),
+                trace=trace,
+                metrics=metrics,
+                seed=seed.copy(),
+                surface_forced=velocity.surface_forced.copy(),
+                internal_tangent=velocity.internal_tangent.copy(),
+                total_velocity=velocity.total.copy(),
+                moving_constraint_residual=moving_residual,
+                minimum_jacobian_singular_value=singular_minimum,
+                bifurcation_flag=singular_minimum <= bifurcation_tolerance,
+            )
+        )
+
+    return DeformationCycle(
+        frames=tuple(frames),
+        seed_cycle_error=float(np.linalg.norm(frames[-1].seed - initial_seed)),
+        maximum_constraint_residual=max(frame.trace.max_constraint_residual for frame in frames),
+        minimum_jacobian_singular_value=min(frame.minimum_jacobian_singular_value for frame in frames),
+    )
+
+
+def deformation_result(packet: dict[str, Any]) -> tuple[dict[str, Any], DeformationCycle]:
+    packet = validate_equation_packet(packet)
+    params = packet["mapping_request"]["parameters"]
+    cycle = trace_deformation_cycle(
+        radius=float(params["R"]),
+        separation=float(params["d"]),
+        amplitude=float(params["deformation_amplitude"]),
+        frame_count=int(params["frame_count"]),
+        trace_step=float(params["trace_step"]),
+        internal_speed=float(params["internal_speed"]),
+        bifurcation_tolerance=float(params["bifurcation_tolerance"]),
+    )
+    frame_rows = [
+        {
+            "frame": index,
+            "phase": frame.phase,
+            "epsilon": frame.epsilon,
+            "shape_determinant": frame.shape_determinant,
+            "circumference": frame.metrics.circumference,
+            "curvature_mean": frame.metrics.curvature_mean,
+            "curvature_min": frame.metrics.curvature_min,
+            "curvature_max": frame.metrics.curvature_max,
+            "surface_forced_speed_per_phase": float(np.linalg.norm(frame.surface_forced)),
+            "internal_speed_per_phase": float(np.linalg.norm(frame.internal_tangent)),
+            "moving_constraint_residual": frame.moving_constraint_residual,
+            "constraint_max_absolute": frame.trace.max_constraint_residual,
+            "minimum_jacobian_singular_value": frame.minimum_jacobian_singular_value,
+            "bifurcation_flag": frame.bifurcation_flag,
+            "point_count": int(frame.trace.points.shape[0]),
+        }
+        for index, frame in enumerate(cycle.frames)
+    ]
+    first = cycle.frames[0]
+    last = cycle.frames[-1]
+    circumference_cycle_error = abs(last.metrics.circumference - first.metrics.circumference)
+    curvature_cycle_error = abs(last.metrics.curvature_mean - first.metrics.curvature_mean)
+    determinant_error = max(abs(frame.shape_determinant - 1.0) for frame in cycle.frames)
+    result = {
+        "schema_version": "0.1.0",
+        "mapping_id": f"MAP-{packet['equation_id']}-SPHERICAL-DEFORM-0001",
+        "equation_id": packet["equation_id"],
+        "backend": "spherical_constraint",
+        "status": "coordinate_rewrite",
+        "object_map": {
+            "deforming_standard_shell": "time-parameterized QuadraticShell",
+            "fixed_standard_shells": "two QuadraticShell instances",
+            "common_intersection": "evolving closed one-dimensional carrier",
+            "ambient_space": "R^4",
+            "ontology_claim": "none; computational representation only"
+        },
+        "operator_map": {
+            "shape_deformation": "A_1(phi)=diag(1,1,exp(-2 epsilon),exp(2 epsilon))",
+            "shape_rate": "analytic dA_1/dphi",
+            "carrier_tangent": "one-dimensional nullspace of J",
+            "surface_forced_velocity": "-pinv(J) partial_phi(F)",
+            "internal_velocity": "u t",
+            "superhelical_nesting": "not invoked",
+            "braid_nesting": "not invoked"
+        },
+        "constraint_realization": {
+            "constraint_count": 3,
+            "ambient_dimension": 4,
+            "phase_interval": [0.0, 2.0 * pi],
+            "frame_count": len(cycle.frames),
+            "shape_determinant_target": 1.0
+        },
+        "solver": {
+            "method": "frame continuation plus closed-carrier predictor-corrector tracing",
+            "trace_step": float(params["trace_step"]),
+            "seed_transport": "previous-frame seed corrected into current constraints"
+        },
+        "readout_map": {
+            "history": "per-frame carrier circumference, discrete curvature, velocity decomposition, and rank margin",
+            "curve_coordinates": "exported separately as concatenated R^4 point arrays",
+            "phase_warning": "velocity values are per unit deformation phase, not per unit physical time"
+        },
+        "observables": {
+            "deformation_amplitude": float(params["deformation_amplitude"]),
+            "circumference_min": min(frame.metrics.circumference for frame in cycle.frames),
+            "circumference_max": max(frame.metrics.circumference for frame in cycle.frames),
+            "curvature_mean_min": min(frame.metrics.curvature_mean for frame in cycle.frames),
+            "curvature_mean_max": max(frame.metrics.curvature_mean for frame in cycle.frames),
+            "surface_forced_speed_max_per_phase": max(float(np.linalg.norm(frame.surface_forced)) for frame in cycle.frames),
+            "minimum_jacobian_singular_value": cycle.minimum_jacobian_singular_value,
+            "bifurcation_detected": any(frame.bifurcation_flag for frame in cycle.frames),
+            "frame_history": frame_rows
+        },
+        "residuals": {
+            "constraint_max_absolute": cycle.maximum_constraint_residual,
+            "seed_cycle_closure_absolute": cycle.seed_cycle_error,
+            "circumference_cycle_closure_absolute": circumference_cycle_error,
+            "curvature_cycle_closure_absolute": curvature_cycle_error,
+            "shape_determinant_max_absolute": determinant_error,
+            "moving_constraint_max_absolute": max(frame.moving_constraint_residual for frame in cycle.frames)
+        },
+        "diagnostics": {
+            "bifurcation_indicator": "minimum singular value of J over each carrier",
+            "bifurcation_tolerance": float(params["bifurcation_tolerance"]),
+            "bifurcation_frames": [index for index, frame in enumerate(cycle.frames) if frame.bifurcation_flag],
+            "endpoint_geometry": "identical by construction at phi=0 and phi=2*pi"
+        },
+        "provenance": {
+            "input_authority": packet["authority"],
+            "calibrations": [],
+            "candidate_physics": [],
+            "silent_repairs": []
+        }
+    }
+    return validate_mapping_result(result), cycle
+
+
+def concatenate_cycle_points(frames: Sequence[DeformationFrame]) -> tuple[Matrix, NDArray[np.int64]]:
+    lengths = np.array([frame.trace.points.shape[0] for frame in frames], dtype=np.int64)
+    offsets = np.concatenate((np.array([0], dtype=np.int64), np.cumsum(lengths)))
+    points = np.vstack([frame.trace.points for frame in frames])
+    return points, offsets
+
+
+"""Quadratic shell constraints and one-dimensional carrier tracing."""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+from math import pi, sqrt
+from typing import Iterable, Sequence
+
+import numpy as np
+from numpy.typing import NDArray
+from scipy.optimize import least_squares
+
+
+Vector = NDArray[np.float64]
+Matrix = NDArray[np.float64]
+
+
+@dataclass(frozen=True)
+class QuadraticShell:
+    """A shell F(x)=(x-c)^T A (x-c)-R^2=0."""
+
+    center: Vector
+    shape: Matrix
+    radius: float
+    label: str = "shell"
+
+    def __post_init__(self) -> None:
+        center = np.asarray(self.center, dtype=float)
+        shape = np.asarray(self.shape, dtype=float)
+        if center.ndim != 1:
+            raise ValueError("center must be one-dimensional")
+        if shape.shape != (center.size, center.size):
+            raise ValueError("shape must be square and match center dimension")
+        if not np.allclose(shape, shape.T, atol=1e-12):
+            raise ValueError("shape must be symmetric")
+        if np.min(np.linalg.eigvalsh(shape)) <= 0.0:
+            raise ValueError("shape must be positive definite")
+        if self.radius <= 0.0:
+            raise ValueError("radius must be positive")
+        object.__setattr__(self, "center", center)
+        object.__setattr__(self, "shape", shape)
+        object.__setattr__(self, "radius", float(self.radius))
+
+    @property
+    def dimension(self) -> int:
+        return int(self.center.size)
+
+    def value(self, x: Vector) -> float:
+        delta = np.asarray(x, dtype=float) - self.center
+        return float(delta @ self.shape @ delta - self.radius**2)
+
+    def gradient(self, x: Vector) -> Vector:
+        delta = np.asarray(x, dtype=float) - self.center
+        return 2.0 * self.shape @ delta
+
+    def parameter_derivative(
+        self,
+        x: Vector,
+        *,
+        center_velocity: Vector | None = None,
+        shape_rate: Matrix | None = None,
+        radius_rate: float = 0.0,
+    ) -> float:
+        """Partial derivative of F at fixed x under shell-parameter motion."""
+
+        delta = np.asarray(x, dtype=float) - self.center
+        c_dot = np.zeros(self.dimension) if center_velocity is None else np.asarray(center_velocity, dtype=float)
+        a_dot = np.zeros_like(self.shape) if shape_rate is None else np.asarray(shape_rate, dtype=float)
+        return float(delta @ a_dot @ delta - 2.0 * c_dot @ self.shape @ delta - 2.0 * self.radius * radius_rate)
+
+    def transformed(self, rotation: Matrix, translation: Vector) -> "QuadraticShell":
+        rotation = np.asarray(rotation, dtype=float)
+        translation = np.asarray(translation, dtype=float)
+        return QuadraticShell(
+            center=rotation @ self.center + translation,
+            shape=rotation @ self.shape @ rotation.T,
+            radius=self.radius,
+            label=self.label,
+        )
+
+
+@dataclass(frozen=True)
+class VelocityDecomposition:
+    surface_forced: Vector
+    internal_tangent: Vector
+    total: Vector
+    tangent: Vector
+    parameter_derivatives: Vector
+
+
+@dataclass(frozen=True)
+class TraceResult:
+    points: Matrix
+    circumference: float
+    max_constraint_residual: float
+    steps: int
+    closure_error: float
+
+
+class ConstraintSystem:
+    def __init__(self, shells: Sequence[QuadraticShell]):
+        if not shells:
+            raise ValueError("At least one shell is required")
+        dimension = shells[0].dimension
+        if any(shell.dimension != dimension for shell in shells):
+            raise ValueError("All shells must share an ambient dimension")
+        self.shells = tuple(shells)
+        self.dimension = dimension
+
+    def values(self, x: Vector) -> Vector:
+        return np.array([shell.value(x) for shell in self.shells], dtype=float)
+
+    def jacobian(self, x: Vector) -> Matrix:
+        return np.vstack([shell.gradient(x) for shell in self.shells])
+
+    def singular_values(self, x: Vector) -> Vector:
+        return np.linalg.svd(self.jacobian(x), compute_uv=False)
+
+    def rank(self, x: Vector, tolerance: float = 1e-10) -> int:
+        return int(np.linalg.matrix_rank(self.jacobian(x), tol=tolerance))
+
+    def tangent(self, x: Vector, *, reference: Vector | None = None) -> Vector:
+        jacobian = self.jacobian(x)
+        _, singular_values, vh = np.linalg.svd(jacobian, full_matrices=True)
+        rank = int(np.sum(singular_values > 1e-10))
+        nullity = self.dimension - rank
+        if nullity != 1:
+            raise ValueError(f"Expected one-dimensional nullspace, found nullity={nullity}")
+        tangent = vh[-1].astype(float)
+        tangent /= np.linalg.norm(tangent)
+        if reference is not None and float(tangent @ reference) < 0.0:
+            tangent = -tangent
+        return tangent
+
+    def velocity_decomposition(
+        self,
+        x: Vector,
+        shell_rates: Sequence[dict[str, object]],
+        *,
+        internal_speed: float = 0.0,
+        tangent_reference: Vector | None = None,
+    ) -> VelocityDecomposition:
+        if len(shell_rates) != len(self.shells):
+            raise ValueError("One rate dictionary is required per shell")
+        partials = np.array(
+            [shell.parameter_derivative(x, **rates) for shell, rates in zip(self.shells, shell_rates, strict=True)],
+            dtype=float,
+        )
+        jacobian = self.jacobian(x)
+        surface = -np.linalg.pinv(jacobian) @ partials
+        tangent = self.tangent(x, reference=tangent_reference)
+        internal = float(internal_speed) * tangent
+        return VelocityDecomposition(
+            surface_forced=surface,
+            internal_tangent=internal,
+            total=surface + internal,
+            tangent=tangent,
+            parameter_derivatives=partials,
+        )
+
+    def correct_to_carrier(self, predictor: Vector, normal: Vector, *, tolerance: float = 1e-12) -> Vector:
+        predictor = np.asarray(predictor, dtype=float)
+        normal = np.asarray(normal, dtype=float)
+
+        def augmented_residual(x: Vector) -> Vector:
+            return np.concatenate((self.values(x), [float((x - predictor) @ normal)]))
+
+        result = least_squares(
+            augmented_residual,
+            predictor,
+            xtol=tolerance,
+            ftol=tolerance,
+            gtol=tolerance,
+            max_nfev=200,
+        )
+        if not result.success or np.max(np.abs(self.values(result.x))) > 1e-9:
+            raise RuntimeError(f"Carrier correction failed: {result.message}")
+        return result.x.astype(float)
+
+    def transformed(self, rotation: Matrix, translation: Vector) -> "ConstraintSystem":
+        return ConstraintSystem([shell.transformed(rotation, translation) for shell in self.shells])
+
+
+def analytic_equal_s3_carrier(radius: float, separation: float) -> tuple[float, float]:
+    if radius <= 0.0 or separation <= 0.0:
+        raise ValueError("radius and separation must be positive")
+    squared = radius**2 - separation**2 / 3.0
+    if squared <= 0.0:
+        raise ValueError("No regular S^1 carrier: require d < sqrt(3) R")
+    rho = sqrt(squared)
+    return rho, 2.0 * pi * rho
+
+
+def equal_s3_system(radius: float, separation: float) -> ConstraintSystem:
+    """Three equal S^3 shells centered on an equilateral triangle in x0-x1."""
+
+    circumradius = separation / sqrt(3.0)
+    centers = (
+        np.array([0.0, circumradius, 0.0, 0.0]),
+        np.array([-separation / 2.0, -circumradius / 2.0, 0.0, 0.0]),
+        np.array([separation / 2.0, -circumradius / 2.0, 0.0, 0.0]),
+    )
+    identity = np.eye(4)
+    return ConstraintSystem(
+        [QuadraticShell(center, identity, radius, label=f"S3_{index + 1}") for index, center in enumerate(centers)]
+    )
+
+
+def trace_closed_carrier(
+    system: ConstraintSystem,
+    start: Vector,
+    *,
+    step_size: float,
+    max_steps: int = 5000,
+    min_steps: int = 20,
+    closure_factor: float = 1.25,
+) -> TraceResult:
+    """Trace a regular closed one-dimensional carrier by predictor-corrector continuation."""
+
+    start = np.asarray(start, dtype=float)
+    if np.max(np.abs(system.values(start))) > 1e-8:
+        raise ValueError("start must lie on the carrier")
+    points = [start.copy()]
+    tangent = system.tangent(start)
+    initial_tangent = tangent.copy()
+    circumference = 0.0
+    residual = float(np.max(np.abs(system.values(start))))
+
+    for step in range(1, max_steps + 1):
+        current = points[-1]
+        tangent = system.tangent(current, reference=tangent)
+        predictor = current + step_size * tangent
+        corrected = system.correct_to_carrier(predictor, tangent)
+        segment = float(np.linalg.norm(corrected - current))
+        if segment <= 1e-14:
+            raise RuntimeError("Continuation stalled")
+        points.append(corrected)
+        circumference += segment
+        residual = max(residual, float(np.max(np.abs(system.values(corrected)))))
+
+        if step >= min_steps:
+            new_tangent = system.tangent(corrected, reference=tangent)
+            distance_to_start = float(np.linalg.norm(corrected - start))
+            if distance_to_start < closure_factor * step_size and float(new_tangent @ initial_tangent) > 0.8:
+                circumference += distance_to_start
+                points.append(start.copy())
+                return TraceResult(
+                    points=np.vstack(points),
+                    circumference=circumference,
+                    max_constraint_residual=residual,
+                    steps=step,
+                    closure_error=distance_to_start,
+                )
+
+    raise RuntimeError("Carrier did not close within max_steps")
+
+
+def max_constraint_residual(system: ConstraintSystem, points: Iterable[Vector]) -> float:
+    return max(float(np.max(np.abs(system.values(point)))) for point in points)
+
+
+"""Standard-equation packet to H(s)H geometric round trip."""
+
+from __future__ import annotations
+
+from math import sqrt
+from typing import Any
+
+import numpy as np
+
+from .contracts import validate_equation_packet, validate_mapping_result
+from .geometry import analytic_equal_s3_carrier, equal_s3_system, trace_closed_carrier
+
+
+def _relative_error(calculated: float, expected: float) -> float:
+    return abs(calculated - expected) / abs(expected) if expected != 0.0 else abs(calculated)
+
+
+def run_roundtrip(packet: dict[str, Any]) -> dict[str, Any]:
+    packet = validate_equation_packet(packet)
+    params = packet["mapping_request"]["parameters"]
+    radius = float(params["R"])
+    separation = float(params["d"])
+    trace_step = float(params["trace_step"])
+    radius_rate = float(params["radius_rate"])
+    internal_speed = float(params["internal_speed"])
+
+    rho_exact, circumference_exact = analytic_equal_s3_carrier(radius, separation)
+    system = equal_s3_system(radius, separation)
+    start = np.array([0.0, 0.0, rho_exact, 0.0])
+    trace = trace_closed_carrier(system, start, step_size=trace_step)
+
+    points = trace.points[:-1]
+    radii = np.linalg.norm(points[:, 2:4], axis=1)
+    rho_numeric = float(np.mean(radii))
+    radius_spread = float(np.max(np.abs(radii - rho_exact)))
+
+    rates = [{"radius_rate": radius_rate} for _ in system.shells]
+    velocity = system.velocity_decomposition(start, rates, internal_speed=internal_speed)
+    forced_speed_exact = radius * radius_rate / rho_exact
+    forced_speed_numeric = float(velocity.surface_forced[2])
+    tangent_constraint_residual = float(np.linalg.norm(system.jacobian(start) @ velocity.internal_tangent))
+    velocity_constraint_residual = float(
+        np.linalg.norm(system.jacobian(start) @ velocity.surface_forced + velocity.parameter_derivatives)
+    )
+
+    near_critical_d = sqrt(3.0) * radius * (1.0 - 1e-8)
+    near_rho, _ = analytic_equal_s3_carrier(radius, near_critical_d)
+    near_system = equal_s3_system(radius, near_critical_d)
+    near_start = np.array([0.0, 0.0, near_rho, 0.0])
+    regular_singular_values = system.singular_values(start)
+    near_singular_values = near_system.singular_values(near_start)
+
+    result = {
+        "schema_version": "0.1.0",
+        "mapping_id": f"MAP-{packet['equation_id']}-SPHERICAL-0001",
+        "equation_id": packet["equation_id"],
+        "backend": "spherical_constraint",
+        "status": "exact_identity_with_numerical_verification",
+        "object_map": {
+            "standard_shell": "QuadraticShell",
+            "common_intersection": "one-dimensional carrier",
+            "carrier_topology": "S^1",
+            "ambient_space": "R^4",
+            "ontology_claim": "none; computational representation only"
+        },
+        "operator_map": {
+            "intersection": "simultaneous constraint solution F_1=F_2=F_3=0",
+            "carrier_tangent": "normalized one-dimensional nullspace of J",
+            "surface_forced_velocity": "-pinv(J) partial_lambda(F)",
+            "internal_velocity": "u t",
+            "superhelical_nesting": "not invoked",
+            "braid_nesting": "not invoked"
+        },
+        "constraint_realization": {
+            "equation": "F_a(x)=(x-c_a)^T A_a (x-c_a)-R_a^2=0",
+            "constraint_count": 3,
+            "ambient_dimension": 4,
+            "regular_rank": system.rank(start),
+            "regular_nullity": 4 - system.rank(start)
+        },
+        "solver": {
+            "method": "pseudo-arclength-style predictor-corrector continuation",
+            "corrector": "nonlinear least squares with tangent hyperplane gauge",
+            "trace_step": trace_step,
+            "steps": trace.steps
+        },
+        "readout_map": {
+            "carrier_radius": "mean Euclidean radius in the plane orthogonal to the center triangle",
+            "carrier_circumference": "closed traced polyline length",
+            "velocity": "v_total=v_surface+v_internal"
+        },
+        "observables": {
+            "carrier_radius_exact": rho_exact,
+            "carrier_radius_numeric": rho_numeric,
+            "carrier_circumference_exact": circumference_exact,
+            "carrier_circumference_numeric": trace.circumference,
+            "surface_forced_speed_exact": forced_speed_exact,
+            "surface_forced_speed_numeric": forced_speed_numeric,
+            "internal_speed": float(np.linalg.norm(velocity.internal_tangent)),
+            "total_velocity": velocity.total.tolist()
+        },
+        "residuals": {
+            "carrier_radius_relative": _relative_error(rho_numeric, rho_exact),
+            "carrier_circumference_relative": _relative_error(trace.circumference, circumference_exact),
+            "surface_forced_speed_relative": _relative_error(forced_speed_numeric, forced_speed_exact),
+            "radius_pointwise_max_absolute": radius_spread,
+            "constraint_max_absolute": trace.max_constraint_residual,
+            "internal_tangent_constraint_norm": tangent_constraint_residual,
+            "surface_velocity_constraint_norm": velocity_constraint_residual
+        },
+        "diagnostics": {
+            "regular_jacobian_singular_values": regular_singular_values.tolist(),
+            "near_bifurcation_separation": near_critical_d,
+            "near_bifurcation_carrier_radius": near_rho,
+            "near_bifurcation_jacobian_singular_values": near_singular_values.tolist(),
+            "smallest_singular_value_ratio": float(near_singular_values[-1] / regular_singular_values[-1]),
+            "bifurcation_condition": "smallest singular value tends to zero as d tends to sqrt(3)R"
+        },
+        "provenance": {
+            "input_authority": packet["authority"],
+            "calibrations": [],
+            "candidate_physics": [],
+            "silent_repairs": []
+        }
+    }
+    return validate_mapping_result(result)
+
+
+"""Small dependency-free runtime validation for backend contracts."""
+
+from __future__ import annotations
+
+import json
+from pathlib import Path
+from typing import Any
+
+
+class ContractError(ValueError):
+    """Raised when an equation packet violates the backend contract."""
+
+
+REQUIRED_PACKET_FIELDS = {
+    "schema_version",
+    "equation_id",
+    "title",
+    "authority",
+    "equations",
+    "variables",
+    "domain",
+    "assumptions",
+    "symmetries",
+    "constraints",
+    "known_solution",
+    "mapping_request",
+    "tolerances",
+}
+
+MAPPING_STATUSES = {
+    "exact_identity",
+    "exact_identity_with_numerical_verification",
+    "coordinate_rewrite",
+    "controlled_approximation",
+    "calibrated_representation",
+    "candidate_extension",
+    "failed_mapping",
+}
+
+
+def _require(condition: bool, message: str) -> None:
+    if not condition:
+        raise ContractError(message)
+
+
+def validate_equation_packet(packet: dict[str, Any]) -> dict[str, Any]:
+    """Validate the subset of the JSON contract required by v0.1."""
+
+    missing = REQUIRED_PACKET_FIELDS.difference(packet)
+    _require(not missing, f"Equation packet is missing fields: {sorted(missing)}")
+    _require(packet["schema_version"] == "0.1.0", "Unsupported schema_version")
+    _require(bool(packet["equation_id"]), "equation_id must be non-empty")
+    _require(
+        packet["authority"].get("status") == "authoritative_standard_input",
+        "authority.status must be authoritative_standard_input",
+    )
+    _require(bool(packet["authority"].get("source")), "authority.source is required")
+    _require(isinstance(packet["equations"], list) and packet["equations"], "equations must be non-empty")
+    _require(isinstance(packet["variables"], list), "variables must be a list")
+
+    for variable in packet["variables"]:
+        for key in ("symbol", "role", "unit", "dimensions"):
+            _require(key in variable, f"Variable is missing {key}: {variable}")
+        dims = variable["dimensions"]
+        _require(all(k in dims for k in ("M", "L", "T")), f"Variable dimensions need M, L, T: {variable}")
+
+    request = packet["mapping_request"]
+    _require(request.get("backend") == "spherical_constraint", "Unsupported mapping backend")
+    _require(isinstance(request.get("parameters"), dict), "mapping_request.parameters must be an object")
+    parameters = request["parameters"]
+    for key in ("R", "d", "trace_step", "radius_rate", "internal_speed"):
+        _require(key in parameters, f"mapping_request.parameters is missing {key}")
+    _require(float(parameters["R"]) > 0.0, "R must be positive")
+    _require(float(parameters["d"]) > 0.0, "d must be positive")
+    _require(float(parameters["trace_step"]) > 0.0, "trace_step must be positive")
+
+    return packet
+
+
+def validate_mapping_result(result: dict[str, Any]) -> dict[str, Any]:
+    _require(result.get("schema_version") == "0.1.0", "Unsupported result schema_version")
+    _require(result.get("status") in MAPPING_STATUSES, "Invalid mapping status")
+    for key in (
+        "mapping_id",
+        "equation_id",
+        "backend",
+        "object_map",
+        "operator_map",
+        "constraint_realization",
+        "solver",
+        "readout_map",
+        "observables",
+        "residuals",
+        "diagnostics",
+    ):
+        _require(key in result, f"Mapping result is missing {key}")
+    return result
+
+
+def load_equation_packet(path: str | Path) -> dict[str, Any]:
+    with Path(path).open("r", encoding="utf-8") as handle:
+        packet = json.load(handle)
+    return validate_equation_packet(packet)
