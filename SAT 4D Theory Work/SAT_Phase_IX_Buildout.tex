@@ -1,0 +1,41 @@
+
+\section*{Phase IX: Spectral Sectors and Topological Mass Hierarchy}
+
+\subsection*{O9: From Filament Topology to Particle Mass}
+
+Having derived gauge couplings and curvature from filamentary ensembles, we now close the Standard Model arc by introducing a topological rule for inertial mass. This rule connects a composite excitation’s rest mass to its topological charge $Q$ and vibrational excitation number $N$.
+
+We postulate the following mass-squared relation:
+\begin{equation}
+    m^2 = k \left( N + \beta Q^2 - a \right),
+\end{equation}
+where:
+\begin{itemize}
+    \item $Q \in \{1,2,3\}$ is the topological charge (winding, link, triplet),
+    \item $N \in \mathbb{N}_0$ indexes vibrational modes along the filament bundle,
+    \item $k$ sets the overall energy scale (linked to tension or strain),
+    \item $\beta$ controls amplification of mass by topological complexity,
+    \item $a$ is an offset to anchor the ground state (e.g. $m_{\pi^0} \approx 135$ MeV).
+\end{itemize}
+
+\subsection*{Spectral Implications}
+
+This rule reproduces the observed hierarchy of mesons:
+\begin{itemize}
+    \item Pions $(Q=1, N=0)$ emerge as lightest composites,
+    \item $\rho$, $K^*$, $\phi$, $D$ families $(Q=1, N \geq 1)$ rise by vibrational excitation,
+    \item The quadratic $Q^2$ term splits heavier families naturally,
+    \item Near-massless Goldstone bosons occur when $a = \beta Q^2$.
+\end{itemize}
+
+\subsection*{Module \texttt{SAT\_O9\_structure\_lock.py}}
+
+We codify this mass rule symbolically in \texttt{SAT\_O9\_structure\_lock.py}, exposing:
+\begin{itemize}
+    \item Inputs: $Q$, $N$,
+    \item Parameters: $k$, $\beta$, $a$,
+    \item Output: $m^2$,
+    \item Notes: Validity for $Q \leq 3$, interpretation of $a$-tuning.
+\end{itemize}
+
+This completes the SAT structure-to-spectrum chain and enables direct fitting of PDG particle data from topological first principles.

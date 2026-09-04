@@ -1,0 +1,61 @@
+
+% Module_0A_interpretive_modes.tex
+\documentclass[12pt]{article}
+\usepackage{amsmath,amssymb,hyperref,booktabs}
+\usepackage{geometry}
+\geometry{margin=1in}
+\title{Module 0-A: Interpretive Modes and Development Road‑Map}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+
+\section*{Why a ``Mode'' Ladder?}
+Building the theory proceeds most cleanly when we \emph{start simple} and layer in realism only after the core machinery
+is working.  To make those layers explicit, we organise the program into three
+\emph{interpretive modes}.  Each mode is a controlled approximation; higher modes inherit all results
+from lower ones and then relax a specific freeze‑out.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}p{2cm}p{4.5cm}p{5.5cm}@{}}
+\toprule
+\textbf{Mode} & \textbf{Dynamical Ingredients} & \textbf{Role in Theory‑Building} \\
+\midrule
+1 \\ (True Block) &
+\emph{Filament kinematics frozen.}  The time wave‑front $\Sigma_t$ alone accounts for apparent change. &
+Baseline used in Modules O3‑B, O3‑C, O3‑D.  Lets us construct the Hilbert space, path integral, and renormalisation without gravitational back‑reaction.  Overstates the importance of~$\Sigma_t$, but that is acceptable at this stage. \\
+\addlinespace
+2 \\ (Triggered Dynamics) &
+$\Sigma_t$ still leads, \textbf{but} as it passes it can nudge local filament parameters so the emerging 3‑geometry matches Einstein curvature to first order. &
+First correction layer.  Pegs $\langle K\rangle$ to GR and back‑solves \emph{minimal} filament tweaks needed for consistency.  Introduced formally in Module~6; affects Modules~7–8 phenomenology. \\
+\addlinespace
+3 \\ (Crystallisation) &
+The block itself ``solidifies'' as $\Sigma_t$ sweeps through.  Filament dynamics are determined \emph{during} the sweep; afterwards they are fixed history.  $\Sigma_t$ becomes only an ordering label. &
+Ultimate, self‑consistent picture.  Removes any hint of an external time, satisfying relationalism.  Target of future work; not required for the predictive tests laid out so far. \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section*{Module‑by‑Module Usage}
+\begin{itemize}
+  \item \textbf{Modules O3‑B, O3‑C, O3‑D} (quantisation, renormalisability, surface dynamics) --- \emph{Mode 1} throughout.
+  \item \textbf{Module 5} (mass hierarchy) --- calculations are insensitive to Mode 2 corrections at current precision; Mode 1 suffices.
+  \item \textbf{Module 6} (GR matching) --- switches to \emph{Mode 2}: curvature pegging and induced filament tweaks enter explicitly.
+  \item \textbf{Module 8} (cosmology) --- leading predictions use Mode 2; we indicate where Mode 3 would shift results.
+\end{itemize}
+
+\section*{Reading Guidance}
+\begin{enumerate}
+  \item If you are only interested in near‑term experimental signatures (Modules 7–8), you can safely adopt Mode 1 results plus the Mode 2 corrections spelled out in Module 6.
+  \item For foundational questions (problem of time, relationalism) jump to the discussion of Mode 3 at the end of Module 8.
+\end{enumerate}
+
+\section*{Key Takeaways}
+\begin{itemize}
+  \item The ladder \textbf{Mode 1 $\to$ Mode 2 $\to$ Mode 3} tracks increasing realism and decreasing reliance on a separate time‑wavefront field.
+  \item All calculations marked ``\emph{Mode 1}’’ are exact within that freeze‑out; Mode 2 adds small, controlled corrections; Mode 3 closes the conceptual loop with GR.
+  \item Keeping the modes explicit helps reviewers see which assumptions underlie which predictions.
+\end{itemize}
+
+\end{document}

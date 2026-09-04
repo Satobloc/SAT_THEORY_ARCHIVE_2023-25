@@ -1,0 +1,65 @@
+
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\geometry{margin=1in}
+\title{SAT.4D Glossary – Phase 3 Synchronization}
+\author{SATO.4D Coherence Project}
+\date{June 2025}
+
+\begin{document}
+\maketitle
+
+\section*{Glossary of Terms and Symbols}
+
+\begin{description}
+
+\item[\( \theta_4(x) \)] 
+Scalar field representing the local angular deviation between filament tangent vector \( v^\mu \) and the emergent time-flow vector \( u^\mu(x) \). \emph{Diagnostic only}; not a source of mass.
+
+\item[\( u^\mu(x) \)] 
+Emergent time-flow vector field derived from local filament current density. Normalized as \( u^\mu u_\mu = -1 \).
+
+\item[\( S_{\mu\nu}(x) \)] 
+Strain tensor encoding local bundle distortion, defined as:
+\[
+S_{\mu\nu} = \nabla_\mu u_\nu + \nabla_\nu u_\mu
+\]
+
+\item[\( \mathcal{S}(x) \)] 
+Sheen scalar, defined as:
+\[
+\mathcal{S}(x) = \sqrt{S_{\mu\nu}(x) S^{\mu\nu}(x)}
+\]
+Quantifies local misalignment of time vector field and governs emergent proper time rate and entropy production.
+
+\item[\( \rho_{\text{wind}}(x), \rho_{\text{link}}(x), \rho_{\text{triplet}}(x) \)] 
+Topological density fields counting filament winding, linking, and triple linking respectively. Used to define gauge coupling constants.
+
+\item[\( g_G(x) \)] 
+Emergent gauge coupling constant, defined via:
+\[
+g_G^{-2}(x) \sim \rho_G(x) \cdot \ell_f^2
+\]
+where \( G \in \{ U(1), SU(2), SU(3) \} \)
+
+\item[\( Q \)] 
+Topological suppression index combining winding, linking, and writhing of filament bundles. Appears in:
+\[
+m_{\text{eff}} = \frac{m_0}{Q}
+\]
+
+\item[\( \varphi(x) \)] 
+Foliation scalar field labeling hypersurfaces of constant emergent time. Gradient yields \( u_\mu \).
+
+\item[\( d\tau(x) \)] 
+Emergent proper time increment, defined locally as:
+\[
+d\tau = \mathcal{S}(x) \, d\varphi
+\]
+
+\item[Interpretive Mode 1] 
+Static block-universe frame: all apparent dynamics emerge from intersection of filament structures with a propagating surface \( \Sigma_t \). No intrinsic time or evolution assumed.
+
+\end{description}
+
+\end{document}

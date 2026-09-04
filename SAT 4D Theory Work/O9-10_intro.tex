@@ -1,0 +1,57 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\usepackage{amsmath,amssymb}
+\geometry{margin=1in}
+
+\begin{document}
+
+\section*{Introduction to Modules O9 and O10}
+
+In the SAT.4D framework, we have now constructed two complementary modules—SAT.O$_9$ and SAT.O$_{10}$—that turn string‐theoretic topology data into predictive particle spectra.
+
+\subsection*{Module O9: 4D‐Only String Embedding}
+
+\begin{itemize}
+  \item \textbf{Core Mass Formula:} 
+    \[
+      m^2 = k\,(N + \beta\,Q^2 - a),
+    \]
+    where \(N\) is the oscillator level and \(Q\) the winding number around a compact cycle.
+  \item \textbf{Topology‐Driven Calibration:} 
+    Imports cycle definitions from \texttt{topo.py} (originally \texttt{STRING\_Topo\_module.txt}), which specify each cycle’s dimension, volume, and \(B\)-flux quanta.  These data fix \(k = 4/\alpha'\), \(\beta\), and the intercept \(a\) by inverting ground‐state masses.
+  \item \textbf{Spectrum Generation:} 
+    Given \((k,\beta,a)\), the function \verb|mass_spectrum(N_range,Q_range,k,beta,a)| produces a full table of \(m^2(N,Q)\), automatically respecting allowed windings as dictated by the topology.
+\end{itemize}
+
+\subsection*{Module O10: Two‐Sector Particle ↔ Geometry}
+
+\begin{itemize}
+  \item \textbf{Sector I (Leptonic):} Strings wrap a minimal \(S^1\) carrying hypercharge flux.  Ground‐state fit of \((e,\mu,\pi)\) yields a shallow slope \(p_{2,I}\) and near‐zero intercept \(p_{1,I}\).
+  \item \textbf{Sector II (Hadronic):} Strings wrap a larger 2‐ or 4‐cycle threaded by color flux.  Fit of \((\rho,K^*,\phi)\) yields a steeper slope \(p_{2,II}\) and positive intercept \(p_{1,II}\).
+  \item \textbf{Data Integration:} 
+    \begin{itemize}
+      \item \verb|load_particle_ids()| reads \texttt{data/particle\_ids.txt} (formerly \texttt{STRING\_particle\_ids.txt}) to map each \((N,Q)\) to its PDG name.
+      \item \verb|get_topology_def()| exposes the same \texttt{TOPOLOGY\_DEF} from \texttt{topo.py}, enforcing flux‐quantization rules.
+    \end{itemize}
+  \item \textbf{Predict & Plot:}
+    \begin{itemize}
+      \item \verb|predict_ground_states(p2,p1,Q_range)| computes \(\sqrt{p_2Q^2+p_1}\).
+      \item \verb|predict_radial_states(p2,p1,k_rad,Q_vals)| adds a fitted radial shift.
+      \item \verb|plot_trajectories(params_lept,params_had)| overlays both sectors’ \(m^2\)–versus–\(Q\) plots with data points.
+    \end{itemize}
+\end{itemize}
+
+\subsection*{Significance of Topology Integration}
+
+By importing the same compactification cycle definitions and flux rules into both O9 and O10:
+
+\begin{itemize}
+  \item All tension regimes (\(k\)), winding couplings (\(\beta\)), and zero‐point shifts (\(a\)) arise directly from the geometry, not ad‐hoc parameters.
+  \item Allowed windings \(Q\) and selection rules (e.g.\ which sectors support which \(Q\)) are enforced automatically by \texttt{topo.py}.
+  \item Particle‐ID assignments stay in sync via a single source of truth (\texttt{particle\_ids.txt}).
+\end{itemize}
+
+Together, Modules O9 and O10 form a self‐consistent, topology‐anchored pipeline that maps four‐dimensional string excitations onto real Standard‐Model spectra.
+
+\end{document}
+

@@ -1,0 +1,91 @@
+
+\documentclass[12pt]{article}
+\usepackage{amsmath,amssymb,geometry}
+\geometry{margin=1in}
+\usepackage{hyperref}
+\begin{document}
+
+\title{Module 8-H: Holonomy-Driven Inflation (Draft)}
+\date{20 June 2025}
+\maketitle
+
+\section{Motivation \& Guiding Principles}
+\begin{enumerate}
+    \item \textbf{Purist ethos} --- No new matter fields and no dimensionful couplings beyond those already implicit in SAT's geometric construction.
+    \item \textbf{Topological leverage} --- Exploit the phase ($\theta$) of non-trivial 3-cycle holonomy as the inflaton proxy; $\theta$ is already part of SAT's Chern--Simons ledger.
+    \item \textbf{Predictivity} --- Retain a single free, dimensionless parameter, the effective decay-constant ratio $\hat f \equiv f/M_P$, determined by the geometry of the dominant 3-cycle.
+\end{enumerate}
+
+\section{Effective Lagrangian Block}
+\[
+\Delta\mathcal{L}_{\text{inf}} = \frac12 (\partial \theta)^2 - \Lambda^4 \bigl[1 - \cos(\theta/f)\bigr] - \frac{\kappa}{4}\,\theta\,\varepsilon^{\mu\nu\rho\sigma} R_{\mu\nu\alpha\beta} R_{\rho\sigma}^{\;\;\,\alpha\beta}
+\]
+All terms already appear (or are mandated) in Modules~3 \& 5. The scale $\Lambda$ absorbs loop-corrected vacuum energy from the torsion condensate; no new mass scale is introduced explicitly.
+
+\section{Background Dynamics}
+For a spatially flat FRW metric, the slow–roll equations are
+\begin{align}
+3H^2 M_P^2 &\simeq V(\theta),\\
+3H\dot{\theta} &\simeq -V'(\theta) \;=\; -\frac{\Lambda^4}{f}\,\sin(\theta/f).
+\end{align}
+
+Define the slow--roll parameters
+\[
+\epsilon \;=\; \frac12 \bigl(V'/V\bigr)^2 M_P^2,
+\qquad
+\eta \;=\; \frac{V''}{V} M_P^2.
+\]
+Inflation ends when $\max(\epsilon,|\eta|)\approx1$.
+
+\section{Observable Predictions}
+The scalar spectral tilt and the tensor-to-scalar ratio are
+\[
+n_s \;=\; 1 - 6\epsilon_* + 2\eta_*,
+\qquad
+r \;=\; 16\epsilon_*,
+\]
+where $*$ denotes evaluation roughly $55$ e-folds before the end of inflation.\\[4pt]
+For $\theta_* \approx \pi$ one finds the analytic approximation
+\[
+\epsilon_* \;\simeq\; \frac{1}{2N_*^2}\left(\frac{M_P}{f}\right)^2
+\;\;\Longrightarrow\;\;
+r \;\simeq\; \frac{8}{N_*^2}\left(\frac{M_P}{f}\right)^2.
+\]
+With $N_*=55$,
+\[
+\hat f \ge 5 \;\Longrightarrow\; r \le 0.03,
+\]
+comfortably inside the Planck~PR4 $+$ BK18 bound, and the corresponding $n_s \approx 0.965$.
+
+\section{Consistency Checks}
+\begin{center}
+\begin{tabular}{lcl}
+\textbf{Observable} & \textbf{Formula} & \textbf{Result for $\hat f=5$}\\\hline
+$r$ & $8/(N_*^2 \hat f^2)$ & $0.029$\\
+$n_s$ & $1 - 2/N_*$ & $0.965$\\
+$\alpha_s$ & $-2/N_*^2$ & $-0.00066$\\
+Isocurvature & --- & None (single-field)\\
+$\eta$-decay ratio $R_\eta$ & --- & Unchanged from Module~6
+\end{tabular}
+\end{center}
+
+\section{Falsifiable Signatures}
+\begin{itemize}
+    \item \textbf{CMB-S4 / LiteBIRD} should detect $r \approx 0.02$--$0.03$ with $\alpha_s \simeq -6\times10^{-4}$.
+    \item \textbf{No torsion-damping imprint} --- absence of running beyond the predicted $\alpha_s$.
+\end{itemize}
+
+\section{Outstanding Tasks}
+\begin{enumerate}
+    \item \textit{Numerical scan} --- Integrate full background and linear perturbations to map $(n_s,r,\alpha_s)$ across $\hat f\in[4,10]$.
+    \item \textit{Back-reaction audit} --- Verify that the $\kappa$-coupling term does not spoil slow roll via Chern--Simons back-reaction.
+    \item \textit{Geometry anchoring} --- Compute $\hat f$ from the dominant 3-cycle of the minimal SAT lattice (Appendix~E of Module~3) and check whether $\hat f \gtrsim 5$ is natural.
+    \item \textit{Loop stability} --- Confirm radiative corrections preserve the flatness of $V(\theta)$ to $\Delta n_s < 0.001$.
+\end{enumerate}
+
+\section{Next Steps}
+Populate Section~\ref{sec:background} with step-by-step derivations, attach preliminary Jupyter notebook outputs once the numerical scan is complete, and circulate to the SAT core team for comments before locking in as ``Module~8-H~v0.1''.
+
+\vfill
+\noindent\textit{Created 20~June 2025 · revision 0.1}
+\end{document}

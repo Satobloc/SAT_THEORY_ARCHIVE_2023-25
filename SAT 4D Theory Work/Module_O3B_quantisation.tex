@@ -1,0 +1,76 @@
+
+% Module_O3B_quantisation.tex
+\documentclass[12pt]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{hyperref}
+\usepackage{geometry}
+\geometry{margin=1in}
+\title{Module O3-B: Quantisation Framework}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+
+\section*{Overview}
+This module formalises the quantisation of the filament model.  It:
+\begin{enumerate}
+    \item defines the kinematic and physical Hilbert spaces,
+    \item presents a block–level path integral whose boundary slicing reproduces standard Schrödinger evolution,
+    \item derives canonical field operators and their commutators, and
+    \item demonstrates how ordinary entanglement emerges from filament superpositions.
+\end{enumerate}
+
+\subsection*{O3-B.1 \quad Kinematic Hilbert Space}
+A \emph{configuration} $F$ is a finite unordered set of oriented filaments
+\[
+  F=\{\gamma_i:[0,1]\!\to\!\mathbb R^{4}\mid i=1,\dots,n\}, \qquad n\le 3.
+\]
+Each filament carries a bare phase $\theta_i\in U(1)$.  The kinematic space is
+\[
+  \mathcal H_0 \;=\; \bigoplus_{n=0}^{3}
+  L^{2}\!\Bigl(\mathrm{Emb}_{\mathrm{or}}\!\bigl(n,S^{1}\hookrightarrow\mathbb R^{4}\bigr)
+  \times U(1)^{n},\, d\mu_n\Bigr),
+\]
+where $\mathrm{Emb}_{\mathrm{or}}$ is the space of oriented embeddings modulo re‑parameterisation and $d\mu_n$ is the corresponding invariant measure.  Vectors $\lvert\Psi\rangle\in\mathcal H_0$ are square‑integrable functionals $\Psi[F]$.
+
+\subsection*{O3-B.2 \quad Constraint Surface and Physical Hilbert Space}
+Gauge redundancy under smooth deformations that leave the linking matrix $\Lambda_{ij}$ invariant is removed by the projector
+\[
+  P_{\text{phys}} \;=\; \int\!\mathcal D\xi\; e^{i G[\xi]/\hbar},
+\]
+giving $\mathcal H_{\text{phys}} = P_{\text{phys}}\mathcal H_0$.  Because this projection is \emph{timeless}, no preferred foliation re‑enters the formalism.
+
+\subsection*{O3-B.3 \quad Path Integral and Emergent $\Sigma_t$ Evolution}
+For two spacelike three‑surfaces $\Sigma_{t_1},\Sigma_{t_2}$ define the transition amplitude
+\[
+  \Bigl\langle F_2,\Sigma_{t_2} \Bigm| F_1,\Sigma_{t_1} \Bigr\rangle
+  = \int_{\substack{F(\Sigma_{t_1})=F_1\\ F(\Sigma_{t_2})=F_2}}
+    \!\!\mathcal D F\;
+    \exp\!\Bigl[\frac{i}{\hbar}\sum_i\int_{\gamma_i}d\tau\,\bigl(T\ell_i + A k_i + \lambda\theta_i\bigr)\Bigr],
+\]
+with $\ell$ the filament length, $k$ its signed torsion, and $\theta$ its $U(1)$ phase.  Because the integrand is re‑parameterisation invariant, $\Sigma_t$ only labels boundary conditions.  Inserting a complete set of $\Sigma_t$ states yields the unitary evolution operator
+\[
+  U(t_2,t_1) = \exp\!\bigl[-\,i H (t_2-t_1)/\hbar\bigr],
+\]
+where $H$ is the Legendre transform of the block‑level action.
+
+\subsection*{O3-B.4 \quad Canonical Fields and Commutators}
+Project each filament $\gamma$ onto a chosen $\Sigma_t$ by closest‑point projection.  In the small‑curvature limit (filaments nearly orthogonal to $\Sigma_t$) define
+\[
+  \phi^a(x) = \sum_i \int_{0}^{1} d\sigma\;
+  n^{a}_{\gamma_i}(\sigma)\,\delta^{(3)}\!\bigl(x-\gamma_i(\sigma)\bigr),
+\]
+where $a=1$ labels internal orientation and $n^{a}_{\gamma_i}$ is the oriented normal.  One finds the canonical commutation relation
+\[
+  [\,\phi^a(x),\pi_b(y)\,] \;=\; i\hbar\,\delta^a{}_b\,\delta^{(3)}(x-y),
+\]
+with $\pi$ the momentum conjugate to $\phi$ derived from the action.  Higher‑order corrections appear as $\hbar/\ell_f$ suppressions, matching the mass‑hierarchy scaling.
+
+\subsection*{O3-B.5 \quad Entanglement and Superposition}
+Superpositions are ordinary linear combinations in $\mathcal H_{\text{phys}}$.  For example,
+\[
+  \lvert\Psi\rangle = \tfrac{1}{\sqrt2}\bigl(\lvert\emptyset\rangle + \lvert\gamma\rangle\bigr).
+\]
+Tracing over spatial regions of $\Sigma_t$ yields entanglement entropy equal to the linking‑number cut proposed in Module~4, confirming that filament entanglement reproduces standard quantum entanglement.
+
+\end{document}

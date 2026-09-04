@@ -1,0 +1,44 @@
+
+\section*{Glossary of Core SAT.4D Terms (Phase IX Revision)}
+
+\begin{longtable}{p{0.25\linewidth} p{0.7\linewidth}}
+\textbf{Symbol / Term} & \textbf{Definition} \\ \hline
+$\gamma(\lambda)$ & A 1D physical filament embedded in the 4D manifold $M$. $\lambda$ is the affine parameter. \\
+$v^\mu(\lambda)$ & Tangent vector of filament $\gamma$: $v^\mu = \frac{d\gamma^\mu}{d\lambda}$. \\
+$u^\mu(x)$ & Emergent time-flow vector field, orthogonal to foliation surfaces $\Sigma_t$. Normalized as $u^\mu u_\mu = -1$. \\
+$\Sigma_t$ & The moving 3D foliation surface intersecting bundles to yield observable fields and dynamics. \\
+$\tilde{g}_{\mu\nu}(x)$ & Ensemble tangent metric: $\tilde{g}_{\mu\nu} = \langle v_\mu v_\nu \rangle$, averaged over filaments at $x$. \\
+$g_{\mu\nu}(x)$ & Emergent spacetime metric, inverse of $\tilde{g}_{\mu\nu}$. Used to define curvature. \\
+$\Gamma^\lambda_{\mu\nu}$ & Levi-Civita connection built from $g_{\mu\nu}$. \\
+$R$ & Ricci scalar curvature sourced by bundle anisotropy. \\
+$\phi(x)$ & Foliation scalar field: defines slicing $\Sigma_t$ via level sets $\phi(x)=t$. \\
+$d\tau$ & Emergent proper time increment: $d\tau = S(x) d\phi(x)$. \\
+$S_{\mu\nu}(x)$ & Strain tensor: $S_{\mu\nu} = \nabla_\mu u_\nu + \nabla_\nu u_\mu$. \\
+$S(x)$ & Strain scalar: $S(x) = \sqrt{S_{\mu\nu}S^{\mu\nu}}$. \\
+$\theta_4(x)$ & Misalignment angle between filament tangent $v^\mu$ and $u^\mu$: $\cos\theta_4 = \frac{v^\mu u_\mu}{\|v\|\|u\|}$. \\
+$\nabla\theta_4(x)$ & Local spatial gradient of misalignment angle; used in decay dynamics. \\
+$\ell_f$ & Transverse filament scale: $\ell_f = \left(\frac{2A}{T}\right)^{1/3}$ from amplitude $A$ and tension $T$. \\
+$\rho_{\mathrm{wind}}$ & Local density of filament windings; sets $U(1)$ gauge coupling. \\
+$\rho_{\mathrm{link}}$ & Local link density (pairwise); sets $SU(2)$ gauge coupling. \\
+$\rho_{\mathrm{triplet}}$ & Local triple-linking density; sets $SU(3)$ gauge coupling. \\
+$g_G(x)$ & Emergent gauge coupling: $g_G^{-2} = \rho_G \ell_f^2$. \\
+$F_{\mu\nu}^{(G)}$ & Emergent field strength for gauge group $G$, derived from filament topology. \\
+$Q$ & Total topological charge: $Q = L_{\text{wind}} + L_{\text{link}} + W_{\text{writhe}}$. \\
+$Q_{\text{max}}$ & Max allowed stable topological charge: $Q_{\text{max}} = 3$. \\
+$N$ & Vibrational excitation number of a bundle; $N=0,1,2,\dots$. \\
+$k$ & Spectrum scale parameter in $m^2 = k(N + \beta Q^2 - a)$. \\
+$\beta$ & Amplification factor for topological charge in mass spectrum. \\
+$a$ & Offset constant anchoring ground state mass in $m^2$ relation. \\
+$m^2$ & Composite mass squared: $m^2 = k(N + \beta Q^2 - a)$. \\
+$m_{\text{eff}}$ & Suppressed effective mass: $m_{\text{eff}} = \frac{m_0}{Q}$. \\
+$\alpha_{\mathrm{top}}(x)$ & Topological reconnection barrier: $\alpha_{\mathrm{top}} = \beta_1 S + \beta_2 \ell_f^3 \rho_{\text{link}} + \beta_3 \ell_f |\nabla \theta_4|$. \\
+$\Gamma$ & A filament bundle configuration or topological class. \\
+$\mathcal{C} = \mathcal{F}/\sim$ & Configuration space of topological equivalence classes. \\
+$|\Gamma\rangle$ & Quantum state labeled by topological bundle $\Gamma$. \\
+$H_{\mathrm{SAT}}$ & Hilbert space of topological states: $L^2(\mathcal{C}, \mu)$. \\
+$\mathcal{A}_{\Gamma_{\text{out}}, \Gamma_{\text{in}}}$ & Transition amplitude between bundles: sum over topological paths. \\
+$\mathcal{E}(e)$ & Energy cost of a topological event $e$. \\
+$\Delta\mathcal{C}(e)$ & Change in topological complexity during event $e$. \\
+$Z$ & Topological path integral: $Z = \int \mathcal{D}\gamma \, e^{-\frac{T}{2} \int \|\ddot{\gamma}\|^2 d\lambda}$. \\
+\textbf{SAT-stable} & A bundle with $Q \leq 3$ is dynamically stable; $Q > 3$ implies decay or exclusion. \\
+\end{longtable}

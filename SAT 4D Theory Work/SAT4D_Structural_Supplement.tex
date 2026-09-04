@@ -1,0 +1,99 @@
+
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, geometry}
+\usepackage{booktabs}
+\geometry{margin=1in}
+\title{\textbf{SAT.4D Supplementary Definitions, Falsifiability, and Interpretive Modes}}
+\author{SAT Framework Team}
+\date{June 2025}
+
+\begin{document}
+\maketitle
+
+\section*{1. Core Structural Quantities}
+
+\subsection*{1.1 Misalignment Angle $\theta_4(x)$}
+Defined as the local angular misalignment between a filament’s tangent vector $v^\mu$ and the foliation normal $u^\mu$:
+\[
+\cos(\theta_4(x)) = \frac{v^\mu u_\mu}{\|v^\mu\| \, \|u^\mu\|}
+\]
+\textbf{Interpretation:} Measures resistance to null propagation across $\Sigma_t$. Emerges during wavefront intersection and reflects local inertial signature.
+
+\subsection*{1.2 Strain Tensor $S_{\mu\nu}(x)$}
+Defined via the gradient of the foliation vector field:
+\[
+S_{\mu\nu}(x) = \nabla_\mu u_\nu + \nabla_\nu u_\mu
+\]
+\textbf{Interpretation:} Encodes local foliation distortion. Acts as the geometric source of curvature in emergent GR.
+
+\subsection*{1.3 Twist Sector $\tau(x)$}
+A scalar or multi-component field capturing the rotational embedding of filaments in local 3D slices. Represents helicity or internal quantum number structure.
+
+\textbf{Interpretation:} Governs spin-class behavior, chirality, and inter-filament coupling dynamics.
+
+\section*{2. Interpretive Modes of SAT.4D}
+
+\begin{center}
+\begin{tabular}{@{}llll@{}}
+\toprule
+\textbf{Mode} & \textbf{Name} & \textbf{Block Dynamics} & \textbf{Use Case} \\
+\midrule
+1 & True Block & None (fully static 4D) & Core derivations, structure-only \\
+2 & Semi-Dynamic & Local adjustments at $\Sigma_t$ & Quantum interpretation, entropy \\
+3 & Solidification Front & Structure resolves at $\Sigma_t$ & Cosmology, time asymmetry \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textit{Note:} All SAT module construction must occur strictly in Mode 1.
+
+\section*{3. Falsifiability Table}
+
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Prediction} & \textbf{Testable Condition} & \textbf{Consequence if Violated} \\
+\midrule
+$Q \leq 3$ bound states only & Observation of stable $n \geq 4$ particles & SAT.O4 falsified \\
+Mass $\propto 1/Q$ & Deviations from $m_i/m_j \sim Q_j/Q_i$ & Topological suppression invalid \\
+Quantized $\theta_4$, $S_{\mu\nu}$ & No geometric signature of mass & Curvature emergence falsified \\
+No SUSY partners & Detection of sleptons/gauginos & SAT particle ontology refuted \\
+Gauge couplings from $\rho$ & Inconsistent coupling ratios & SAT.O5 falsified \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section*{4. Topological Quantum Field Theory in SAT.4D}
+
+\subsection*{4.1 Topological Quantization}
+Quantization arises from discrete topological invariants:
+\begin{itemize}
+  \item Winding number $n$
+  \item Linking number $L_k$
+  \item Knot complexity (e.g., Jones polynomials)
+\end{itemize}
+
+\subsection*{4.2 Wavefunctions and Coherence}
+Define phase function:
+\[
+\Psi[\text{Topology}] \sim \exp(i\theta[\text{Linking, Winding, Knotting}])
+\]
+Analogous to a quantum wavefunction but structurally grounded in filament configurations.
+
+\subsection*{4.3 Entanglement and Superposition}
+Entanglement: Nonlocal linking of filament bundles.\\
+Superposition: Overlapping topological states with shared macroscopic projection.
+
+\subsection*{4.4 Emergent Path Integral}
+\[
+Z = \int \mathcal{D}\gamma \, e^{-T \int \|\ddot{\gamma}\|^2 d\lambda}
+\]
+Quantifies structural amplitude across topological bundle space.
+
+\subsection*{4.5 Observables}
+All quantum observables (e.g., energy, spin, charge) emerge from:
+\[
+\mathcal{O}[\gamma] \in \{Q, \theta_4, \tau, S_{\mu\nu}\}
+\]
+
+\end{document}

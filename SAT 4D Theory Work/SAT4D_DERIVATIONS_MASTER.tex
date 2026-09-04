@@ -1,0 +1,83 @@
+
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\geometry{margin=1in}
+\title{SAT.4D Derivations Master Document}
+\author{SATO.4D Coherence Project}
+\date{June 2025}
+
+\begin{document}
+\maketitle
+
+\section*{D1 – Canonical Quantization of O1}
+We begin from the action for transverse vibrations on a filament:
+\[
+S = \int d\lambda \left( \frac{1}{2} m \left( \frac{d\xi^\mu}{d\lambda} \right)^2 - V(\xi^\mu) \right)
+\]
+Define canonical momentum:
+\[
+\pi^\mu = \frac{\partial L}{\partial \dot{\xi}_\mu}
+\]
+Hamiltonian density:
+\[
+\mathcal{H} = \frac{1}{2m} \pi^\mu \pi_\mu + V(\xi^\mu)
+\]
+Canonical quantization:
+\[
+[\xi^\mu, \pi^\nu] = i \hbar \delta^{\mu\nu}
+\]
+
+\section*{D2 – Normal Mode Expansion and Dispersion}
+For linearized tension potential \( V \sim T (\partial_\lambda \xi)^2 \), the normal mode decomposition yields:
+\[
+\xi^\mu(\lambda) = \sum_k a_k^\mu e^{ik\lambda}
+\]
+With dispersion:
+\[
+\omega_k \propto k
+\]
+
+\section*{D3 – Topological Mass Quantization}
+Define:
+\[
+\ell_f = \left( \frac{2A}{T} \right)^{1/3}, \quad m_0 = \frac{T}{\ell_f}, \quad m(Q) = \frac{m_0}{Q}
+\]
+Example values:
+\[
+Q = 2 \Rightarrow m \approx 0.3968 \cdot A^{-1/3} T^{4/3}, \quad Q = 3 \Rightarrow m \approx 0.2646 \cdot A^{-1/3} T^{4/3}
+\]
+
+\section*{D4 – Strain Tensor to Curvature}
+Define emergent metric \( g_{\mu\nu} \), strain tensor:
+\[
+S_{\mu\nu} = \nabla_\mu u_\nu + \nabla_\nu u_\mu
+\]
+Ricci scalar:
+\[
+R = g^{\mu\nu} R_{\mu\nu} \quad \text{(constructed from Levi-Civita connection)}
+\]
+
+\section*{D5 – Gauge Coupling from Linking Density}
+Filament scale:
+\[
+\ell_f = \left( \frac{2A}{T} \right)^{1/3}
+\]
+Coupling constants:
+\[
+g_G^{-2} = \rho_G \ell_f^2 \quad \Rightarrow \quad g_G = \frac{0.7937 \cdot T^{1/3}}{A^{1/3} \sqrt{\rho_G}}
+\]
+Ratios:
+\[
+\frac{g_{SU(2)}}{g_{U(1)}} = \sqrt{\frac{\rho_{\text{wind}}}{\rho_{\text{link}}}}, \quad
+\frac{g_{SU(3)}}{g_{SU(2)}} = \sqrt{\frac{\rho_{\text{link}}}{\rho_{\text{triplet}}}}
+\]
+
+\section*{D6 – Legacy Translation to SAT Action}
+\begin{itemize}
+  \item \( \bar\psi D_\mu \psi \rightarrow \) filament current alignment + phase topology
+  \item \( F_{\mu\nu} F^{\mu\nu} \rightarrow \rho_{\text{link}} \)
+  \item \( \text{Tr}(F_{\mu\nu} F^{\mu\nu}) \rightarrow \rho_{\text{link}}, \rho_{\text{triplet}} \) weighted by \( g_G \)
+\end{itemize}
+
+\end{document}

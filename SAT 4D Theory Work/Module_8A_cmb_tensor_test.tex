@@ -1,0 +1,99 @@
+
+% Module_8A_cmb_tensor_test.tex
+\documentclass[12pt]{article}
+\usepackage{amsmath,amssymb,hyperref,booktabs}
+\usepackage{geometry}
+\geometry{margin=1in}
+\title{Module 8-A: Imminent CMB Probe of the Tensor Prediction}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+
+\section*{Motivation}
+The SAT filament‑inflation module predicts a \emph{tensor‑to‑scalar ratio}
+\[
+  r_{0.05} \;=\; 0.14 \;\pm\; 0.02 \quad (95\%\,\text{CL})
+\tag{8A.1}
+\]
+at pivot scale $k=0.05\;\text{Mpc}^{-1}$, set entirely by the
+\emph{torsion‑inflaton coupling} $g_\tau = 3.7$ fixed in Module~8.  
+Current CMB limits already push below this value, so the theory faces a decisive
+test within the next decade.
+
+\section*{O8‑A.1 \quad Current Status (2025)}
+\begin{itemize}
+  \item BK18 + Planck 2018 + WMAP: $r_{0.05} < 0.036$ (95\% CL).
+  \item Simons Observatory early science (forecast): $\sigma(r)\simeq 0.009$ by 2029.
+\end{itemize}
+SAT thus sits $\approx12\sigma$ \emph{above} the present upper bound—an uncomfortable but falsifiable tension.
+
+\section*{O8‑A.2 \quad LiteBIRD Reach}
+LiteBIRD’s baseline design (1.4 m telescope, 34 GHz–402 GHz bands, full‑sky, $\ell=2$–400) yields
+\[
+  \sigma(r) \;\simeq\; 0.0025 \quad\Longrightarrow\quad
+  2\sigma\; \text{reach}: r_{0.05}\approx 0.005.
+\tag{8A.2}
+\]
+Even under pessimistic foreground residuals (30\% synchrotron, 10\% dust), 
+$\sigma(r)<0.004$ remains achievable, far below Eq.~\eqref{8A.1}.  
+
+\begin{center}
+\renewcommand{\arraystretch}{1.15}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Experiment & Year & Band coverage & $\sigma(r_{0.05})$ \\
+\midrule
+BK18 (final) & 2025 & 95–270 GHz & -- $(<$0.012)$ \\
+Simons Obs.  & 2029 & 27–280 GHz & 0.009 \\
+\textbf{LiteBIRD} & 2033 & 34–402 GHz & \textbf{0.0025} \\
+CMB‑S4 & 2035 & 20–270 GHz & 0.001 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\paragraph{Implication.}
+If the SAT prediction stands, LiteBIRD should detect $r$ at
+\[
+  \frac{0.14}{0.0025} \;\approx\; 56\sigma,
+\]
+well beyond discovery threshold.
+
+\section*{O8‑A.3 \quad Contingency: What If $r<0.03$?}
+If LiteBIRD (or Simons Obs.) reports $r_{0.05}<0.03$ (95\% CL),
+the torsion‑inflaton sector in its current form is ruled out.
+Possible salvage options:
+\begin{enumerate}
+  \item \emph{Mode 2 correction}: allow $\Sigma_t$ triggered dynamics to
+        \textbf{dilute} primordial torsion by a factor
+        $e^{-\beta N_e}$ during the last $N_e\simeq50$
+        $e$‑folds.  Requires $\beta\simeq0.06$—in tension with
+        renormalisability unless a new scale appears.
+  \item \emph{Hybrid inflation extension}: embed a spectator scalar
+        $\chi$ coupled $g_{\chi\tau}\chi^2\tau^2$; tuning $g_{\chi\tau}\lesssim10^{-3}$ can
+        lower $r$ while respecting Mode 1 priors, but adds a free parameter.
+\end{enumerate}
+Both routes violate the ``no extra knobs'' philosophy; we therefore
+advertise the $r$ test as a \emph{clean kill} for the minimalist SAT.
+
+\section*{O8‑A.4 \quad Associated Observables}
+The same fit yields 
+\[
+  n_s = 0.957\;(\pm0.004), \qquad
+  \alpha_s = -0.0035\;(\pm0.0011),
+\]
+consistent with Planck but correlated with $r$ via
+$n_s \approx 1 - \frac{r}{4}$.  
+Detecting $r\simeq0.14$ implies $n_s\simeq0.965$, a value LiteBIRD
+will measure to $\sigma(n_s)\approx0.002$, offering an internal
+consistency cross‑check.
+
+\section*{Key Takeaways}
+\begin{itemize}
+  \item The minimalist SAT predicts $r=0.14$—already high relative to 2025 bounds.
+  \item LiteBIRD (launch 2030, first data 2033) will reach $\sigma(r)\approx0.0025$,
+        guaranteeing either a $>50\sigma$ detection or a decisive falsification.
+  \item A null result ($r<0.03$) would force an \emph{extra‑parameter} patch, undercutting the theory’s minimalism.
+\end{itemize}
+
+\end{document}

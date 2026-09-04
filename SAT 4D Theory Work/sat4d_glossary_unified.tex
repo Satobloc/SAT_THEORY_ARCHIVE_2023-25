@@ -1,0 +1,46 @@
+
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\usepackage{longtable}
+\geometry{margin=1in}
+\title{SAT.4D Unified Glossary of Terms and Symbols}
+\date{June 2025}
+\begin{document}
+\maketitle
+
+\section*{Glossary of Core SAT.4D Terms}
+
+\begin{longtable}{p{0.25\linewidth} p{0.7\linewidth}}
+\textbf{Symbol / Term} & \textbf{Definition} \\ \hline
+$\gamma(\lambda)$ & A 1D physical filament embedded in the 4D manifold $M$. $\lambda$ is the affine parameter. \\
+$v^\mu(\lambda)$ & Tangent vector of filament $\gamma$, defined by $v^\mu = \frac{d\gamma^\mu}{d\lambda}$. \\
+$u^\mu(x)$ & Emergent time-flow vector field, normal to the resolving surface $\Sigma_t$. Normalized: $u^\mu u_\mu = -1$. \\
+$\Sigma_t$ & The propagating 3D resolving surface intersecting filament bundles to generate observable phenomena. \\
+$S_{\mu\nu}(x)$ & Strain tensor: $S_{\mu\nu} = \nabla_\mu u_\nu + \nabla_\nu u_\mu$, encoding local bundle distortion. \\
+$S(x)$ & Strain scalar: $S(x) = \sqrt{S_{\mu\nu}S^{\mu\nu}}$, quantifying local geometric misalignment. \\
+$\theta_4(x)$ & Angular deviation between filament tangent $v^\mu$ and $u^\mu$: $\cos\theta_4 = \frac{v^\mu u_\mu}{\lVert v\rVert \lVert u\rVert}$. \\
+$\ell_f$ & Filament transverse scale: $\ell_f = \left(\frac{2A}{T}\right)^{1/3}$, where $A$ is filament amplitude and $T$ is tension. \\
+$\rho_{\text{link}}(x)$ & Local pairwise linking density of filaments. Governs $SU(2)$ gauge couplings. \\
+$\rho_{\text{triplet}}(x)$ & Local triple-linking density. Governs $SU(3)$ gauge couplings. \\
+$\rho_{\text{wind}}(x)$ & Local filament winding density. Governs $U(1)$ gauge couplings. \\
+$g_G(x)$ & Emergent gauge coupling: $g_G^{-2}(x) \sim \rho_G(x)\ell_f^2$ for $G \in \{U(1), SU(2), SU(3)\}$. \\
+$Q$ & Topological charge of a filament bundle: sum of winding, linking, and writhe invariants. \\
+$m_{\text{eff}}$ & Suppressed inertial mass: $m_{\text{eff}} = \frac{m_0}{Q}$, where $m_0$ is vibrational mass scale. \\
+$\phi(x)$ & Foliation scalar field: defines slicing $\Sigma_t$ via constant-$\phi$ surfaces. \\
+$d\tau(x)$ & Emergent proper time increment: $d\tau = S(x)d\phi$. \\
+$\alpha_{\text{top}}(x)$ & Topological barrier factor: $\alpha_{\text{top}} = \beta_1 S + \beta_2 \ell_f^3 \rho_{\text{link}} + \beta_3 \ell_f |\nabla\theta_4|$. \\
+$\mathcal{A}_{\Gamma_{\text{out}}, \Gamma_{\text{in}}}$ & Transition amplitude for bundle reconnection: sum over topological paths weighted by $\exp(-S[\pi])$. \\
+$F_{\mu\nu}^{(G)}$ & Emergent field strength tensor for gauge group $G$, derived from bundle topology. \\
+$\Gamma^\lambda_{\mu\nu}$ & Emergent Levi-Civita connection from ensemble average metric $g_{\mu\nu}$. \\
+$g_{\mu\nu}$ & Emergent metric tensor: inverse of ensemble average $\tilde{g}_{\mu\nu} = \langle v_\mu v_\nu \rangle_{F(x)}$. \\
+$\mathcal{C} = \mathcal{F}/\sim$ & Configuration space of topological equivalence classes of filament bundles. \\
+$|\Gamma\rangle$ & Quantum state labeled by topological bundle class $\Gamma$. \\
+$H_{\text{SAT}}$ & Hilbert space of SAT quantum states: $L^2(\mathcal{C}, \mu)$ with curvature-suppressed measure. \\
+$\mathcal{E}(e)$ & Energy cost of a topological event $e$, includes curvature and complexity terms. \\
+$\Delta\mathcal{C}(e)$ & Change in topological complexity (e.g., link, writhe) during reconnection event $e$. \\
+$Z$ & Path integral over topological histories: $Z = \int \mathcal{D}\gamma \, e^{-\frac{T}{2} \int \|\ddot{\gamma}\|^2 d\lambda}$. \\
+$Q_{\text{max}}$ & Max allowed stable topological charge: $Q_{\text{max}} = 3$. \\
+\textbf{Interpretive Mode 1} & Block-universe view: all dynamics arise from intersection of static filament structure with moving $\Sigma_t$; no intrinsic time. \\
+\end{longtable}
+
+\end{document}

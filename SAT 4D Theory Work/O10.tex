@@ -1,0 +1,110 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\geometry{margin=1in}
+
+\begin{document}
+
+\title{Module SAT.O$_{10}$ (\texttt{sat\_o10.py})}
+\author{SAT.4D Coherence Project}
+\date{\today}
+\maketitle
+
+\section*{Overview}
+Provides the two-sector calibration and prediction framework:
+\begin{itemize}
+  \item \emph{Leptonic sector}: fit \(m^2 = p_2\,Q^2 + p_1\) to \((e,\mu,\pi)\)
+  \item \emph{Hadronic sector}: fit the same form to \((\rho,K^*,\phi)\)
+  \item Predict ground states and radial excitations
+  \item Plot trajectories with data overlays
+\end{itemize}
+
+\section{Functions}
+
+\subsection{\texttt{calibrate\_leptonic}}
+\begin{verbatim}
+def calibrate_leptonic(masses, Q_vals):
+    # Fit m^2 = p2*Q^2 + p1 to leptonic ground states
+    # Returns {'p2':..., 'p1':..., 'masses':..., 'Q_vals':...}
+    m2 = np.array(masses)**2
+    A = np.vstack([np.array(Q_vals)**2, np.ones(len(Q_vals))]).T
+    p2, p1 = np.linalg.lstsq(A, m2, rcond=None)[0]
+    return {'p2': p2, 'p1': p1, 'masses': masses, 'Q_vals': Q_vals}
+\end{verbatim}
+
+\subsection{\texttt{calibrate\_hadronic}}
+\begin{verbatim}
+def calibrate_hadronic(masses, Q_vals):
+    # Fit m^2 = p2*Q^2 + p1 to hadronic ground states
+    # Returns {'p2':..., 'p1':..., 'masses':..., 'Q_vals':...}
+    m2 = np.array(masses)**2
+    A = np.vstack([np.array(Q_vals)**2, np.ones(len(Q_vals))]).T
+    p2, p1 = np.linalg.lstsq(A, m2, rcond=None)[0]
+    return {'p2': p2, 'p1': p1, 'masses': masses, 'Q_vals': Q_vals}
+\end{verbatim}
+
+\subsection{\texttt{predict\_ground\_states}}
+\begin{verbatim}
+def predict_ground_states(p2, p1, Q_range):
+    # Compute m_ground(Q)=sqrt(p2*Q^2 + p1) for Q in Q_range
+    records = []
+    for Q in Q_range:
+        m2 = p2 * Q**2 + p1
+        m = np.sqrt(m2) if m2 > 0 else float('nan')
+        records.append({'Q': Q, 'm_ground': m})
+    return pd.DataFrame(records)
+\end{verbatim}
+
+\subsection{\texttt{predict\_radial\_states}}
+\begin{verbatim}
+def predict_radial_states(p2, p1, k_rad, Q_vals):
+    # Compute m_radial(Q)=sqrt(p2*Q^2 + p1 + k_rad) for Q in Q_vals
+    records = []
+    for Q in Q_vals:
+        m2 = p2 * Q**2 + p1 + k_rad
+        m = np.sqrt(m2) if m2 > 0 else float('nan')
+        records.append({'Q': Q, 'm_radial': m})
+    return pd.DataFrame(records)
+\end{verbatim}
+
+\subsection{\texttt{plot\_trajectories}}
+\begin{verbatim}
+def plot_trajectories(params_lept, params_had):
+    # Plot m^2 vs Q² for both sectors with data points
+    Ql = np.linspace(min(params_lept['Q_vals']), max(params_lept['Q_vals'])*1.5, 200)
+    m2l = params_lept['p2'] * Ql**2 + params_lept['p1']
+    Qh = np.linspace(min(params_had['Q_vals']), max(params_had['Q_vals'])*1.5, 200)
+    m2h = params_had['p2'] * Qh**2 + params_had['p1']
+    plt.figure()
+    plt.plot(Ql, m2l, label='Leptonic')
+    plt.scatter(params_lept['Q_vals'], np.array(params_lept['masses'])**2, marker='o')
+    plt.plot(Qh, m2h, label='Hadronic')
+    plt.scatter(params_had['Q_vals'], np.array(params_had['masses'])**2, marker='s')
+    plt.xlabel('Q')
+    plt.ylabel(r'$m^2$ (GeV$^2$)')
+    plt.legend()
+    plt.show()
+\end{verbatim}
+
+\section*{Usage Example}
+\begin{verbatim}
+from sat_o.sat_o10 import (
+    calibrate_leptonic, calibrate_hadronic,
+    predict_ground_states, predict_radial_states,
+    plot_trajectories
+)
+
+lep_params = calibrate_leptonic(
+    masses=[0.000511,0.10566,0.13957], Q_vals=[1,2,3]
+)
+had_params = calibrate_hadronic(
+    masses=[0.775,0.892,1.019], Q_vals=[3,4,6]
+)
+df_lep = predict_ground_states(**lep_params, Q_range=range(1,11))
+k_rad = 1.450**2 - (had_params['p2']*3**2 + had_params['p1'])
+df_rad = predict_radial_states(**had_params, k_rad=k_rad, Q_vals=[3,4,6])
+plot_trajectories(lep_params, had_params)
+\end{verbatim}
+
+\end{document}

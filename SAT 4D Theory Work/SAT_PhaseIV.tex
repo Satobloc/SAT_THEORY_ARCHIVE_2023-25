@@ -1,0 +1,124 @@
+
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsfonts,bm}
+\usepackage{geometry,hyperref}
+\geometry{margin=1in}
+
+\title{\textbf{SAT.4D Framework --- Phase~IV Summary}\\Cosmology, Perturbations, and Dark Sector}
+\author{Nathan McKnight \& Collaborators}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Phase~IV extends the SAT.4D framework to cosmology. We derive Friedmann-like
+expansion from bundle strain energy, explain the origin of structure via topological
+fluctuations, and identify the dark sector with uncoupled or topologically frozen
+filament bundles.
+\end{abstract}
+
+\tableofcontents
+
+%-------------------------------------------------
+\section{SAT Cosmology and Expansion}
+
+Assume a statistically homogeneous and isotropic filament ensemble \( F(x) \).  
+The emergent metric is FLRW:
+\[
+ds^2 = -dt^2 + a(t)^2 d\vec{x}^2.
+\]
+Each filament contributes strain energy:
+\[
+\mathcal E[\gamma] = \frac{T}{2} \int d\lambda\, \left\| \frac{d^2\gamma^\mu}{d\lambda^2} \right\|^2,
+\]
+and the total energy density is
+\[
+\rho(t) = \rho_b(t) \cdot \varepsilon_b(t).
+\]
+
+The expansion rate becomes:
+\[
+\left(\frac{\dot a}{a}\right)^2 = \frac{\kappa}{3} \rho(t).
+\]
+
+Depending on how \( \varepsilon_b \) evolves, SAT strain can reproduce matter, radiation, and dark energy:
+\[
+\rho(t) = \rho_{\text{M}}\,a^{-3} + \rho_{\text{R}}\,a^{-4} + \rho_\Lambda.
+\]
+
+\subsection{Cosmological Constant}
+Residual strain in topologically frozen bundles sets:
+\[
+\rho_\Lambda = \lim_{t\to\infty} \langle \varepsilon_b^{\text{frozen}} \rangle.
+\]
+
+\subsection{Inflation}
+Initial high strain (\( \varepsilon_b \gg 1 \)) induces rapid expansion.
+Relaxation of bundle strain ends inflation naturally.
+
+%-------------------------------------------------
+\section{Structure Formation and Perturbations}
+
+\subsection{Sources}
+Scalar and tensor perturbations arise from:
+\begin{itemize}
+  \item Density contrast \( \delta(x,t) = \delta\rho / \bar\rho \)
+  \item Orientation field shear \( \delta\tilde g_{ij}^{\text{TT}} \)
+  \item Phase vibration modes \( \xi^\mu(\lambda) \)
+\end{itemize}
+
+\subsection{Power Spectra}
+Filament fluctuations during inflation freeze into curvature perturbations:
+\[
+P(k) \sim k^{n_s - 1}, \quad n_s \approx 0.96.
+\]
+Tensor spectrum suppressed unless tension is extreme.
+
+\subsection{Non-Gaussianity}
+Topological linking (e.g., triple-bound filaments) induces weak non-Gaussian signals.
+Possible topological defects yield CMB anomalies and structure irregularities.
+
+%-------------------------------------------------
+\section{Dark Matter and Dark Energy}
+
+\subsection{Sector Classification}
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Sector & Q & Phase State & Coupling & Behavior \\\hline
+Visible & 1--3 & Locked & Electroweak/color & SM matter \\
+Dark Matter & $\geq$1 & Incoherent & Gravity only & Cold, pressureless \\
+Dark Energy & $\geq$3 & Locked + frozen & None & $\rho=\text{const}$ \\\hline
+\end{tabular}
+\end{center}
+
+\subsection{Dark Matter}
+Uncoupled filament bundles with residual strain behave as CDM:
+\begin{itemize}
+  \item Stable under SAT topology
+  \item Do not radiate or interact electromagnetically
+  \item Gravitate normally and cluster
+\end{itemize}
+
+\subsection{Dark Energy}
+High-Q frozen bundles contribute constant residual strain:
+\[
+\rho_\Lambda = \text{Topologically locked strain energy}.
+\]
+
+\subsection{Predictions}
+\begin{itemize}
+  \item No new particles (WIMPs, axions) predicted
+  \item No fifth forces or long-range DM interactions
+  \item DE equation of state \( w \approx -1 \), possibly evolving slightly
+\end{itemize}
+
+%-------------------------------------------------
+\section{Conclusion}
+Phase~IV demonstrates that SAT.4D can reproduce large-scale cosmic expansion, 
+explain the emergence of structure, and account for the dark sector via purely topological
+principles. These results arise with no extra fields or fine-tuning, and yield novel observational predictions.
+
+\end{document}
