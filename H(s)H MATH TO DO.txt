@@ -1,0 +1,1202 @@
+================================================================================================================================================================
+SAT / HEAVY MATH TOOL STACK — COPY/PASTE INSTALL PLAN
+================================================================================================================================================================
+
+Assumption:
+- Windows 10/11 host.
+- Install Miniforge first.
+- Use separate environments instead of one giant fragile environment.
+- Use WSL2 Ubuntu for SageMath + FEniCSx/PDE stack.
+
+-------------------------------------------------------
+0. INSTALL MINIFORGE ON WINDOWS
+-------------------------------------------------------
+
+Option A — easiest if winget is available:
+
+winget install --id CondaForge.Miniforge3 -e
+
+Option B — manual:
+Download Miniforge3 Windows x86_64 from conda-forge, run the installer,
+then open "Miniforge Prompt" from the Start menu.
+
+After install, open Miniforge Prompt and run:
+
+mamba --version
+conda --version
+
+
+-------------------------------------------------------
+1. SAT CORE — everyday math, plotting, equation scripts
+-------------------------------------------------------
+
+mamba create -n sat-core -c conda-forge -y ^
+  python=3.12 ^
+  numpy scipy sympy mpmath matplotlib pandas ^
+  scikit-image scikit-learn numba networkx ^
+  jupyterlab ipykernel tqdm pillow imageio pyyaml
+
+mamba activate sat-core
+
+python -m ipykernel install --user --name sat-core --display-name "Python (SAT Core)"
+
+
+-------------------------------------------------------
+2. SAT VISUAL — serious 3D geometry/rendering
+-------------------------------------------------------
+
+mamba create -n sat-visual -c conda-forge -y ^
+  python=3.12 ^
+  numpy scipy sympy matplotlib ^
+  pyvista vtk trimesh meshio plotly ipywidgets ^
+  jupyterlab ipykernel pillow imageio pyyaml
+
+mamba activate sat-visual
+
+python -m ipykernel install --user --name sat-visual --display-name "Python (SAT Visual)"
+
+
+-------------------------------------------------------
+3. SAT JAX — differentiable numerics / optimization
+-------------------------------------------------------
+
+mamba create -n sat-jax -c conda-forge -y ^
+  python=3.12 numpy scipy matplotlib sympy jupyterlab ipykernel tqdm
+
+mamba activate sat-jax
+
+pip install -U "jax[cpu]"
+
+python -m ipykernel install --user --name sat-jax --display-name "Python (SAT JAX)"
+
+
+-------------------------------------------------------
+4. SAT QUANTUM / SPECTRAL
+-------------------------------------------------------
+
+mamba create -n sat-quantum -c conda-forge -y ^
+  python=3.12 ^
+  numpy scipy sympy matplotlib qutip sparse ^
+  jupyterlab ipykernel tqdm
+
+mamba activate sat-quantum
+
+python -m ipykernel install --user --name sat-quantum --display-name "Python (SAT Quantum)"
+
+
+-------------------------------------------------------
+5. SAT HEP / PARTICLE-PHYSICS DATA TOOLS
+-------------------------------------------------------
+
+mamba create -n sat-hep -c conda-forge -y ^
+  python=3.12 ^
+  numpy scipy sympy matplotlib pandas ^
+  awkward uproot vector hist boost-histogram particle hepunits ^
+  jupyterlab ipykernel tqdm
+
+mamba activate sat-hep
+
+python -m ipykernel install --user --name sat-hep --display-name "Python (SAT HEP)"
+
+
+-------------------------------------------------------
+6. WSL2 UBUNTU — REQUIRED/SANE PATH FOR SAGE + FENICSX
+-------------------------------------------------------
+
+Run in PowerShell as Administrator:
+
+wsl --install -d Ubuntu
+
+Restart if Windows asks.
+
+Then open Ubuntu from Start menu and update:
+
+sudo apt update && sudo apt upgrade -y
+
+Install basic tools:
+
+sudo apt install -y build-essential curl git wget
+
+
+-------------------------------------------------------
+7. SAGE MATH ENVIRONMENT INSIDE WSL2
+-------------------------------------------------------
+
+Inside Ubuntu/WSL:
+
+curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"
+
+bash Miniforge3-$(uname)-$(uname -m).sh
+
+source ~/miniforge3/bin/activate
+
+mamba create -n sat-sage -c conda-forge -y sage python=3.12 jupyterlab ipykernel
+
+mamba activate sat-sage
+
+python -m ipykernel install --user --name sat-sage --display-name "SageMath (SAT Sage)"
+
+
+-------------------------------------------------------
+8. FENICSX / PDE ENVIRONMENT INSIDE WSL2
+-------------------------------------------------------
+
+Inside Ubuntu/WSL, after Miniforge is installed:
+
+source ~/miniforge3/bin/activate
+
+mamba create -n sat-pde -c conda-forge -y python=3.12 fenics-dolfinx mpich pyvista matplotlib jupyterlab ipykernel
+
+mamba activate sat-pde
+
+python -m ipykernel install --user --name sat-pde --display-name "Python (SAT PDE / FEniCSx)"
+
+
+-------------------------------------------------------
+9. SANITY TESTS
+-------------------------------------------------------
+
+Windows Miniforge Prompt:
+
+mamba activate sat-core
+python -c "import numpy, scipy, sympy, matplotlib; print('sat-core OK')"
+
+mamba activate sat-visual
+python -c "import pyvista, vtk, trimesh, plotly; print('sat-visual OK')"
+
+mamba activate sat-jax
+python -c "import jax, jax.numpy as jnp; print('sat-jax OK', jnp.array([1,2,3])**2)"
+
+mamba activate sat-quantum
+python -c "import qutip; print('sat-quantum OK')"
+
+mamba activate sat-hep
+python -c "import awkward, uproot, vector, hist, particle; print('sat-hep OK')"
+
+
+Inside Ubuntu/WSL:
+
+mamba activate sat-sage
+sage -c "print('sat-sage OK'); print(factor(2026))"
+
+mamba activate sat-pde
+python -c "import dolfinx; print('sat-pde / fenicsx OK')"
+
+
+-------------------------------------------------------
+10. COPY/PASTE INVENTORY FOR FUTURE CHATGPT ITERATIONS
+-------------------------------------------------------
+
+I have a split SAT math stack:
+
+Windows / Miniforge:
+- sat-core: Python 3.12, NumPy, SciPy, SymPy, mpmath, matplotlib, pandas, scikit-image, scikit-learn, numba, networkx, JupyterLab.
+- sat-visual: PyVista, VTK, Trimesh, MeshIO, Plotly, JupyterLab.
+- sat-jax: JAX CPU, NumPy, SciPy, SymPy, matplotlib, JupyterLab.
+- sat-quantum: QuTiP, sparse, NumPy, SciPy, SymPy, matplotlib.
+- sat-hep: Awkward Array, Uproot, Vector, Hist, boost-histogram, Particle, HEPUnits.
+
+WSL2 Ubuntu:
+- sat-sage: SageMath via conda-forge.
+- sat-pde: FEniCSx / DOLFINx for PDE and finite-element work.
+
+Use sat-core for normal scripts, sat-visual for geometric rendering, sat-jax for differentiable solvers, sat-sage for heavy symbolic/exact math, and sat-pde for PDE/Laplace-Beltrami/Navier-Stokes-style work.
+
+================================================================================================================================================================
+OLD SAT MATH TO-DO
+================================================================================================================================================================
+
+RECOMMENDED TOOL STACK
+
+1. CORE PYTHON / DAILY SCRIPTING
+   Purpose:
+     plotting, curve extraction, numerical experiments, CSV/JSON exports
+
+   Install:
+     numpy
+     scipy
+     sympy
+     matplotlib
+     networkx
+     mpmath
+     tqdm
+
+   Command:
+     pip install numpy scipy sympy matplotlib networkx mpmath tqdm
+
+   Use for:
+     current curve-projection scripts
+     geometric diagnostics
+     eigenvalue/eigenstate toy models
+     ordinary differential equations
+     numerical contour extraction
+
+
+2. SAGE / HEAVY SYMBOLIC MATH
+   Purpose:
+     serious symbolic math, algebraic geometry, topology-adjacent work,
+     manifolds, groups, number theory, exact arithmetic, combinatorics
+
+   Install with:
+     Miniforge / Mamba / Conda
+
+   SageMath is a large open-source mathematical system that wraps many tools,
+   including NumPy, SciPy, matplotlib, SymPy, Maxima, GAP, FLINT, and more. 
+   It is much closer to a math workbench than a normal Python package. 
+
+   Best use:
+     algebraic curves
+     symbolic manipulation
+     exact math
+     topology-adjacent computations
+     group/representation experiments
+     invariant calculations
+
+   Official Sage docs say Sage can be installed from conda-forge on Linux and
+   macOS via Conda/Miniforge. :contentReference[oaicite:0]{index=0}
+
+
+3. JAX / DIFFERENTIABLE NUMERICS
+   Purpose:
+     fast numerical experiments, automatic differentiation, vectorized solvers,
+     differentiable geometry, optimization, machine-learning-adjacent physics
+
+   Install CPU version:
+     pip install "jax[cpu]"
+
+   Use for:
+     gradient flows
+     variational minimization
+     differentiable geometric solvers
+     large vectorized parameter sweeps
+     approximate BV pushforward experiments
+     eigenvalue scans
+
+   JAX installs as `jax` plus the compiled `jaxlib` backend. :contentReference[oaicite:1]{index=1}
+
+
+4. FEniCSx / PDE + GEOMETRIC FIELD EQUATIONS
+   Purpose:
+     serious PDE solving and finite-element modeling
+
+   Use for:
+     Navier-Stokes
+     Laplace-Beltrami
+     field equations on domains/manifolds
+     weak formulations
+     continuum mechanics
+     PDE-constrained optimization
+
+   FEniCS is specifically built for translating scientific models into finite
+   element code and solving PDEs, and FEniCSx is the current documented
+   generation. :contentReference[oaicite:2]{index=2}
+
+
+5. VISUALIZATION / GEOMETRY RENDERING
+   Purpose:
+     better 3D geometry than matplotlib
+
+   Install:
+     pyvista
+     vtk
+     trimesh
+     plotly
+
+   Command:
+     pip install pyvista vtk trimesh plotly
+
+   Use for:
+     actual surface meshes
+     tube curves
+     transparent surfaces
+     interactive 3D rotation
+     cleaner torus/sphere renders
+     mesh export
+
+
+6. OPTIONAL PHYSICS / QUANTUM TOOLKIT
+   Purpose:
+     quantum states, operators, spectra, open systems
+
+   Install:
+     qutip
+
+   Command:
+     pip install qutip
+
+   Use for:
+     eigenstates/eigenvalues
+     Hamiltonians
+     density matrices
+     toy QFT/QM systems
+
+ENVIRONMENT PLAN
+
+sat-lite
+  numpy scipy sympy matplotlib networkx mpmath tqdm
+  Use for current scripts.
+
+sat-visual
+  numpy scipy sympy matplotlib pyvista vtk trimesh plotly
+  Use for serious renders.
+
+sat-jax
+  numpy scipy sympy matplotlib jax
+  Use for differentiable geometry and optimization.
+
+sat-sage
+  SageMath via conda-forge
+  Use for heavy symbolic math.
+
+sat-pde
+  FEniCSx
+  Use later, probably after the core geometry pipeline stabilizes.
+
+That PowerShell command tells Git to copy the entire public repository `trajectory-invariants/invariants_py` onto your computer:
+
+```powershell
+git clone https://github.com/trajectory-invariants/invariants_py.git
+```
+
+Because you ran it from:
+
+```text
+D:\__SAT26\H_UNIVERSES\huni_code
+```
+
+Git will ordinarily create:
+
+```text
+D:\__SAT26\H_UNIVERSES\huni_code\invariants_py\
+```
+
+It downloads the source files **and the repository’s Git history**. It does not install the Python package, run anything, or integrate it automatically with your H-universe code.
+
+## What `invariants_py` is
+
+It is a Python research library for representing trajectories through quantities that do not depend on the arbitrary coordinate frame used to describe them. Its stated purpose is to:
+
+* calculate invariant descriptors from trajectory data;
+* reconstruct or generate trajectories from those descriptors;
+* adapt trajectories while imposing endpoint or other geometric constraints.
+
+For an ordinary spatial curve, its principal translational invariant variables are essentially:
+
+[
+u(s)=
+\begin{bmatrix}
+v(s)\
+\kappa(s)\
+\tau(s)
+\end{bmatrix},
+]
+
+where (v) is traversal speed, (\kappa) is curvature, and (\tau) is torsion. The code explicitly integrates a moving Frenet–Serret-like frame using these three quantities.
+
+It also handles orientation trajectories, rigid-body poses, moving frames, and constrained trajectory generation. Underneath, it uses CasADi to formulate and solve geometric optimal-control problems. Its declared dependencies include CasADi, SciPy, NumPy, Matplotlib, PyQt5, Pandas, and some robotics libraries.
+
+The repository currently declares version `0.3.9`, classifies itself as alpha-stage research software, supports Python 3.8–3.12, and uses the MIT license.   It was still receiving commits as recently as May 6, 2026.
+
+## Why it is interesting for the H-universe work
+
+This is quite close to one part of what we have been discussing, but not to the entire physical system.
+
+Its strongest potential uses are:
+
+1. **Extracting a compact geometric state from a generated curve.**
+   Instead of treating thousands of vertex coordinates as the fundamental description, a droplet centerline, filament, or material trajectory can be represented through evolving invariant quantities.
+
+2. **Reconstructing geometry from invariant “instructions.”**
+   A sequence of curvature and torsion values acts somewhat like a geometric program telling a moving frame how to propagate. That resembles your distinction between the underlying manifold laws and the rendered universe produced by those laws.
+
+3. **Constrained trajectory generation.**
+   You could prescribe initial and final positions, orientations, smoothness requirements, or invariant profiles and ask the optimizer to find a compatible trajectory.
+
+4. **A model for making the solver more agile.**
+   CasADi builds a symbolic computational graph and lets an optimizer handle the coupled constraints. This can replace a large amount of hand-written iterative adjustment code.
+
+There is an especially relevant conceptual decomposition:
+
+[
+\text{invariant field}
+\quad\longrightarrow\quad
+\text{moving-frame dynamics}
+\quad\longrightarrow\quad
+\text{embedded trajectory}.
+]
+
+For the H-universe program, that could become:
+
+[
+\mathcal I(\lambda)
+\quad\longrightarrow\quad
+\dot F(\lambda)=F(\lambda),\Omega[\mathcal I(\lambda)]
+\quad\longrightarrow\quad
+X(\lambda),
+]
+
+where (\mathcal I) contains the local geometric “law variables,” (F) is the evolving frame, and (X) is the resulting embedded worldline, worldtube axis, boundary trajectory, or material history.
+
+## Important limitation: it is presently a 3D robotics package
+
+The implementation is built primarily around:
+
+[
+SO(3),\qquad SE(3),
+]
+
+three-dimensional rotation matrices and ordinary spatial trajectories. You can see that throughout the integrators: frames are (3\times3), positions are three-vectors, and Rodrigues’ rotation formula is used for spatial rotations.
+
+It therefore does **not** immediately provide:
+
+* four-dimensional Frenet-frame propagation;
+* a Minkowski or Lorentzian metric;
+* worldtube cross-sections;
+* interacting filaments;
+* fields on a deformable universe surface;
+* topology change or droplet breakup;
+* a physical action governing evolution;
+* stress-energy or continuum mechanics.
+
+For a regular curve in four-dimensional Euclidean space, the generalized Frenet system normally needs three curvature functions rather than the 3D pair (\kappa,\tau):
+
+[
+\kappa_1,\qquad \kappa_2,\qquad \kappa_3.
+]
+
+The moving frame becomes (4\times4), and its generator has the schematic form
+
+[
+\Omega =
+\begin{pmatrix}
+0 & \kappa_1 & 0 & 0\
+-\kappa_1 & 0 & \kappa_2 & 0\
+0 & -\kappa_2 & 0 & \kappa_3\
+0 & 0 & -\kappa_3 & 0
+\end{pmatrix}.
+]
+
+That is the direction in which its central machinery would have to be generalized for a strict 4D H(s)H implementation.
+
+## It does not quite “generate a Lagrangian”
+
+The phrase **geometric optimal control** can make this sound more physically dynamical than it is.
+
+CasADi lets the developers define:
+
+* state evolution equations;
+* control variables;
+* boundary constraints;
+* an objective or cost functional.
+
+That objective may look mathematically like an action,
+
+[
+J=\int L(x,\dot x,u),d\lambda,
+]
+
+but it is not automatically a physical Lagrangian. In this package, the function is primarily an optimization criterion used to recover or adapt trajectories. The physics would still have to come from us.
+
+A good SAT/H-universe use would therefore be:
+
+[
+S_{\mathrm{physical}}[X,F,\mathcal I,\Phi]
+]
+
+defines the actual allowable evolution, while the package’s optimal-control architecture supplies the numerical transcription and solver structure. In other words, it offers a potentially useful **solver chassis**, not the H-universe engine itself.
+
+## One practical caution
+
+When `huni_code` is already a Git repository, cloning another repository inside it creates an **embedded Git repository**:
+
+```text
+huni_code\.git
+huni_code\invariants_py\.git
+```
+
+If you later run `git add .` in `huni_code`, Git may warn that you are adding an embedded repository. The parent repository will not automatically store all of the child repository’s contents in the ordinary way.
+
+I would place it beside your code instead:
+
+```text
+D:\__SAT26\H_UNIVERSES\
+├── huni_code\
+└── external\
+    └── invariants_py\
+```
+
+For example:
+
+```powershell
+cd D:\__SAT26\H_UNIVERSES
+mkdir external -ErrorAction SilentlyContinue
+git clone https://github.com/trajectory-invariants/invariants_py.git external\invariants_py
+```
+
+Then, from your H-universe virtual environment, install it in editable mode:
+
+```powershell
+python -m pip install -e .\external\invariants_py
+```
+
+The repository itself recommends `pip install -e .` when working from source.
+
+My assessment is that this is **very relevant as a reference implementation and possible dependency for invariant extraction and constrained reconstruction**, especially for the single-droplet prototype. But I would not wire the current 3D package deeply into the H-universe architecture yet. The best first experiment would be a thin adapter that feeds one sampled 3D centerline into it, extracts (v,\kappa,\tau), reconstructs the curve, and measures reconstruction error. That tells us what is genuinely reusable before we undertake the (SO(4))/four-dimensional extension.
+
+
+Yes, based on the **SYSTEM CAPABILITIES** log in the sources, I have the following specifications for your machine:
+
+*   **Processor:** Intel(R) Core(TM) i5-6300U CPU @ 2.40GHz (2.50 GHz).
+*   **Installed RAM:** 12.0 GB (11.8 GB usable).
+*   **Graphics Card:** Intel(R) HD Graphics 520 with 128 MB of dedicated video memory.
+*   **Storage:** 168 GB SSD (Intel SSDSCKJF180A5L).
+*   **System Type:** 64-bit operating system, x64-based processor.
+*   **Operating System:** Windows 10 Pro, Version 22H2.
+*   **Python Environment:** You are running **Python 3.11**.
+
+These specs have been the baseline for our recent optimizations, such as limiting mesh resolution to **160x160** to prevent the integrated Intel 520 graphics from struggling with real-time rendering. We also implemented more efficient memory management to avoid the `shell.copy()` bottleneck, which would otherwise rapidly consume your 12 GB of RAM during high-epoch simulations.
+
+Based on the **SYSTEM CAPABILITIES** and terminal logs provided in the sources, your system currently has the following Python libraries and packages installed:
+
+### **Primary Scientific & Visualization Libraries**
+*   **NumPy:** Version 2.3.4.
+*   **Pandas:** Version 3.0.3 (recently installed to handle Global Run Summaries).
+*   **PyVista:** Version 0.48.4 (used for the 3D interactive evolution engine).
+*   **Matplotlib:** Version 3.10.7 (used for diagnostic dashboards).
+*   **VTK:** Version 9.6.2 (the backend supporting PyVista).
+*   **Plotly:** Version 6.8.0.
+*   **Trimesh:** Version 4.12.2.
+
+### **Core Python Standard Libraries**
+These are frequently utilized across your recent scripts (such as `HOMNI_STABLE.py` and `GOLD_STANDARD_PY`):
+*   **os**, **re**, **random**, **uuid**, **datetime**, and **sys**.
+
+### **Support & Utility Packages**
+*   **Rich:** Version 15.0.0 (and **rich-rst** 2.1.0).
+*   **Scooby:** Version 0.11.2.
+*   **Pooch:** Version 1.9.0.
+*   **Cyclopts:** Version 4.20.0.
+*   **Requests:** Version 2.32.5.
+*   **Tzdata:** Version 2026.2.
+*   **Narwhals:** Version 2.23.0.
+*   **Pygments:** Version 2.20.0.
+*   **Markdown-it-py:** Version 4.2.0.
+
+### **Library Status Note**
+As of your most recent logs, while you have established a robust foundation for **kinematic manifold analysis** and **3D morphological rendering**, the sources indicate you do not yet have "**heavy** mathematical physics libs" installed. Your environment is currently optimized for real-time mesh manipulation and tensor calculations using the tools listed above.
+
+
+You are right to draw a hard boundary. **H(s)H/SAT is the primary physics-and-geometry program; H-Universes is a separate spin-off/meta-project.** Nothing from the latter should silently enter SAT’s ontology, equations, architecture, or terminology. My previous answer crossed that boundary.
+
+## Overall assessment
+
+Your installed environment is already capable of a substantial **sampled numerical differential-geometry, visualization, audit, and experiment-management pipeline** for H(s)H/SAT.
+
+It can presently:
+
+* represent sampled 4D histories, worldlines, frames, fields, and parameter ensembles;
+* compute numerical derivatives, contractions, eigensystems, Fourier spectra, and geometric diagnostics;
+* project or slice those structures into observable 3D representations;
+* create tubes, surfaces, volumes, glyph fields, animations, and interactive inspectors;
+* test the topology and numerical health of triangulated worldtube surfaces;
+* maintain reproducible run records and generate technical dashboards.
+
+It cannot yet, by itself:
+
+* symbolically derive the H(s)H equations;
+* vary an action automatically;
+* solve general constrained ODE, DAE, PDE, or boundary-value systems robustly;
+* differentiate complicated programs automatically;
+* perform native Lorentzian or (4)-manifold geometry;
+* verify mathematical claims formally.
+
+So the environment is not merely a graphics stack. It is a strong **numerical representation and empirical inspection stack**, but not yet a complete derivation-and-solver stack.
+
+# Primary scientific libraries
+
+## NumPy 2.3.4 — the numerical substrate
+
+NumPy is the most load-bearing library in the environment. It provides multidimensional arrays, vectorized arithmetic, shape operations, Fourier transforms, random simulation, statistics, and basic linear algebra. ([NumPy][1])
+
+For H(s)H, it can represent structures such as:
+
+```python
+H.shape == (n_samples, 4)
+```
+
+for one sampled four-dimensional history,
+
+```python
+H.shape == (n_histories, n_samples, 4)
+```
+
+for an ensemble, or
+
+```python
+frame.shape == (n_samples, 4, 4)
+```
+
+for a moving four-frame along a history.
+
+Practical SAT capabilities include:
+
+* finite-difference estimates of (H'), (H''), (H'''), and higher derivatives;
+* tangent normalization and arc-length reparameterization;
+* metric contractions such as (v^\mu g_{\mu\nu}v^\nu);
+* Gram matrices and frame orthogonalization;
+* eigenvalues, eigenvectors, singular-value decompositions, and matrix inverses;
+* numerical curvature and generalized-curvature estimators;
+* phase arrays, winding counters, holonomy accumulators, and braid-state arrays;
+* vectorized evaluation of constraints over an entire history;
+* FFT-based detection of helical and superhelical frequencies;
+* ensemble runs and perturbation tests.
+
+A particularly useful NumPy operation for SAT is `einsum`, which lets you express contractions without writing slow Python loops:
+
+```python
+norm_sq = np.einsum("ni,ij,nj->n", tangent, metric, tangent)
+```
+
+NumPy does **not** understand that an array represents a tensor, metric, connection, worldtube, action, or physical law. It carries out the operations you specify. It also lacks native symbolic algebra, automatic differentiation, sophisticated optimization, general ODE/PDE solvers, and manifold-aware integration.
+
+**SAT role:** numerical state engine.
+
+---
+
+## Pandas 3.0.3 — experiment ledger and run-summary system
+
+Pandas provides high-performance tabular data structures and data-analysis operations. ([Pandas][2])
+
+It is well suited to your Global Run Summaries. A strong SAT run table could assign one row per run and include:
+
+```text
+run_uuid
+conversation_id
+action_ref
+timestamp
+code_version
+equation_set
+projection_map
+sample_count
+step_size
+random_seed
+initial_condition_id
+constraint_max
+constraint_rms
+energy_drift
+frame_orthogonality_error
+closure_error
+winding_number
+holonomy
+output_directory
+status
+```
+
+Pandas can then:
+
+* group runs by equation family or solver version;
+* compare alternative H(s)H parameterizations;
+* sort failures by constraint residual;
+* aggregate mean, median, variance, and extrema;
+* join run summaries to model metadata;
+* produce pivot tables and comparison reports;
+* read and write CSV, JSON, and other tabular formats;
+* feed Matplotlib or Plotly directly.
+
+Its important limitation is structural: a DataFrame should hold **summaries and metadata**, not the complete evolving worldtube or large tensor field. Storing thousands of array-valued objects inside DataFrame cells usually produces awkward, slow, and hard-to-audit code.
+
+A clean division is:
+
+```text
+NumPy / VTK files → full numerical state
+Pandas            → index, metadata, and derived run metrics
+```
+
+**SAT role:** provenance, comparison, cataloguing, and run-level epistemic bookkeeping.
+
+---
+
+## PyVista 0.48.4 — interactive SAT geometry laboratory
+
+PyVista is your highest-level interactive 3D scientific-visualization interface. It exposes VTK data structures such as `PolyData`, structured and unstructured grids, image data, multiblock datasets, and a broad family of filters. ([PyVista][3])
+
+For H(s)H, PyVista can:
+
+* turn projected worldlines into connected polylines or splines;
+* thicken lines into worldtube-like surfaces;
+* attach scalar values to each point or cell;
+* attach vector fields and display them as arrows or other glyphs;
+* color geometry by curvature, phase, torsion, residual, velocity, or branch identity;
+* show multiple nested helical levels in a `MultiBlock` object;
+* clip, slice, threshold, contour, decimate, smooth, and subdivide geometry;
+* calculate normals, gradients, connectivity, distances, and geodesic paths;
+* generate streamlines through vector fields;
+* voxelize surfaces or reconstruct surfaces from point clouds;
+* render volumetric scalar fields;
+* perform point, cell, and mesh picking;
+* add slider, spline, plane, box, and checkbox widgets;
+* create GIF and MP4 animations;
+* maintain linked views and multiple simultaneous projections.
+
+The official example and filter catalogue includes contours, collision detection, geodesics, gradients, marching cubes, mesh quality, ray tracing, streamlines, surface reconstruction, volume analysis, voxelization, vector warping, picking, animation, and physically based rendering. ([PyVista][3])
+
+For strict 4D H(s)H, the crucial architectural point is:
+
+[
+H(\lambda)\in\mathbb R^4
+\quad\overset{R_\Sigma}{\longrightarrow}\quad
+X(\lambda)\in\mathbb R^3
+\quad\longrightarrow\quad
+\text{PyVista geometry}.
+]
+
+PyVista should receive an explicitly identified **projection, slice, foliation, or readout**, not the ontology-level object disguised as a 3D object. It does not natively display four independent spatial coordinates. The fourth coordinate must be encoded through projection, animation, color, opacity, multiple panels, or another controlled readout.
+
+This makes it extremely valuable for SAT, provided the code preserves the distinction between:
+
+```text
+physical/geometric state
+projection or readout
+rendered actor
+```
+
+**SAT role:** interactive projected-geometry inspector.
+
+---
+
+## VTK 9.6.2 — the low-level data and rendering engine
+
+VTK is the machinery underneath PyVista. PyVista provides the Pythonic interface; VTK supplies the deeper pipeline, data model, filters, file formats, rendering system, and lower-level algorithm access.
+
+VTK includes NumPy interoperability, composite-array support, structured and unstructured datasets, parallel-processing facilities, selection systems, readers and writers, and extensible algorithm pipelines. Its 9.6 documentation includes NumPy support for composite arrays, VTKHDF formats, parallel SMP design, and a wide range of Python modules. ([VTK Documentation][4])
+
+Direct VTK becomes useful when PyVista does not expose enough control, for example:
+
+* custom filters;
+* specialized cell types;
+* low-level rendering callbacks;
+* shader manipulation;
+* unusual data pipelines;
+* performance-sensitive updates;
+* direct control of actors, mappers, cameras, and render windows;
+* custom file serialization;
+* very large time-dependent datasets.
+
+For most SAT code, I would keep direct VTK calls localized behind a small adapter. Mixing raw VTK objects throughout the physics code would make the architecture harder to inspect.
+
+A sensible boundary is:
+
+```text
+SAT numerical state
+        ↓
+SAT projection adapter
+        ↓
+PyVista API
+        ↓
+occasional direct VTK extension
+```
+
+**SAT role:** visualization backend and advanced data-pipeline layer.
+
+---
+
+## Matplotlib 3.10.7 — rigorous diagnostic plotting
+
+Matplotlib creates static, animated, and interactive visualizations. ([Matplotlib][5])
+
+It is better than PyVista for precise two-dimensional diagnostics such as:
+
+* (H^\mu(\lambda)) component plots;
+* curvature functions (\kappa_i(\lambda));
+* phase and holonomy accumulation;
+* energy or action versus iteration;
+* constraint residuals;
+* orthogonality and normalization errors;
+* convergence rates;
+* eigenspectra and Hessian spectra;
+* Fourier power spectra;
+* parameter-sweep heatmaps;
+* distributions over an ensemble of runs;
+* comparison panels between predicted and reconstructed histories.
+
+Matplotlib is also the better output layer for publication figures because axis limits, annotations, uncertainty bands, typography, and export formats are highly controllable.
+
+Its 3D plotting system is useful for lightweight static views, but it should not replace PyVista for large interactive meshes or continuously evolving worldtube geometry.
+
+The warning you previously saw,
+
+```text
+Text shadow is not supported with math text
+```
+
+comes from the VTK–Matplotlib text-rendering bridge. It concerns a requested visual effect on mathematical text, not the underlying numerical calculation.
+
+**SAT role:** quantitative diagnostics and publication figures.
+
+---
+
+## Plotly 6.8.0 — interactive reports and browser dashboards
+
+Plotly produces interactive, publication-quality browser graphics, including scientific charts, 3D scatter and surface plots, animations, sliders, buttons, hover information, and notebook widgets. ([Plotly][6])
+
+For SAT it is particularly useful for:
+
+* interactive Global Run Summaries;
+* hoverable residual and invariant traces;
+* run-to-run comparison dashboards;
+* parameter-space exploration;
+* three-dimensional projected trajectories;
+* animated parameter scans;
+* HTML reports that can be opened without rerunning the solver;
+* linked tables and charts;
+* filtering runs by UUID, action reference, equation family, or status.
+
+Plotly occupies the middle ground between Matplotlib and PyVista:
+
+```text
+Matplotlib → precise static diagnostics
+Plotly     → shareable interactive data diagnostics
+PyVista    → scientific 3D geometry and mesh interaction
+```
+
+Plotly’s 3D scene system is not intended to become your core mesh-evolution engine. Very large or frequently updated meshes will generally be more natural in PyVista/VTK.
+
+**SAT role:** interactive analytical reporting.
+
+---
+
+## Trimesh 4.12.2 — geometry validation and surface auditing
+
+Trimesh specializes in loading, manipulating, and analyzing triangular meshes, with particular attention to watertight surfaces. Its capabilities include mesh-format conversion, face adjacency, curvature-related quantities, cross-sections, mass properties, repair, connected components, ray queries, boolean operations, voxelization, proximity calculations, and watertightness checks. ([Trimesh][7])
+
+For SAT, it is useful after a projected or constructed worldtube skin has been triangulated.
+
+It can test or calculate:
+
+* whether a surface is watertight;
+* Euler characteristic;
+* disconnected components;
+* duplicate or degenerate geometry;
+* inconsistent face winding;
+* normals and local face orientation;
+* holes and some repairable defects;
+* volume and surface area;
+* center of mass;
+* inertia tensor and principal inertia directions;
+* cross-sections;
+* nearest-surface points and signed distances;
+* ray intersections;
+* unions, intersections, and differences;
+* export to GLB, STL, OBJ, PLY, and related formats.
+
+This makes it ideal for questions such as:
+
+```text
+Did the generated tube unexpectedly split?
+Did the projection create a self-crossing or nonmanifold surface?
+Did remeshing change the Euler characteristic?
+Is this object closed?
+Are normals consistently oriented?
+How much volume or area drift occurred?
+```
+
+However, Trimesh audits the **three-dimensional triangulated realization**. Its Euler number is not automatically the topology of the full 4D H(s)H object. Nor does it solve continuum mechanics, field equations, or general high-dimensional topology.
+
+**SAT role:** projected-worldtube mesh auditor and exporter.
+
+# Standard-library capabilities
+
+These modules support architecture and reproducibility rather than mathematical physics.
+
+`os` handles paths, folders, environment variables, file discovery, and process-level interaction. For new code, `pathlib` is often easier to audit than long chains of `os.path` calls.
+
+`re` supports notation parsing, log extraction, filename interpretation, and validation of structured identifiers. It may be useful for your six-slot notation, but regex should not become the parser for a deeply nested mathematical language; a proper tokenization stage becomes safer once the grammar grows.
+
+`random` supplies scalar pseudorandom choices. For numerical ensembles and reproducible vectorized perturbations, prefer NumPy’s explicit generator:
+
+```python
+rng = np.random.default_rng(seed)
+```
+
+`uuid` is excellent for run identity, object identity, conversation IDs, action references, and preventing accidental filename collision.
+
+`datetime` supplies timestamps and durations. Store machine-readable timestamps in a timezone-aware ISO format rather than relying solely on human-formatted dates.
+
+`sys` exposes command-line arguments, Python version details, module paths, standard input/output, and controlled program exits.
+
+Several additional standard modules would fit naturally into the existing architecture without installing anything:
+
+```text
+pathlib      typed filesystem paths
+json         structured metadata
+hashlib      hashes for equations, inputs, and outputs
+logging      persistent diagnostic logs
+dataclasses  explicit state/configuration objects
+enum         controlled state and mode vocabularies
+argparse     basic CLI, although Cyclopts is stronger
+subprocess   controlled external-tool invocation
+traceback    exception capture
+```
+
+# Support and utility packages
+
+## Rich and rich-rst
+
+Rich supports formatted terminal tables, panels, progress indicators, live displays, syntax display, logging, trees, prompts, and enhanced tracebacks. ([Rich Documentation][8])
+
+For SAT this can provide:
+
+* a live iteration dashboard;
+* color-coded constraint violations;
+* nested object hierarchies;
+* run-summary tables;
+* readable exception reports;
+* progress bars for sweeps;
+* clear separation of geometry, physics, projection, and rendering stages.
+
+`rich-rst` is principally a rendering bridge for reStructuredText content. It is a presentation dependency, not a scientific capability.
+
+## Scooby
+
+Scooby is largely present to support environment reporting. PyVista’s `Report` facility records operating-system, CPU, memory, GPU, Python, PyVista, VTK, NumPy, Scooby, Pooch, Matplotlib, and related package information. ([PyVista][9])
+
+That is more important for SAT than it may appear. Every authoritative run can include an environment snapshot, making rendering or numerical differences easier to trace.
+
+For example:
+
+```python
+import pyvista as pv
+
+report = pv.Report()
+print(report)
+```
+
+## Pooch
+
+Pooch downloads scientific data only when required, caches it locally, verifies file hashes, supports data repositories and DOIs, and can automatically unpack compressed files. ([Fatiando][10])
+
+Potential SAT uses include:
+
+* retrieving standard comparison datasets;
+* pinning observational input files by checksum;
+* ensuring every machine uses the same reference data;
+* caching large example meshes;
+* associating a run with an exact immutable dataset version.
+
+It is much safer for reference datasets than scattering ad hoc `requests.get(...)` calls throughout the code.
+
+## Cyclopts
+
+Cyclopts creates typed command-line interfaces from Python functions and supports subcommands, validators, configuration files, shell completion, dataclasses, complex type hints, and automatically generated help. ([Cyclopts][11])
+
+It could turn SAT scripts into a coherent interface such as:
+
+```powershell
+python sat.py run --config baseline.toml
+python sat.py sweep --equation-set hsh-v3
+python sat.py inspect RUN_UUID
+python sat.py render RUN_UUID --projection sigma-t
+python sat.py audit RUN_UUID
+python sat.py report --since 2026-07-01
+```
+
+This is valuable because it separates stable user-facing operations from internal implementation details.
+
+## Requests
+
+Requests is a general HTTP client. It can call APIs, download files, submit data, and manage sessions and authentication.
+
+For SAT, use it when the data source is genuinely dynamic or API-based. For fixed scientific datasets, Pooch’s caching and hashing are generally preferable.
+
+## Tzdata
+
+Tzdata supplies the IANA timezone database for Python environments that do not have suitable system timezone data. It supports reproducible timezone-aware timestamps. It has no direct physics role.
+
+## Narwhals
+
+Narwhals is a compatibility layer allowing code to operate over multiple DataFrame implementations, including pandas, Polars, PyArrow, cuDF, and several lazy backends. ([Narwhals Dev][12])
+
+You probably do not need to call it directly yet. It is useful when writing a reusable library that should accept several DataFrame types. In your present environment it is likely serving another package, particularly a visualization or tabular interface.
+
+It does **not** make Pandas calculations faster by itself.
+
+## Pygments
+
+Pygments supplies syntax highlighting. It supports Rich, documentation systems, code displays, and formatted reports. It has no numerical role.
+
+## Markdown-it-py
+
+Markdown-it-py parses CommonMark-style Markdown and supports configurable syntax and plugins. ([Markdown-it-py][13])
+
+For SAT it could parse report templates or structured notes, but it should not be used to parse the actual mathematical object grammar unless that grammar is deliberately defined as a Markdown extension.
+
+# What the stack can support right now
+
+A defensible current architecture is:
+
+```text
+1. H(s)H STATE
+   NumPy arrays
+   H(λ), frames, phases, invariants, metric, derived fields
+
+2. NUMERICAL OPERATIONS
+   NumPy
+   differentiation, contractions, decomposition, transforms, checks
+
+3. RUN PROVENANCE
+   Pandas + UUID + datetime + hashes
+   summaries, comparisons, failure catalogues
+
+4. READOUT / PROJECTION
+   explicit SAT code
+   RΣ : 4D history → observable 3D/2D representation
+
+5. INTERACTIVE GEOMETRY
+   PyVista + VTK
+   tubes, glyphs, slices, fields, animations, picking
+
+6. GEOMETRY AUDIT
+   Trimesh
+   topology of rendered surfaces, watertightness, repair, proximity
+
+7. QUANTITATIVE DIAGNOSTICS
+   Matplotlib
+   convergence, invariant traces, spectra, residuals
+
+8. INTERACTIVE REPORTING
+   Plotly
+   run dashboards and shareable HTML
+
+9. EXECUTION INTERFACE
+   Cyclopts + Rich
+   typed commands, progress, structured failures, status output
+
+10. DATA ACQUISITION
+    Pooch / Requests
+    pinned datasets or dynamic external inputs
+```
+
+That is already enough to build a disciplined **H(s)H numerical workbench**.
+
+# What is actually missing
+
+The phrase “heavy mathematical physics libraries” is too vague. The missing capabilities fall into distinct categories.
+
+## 1. Numerical integration and optimization: SciPy
+
+SciPy would add robust ODE integration, optimization, root finding, interpolation, signal processing, sparse matrices, spatial algorithms, and broader numerical linear algebra. It is the most obvious next foundation library. SciPy defines itself as general open-source software for mathematics, science, and engineering. ([SciPy Documentation][14])
+
+For SAT, this means:
+
+* `solve_ivp` for initial-value evolution;
+* boundary-value solvers;
+* constrained and unconstrained minimization;
+* root solving for closure conditions;
+* sparse systems;
+* interpolation and splines;
+* KD trees and spatial searches;
+* signal processing for periodic and superhelical structure.
+
+## 2. Symbolic derivation: SymPy
+
+SymPy adds symbolic calculus, equation solving, matrices, tensors, differential geometry, ODE/PDE manipulation, mechanics, Lagrange’s method, code generation, units, and expression simplification. ([SymPy Docs][15])
+
+For SAT, it could:
+
+* express the master action symbolically;
+* differentiate candidate Lagrangians;
+* derive Euler–Lagrange equations;
+* simplify tensor contractions;
+* check dimensional expressions;
+* generate numerical NumPy functions from symbolic expressions;
+* compare independently written forms for algebraic equivalence.
+
+SymPy should be a derivation and checking layer, not necessarily the high-performance runtime.
+
+## 3. Variational optimization and automatic derivatives: CasADi
+
+CasADi supports symbolic computational graphs, algorithmic differentiation, nonlinear programming, ODE/DAE integration, sensitivity analysis, and optimal control. ([CasADi][16])
+
+This is the most directly relevant addition for the proposed “populate a Lagrangian and let the solver propagate the geometry” direction.
+
+It could encode:
+
+[
+S[H]
+====
+
+\int L(H,H',H'',\ldots),d\lambda
+]
+
+and efficiently generate gradients or Jacobians with respect to thousands of discretized variables.
+
+It does not determine the correct physical action. It solves the action or optimization problem that you provide.
+
+## 4. Labeled multidimensional scientific data: Xarray
+
+Pandas labels rows and columns; NumPy efficiently stores multidimensional arrays. Xarray combines labeled dimensions and coordinates with NumPy-like arrays.
+
+For example, an H(s)H field could carry named dimensions:
+
+```text
+run
+history
+lambda
+component
+frame_axis
+scale
+```
+
+rather than relying on undocumented integer-axis conventions. This becomes valuable when SAT states acquire several simultaneous scales, projections, or field components.
+
+# Recommended installation order
+
+The smallest high-value expansion would be:
+
+```powershell
+python -m pip install scipy sympy
+```
+
+Then, when the action-based solver work begins:
+
+```powershell
+python -m pip install casadi
+```
+
+Xarray becomes worthwhile when the multidimensional state layout starts becoming difficult to describe with comments and shape conventions alone:
+
+```powershell
+python -m pip install xarray
+```
+
+I would **not** install a large finite-element, machine-learning, or manifold package merely to make the environment appear more advanced. The next additions should correspond to a specific missing operation:
+
+```text
+Need reliable integration/optimization → SciPy
+Need symbolic derivation             → SymPy
+Need action variation/optimal control → CasADi
+Need labeled N-dimensional state      → Xarray
+Need formal verification              → Lean, separately
+```
+
+One final operational distinction: cloning `invariants_py` does not install it. Until you run an installation command such as `python -m pip install -e .` inside that repository—or deliberately add it to the import path—it contributes no capabilities to the active Python environment. If it is installed from source, its declared dependencies include both SciPy and CasADi, so the resulting environment inventory should be checked again afterward.
+
+[1]: https://numpy.org/doc/stable/ "NumPy documentation — NumPy v2.5 Manual"
+[2]: https://pandas.pydata.org/docs/ "pandas documentation — pandas 3.0.4 documentation"
+[3]: https://docs.pyvista.org/ "PyVista — PyVista 0.48.4 documentation"
+[4]: https://docs.vtk.org/ "VTK documentation"
+[5]: https://matplotlib.org/stable/ "Matplotlib documentation — Matplotlib 3.11.0 documentation"
+[6]: https://plotly.com/python/ "
+    Plotly Python Graphing Library
+    
+"
+[7]: https://trimesh.org/ "trimesh 5.0.0rc1 documentation"
+[8]: https://rich.readthedocs.io/en/stable/ "Welcome to Rich’s documentation! — Rich 14.1.0 documentation"
+[9]: https://docs.pyvista.org/api/utilities/_autosummary/pyvista.Report.html "Report — PyVista 0.48.4 documentation"
+[10]: https://www.fatiando.org/pooch/latest/ "Pooch v1.9.0"
+[11]: https://cyclopts.readthedocs.io/en/latest/ "Cyclopts — cyclopts"
+[12]: https://narwhals-dev.github.io/narwhals/ "Narwhals - Narwhals"
+[13]: https://markdown-it-py.readthedocs.io/en/latest/ "markdown-it-py — markdown-it-py"
+[14]: https://docs.scipy.org/doc/scipy/ "SciPy documentation — SciPy v1.18.0 Manual"
+[15]: https://docs.sympy.org/latest/index.html "SymPy 1.14.0 documentation"
+[16]: https://web.casadi.org/docs/ "CasADi - Docs"
