@@ -1,16 +1,16 @@
 # SAT Mention Extraction
 
-Generated UTC: 2026-09-04T18:41:00.500385+00:00
+Generated UTC: 2026-09-04T18:59:47.019530+00:00
 Stopped reason: file_limit
 Files scanned: 250
 Unreadable selected files: 0
-Rows: 66870
+Rows: 66913
 
 ## Mention families
 
-- sat_spaced: 34855
-- sat_bare: 17139
-- sat_dot_dash: 10635
+- sat_spaced: 34881
+- sat_bare: 17152
+- sat_dot_dash: 10639
 - satobloc: 2183
 - stringing_along: 729
 - sat_compact: 448
