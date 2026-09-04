@@ -1,0 +1,89 @@
+{
+  "schema_version": "0.1.0",
+  "mapping_id": "MAP-STD-GEO-S3X3-R4-0001-SPHERICAL-0001",
+  "equation_id": "STD-GEO-S3X3-R4-0001",
+  "backend": "spherical_constraint",
+  "status": "exact_identity_with_numerical_verification",
+  "object_map": {
+    "standard_shell": "QuadraticShell",
+    "common_intersection": "one-dimensional carrier",
+    "carrier_topology": "S^1",
+    "ambient_space": "R^4",
+    "ontology_claim": "none; computational representation only"
+  },
+  "operator_map": {
+    "intersection": "simultaneous constraint solution F_1=F_2=F_3=0",
+    "carrier_tangent": "normalized one-dimensional nullspace of J",
+    "surface_forced_velocity": "-pinv(J) partial_lambda(F)",
+    "internal_velocity": "u t",
+    "superhelical_nesting": "not invoked",
+    "braid_nesting": "not invoked"
+  },
+  "constraint_realization": {
+    "equation": "F_a(x)=(x-c_a)^T A_a (x-c_a)-R_a^2=0",
+    "constraint_count": 3,
+    "ambient_dimension": 4,
+    "regular_rank": 3,
+    "regular_nullity": 1
+  },
+  "solver": {
+    "method": "pseudo-arclength-style predictor-corrector continuation",
+    "corrector": "nonlinear least squares with tangent hyperplane gauge",
+    "trace_step": 0.025,
+    "steps": 206
+  },
+  "readout_map": {
+    "carrier_radius": "mean Euclidean radius in the plane orthogonal to the center triangle",
+    "carrier_circumference": "closed traced polyline length",
+    "velocity": "v_total=v_surface+v_internal"
+  },
+  "observables": {
+    "carrier_radius_exact": 0.816496580927726,
+    "carrier_radius_numeric": 0.8164965809277318,
+    "carrier_circumference_exact": 5.130199320647456,
+    "carrier_circumference_numeric": 5.12999902846955,
+    "surface_forced_speed_exact": 0.12247448713915891,
+    "surface_forced_speed_numeric": 0.12247448713915891,
+    "internal_speed": 0.25,
+    "total_velocity": [
+      -1.6653345369377347e-17,
+      -1.206062877795663e-17,
+      0.12247448713915891,
+      0.25
+    ]
+  },
+  "residuals": {
+    "carrier_radius_relative": 7.070647768654696e-15,
+    "carrier_circumference_relative": 3.9041792606415486e-05,
+    "surface_forced_speed_relative": 0.0,
+    "radius_pointwise_max_absolute": 6.994405055138486e-15,
+    "constraint_max_absolute": 1.199040866595169e-14,
+    "internal_tangent_constraint_norm": 0.0,
+    "surface_velocity_constraint_norm": 4.8074067159589095e-17
+  },
+  "diagnostics": {
+    "regular_jacobian_singular_values": [
+      2.8284271247461903,
+      1.4142135623730956,
+      1.4142135623730951
+    ],
+    "near_bifurcation_separation": 1.732050790248369,
+    "near_bifurcation_carrier_radius": 0.00014142135620009053,
+    "near_bifurcation_jacobian_singular_values": [
+      2.4494897182882807,
+      2.4494897182882807,
+      0.0004898979484277053
+    ],
+    "smallest_singular_value_ratio": 0.00034641016142260793,
+    "bifurcation_condition": "smallest singular value tends to zero as d tends to sqrt(3)R"
+  },
+  "provenance": {
+    "input_authority": {
+      "status": "authoritative_standard_input",
+      "source": "Standard Euclidean analytic geometry"
+    },
+    "calibrations": [],
+    "candidate_physics": [],
+    "silent_repairs": []
+  }
+}

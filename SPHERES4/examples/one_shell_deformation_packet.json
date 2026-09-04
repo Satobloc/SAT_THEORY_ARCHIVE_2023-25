@@ -1,0 +1,114 @@
+{
+  "schema_version": "0.1.0",
+  "equation_id": "STD-GEO-S3X3-R4-DEFORM-0002",
+  "title": "Carrier evolution under a volume-preserving oscillatory deformation of one 3-sphere",
+  "authority": {
+    "status": "authoritative_standard_input",
+    "source": "Standard implicit differential geometry and moving-constraint kinematics"
+  },
+  "equations": [
+    {
+      "label": "fixed_shells",
+      "expression": "F_a(x)=||x-c_a||^2-R^2=0, a=2,3"
+    },
+    {
+      "label": "deformed_shell",
+      "expression": "F_1(x,phi)=(x-c_1)^T A_1(phi)(x-c_1)-R^2=0"
+    },
+    {
+      "label": "shape",
+      "expression": "A_1(phi)=diag(1,1,exp(-2 epsilon),exp(2 epsilon)), epsilon=amplitude sin(phi)"
+    },
+    {
+      "label": "moving_constraint",
+      "expression": "J dx/dphi = -partial_phi F"
+    }
+  ],
+  "variables": [
+    {
+      "symbol": "x",
+      "role": "ambient point",
+      "unit": "normalized_length",
+      "dimensions": {"M": 0, "L": 1, "T": 0}
+    },
+    {
+      "symbol": "R",
+      "role": "undeformed shell radius",
+      "unit": "normalized_length",
+      "dimensions": {"M": 0, "L": 1, "T": 0}
+    },
+    {
+      "symbol": "d",
+      "role": "equilateral center separation",
+      "unit": "normalized_length",
+      "dimensions": {"M": 0, "L": 1, "T": 0}
+    },
+    {
+      "symbol": "phi",
+      "role": "deformation-cycle phase",
+      "unit": "radian",
+      "dimensions": {"M": 0, "L": 0, "T": 0}
+    },
+    {
+      "symbol": "epsilon",
+      "role": "logarithmic anisotropic deformation",
+      "unit": "dimensionless",
+      "dimensions": {"M": 0, "L": 0, "T": 0}
+    }
+  ],
+  "domain": {
+    "ambient_space": "R^4",
+    "ambient_dimension": 4,
+    "shell_type": "one quadratic ellipsoid plus two S^3 shells",
+    "expected_regular_intersection": "closed one-dimensional carrier"
+  },
+  "assumptions": [
+    "All undeformed shells have common radius R.",
+    "The centers remain fixed at an equilateral separation d.",
+    "Only the first shell deforms.",
+    "The deformation matrix is symmetric positive definite and has determinant one.",
+    "Phase is a solver parameter, not physical time."
+  ],
+  "symmetries": [
+    "Global translation invariance",
+    "Global O(4) covariance when the shell system and deformation tensor transform together",
+    "Full-cycle periodicity in phi"
+  ],
+  "constraints": [
+    "rank(J)=3 on every regular frame",
+    "det(A_1)=1",
+    "the traced carrier closes at every sampled phase"
+  ],
+  "boundary_conditions": [
+    "Each carrier is closed.",
+    "The shell geometry at phi=0 and phi=2*pi is identical."
+  ],
+  "known_solution": {
+    "kind": "analytic endpoints plus numerical continuation",
+    "endpoint_carrier_radius": "sqrt(R^2-d^2/3)",
+    "cycle_period": "2*pi",
+    "bifurcation_diagnostic": "min singular value of J"
+  },
+  "empirical_anchors": [],
+  "mapping_request": {
+    "backend": "spherical_constraint",
+    "operation": "one_shell_shape_oscillation",
+    "parameters": {
+      "R": 1.0,
+      "d": 1.0,
+      "trace_step": 0.035,
+      "radius_rate": 0.0,
+      "internal_speed": 0.25,
+      "deformation_amplitude": 0.35,
+      "frame_count": 25,
+      "bifurcation_tolerance": 1e-5
+    }
+  },
+  "tolerances": {
+    "constraint_absolute": 1e-9,
+    "cycle_closure_absolute": 1e-8,
+    "endpoint_circumference_relative": 0.003,
+    "moving_constraint_absolute": 1e-9,
+    "shape_determinant_absolute": 1e-12
+  }
+}

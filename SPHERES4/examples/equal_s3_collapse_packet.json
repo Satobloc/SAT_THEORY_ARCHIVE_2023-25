@@ -1,0 +1,119 @@
+{
+  "schema_version": "0.1.0",
+  "equation_id": "STD-GEO-S3X3-R4-COLLAPSE-0003",
+  "title": "Exact collapse of the common carrier of three equal 3-spheres",
+  "authority": {
+    "status": "authoritative_standard_input",
+    "source": "Standard Euclidean analytic geometry and singular-value analysis"
+  },
+  "equations": [
+    {
+      "label": "carrier_radius",
+      "expression": "rho(d)=sqrt(R^2-d^2/3)"
+    },
+    {
+      "label": "carrier_circumference",
+      "expression": "C(d)=2*pi*rho(d)"
+    },
+    {
+      "label": "carrier_curvature",
+      "expression": "kappa(d)=1/rho(d)"
+    },
+    {
+      "label": "separation_response",
+      "expression": "d rho/dd=-d/(3 rho)"
+    },
+    {
+      "label": "jacobian_singular_values",
+      "expression": "sigma_common=2*sqrt(3)*rho; sigma_planar_1=sigma_planar_2=sqrt(2)*d"
+    },
+    {
+      "label": "critical_separation",
+      "expression": "d_c=sqrt(3)R"
+    }
+  ],
+  "variables": [
+    {
+      "symbol": "R",
+      "role": "common shell radius",
+      "unit": "normalized_length",
+      "dimensions": {"M": 0, "L": 1, "T": 0}
+    },
+    {
+      "symbol": "d",
+      "role": "equilateral center separation and continuation parameter",
+      "unit": "normalized_length",
+      "dimensions": {"M": 0, "L": 1, "T": 0}
+    },
+    {
+      "symbol": "rho",
+      "role": "carrier radius",
+      "unit": "normalized_length",
+      "dimensions": {"M": 0, "L": 1, "T": 0}
+    },
+    {
+      "symbol": "kappa",
+      "role": "carrier curvature",
+      "unit": "inverse_normalized_length",
+      "dimensions": {"M": 0, "L": -1, "T": 0}
+    }
+  ],
+  "domain": {
+    "ambient_space": "R^4",
+    "ambient_dimension": 4,
+    "shell_type": "three equal S^3 shells",
+    "continuation_parameter": "d"
+  },
+  "assumptions": [
+    "The three centers remain on an equilateral triangle centered at the origin.",
+    "The shell radius R remains fixed.",
+    "The continuation parameter d is not physical time.",
+    "The symmetric analytic solution is the authoritative control."
+  ],
+  "symmetries": [
+    "Global translation invariance",
+    "Global O(4) invariance",
+    "Permutation symmetry of the three equal shells"
+  ],
+  "constraints": [
+    "d < sqrt(3)R for a regular S^1 carrier",
+    "rank(J)=3 on the regular carrier",
+    "rank(J)=2 at the collapse point"
+  ],
+  "boundary_conditions": [
+    "Every regular carrier is closed."
+  ],
+  "known_solution": {
+    "kind": "exact analytic event",
+    "regular_topology": "S^1",
+    "critical_state": "rank-loss point",
+    "supercritical_state": "no real common carrier"
+  },
+  "empirical_anchors": [],
+  "mapping_request": {
+    "backend": "spherical_constraint",
+    "operation": "equal_s3_separation_collapse",
+    "parameters": {
+      "R": 1.0,
+      "d": 1.0,
+      "trace_step": 0.035,
+      "radius_rate": 0.0,
+      "internal_speed": 0.0,
+      "linear_frame_count": 12,
+      "linear_end_fraction": 0.95,
+      "critical_gap_exponents": [2, 3, 4, 5, 6, 7, 8],
+      "near_critical_relative_gap": 0.001,
+      "above_critical_fraction": 0.000001,
+      "bifurcation_tolerance": 1e-7
+    }
+  },
+  "tolerances": {
+    "constraint_absolute": 1e-8,
+    "radius_relative": 1e-5,
+    "circumference_relative": 0.003,
+    "curvature_relative": 0.003,
+    "singular_value_relative": 1e-8,
+    "response_relative": 1e-8,
+    "event_location_absolute": 1e-12
+  }
+}
