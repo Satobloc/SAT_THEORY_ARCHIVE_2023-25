@@ -1,0 +1,1216 @@
+"""Run the included exact geometry round trip without installing the package."""
+
+from __future__ import annotations
+
+import json
+import sys
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parent
+sys.path.insert(0, str(ROOT / "src"))
+
+from hsh_spheres.contracts import load_equation_packet  # noqa: E402
+from hsh_spheres.roundtrip import run_roundtrip  # noqa: E402
+
+
+def main() -> None:
+    packet = load_equation_packet(ROOT / "examples" / "equal_s3_packet.json")
+    result = run_roundtrip(packet)
+    output = ROOT / "build" / "equal_s3_mapping_result.json"
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
+    print(f"mapping: {result['mapping_id']}")
+    print(f"status: {result['status']}")
+    print(f"analytic radius: {result['observables']['carrier_radius_exact']:.12f}")
+    print(f"numeric radius: {result['observables']['carrier_radius_numeric']:.12f}")
+    print(f"circumference residual: {result['residuals']['carrier_circumference_relative']:.3e}")
+    print(f"constraint residual: {result['residuals']['constraint_max_absolute']:.3e}")
+    print(f"result: {output}")
+
+
+if __name__ == "__main__":
+    main()
+
+
+# H(s)H Spherical Constraint Backend v0.1
+
+This is a small geometric execution backend for equations supplied by a separate standard-equation system. It does **not** declare spheres, a lattice, or a particular ontology to be fundamental. Its job is to test whether an imported equation can be represented and calculated through H(s)H-compatible curves, finite tubes, shell constraints, and readout maps.
+
+The first round trip uses an exact standard geometry:
+
+- three equal `S^3` hypersurfaces in `R^4`;
+- centers at the vertices of an equilateral triangle of side `d`;
+- regular common intersection `S^1` with radius
+
+  `rho = sqrt(R^2 - d^2/3)`;
+
+- carrier-collapse bifurcation at `d = sqrt(3) R`.
+
+The implementation independently traces the carrier numerically, verifies the analytic result, and calculates the decomposition
+
+`v_total = v_surface + v_internal`.
+
+## Status discipline
+
+Every mapping result distinguishes the authoritative input equation from its H(s)H representation. The current status is `exact_identity_with_numerical_verification`. No physical interpretation beyond the supplied equation packet is inferred.
+
+The spherical backend is modular. Superhelical nesting, braid nesting, Electrogravity, and Interbraid dynamics are future modules and must remain distinct.
+
+## Run the demonstration
+
+From this directory:
+
+```bash
+python run_demo.py
+```
+
+The result is written to `build/equal_s3_mapping_result.json` and summarized in the terminal.
+
+## Run the verification suite
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+## Use the command-line interface
+
+```bash
+PYTHONPATH=src python -m hsh_spheres.cli \
+  examples/equal_s3_packet.json \
+  --output build/equal_s3_mapping_result.json
+```
+
+## Project layout
+
+- `schemas/equation_packet.schema.json` — contract expected from the standard-equation system.
+- `schemas/mapping_result.schema.json` — H(s)H backend result contract.
+- `examples/equal_s3_packet.json` — first authoritative input packet.
+- `src/hsh_spheres/contracts.py` — runtime contract validation.
+- `src/hsh_spheres/geometry.py` — shells, intersections, velocity decomposition, continuation, and bifurcation diagnostics.
+- `src/hsh_spheres/roundtrip.py` — exact-to-numerical round trip.
+- `docs/INTERFACE.md` — integration notes and extension boundaries.
+- `tests/` — analytic, numerical, invariance, contract, and bifurcation checks.
+
+## Immediate extension path
+
+1. Accept a packet exported by the existing standard-equation system.
+2. Add a generic readout-map registry.
+3. Lift traced carriers to finite tube surfaces with a Bishop frame.
+4. Add separate `SuperhelixOperator` and `BraidOperator` modules.
+5. Add Interbraid energy only after the geometry passes its invariance tests.
+6. Add the BEC medium-response backend separately for Electrogravity.
+
+[project]
+name = "hsh-spherical-backend"
+version = "0.1.0"
+description = "A modular spherical-constraint backend for H(s)H equation round trips"
+requires-python = ">=3.11"
+dependencies = [
+  "numpy>=2.0",
+  "scipy>=1.13",
+]
+
+[project.scripts]
+hsh-spheres = "hsh_spheres.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+from __future__ import annotations
+
+import math
+import sys
+import unittest
+from pathlib import Path
+
+import numpy as np
+
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+
+from hsh_spheres.geometry import analytic_equal_s3_carrier, equal_s3_system, trace_closed_carrier
+
+
+class GeometryTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.radius = 1.0
+        self.separation = 1.0
+        self.rho, self.circumference = analytic_equal_s3_carrier(self.radius, self.separation)
+        self.system = equal_s3_system(self.radius, self.separation)
+        self.start = np.array([0.0, 0.0, self.rho, 0.0])
+
+    def test_analytic_carrier(self) -> None:
+        self.assertAlmostEqual(self.rho, math.sqrt(2.0 / 3.0), places=14)
+        self.assertLess(np.max(np.abs(self.system.values(self.start))), 1e-12)
+        self.assertEqual(self.system.rank(self.start), 3)
+
+    def test_tangent_is_in_jacobian_nullspace(self) -> None:
+        tangent = self.system.tangent(self.start)
+        self.assertAlmostEqual(float(np.linalg.norm(tangent)), 1.0, places=12)
+        self.assertLess(float(np.linalg.norm(self.system.jacobian(self.start) @ tangent)), 1e-12)
+
+    def test_numeric_closed_trace(self) -> None:
+        trace = trace_closed_carrier(self.system, self.start, step_size=0.03)
+        self.assertLess(trace.max_constraint_residual, 1e-10)
+        self.assertLess(abs(trace.circumference - self.circumference) / self.circumference, 0.003)
+        radii = np.linalg.norm(trace.points[:-1, 2:4], axis=1)
+        self.assertLess(float(np.max(np.abs(radii - self.rho))), 1e-9)
+
+    def test_velocity_decomposition(self) -> None:
+        radius_rate = 0.1
+        internal_speed = 0.25
+        rates = [{"radius_rate": radius_rate} for _ in self.system.shells]
+        velocity = self.system.velocity_decomposition(self.start, rates, internal_speed=internal_speed)
+        expected_forced_speed = self.radius * radius_rate / self.rho
+        self.assertAlmostEqual(float(velocity.surface_forced[2]), expected_forced_speed, places=11)
+        self.assertAlmostEqual(float(np.linalg.norm(velocity.internal_tangent)), internal_speed, places=12)
+        self.assertLess(float(np.linalg.norm(self.system.jacobian(self.start) @ velocity.internal_tangent)), 1e-12)
+        self.assertLess(
+            float(np.linalg.norm(self.system.jacobian(self.start) @ velocity.surface_forced + velocity.parameter_derivatives)),
+            1e-11,
+        )
+
+    def test_translation_and_rotation_invariance(self) -> None:
+        rng = np.random.default_rng(42)
+        q, _ = np.linalg.qr(rng.normal(size=(4, 4)))
+        translation = np.array([0.4, -1.2, 0.7, 2.0])
+        transformed_system = self.system.transformed(q, translation)
+        transformed_start = q @ self.start + translation
+        self.assertLess(np.max(np.abs(transformed_system.values(transformed_start))), 1e-11)
+        self.assertEqual(transformed_system.rank(transformed_start), 3)
+        tangent = transformed_system.tangent(transformed_start)
+        self.assertLess(float(np.linalg.norm(transformed_system.jacobian(transformed_start) @ tangent)), 1e-11)
+
+    def test_bifurcation_indicator_tends_to_zero(self) -> None:
+        regular_smallest = self.system.singular_values(self.start)[-1]
+        near_d = math.sqrt(3.0) * self.radius * (1.0 - 1e-8)
+        near_rho, _ = analytic_equal_s3_carrier(self.radius, near_d)
+        near_system = equal_s3_system(self.radius, near_d)
+        near_start = np.array([0.0, 0.0, near_rho, 0.0])
+        near_smallest = near_system.singular_values(near_start)[-1]
+        self.assertLess(near_smallest / regular_smallest, 0.001)
+
+
+if __name__ == "__main__":
+    unittest.main()
+
+from __future__ import annotations
+
+import json
+import sys
+import unittest
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+
+from hsh_spheres.contracts import ContractError, load_equation_packet, validate_equation_packet
+
+
+class ContractTests(unittest.TestCase):
+    def test_example_packet_is_valid(self) -> None:
+        packet = load_equation_packet(ROOT / "examples" / "equal_s3_packet.json")
+        self.assertEqual(packet["equation_id"], "STD-GEO-S3X3-R4-0001")
+
+    def test_missing_authority_fails(self) -> None:
+        packet = json.loads((ROOT / "examples" / "equal_s3_packet.json").read_text(encoding="utf-8"))
+        del packet["authority"]
+        with self.assertRaises(ContractError):
+            validate_equation_packet(packet)
+
+
+if __name__ == "__main__":
+    unittest.main()
+
+from __future__ import annotations
+
+import sys
+import unittest
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+
+from hsh_spheres.contracts import load_equation_packet, validate_mapping_result
+from hsh_spheres.roundtrip import run_roundtrip
+
+
+class RoundTripTests(unittest.TestCase):
+    def test_full_round_trip(self) -> None:
+        packet = load_equation_packet(ROOT / "examples" / "equal_s3_packet.json")
+        result = validate_mapping_result(run_roundtrip(packet))
+        tolerances = packet["tolerances"]
+        self.assertEqual(result["status"], "exact_identity_with_numerical_verification")
+        self.assertLess(result["residuals"]["constraint_max_absolute"], tolerances["constraint_absolute"])
+        self.assertLess(result["residuals"]["carrier_radius_relative"], tolerances["radius_relative"])
+        self.assertLess(result["residuals"]["carrier_circumference_relative"], tolerances["circumference_relative"])
+        self.assertLess(result["residuals"]["surface_forced_speed_relative"], tolerances["velocity_relative"])
+        self.assertEqual(result["provenance"]["silent_repairs"], [])
+
+
+if __name__ == "__main__":
+    unittest.main()
+
+"""Standard-equation packet to H(s)H geometric round trip."""
+
+from __future__ import annotations
+
+from math import sqrt
+from typing import Any
+
+import numpy as np
+
+from .contracts import validate_equation_packet, validate_mapping_result
+from .geometry import analytic_equal_s3_carrier, equal_s3_system, trace_closed_carrier
+
+
+def _relative_error(calculated: float, expected: float) -> float:
+    return abs(calculated - expected) / abs(expected) if expected != 0.0 else abs(calculated)
+
+
+def run_roundtrip(packet: dict[str, Any]) -> dict[str, Any]:
+    packet = validate_equation_packet(packet)
+    params = packet["mapping_request"]["parameters"]
+    radius = float(params["R"])
+    separation = float(params["d"])
+    trace_step = float(params["trace_step"])
+    radius_rate = float(params["radius_rate"])
+    internal_speed = float(params["internal_speed"])
+
+    rho_exact, circumference_exact = analytic_equal_s3_carrier(radius, separation)
+    system = equal_s3_system(radius, separation)
+    start = np.array([0.0, 0.0, rho_exact, 0.0])
+    trace = trace_closed_carrier(system, start, step_size=trace_step)
+
+    points = trace.points[:-1]
+    radii = np.linalg.norm(points[:, 2:4], axis=1)
+    rho_numeric = float(np.mean(radii))
+    radius_spread = float(np.max(np.abs(radii - rho_exact)))
+
+    rates = [{"radius_rate": radius_rate} for _ in system.shells]
+    velocity = system.velocity_decomposition(start, rates, internal_speed=internal_speed)
+    forced_speed_exact = radius * radius_rate / rho_exact
+    forced_speed_numeric = float(velocity.surface_forced[2])
+    tangent_constraint_residual = float(np.linalg.norm(system.jacobian(start) @ velocity.internal_tangent))
+    velocity_constraint_residual = float(
+        np.linalg.norm(system.jacobian(start) @ velocity.surface_forced + velocity.parameter_derivatives)
+    )
+
+    near_critical_d = sqrt(3.0) * radius * (1.0 - 1e-8)
+    near_rho, _ = analytic_equal_s3_carrier(radius, near_critical_d)
+    near_system = equal_s3_system(radius, near_critical_d)
+    near_start = np.array([0.0, 0.0, near_rho, 0.0])
+    regular_singular_values = system.singular_values(start)
+    near_singular_values = near_system.singular_values(near_start)
+
+    result = {
+        "schema_version": "0.1.0",
+        "mapping_id": f"MAP-{packet['equation_id']}-SPHERICAL-0001",
+        "equation_id": packet["equation_id"],
+        "backend": "spherical_constraint",
+        "status": "exact_identity_with_numerical_verification",
+        "object_map": {
+            "standard_shell": "QuadraticShell",
+            "common_intersection": "one-dimensional carrier",
+            "carrier_topology": "S^1",
+            "ambient_space": "R^4",
+            "ontology_claim": "none; computational representation only"
+        },
+        "operator_map": {
+            "intersection": "simultaneous constraint solution F_1=F_2=F_3=0",
+            "carrier_tangent": "normalized one-dimensional nullspace of J",
+            "surface_forced_velocity": "-pinv(J) partial_lambda(F)",
+            "internal_velocity": "u t",
+            "superhelical_nesting": "not invoked",
+            "braid_nesting": "not invoked"
+        },
+        "constraint_realization": {
+            "equation": "F_a(x)=(x-c_a)^T A_a (x-c_a)-R_a^2=0",
+            "constraint_count": 3,
+            "ambient_dimension": 4,
+            "regular_rank": system.rank(start),
+            "regular_nullity": 4 - system.rank(start)
+        },
+        "solver": {
+            "method": "pseudo-arclength-style predictor-corrector continuation",
+            "corrector": "nonlinear least squares with tangent hyperplane gauge",
+            "trace_step": trace_step,
+            "steps": trace.steps
+        },
+        "readout_map": {
+            "carrier_radius": "mean Euclidean radius in the plane orthogonal to the center triangle",
+            "carrier_circumference": "closed traced polyline length",
+            "velocity": "v_total=v_surface+v_internal"
+        },
+        "observables": {
+            "carrier_radius_exact": rho_exact,
+            "carrier_radius_numeric": rho_numeric,
+            "carrier_circumference_exact": circumference_exact,
+            "carrier_circumference_numeric": trace.circumference,
+            "surface_forced_speed_exact": forced_speed_exact,
+            "surface_forced_speed_numeric": forced_speed_numeric,
+            "internal_speed": float(np.linalg.norm(velocity.internal_tangent)),
+            "total_velocity": velocity.total.tolist()
+        },
+        "residuals": {
+            "carrier_radius_relative": _relative_error(rho_numeric, rho_exact),
+            "carrier_circumference_relative": _relative_error(trace.circumference, circumference_exact),
+            "surface_forced_speed_relative": _relative_error(forced_speed_numeric, forced_speed_exact),
+            "radius_pointwise_max_absolute": radius_spread,
+            "constraint_max_absolute": trace.max_constraint_residual,
+            "internal_tangent_constraint_norm": tangent_constraint_residual,
+            "surface_velocity_constraint_norm": velocity_constraint_residual
+        },
+        "diagnostics": {
+            "regular_jacobian_singular_values": regular_singular_values.tolist(),
+            "near_bifurcation_separation": near_critical_d,
+            "near_bifurcation_carrier_radius": near_rho,
+            "near_bifurcation_jacobian_singular_values": near_singular_values.tolist(),
+            "smallest_singular_value_ratio": float(near_singular_values[-1] / regular_singular_values[-1]),
+            "bifurcation_condition": "smallest singular value tends to zero as d tends to sqrt(3)R"
+        },
+        "provenance": {
+            "input_authority": packet["authority"],
+            "calibrations": [],
+            "candidate_physics": [],
+            "silent_repairs": []
+        }
+    }
+    return validate_mapping_result(result)
+
+"""Quadratic shell constraints and one-dimensional carrier tracing."""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+from math import pi, sqrt
+from typing import Iterable, Sequence
+
+import numpy as np
+from numpy.typing import NDArray
+from scipy.optimize import least_squares
+
+
+Vector = NDArray[np.float64]
+Matrix = NDArray[np.float64]
+
+
+@dataclass(frozen=True)
+class QuadraticShell:
+    """A shell F(x)=(x-c)^T A (x-c)-R^2=0."""
+
+    center: Vector
+    shape: Matrix
+    radius: float
+    label: str = "shell"
+
+    def __post_init__(self) -> None:
+        center = np.asarray(self.center, dtype=float)
+        shape = np.asarray(self.shape, dtype=float)
+        if center.ndim != 1:
+            raise ValueError("center must be one-dimensional")
+        if shape.shape != (center.size, center.size):
+            raise ValueError("shape must be square and match center dimension")
+        if not np.allclose(shape, shape.T, atol=1e-12):
+            raise ValueError("shape must be symmetric")
+        if np.min(np.linalg.eigvalsh(shape)) <= 0.0:
+            raise ValueError("shape must be positive definite")
+        if self.radius <= 0.0:
+            raise ValueError("radius must be positive")
+        object.__setattr__(self, "center", center)
+        object.__setattr__(self, "shape", shape)
+        object.__setattr__(self, "radius", float(self.radius))
+
+    @property
+    def dimension(self) -> int:
+        return int(self.center.size)
+
+    def value(self, x: Vector) -> float:
+        delta = np.asarray(x, dtype=float) - self.center
+        return float(delta @ self.shape @ delta - self.radius**2)
+
+    def gradient(self, x: Vector) -> Vector:
+        delta = np.asarray(x, dtype=float) - self.center
+        return 2.0 * self.shape @ delta
+
+    def parameter_derivative(
+        self,
+        x: Vector,
+        *,
+        center_velocity: Vector | None = None,
+        shape_rate: Matrix | None = None,
+        radius_rate: float = 0.0,
+    ) -> float:
+        """Partial derivative of F at fixed x under shell-parameter motion."""
+
+        delta = np.asarray(x, dtype=float) - self.center
+        c_dot = np.zeros(self.dimension) if center_velocity is None else np.asarray(center_velocity, dtype=float)
+        a_dot = np.zeros_like(self.shape) if shape_rate is None else np.asarray(shape_rate, dtype=float)
+        return float(delta @ a_dot @ delta - 2.0 * c_dot @ self.shape @ delta - 2.0 * self.radius * radius_rate)
+
+    def transformed(self, rotation: Matrix, translation: Vector) -> "QuadraticShell":
+        rotation = np.asarray(rotation, dtype=float)
+        translation = np.asarray(translation, dtype=float)
+        return QuadraticShell(
+            center=rotation @ self.center + translation,
+            shape=rotation @ self.shape @ rotation.T,
+            radius=self.radius,
+            label=self.label,
+        )
+
+
+@dataclass(frozen=True)
+class VelocityDecomposition:
+    surface_forced: Vector
+    internal_tangent: Vector
+    total: Vector
+    tangent: Vector
+    parameter_derivatives: Vector
+
+
+@dataclass(frozen=True)
+class TraceResult:
+    points: Matrix
+    circumference: float
+    max_constraint_residual: float
+    steps: int
+    closure_error: float
+
+
+class ConstraintSystem:
+    def __init__(self, shells: Sequence[QuadraticShell]):
+        if not shells:
+            raise ValueError("At least one shell is required")
+        dimension = shells[0].dimension
+        if any(shell.dimension != dimension for shell in shells):
+            raise ValueError("All shells must share an ambient dimension")
+        self.shells = tuple(shells)
+        self.dimension = dimension
+
+    def values(self, x: Vector) -> Vector:
+        return np.array([shell.value(x) for shell in self.shells], dtype=float)
+
+    def jacobian(self, x: Vector) -> Matrix:
+        return np.vstack([shell.gradient(x) for shell in self.shells])
+
+    def singular_values(self, x: Vector) -> Vector:
+        return np.linalg.svd(self.jacobian(x), compute_uv=False)
+
+    def rank(self, x: Vector, tolerance: float = 1e-10) -> int:
+        return int(np.linalg.matrix_rank(self.jacobian(x), tol=tolerance))
+
+    def tangent(self, x: Vector, *, reference: Vector | None = None) -> Vector:
+        jacobian = self.jacobian(x)
+        _, singular_values, vh = np.linalg.svd(jacobian, full_matrices=True)
+        rank = int(np.sum(singular_values > 1e-10))
+        nullity = self.dimension - rank
+        if nullity != 1:
+            raise ValueError(f"Expected one-dimensional nullspace, found nullity={nullity}")
+        tangent = vh[-1].astype(float)
+        tangent /= np.linalg.norm(tangent)
+        if reference is not None and float(tangent @ reference) < 0.0:
+            tangent = -tangent
+        return tangent
+
+    def velocity_decomposition(
+        self,
+        x: Vector,
+        shell_rates: Sequence[dict[str, object]],
+        *,
+        internal_speed: float = 0.0,
+        tangent_reference: Vector | None = None,
+    ) -> VelocityDecomposition:
+        if len(shell_rates) != len(self.shells):
+            raise ValueError("One rate dictionary is required per shell")
+        partials = np.array(
+            [shell.parameter_derivative(x, **rates) for shell, rates in zip(self.shells, shell_rates, strict=True)],
+            dtype=float,
+        )
+        jacobian = self.jacobian(x)
+        surface = -np.linalg.pinv(jacobian) @ partials
+        tangent = self.tangent(x, reference=tangent_reference)
+        internal = float(internal_speed) * tangent
+        return VelocityDecomposition(
+            surface_forced=surface,
+            internal_tangent=internal,
+            total=surface + internal,
+            tangent=tangent,
+            parameter_derivatives=partials,
+        )
+
+    def correct_to_carrier(self, predictor: Vector, normal: Vector, *, tolerance: float = 1e-12) -> Vector:
+        predictor = np.asarray(predictor, dtype=float)
+        normal = np.asarray(normal, dtype=float)
+
+        def augmented_residual(x: Vector) -> Vector:
+            return np.concatenate((self.values(x), [float((x - predictor) @ normal)]))
+
+        result = least_squares(
+            augmented_residual,
+            predictor,
+            xtol=tolerance,
+            ftol=tolerance,
+            gtol=tolerance,
+            max_nfev=200,
+        )
+        if not result.success or np.max(np.abs(self.values(result.x))) > 1e-9:
+            raise RuntimeError(f"Carrier correction failed: {result.message}")
+        return result.x.astype(float)
+
+    def transformed(self, rotation: Matrix, translation: Vector) -> "ConstraintSystem":
+        return ConstraintSystem([shell.transformed(rotation, translation) for shell in self.shells])
+
+
+def analytic_equal_s3_carrier(radius: float, separation: float) -> tuple[float, float]:
+    if radius <= 0.0 or separation <= 0.0:
+        raise ValueError("radius and separation must be positive")
+    squared = radius**2 - separation**2 / 3.0
+    if squared <= 0.0:
+        raise ValueError("No regular S^1 carrier: require d < sqrt(3) R")
+    rho = sqrt(squared)
+    return rho, 2.0 * pi * rho
+
+
+def equal_s3_system(radius: float, separation: float) -> ConstraintSystem:
+    """Three equal S^3 shells centered on an equilateral triangle in x0-x1."""
+
+    circumradius = separation / sqrt(3.0)
+    centers = (
+        np.array([0.0, circumradius, 0.0, 0.0]),
+        np.array([-separation / 2.0, -circumradius / 2.0, 0.0, 0.0]),
+        np.array([separation / 2.0, -circumradius / 2.0, 0.0, 0.0]),
+    )
+    identity = np.eye(4)
+    return ConstraintSystem(
+        [QuadraticShell(center, identity, radius, label=f"S3_{index + 1}") for index, center in enumerate(centers)]
+    )
+
+
+def trace_closed_carrier(
+    system: ConstraintSystem,
+    start: Vector,
+    *,
+    step_size: float,
+    max_steps: int = 5000,
+    min_steps: int = 20,
+    closure_factor: float = 1.25,
+) -> TraceResult:
+    """Trace a regular closed one-dimensional carrier by predictor-corrector continuation."""
+
+    start = np.asarray(start, dtype=float)
+    if np.max(np.abs(system.values(start))) > 1e-8:
+        raise ValueError("start must lie on the carrier")
+    points = [start.copy()]
+    tangent = system.tangent(start)
+    initial_tangent = tangent.copy()
+    circumference = 0.0
+    residual = float(np.max(np.abs(system.values(start))))
+
+    for step in range(1, max_steps + 1):
+        current = points[-1]
+        tangent = system.tangent(current, reference=tangent)
+        predictor = current + step_size * tangent
+        corrected = system.correct_to_carrier(predictor, tangent)
+        segment = float(np.linalg.norm(corrected - current))
+        if segment <= 1e-14:
+            raise RuntimeError("Continuation stalled")
+        points.append(corrected)
+        circumference += segment
+        residual = max(residual, float(np.max(np.abs(system.values(corrected)))))
+
+        if step >= min_steps:
+            new_tangent = system.tangent(corrected, reference=tangent)
+            distance_to_start = float(np.linalg.norm(corrected - start))
+            if distance_to_start < closure_factor * step_size and float(new_tangent @ initial_tangent) > 0.8:
+                circumference += distance_to_start
+                points.append(start.copy())
+                return TraceResult(
+                    points=np.vstack(points),
+                    circumference=circumference,
+                    max_constraint_residual=residual,
+                    steps=step,
+                    closure_error=distance_to_start,
+                )
+
+    raise RuntimeError("Carrier did not close within max_steps")
+
+
+def max_constraint_residual(system: ConstraintSystem, points: Iterable[Vector]) -> float:
+    return max(float(np.max(np.abs(system.values(point)))) for point in points)
+"""Small dependency-free runtime validation for backend contracts."""
+
+from __future__ import annotations
+
+import json
+from pathlib import Path
+from typing import Any
+
+
+class ContractError(ValueError):
+    """Raised when an equation packet violates the backend contract."""
+
+
+REQUIRED_PACKET_FIELDS = {
+    "schema_version",
+    "equation_id",
+    "title",
+    "authority",
+    "equations",
+    "variables",
+    "domain",
+    "assumptions",
+    "symmetries",
+    "constraints",
+    "known_solution",
+    "mapping_request",
+    "tolerances",
+}
+
+MAPPING_STATUSES = {
+    "exact_identity",
+    "exact_identity_with_numerical_verification",
+    "coordinate_rewrite",
+    "controlled_approximation",
+    "calibrated_representation",
+    "candidate_extension",
+    "failed_mapping",
+}
+
+
+def _require(condition: bool, message: str) -> None:
+    if not condition:
+        raise ContractError(message)
+
+
+def validate_equation_packet(packet: dict[str, Any]) -> dict[str, Any]:
+    """Validate the subset of the JSON contract required by v0.1."""
+
+    missing = REQUIRED_PACKET_FIELDS.difference(packet)
+    _require(not missing, f"Equation packet is missing fields: {sorted(missing)}")
+    _require(packet["schema_version"] == "0.1.0", "Unsupported schema_version")
+    _require(bool(packet["equation_id"]), "equation_id must be non-empty")
+    _require(
+        packet["authority"].get("status") == "authoritative_standard_input",
+        "authority.status must be authoritative_standard_input",
+    )
+    _require(bool(packet["authority"].get("source")), "authority.source is required")
+    _require(isinstance(packet["equations"], list) and packet["equations"], "equations must be non-empty")
+    _require(isinstance(packet["variables"], list), "variables must be a list")
+
+    for variable in packet["variables"]:
+        for key in ("symbol", "role", "unit", "dimensions"):
+            _require(key in variable, f"Variable is missing {key}: {variable}")
+        dims = variable["dimensions"]
+        _require(all(k in dims for k in ("M", "L", "T")), f"Variable dimensions need M, L, T: {variable}")
+
+    request = packet["mapping_request"]
+    _require(request.get("backend") == "spherical_constraint", "Unsupported mapping backend")
+    _require(isinstance(request.get("parameters"), dict), "mapping_request.parameters must be an object")
+    parameters = request["parameters"]
+    for key in ("R", "d", "trace_step", "radius_rate", "internal_speed"):
+        _require(key in parameters, f"mapping_request.parameters is missing {key}")
+    _require(float(parameters["R"]) > 0.0, "R must be positive")
+    _require(float(parameters["d"]) > 0.0, "d must be positive")
+    _require(float(parameters["trace_step"]) > 0.0, "trace_step must be positive")
+
+    return packet
+
+
+def validate_mapping_result(result: dict[str, Any]) -> dict[str, Any]:
+    _require(result.get("schema_version") == "0.1.0", "Unsupported result schema_version")
+    _require(result.get("status") in MAPPING_STATUSES, "Invalid mapping status")
+    for key in (
+        "mapping_id",
+        "equation_id",
+        "backend",
+        "object_map",
+        "operator_map",
+        "constraint_realization",
+        "solver",
+        "readout_map",
+        "observables",
+        "residuals",
+        "diagnostics",
+    ):
+        _require(key in result, f"Mapping result is missing {key}")
+    return result
+
+
+def load_equation_packet(path: str | Path) -> dict[str, Any]:
+    with Path(path).open("r", encoding="utf-8") as handle:
+        packet = json.load(handle)
+    return validate_equation_packet(packet)
+
+"""Command-line runner for one equation packet."""
+
+from __future__ import annotations
+
+import argparse
+import json
+from pathlib import Path
+
+from .contracts import load_equation_packet
+from .roundtrip import run_roundtrip
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description="Run an H(s)H spherical-constraint equation round trip")
+    parser.add_argument("packet", type=Path, help="Path to an equation packet JSON file")
+    parser.add_argument("--output", type=Path, required=True, help="Path for the mapping result JSON")
+    return parser
+
+
+def main() -> None:
+    args = build_parser().parse_args()
+    packet = load_equation_packet(args.packet)
+    result = run_roundtrip(packet)
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    args.output.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
+    print(f"mapping: {result['mapping_id']}")
+    print(f"status: {result['status']}")
+    print(f"radius residual: {result['residuals']['carrier_radius_relative']:.3e}")
+    print(f"circumference residual: {result['residuals']['carrier_circumference_relative']:.3e}")
+    print(f"constraint residual: {result['residuals']['constraint_max_absolute']:.3e}")
+
+
+if __name__ == "__main__":
+    main()
+
+"""H(s)H spherical constraint backend."""
+
+from .contracts import ContractError, load_equation_packet, validate_equation_packet
+from .geometry import (
+    ConstraintSystem,
+    QuadraticShell,
+    TraceResult,
+    analytic_equal_s3_carrier,
+    equal_s3_system,
+    trace_closed_carrier,
+)
+from .roundtrip import run_roundtrip
+
+__all__ = [
+    "ConstraintSystem",
+    "ContractError",
+    "QuadraticShell",
+    "TraceResult",
+    "analytic_equal_s3_carrier",
+    "equal_s3_system",
+    "load_equation_packet",
+    "run_roundtrip",
+    "trace_closed_carrier",
+    "validate_equation_packet",
+]
+	
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/hsh/mapping_result.schema.json",
+  "title": "H(s)H mapping result",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "mapping_id",
+    "equation_id",
+    "backend",
+    "status",
+    "object_map",
+    "operator_map",
+    "constraint_realization",
+    "solver",
+    "readout_map",
+    "observables",
+    "residuals",
+    "diagnostics"
+  ],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "mapping_id": {"type": "string"},
+    "equation_id": {"type": "string"},
+    "backend": {"const": "spherical_constraint"},
+    "status": {
+      "enum": [
+        "exact_identity",
+        "exact_identity_with_numerical_verification",
+        "coordinate_rewrite",
+        "controlled_approximation",
+        "calibrated_representation",
+        "candidate_extension",
+        "failed_mapping"
+      ]
+    },
+    "object_map": {"type": "object"},
+    "operator_map": {"type": "object"},
+    "constraint_realization": {"type": "object"},
+    "solver": {"type": "object"},
+    "readout_map": {"type": "object"},
+    "observables": {"type": "object"},
+    "residuals": {"type": "object"},
+    "diagnostics": {"type": "object"}
+  },
+  "additionalProperties": true
+}
+
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/hsh/equation_packet.schema.json",
+  "title": "H(s)H standard-equation packet",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "equation_id",
+    "title",
+    "authority",
+    "equations",
+    "variables",
+    "domain",
+    "assumptions",
+    "symmetries",
+    "constraints",
+    "known_solution",
+    "mapping_request",
+    "tolerances"
+  ],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "equation_id": {"type": "string", "minLength": 1},
+    "title": {"type": "string", "minLength": 1},
+    "authority": {
+      "type": "object",
+      "required": ["status", "source"],
+      "properties": {
+        "status": {"const": "authoritative_standard_input"},
+        "source": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": true
+    },
+    "equations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["label", "expression"],
+        "properties": {
+          "label": {"type": "string"},
+          "expression": {"type": "string"}
+        }
+      }
+    },
+    "variables": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["symbol", "role", "unit", "dimensions"],
+        "properties": {
+          "symbol": {"type": "string"},
+          "role": {"type": "string"},
+          "unit": {"type": "string"},
+          "dimensions": {
+            "type": "object",
+            "required": ["M", "L", "T"],
+            "properties": {
+              "M": {"type": "number"},
+              "L": {"type": "number"},
+              "T": {"type": "number"}
+            },
+            "additionalProperties": {"type": "number"}
+          }
+        }
+      }
+    },
+    "domain": {"type": "object"},
+    "assumptions": {"type": "array", "items": {"type": "string"}},
+    "symmetries": {"type": "array", "items": {"type": "string"}},
+    "constraints": {"type": "array", "items": {"type": "string"}},
+    "boundary_conditions": {"type": "array", "items": {"type": "string"}},
+    "known_solution": {"type": "object"},
+    "empirical_anchors": {"type": "array"},
+    "mapping_request": {
+      "type": "object",
+      "required": ["backend", "parameters"],
+      "properties": {
+        "backend": {"const": "spherical_constraint"},
+        "parameters": {"type": "object"}
+      }
+    },
+    "tolerances": {"type": "object"}
+  },
+  "additionalProperties": true
+}
+
+{
+  "schema_version": "0.1.0",
+  "equation_id": "STD-GEO-S3X3-R4-0001",
+  "title": "Common carrier of three equal 3-spheres in four-dimensional Euclidean space",
+  "authority": {
+    "status": "authoritative_standard_input",
+    "source": "Standard Euclidean analytic geometry"
+  },
+  "equations": [
+    {
+      "label": "shell_constraints",
+      "expression": "F_a(x) = ||x-c_a||^2 - R^2 = 0, a=1,2,3"
+    },
+    {
+      "label": "carrier_radius",
+      "expression": "rho = sqrt(R^2 - d^2/3)"
+    },
+    {
+      "label": "carrier_circumference",
+      "expression": "C = 2*pi*rho"
+    }
+  ],
+  "variables": [
+    {
+      "symbol": "x",
+      "role": "ambient point",
+      "unit": "normalized_length",
+      "dimensions": {"M": 0, "L": 1, "T": 0}
+    },
+    {
+      "symbol": "R",
+      "role": "common shell radius",
+      "unit": "normalized_length",
+      "dimensions": {"M": 0, "L": 1, "T": 0}
+    },
+    {
+      "symbol": "d",
+      "role": "equilateral center separation",
+      "unit": "normalized_length",
+      "dimensions": {"M": 0, "L": 1, "T": 0}
+    },
+    {
+      "symbol": "rho",
+      "role": "intersection carrier radius",
+      "unit": "normalized_length",
+      "dimensions": {"M": 0, "L": 1, "T": 0}
+    }
+  ],
+  "domain": {
+    "ambient_space": "R^4",
+    "ambient_dimension": 4,
+    "shell_type": "S^3",
+    "expected_regular_intersection": "S^1"
+  },
+  "assumptions": [
+    "All three shells have equal radius R.",
+    "The three centers form an equilateral triangle of side d.",
+    "The shell equations are independent on the regular carrier.",
+    "The calculation is Euclidean and dimensionless until an external scale is supplied."
+  ],
+  "symmetries": [
+    "Global translation invariance",
+    "Global O(4) invariance",
+    "Permutation symmetry of the three equal shells"
+  ],
+  "constraints": [
+    "0 < d < sqrt(3) R for a regular S^1 carrier",
+    "rank(J) = 3 on the regular carrier"
+  ],
+  "boundary_conditions": [
+    "The carrier is closed."
+  ],
+  "known_solution": {
+    "kind": "analytic",
+    "carrier_topology": "S^1",
+    "carrier_radius": "sqrt(R^2-d^2/3)",
+    "carrier_circumference": "2*pi*sqrt(R^2-d^2/3)",
+    "bifurcation": "d=sqrt(3)R"
+  },
+  "empirical_anchors": [],
+  "mapping_request": {
+    "backend": "spherical_constraint",
+    "parameters": {
+      "R": 1.0,
+      "d": 1.0,
+      "trace_step": 0.025,
+      "radius_rate": 0.1,
+      "internal_speed": 0.25
+    }
+  },
+  "tolerances": {
+    "constraint_absolute": 1e-10,
+    "radius_relative": 1e-8,
+    "circumference_relative": 0.002,
+    "velocity_relative": 1e-9
+  }
+}
+
+# Equation-system to H(s)H backend interface
+
+## Responsibility boundary
+
+The standard-equation system owns:
+
+- accepted equations and source provenance;
+- variable definitions and dimensions;
+- assumptions, symmetries, and domains;
+- initial and boundary data;
+- known solutions, limiting cases, and empirical anchors.
+
+This backend owns:
+
+- geometric object and operator maps;
+- constraint realization;
+- numerical execution of that realization;
+- readout into the packet's observable quantities;
+- residuals, diagnostics, and mapping status.
+
+The backend must not silently repair an input packet. Invalid or incomplete packets fail validation.
+
+## Round-trip relation
+
+The intended pipeline is:
+
+`standard equation -> equation packet -> H(s)H mapping -> geometric solver -> readout -> standard observable`.
+
+For observable `O`, the backend reports
+
+`Delta_map = O_HsH - O_standard`.
+
+## Required status values
+
+- `exact_identity`
+- `exact_identity_with_numerical_verification`
+- `coordinate_rewrite`
+- `controlled_approximation`
+- `calibrated_representation`
+- `candidate_extension`
+- `failed_mapping`
+
+## Nesting boundary
+
+Superhelical nesting and braid nesting are separate operations:
+
+- a superhelix operator acts on one carrier and changes its path geometry;
+- a braid operator acts on several carriers or bundles and changes their relational topology.
+
+Neither operation is implemented in v0.1. Their future packet fields and code modules must remain separately typed.
+
+## Current geometric backend
+
+Each deformable quadratic shell is
+
+`F_a(x, lambda) = (x-c_a)^T A_a(lambda) (x-c_a) - R_a(lambda)^2 = 0`.
+
+For three independent constraints in `R^4`, the carrier tangent spans the one-dimensional nullspace of the Jacobian `J`.
+
+For moving constraints,
+
+`J x_dot = -partial_lambda F`,
+
+so
+
+`x_dot = -J^+ partial_lambda F + u t`.
+
+The pseudoinverse term is surface-forced motion. The `u t` term is internal motion along the carrier.
+
+## Future dynamics boundary
+
+The two current force mechanisms should be added as separate backends:
+
+- Electrogravity: nonlocal BEC-medium response to worldtube motion;
+- Interbraid: direct contact, braid, exclusion, reconnection, and history tension.
+
+Observed gravity may combine outputs from both, but that does not merge their primitive operators.
+
+
+{
+  "schema_version": "0.1.0",
+  "mapping_id": "MAP-STD-GEO-S3X3-R4-0001-SPHERICAL-0001",
+  "equation_id": "STD-GEO-S3X3-R4-0001",
+  "backend": "spherical_constraint",
+  "status": "exact_identity_with_numerical_verification",
+  "object_map": {
+    "standard_shell": "QuadraticShell",
+    "common_intersection": "one-dimensional carrier",
+    "carrier_topology": "S^1",
+    "ambient_space": "R^4",
+    "ontology_claim": "none; computational representation only"
+  },
+  "operator_map": {
+    "intersection": "simultaneous constraint solution F_1=F_2=F_3=0",
+    "carrier_tangent": "normalized one-dimensional nullspace of J",
+    "surface_forced_velocity": "-pinv(J) partial_lambda(F)",
+    "internal_velocity": "u t",
+    "superhelical_nesting": "not invoked",
+    "braid_nesting": "not invoked"
+  },
+  "constraint_realization": {
+    "equation": "F_a(x)=(x-c_a)^T A_a (x-c_a)-R_a^2=0",
+    "constraint_count": 3,
+    "ambient_dimension": 4,
+    "regular_rank": 3,
+    "regular_nullity": 1
+  },
+  "solver": {
+    "method": "pseudo-arclength-style predictor-corrector continuation",
+    "corrector": "nonlinear least squares with tangent hyperplane gauge",
+    "trace_step": 0.025,
+    "steps": 204
+  },
+  "readout_map": {
+    "carrier_radius": "mean Euclidean radius in the plane orthogonal to the center triangle",
+    "carrier_circumference": "closed traced polyline length",
+    "velocity": "v_total=v_surface+v_internal"
+  },
+  "observables": {
+    "carrier_radius_exact": 0.816496580927726,
+    "carrier_radius_numeric": 0.8164965809277319,
+    "carrier_circumference_exact": 5.130199320647456,
+    "carrier_circumference_numeric": 5.129998422218477,
+    "surface_forced_speed_exact": 0.12247448713915891,
+    "surface_forced_speed_numeric": 0.12247448713915891,
+    "internal_speed": 0.25,
+    "total_velocity": [
+      -1.6653345369377347e-17,
+      -1.206062877795663e-17,
+      0.12247448713915891,
+      0.25
+    ]
+  },
+  "residuals": {
+    "carrier_radius_relative": 7.206621764205746e-15,
+    "carrier_circumference_relative": 3.915996561207297e-05,
+    "surface_forced_speed_relative": 0.0,
+    "radius_pointwise_max_absolute": 6.994405055138486e-15,
+    "constraint_max_absolute": 1.199040866595169e-14,
+    "internal_tangent_constraint_norm": 0.0,
+    "surface_velocity_constraint_norm": 4.8074067159589095e-17
+  },
+  "diagnostics": {
+    "regular_jacobian_singular_values": [
+      2.8284271247461903,
+      1.4142135623730956,
+      1.4142135623730951
+    ],
+    "near_bifurcation_separation": 1.732050790248369,
+    "near_bifurcation_carrier_radius": 0.00014142135620009053,
+    "near_bifurcation_jacobian_singular_values": [
+      2.4494897182882807,
+      2.4494897182882807,
+      0.0004898979484277053
+    ],
+    "smallest_singular_value_ratio": 0.00034641016142260793,
+    "bifurcation_condition": "smallest singular value tends to zero as d tends to sqrt(3)R"
+  },
+  "provenance": {
+    "input_authority": {
+      "status": "authoritative_standard_input",
+      "source": "Standard Euclidean analytic geometry"
+    },
+    "calibrations": [],
+    "candidate_physics": [],
+    "silent_repairs": []
+  }
+}

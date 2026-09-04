@@ -1,0 +1,1538 @@
+from __future__ import annotations
+
+import sys
+import tempfile
+from pathlib import Path
+import unittest
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+
+from memo_ree.fs_projection import FilesystemProjection
+
+
+class FakeProjectionStore:
+    def list_current_facts(self, *, container_tag="default", limit=500):
+        return [
+            {
+                "current_fact_id": "cf1",
+                "predicate": "lives_in",
+                "subject_entity_id": "self1",
+                "subject_name": "Navan",
+                "object_name": "Boston",
+                "as_of": "2026-04-10T00:00:00Z",
+            }
+        ]
+
+    def list_assertions(self, *, container_tag="default", limit=500):
+        return [{"assertion_id": "a1", "predicate": "lives_in", "observed_at": "2026-04-10T00:00:00Z"}]
+
+    def list_recent_observations(self, *, container_tag="default", limit=500):
+        return [{"observation_id": "o1", "observation_type": "dialog_turn", "occurred_at": "2026-04-10T00:00:00Z"}]
+
+    def list_recent_episodes(self, *, container_tag="default", limit=200):
+        return [{"episode_id": "e1", "title": "Life updates"}]
+
+    def list_runtime_events(self, *, container_tag="default", session_id=None, limit=500):
+        return [{"event_id": "re1", "event_type": "user_message", "occurred_at": "2026-04-10T00:00:00Z"}]
+
+    def list_reminders(self, *, container_tag="default", scope_kind=None, scope_id=None, include_inactive=False, limit=128):
+        return [{"reminder_id": "r1", "scope_kind": "container", "scope_id": container_tag, "reminder_text": "Stay concise."}]
+
+    def _fetchall(self, sql, params=()):
+        return [{"path": "default--home", "body_md": "# Home", "title": "Home", "page_type": "home"}]
+
+
+class FilesystemProjectionTests(unittest.TestCase):
+    def test_materialize_projection_tree(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            stats = FilesystemProjection(FakeProjectionStore()).materialize(root_dir=tmpdir, container_tag="default")
+            root = Path(tmpdir) / "default"
+            self.assertTrue((root / "current_facts").exists())
+            self.assertTrue((root / "wiki" / "home.md").exists())
+            self.assertEqual(stats["current_facts"], 1)
+
+
+if __name__ == "__main__":
+    unittest.main()
+
+from __future__ import annotations
+
+import sys
+from datetime import UTC, datetime
+from pathlib import Path
+import unittest
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+
+from memo_ree.extractors import ObservationInput, extract_bookmark_assertions, extract_dialog_assertions, extract_health_assertions
+from memo_ree.ontology import ENTITY_TYPES
+
+
+class ExtractorTests(unittest.TestCase):
+    def test_health_extractor_emits_latest_metric(self) -> None:
+        obs = ObservationInput(
+            source_id="vault:apple_health_export",
+            external_id="1",
+            observation_type="health_metric",
+            occurred_at=datetime(2026, 4, 8, tzinfo=UTC),
+            title="Heart Rate",
+            content_json={"title": "Heart Rate", "value": 72, "unit": "count/min"},
+            subject_name="Navan",
+            subject_type=ENTITY_TYPES.PERSON,
+        )
+        assertions = extract_health_assertions(obs)
+        predicates = {item.predicate for item in assertions}
+        self.assertIn("metric_reading", predicates)
+        self.assertIn("latest_metric_value", predicates)
+
+    def test_bookmark_extractor_emits_url_and_domain(self) -> None:
+        obs = ObservationInput(
+            source_id="vault:twitter_bookmarks",
+            external_id="2",
+            observation_type="bookmark",
+            occurred_at=datetime(2026, 4, 8, tzinfo=UTC),
+            title="A great thread about temporal graphs",
+            content_url="https://example.com/post/123",
+            subject_name="Navan",
+            subject_type=ENTITY_TYPES.PERSON,
+        )
+        assertions = extract_bookmark_assertions(obs)
+        predicates = {item.predicate for item in assertions}
+        self.assertIn("bookmarked_url", predicates)
+        self.assertIn("interest_domain", predicates)
+
+    def test_dialog_extractor_finds_move_and_work(self) -> None:
+        obs = ObservationInput(
+            source_id="benchmark:longmemeval_style",
+            external_id="3",
+            observation_type="dialog_turn",
+            occurred_at=datetime(2026, 4, 8, tzinfo=UTC),
+            content_text="I moved to Boston last year and I work at OpenAI.",
+            subject_name="Navan",
+            subject_type=ENTITY_TYPES.PERSON,
+        )
+        assertions = extract_dialog_assertions(obs)
+        predicates = {item.predicate for item in assertions}
+        self.assertIn("lives_in", predicates)
+        self.assertIn("works_at", predicates)
+        move = next(item for item in assertions if item.predicate == "lives_in")
+        self.assertTrue(move.qualifiers.get("change_signal"))
+        self.assertEqual(move.object_name, "Boston")
+        work = next(item for item in assertions if item.predicate == "works_at")
+        self.assertEqual(work.object_name, "OpenAI")
+
+    def test_dialog_extractor_finds_general_temporal_memories(self) -> None:
+        obs = ObservationInput(
+            source_id="benchmark:longmemeval_style",
+            external_id="4",
+            observation_type="dialog_turn",
+            occurred_at=datetime(2026, 4, 8, tzinfo=UTC),
+            content_text=(
+                "I've been collecting vintage cameras for three months now. "
+                "My lemon poppyseed cake was a hit. "
+                "Our volleyball league team is doing well with a 5-2 record. "
+                "My cousin Rachel's wedding at the vineyard was beautiful."
+            ),
+            subject_name="Navan",
+            subject_type=ENTITY_TYPES.PERSON,
+        )
+        assertions = extract_dialog_assertions(obs)
+        by_predicate = {item.predicate for item in assertions}
+        self.assertIn("activity_duration", by_predicate)
+        self.assertIn("successful_item", by_predicate)
+        self.assertIn("current_record", by_predicate)
+        self.assertIn("attended_event", by_predicate)
+
+        duration = next(item for item in assertions if item.predicate == "activity_duration")
+        self.assertEqual(duration.object_name, "collecting vintage cameras")
+        self.assertEqual(duration.literal_value_text, "three months")
+
+        success = next(item for item in assertions if item.predicate == "successful_item")
+        self.assertEqual(success.object_name, "lemon poppyseed cake")
+
+        record = next(item for item in assertions if item.predicate == "current_record")
+        self.assertEqual(record.object_name, "volleyball league")
+        self.assertEqual(record.literal_value_text, "5-2")
+
+        event = next(item for item in assertions if item.predicate == "attended_event")
+        self.assertEqual(event.object_name, "Rachel wedding")
+
+    def test_dialog_extractor_captures_past_success_and_couple_wedding(self) -> None:
+        obs = ObservationInput(
+            source_id="benchmark:longmemeval_style",
+            external_id="5",
+            observation_type="dialog_turn",
+            occurred_at=datetime(2026, 4, 8, tzinfo=UTC),
+            content_text=(
+                "I've made a lemon poppyseed cake before, and it was a hit. "
+                "My friend Emily finally got to tie the knot with her partner Sarah."
+            ),
+            subject_name="Navan",
+            subject_type=ENTITY_TYPES.PERSON,
+        )
+        assertions = extract_dialog_assertions(obs)
+        success = next(item for item in assertions if item.predicate == "successful_item")
+        self.assertEqual(success.object_name, "lemon poppyseed cake")
+        event = next(item for item in assertions if item.predicate == "attended_event")
+        self.assertEqual(event.object_name, "Emily and Sarah wedding")
+        self.assertEqual(event.qualifiers.get("event_key"), "emily_sarah_wedding")
+
+    def test_dialog_extractor_normalizes_successful_item_mentions(self) -> None:
+        obs = ObservationInput(
+            source_id="benchmark:longmemeval_style",
+            external_id="5b",
+            observation_type="dialog_turn",
+            occurred_at=datetime(2026, 4, 8, tzinfo=UTC),
+            content_text=(
+                "Since you mentioned your lemon poppyseed cake was a hit, "
+                "I think a lemon lavender pound cake could work too."
+            ),
+            subject_name="Navan",
+            subject_type=ENTITY_TYPES.PERSON,
+        )
+        assertions = extract_dialog_assertions(obs)
+        successful_items = [item.object_name for item in assertions if item.predicate == "successful_item"]
+        self.assertEqual(successful_items, ["lemon poppyseed cake"])
+
+    def test_dialog_extractor_captures_started_media(self) -> None:
+        obs = ObservationInput(
+            source_id="benchmark:longmemeval_style",
+            external_id="5c",
+            observation_type="dialog_turn",
+            occurred_at=datetime(2026, 4, 8, tzinfo=UTC),
+            content_text=(
+                'I just finished binge-watching the third season of "The Crown". '
+                "I started it on a Sunday afternoon and finished it in 14 days. "
+                'I finally started "Game of Thrones" about a month ago too.'
+            ),
+            subject_name="Navan",
+            subject_type=ENTITY_TYPES.PERSON,
+        )
+        assertions = extract_dialog_assertions(obs)
+        started_titles = {item.object_name for item in assertions if item.predicate == "started_media"}
+        self.assertEqual(started_titles, {"The Crown", "Game of Thrones"})
+
+    def test_dialog_extractor_ignores_generic_wedding_explanations(self) -> None:
+        obs = ObservationInput(
+            source_id="benchmark:longmemeval_style",
+            external_id="6",
+            observation_type="dialog_turn",
+            occurred_at=datetime(2026, 4, 8, tzinfo=UTC),
+            content_text=(
+                "How do Gurkhas traditionally celebrate weddings? "
+                "The Wedding Day: The bride wears a traditional red saree while the groom receives blessings."
+            ),
+            subject_name="Navan",
+            subject_type=ENTITY_TYPES.PERSON,
+        )
+        assertions = extract_dialog_assertions(obs)
+        self.assertFalse(any(item.predicate == "attended_event" for item in assertions))
+
+
+if __name__ == "__main__":
+    unittest.main()
+
+from __future__ import annotations
+
+import importlib.util
+from pathlib import Path
+import unittest
+
+
+SCRIPT_PATH = Path(__file__).resolve().parents[1] / "scripts" / "mount_memfuse_wiki.py"
+SPEC = importlib.util.spec_from_file_location("mount_memfuse_wiki", SCRIPT_PATH)
+assert SPEC and SPEC.loader
+MODULE = importlib.util.module_from_spec(SPEC)
+SPEC.loader.exec_module(MODULE)
+
+
+class MemfuseMountScriptTests(unittest.TestCase):
+    def test_build_mount_command_background(self) -> None:
+        command = MODULE._build_mount_command(
+            memfuse_dir=Path("/tmp/memfuse"),
+            mountpoint=Path("/tmp/mnt"),
+            row_limit=250,
+            background=True,
+            allow_other=False,
+            include_system_schemas=False,
+        )
+        self.assertEqual(
+            command,
+            [
+                "uv",
+                "run",
+                "--project",
+                "/tmp/memfuse",
+                "memfuse",
+                "mount",
+                "/tmp/mnt",
+                "--row-limit",
+                "250",
+                "--background",
+            ],
+        )
+
+    def test_build_mount_command_with_flags(self) -> None:
+        command = MODULE._build_mount_command(
+            memfuse_dir=Path("/tmp/memfuse"),
+            mountpoint=Path("/tmp/mnt"),
+            row_limit=100,
+            background=False,
+            allow_other=True,
+            include_system_schemas=True,
+        )
+        self.assertIn("--allow-other", command)
+        self.assertIn("--include-system-schemas", command)
+
+
+if __name__ == "__main__":
+    unittest.main()
+
+from __future__ import annotations
+
+import sys
+from datetime import UTC, datetime
+from pathlib import Path
+import unittest
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+
+from memo_ree.conflicts import AssertionSnapshot, resolve_conflict
+
+
+class ConflictResolutionTests(unittest.TestCase):
+    def test_newer_candidate_supersedes_old_fact(self) -> None:
+        current = AssertionSnapshot(
+            assertion_id="old",
+            conflict_key="k",
+            observed_at=datetime(2026, 4, 1, tzinfo=UTC),
+            confidence=0.80,
+            normalized_value="boston",
+            qualifiers={},
+        )
+        candidate = AssertionSnapshot(
+            assertion_id="new",
+            conflict_key="k",
+            observed_at=datetime(2026, 4, 10, tzinfo=UTC),
+            confidence=0.82,
+            normalized_value="san francisco",
+            qualifiers={},
+        )
+        decision = resolve_conflict(current, candidate)
+        self.assertEqual(decision.status, "current")
+        self.assertTrue(decision.supersede_current)
+
+    def test_change_signal_overrides_current(self) -> None:
+        current = AssertionSnapshot(
+            assertion_id="old",
+            conflict_key="k",
+            observed_at=datetime(2026, 4, 10, tzinfo=UTC),
+            confidence=0.95,
+            normalized_value="new york",
+            qualifiers={},
+        )
+        candidate = AssertionSnapshot(
+            assertion_id="new",
+            conflict_key="k",
+            observed_at=datetime(2026, 4, 11, tzinfo=UTC),
+            confidence=0.70,
+            normalized_value="london",
+            qualifiers={"change_signal": True},
+        )
+        decision = resolve_conflict(current, candidate)
+        self.assertEqual(decision.status, "current")
+        self.assertTrue(decision.supersede_current)
+
+    def test_conflicting_values_are_preserved(self) -> None:
+        current = AssertionSnapshot(
+            assertion_id="old",
+            conflict_key="k",
+            observed_at=datetime(2026, 4, 10, tzinfo=UTC),
+            confidence=0.81,
+            normalized_value="tea",
+            qualifiers={},
+        )
+        candidate = AssertionSnapshot(
+            assertion_id="new",
+            conflict_key="k",
+            observed_at=datetime(2026, 4, 10, tzinfo=UTC),
+            confidence=0.82,
+            normalized_value="coffee",
+            qualifiers={},
+        )
+        decision = resolve_conflict(current, candidate)
+        self.assertEqual(decision.status, "conflicting")
+
+    def test_newer_candidate_with_low_confidence_does_not_win(self) -> None:
+        current = AssertionSnapshot(
+            assertion_id="old",
+            conflict_key="k",
+            observed_at=datetime(2026, 4, 1, tzinfo=UTC),
+            confidence=0.95,
+            normalized_value="boston",
+            qualifiers={},
+        )
+        candidate = AssertionSnapshot(
+            assertion_id="new",
+            conflict_key="k",
+            observed_at=datetime(2026, 4, 10, tzinfo=UTC),
+            confidence=0.6,
+            normalized_value="london",
+            qualifiers={},
+        )
+        decision = resolve_conflict(current, candidate)
+        self.assertEqual(decision.status, "historical")
+
+
+if __name__ == "__main__":
+    unittest.main()
+
+from __future__ import annotations
+
+import json
+import os
+import shutil
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Any
+
+from .normalize import slugify
+
+
+def _write_json(path: Path, payload: Any) -> None:
+    path.write_text(json.dumps(payload, ensure_ascii=True, indent=2, sort_keys=True, default=str) + "\n", encoding="utf-8")
+
+
+def _write_readonly_tree(root: Path) -> None:
+    for dirpath, dirnames, filenames in os.walk(root):
+        os.chmod(dirpath, 0o555)
+        for dirname in dirnames:
+            os.chmod(Path(dirpath) / dirname, 0o555)
+        for filename in filenames:
+            os.chmod(Path(dirpath) / filename, 0o444)
+
+
+@dataclass(slots=True)
+class FilesystemProjection:
+    store: Any
+
+    def materialize(self, *, root_dir: str | Path, container_tag: str = "default") -> dict[str, int]:
+        root = Path(root_dir).expanduser().resolve()
+        scoped_root = root / container_tag
+        if scoped_root.exists():
+            shutil.rmtree(scoped_root)
+        (scoped_root / "current_facts").mkdir(parents=True, exist_ok=True)
+        (scoped_root / "assertions").mkdir(parents=True, exist_ok=True)
+        (scoped_root / "observations").mkdir(parents=True, exist_ok=True)
+        (scoped_root / "episodes").mkdir(parents=True, exist_ok=True)
+        (scoped_root / "runtime_events").mkdir(parents=True, exist_ok=True)
+        (scoped_root / "reminders").mkdir(parents=True, exist_ok=True)
+        (scoped_root / "wiki").mkdir(parents=True, exist_ok=True)
+
+        facts = self.store.list_current_facts(container_tag=container_tag, limit=500)
+        assertions = self.store.list_assertions(container_tag=container_tag, limit=500)
+        observations = self.store.list_recent_observations(container_tag=container_tag, limit=500)
+        episodes = self.store.list_recent_episodes(container_tag=container_tag, limit=200)
+        runtime_events = self.store.list_runtime_events(container_tag=container_tag, limit=500)
+        reminders = self.store.list_reminders(container_tag=container_tag, limit=128)
+        wiki_rows = self.store._fetchall(
+            """
+            SELECT path, title, page_type, body_md, outbound_links_json, updated_at
+            FROM wiki_pages
+            WHERE path LIKE %s
+            ORDER BY path ASC
+            """,
+            (f"{container_tag}--%",),
+        )
+
+        for row in facts:
+            name = f"{row['predicate']}--{slugify(row.get('subject_name') or row['subject_entity_id'])}--{slugify(row.get('object_name') or row.get('literal_value_text') or row['current_fact_id']) or row['current_fact_id']}.json"
+            _write_json(scoped_root / "current_facts" / name, row)
+        for row in assertions:
+            name = f"{row['assertion_id']}--{row['predicate']}.json"
+            _write_json(scoped_root / "assertions" / name, row)
+        for row in observations:
+            name = f"{row['observation_id']}--{row['observation_type']}.json"
+            _write_json(scoped_root / "observations" / name, row)
+        for row in episodes:
+            name = f"{row['episode_id']}--{slugify(row['title'])}.json"
+            _write_json(scoped_root / "episodes" / name, row)
+        for row in runtime_events:
+            name = f"{row['event_id']}--{row['event_type']}.json"
+            _write_json(scoped_root / "runtime_events" / name, row)
+        for row in reminders:
+            name = f"{row['reminder_id']}--{row['scope_kind']}--{slugify(row['scope_id'])}.json"
+            _write_json(scoped_root / "reminders" / name, row)
+        for row in wiki_rows:
+            relative = str(row["path"]).removeprefix(f"{container_tag}--")
+            path = scoped_root / "wiki" / f"{relative}.md"
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(str(row["body_md"]), encoding="utf-8")
+
+        _write_readonly_tree(scoped_root)
+        return {
+            "current_facts": len(facts),
+            "assertions": len(assertions),
+            "observations": len(observations),
+            "episodes": len(episodes),
+            "runtime_events": len(runtime_events),
+            "reminders": len(reminders),
+            "wiki_pages": len(wiki_rows),
+        }
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+from typing import Any
+
+
+@dataclass(frozen=True, slots=True)
+class ClaimPolicy:
+    predicate: str
+    resolution_policy: str
+    modality: str = "actual"
+    polarity: str = "+"
+    importance: float = 0.5
+    half_life_days: int = 365
+    type_weight: float = 1.0
+
+
+_SINGLETON_POLICIES = {
+    "lives_in": ClaimPolicy("lives_in", "latest_wins", importance=0.9, half_life_days=365 * 5, type_weight=1.3),
+    "works_at": ClaimPolicy("works_at", "latest_wins", importance=0.9, half_life_days=365 * 5, type_weight=1.3),
+    "birthday": ClaimPolicy("birthday", "latest_wins", importance=0.9, half_life_days=365 * 5, type_weight=1.3),
+    "allergic_to": ClaimPolicy("allergic_to", "latest_wins", importance=0.9, half_life_days=365 * 5, type_weight=1.3),
+    "favorite": ClaimPolicy("favorite", "latest_wins", importance=0.85, half_life_days=365 * 2, type_weight=1.3),
+    "prefers": ClaimPolicy("prefers", "latest_wins", importance=0.8, half_life_days=365, type_weight=1.3),
+    "has_pet_name": ClaimPolicy("has_pet_name", "latest_wins", importance=0.8, half_life_days=365 * 5, type_weight=1.3),
+    "latest_metric_value": ClaimPolicy("latest_metric_value", "latest_wins", importance=0.7, half_life_days=30, type_weight=1.3),
+    "activity_duration": ClaimPolicy("activity_duration", "latest_wins", importance=0.8, half_life_days=365, type_weight=1.3),
+    "current_record": ClaimPolicy("current_record", "latest_wins", importance=0.78, half_life_days=90, type_weight=1.3),
+}
+
+_MERGE_POLICIES = {
+    "interest_topic": ClaimPolicy("interest_topic", "merge", importance=0.6, half_life_days=365, type_weight=1.0),
+    "interest_domain": ClaimPolicy("interest_domain", "merge", importance=0.6, half_life_days=365, type_weight=1.0),
+    "bookmarked_url": ClaimPolicy("bookmarked_url", "merge", importance=0.58, half_life_days=365, type_weight=0.8),
+    "attended_event": ClaimPolicy("attended_event", "merge", importance=0.7, half_life_days=365 * 2, type_weight=1.0),
+    "started_media": ClaimPolicy("started_media", "merge", importance=0.72, half_life_days=365 * 2, type_weight=1.0),
+    "successful_item": ClaimPolicy("successful_item", "merge", importance=0.82, half_life_days=365, type_weight=1.0),
+}
+
+_DEFAULT_POLICY = ClaimPolicy("default", "keep_all", importance=0.5, half_life_days=180, type_weight=0.8)
+
+
+def policy_for_predicate(predicate: str | None) -> ClaimPolicy:
+    normalized = (predicate or "").strip()
+    if normalized in _SINGLETON_POLICIES:
+        return _SINGLETON_POLICIES[normalized]
+    if normalized in _MERGE_POLICIES:
+        return _MERGE_POLICIES[normalized]
+    return ClaimPolicy(
+        predicate=normalized or _DEFAULT_POLICY.predicate,
+        resolution_policy=_DEFAULT_POLICY.resolution_policy,
+        modality=_DEFAULT_POLICY.modality,
+        polarity=_DEFAULT_POLICY.polarity,
+        importance=_DEFAULT_POLICY.importance,
+        half_life_days=_DEFAULT_POLICY.half_life_days,
+        type_weight=_DEFAULT_POLICY.type_weight,
+    )
+
+
+def type_weight_for_row(row: dict[str, Any]) -> float:
+    predicate = str(row.get("predicate") or "")
+    observation_type = str(row.get("observation_type") or "")
+    if observation_type:
+        return 0.8
+    return policy_for_predicate(predicate).type_weight
+
+
+def half_life_days_for_row(row: dict[str, Any]) -> int:
+    predicate = str(row.get("predicate") or "")
+    if predicate:
+        return policy_for_predicate(predicate).half_life_days
+    observation_type = str(row.get("observation_type") or "")
+    if observation_type == "health_metric":
+        return 30
+    if observation_type in {"dialog_turn", "dialog_session"}:
+        return 180
+    return _DEFAULT_POLICY.half_life_days
+
+
+def importance_for_predicate(predicate: str | None) -> float:
+    return policy_for_predicate(predicate).importance
+
+
+def resolution_policy_for_predicate(predicate: str | None) -> str:
+    return policy_for_predicate(predicate).resolution_policy
+
+
+def singleton_predicates() -> set[str]:
+    return set(_SINGLETON_POLICIES.keys())
+
+from __future__ import annotations
+
+import json
+import os
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Any
+from urllib import error, request
+
+
+def _load_dotenv_if_present() -> None:
+    env_path = Path.cwd() / ".env"
+    if not env_path.exists():
+        return
+    for line in env_path.read_text(encoding="utf-8").splitlines():
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#") or "=" not in stripped:
+            continue
+        key, value = stripped.split("=", 1)
+        os.environ.setdefault(key.strip(), _normalize_env_value(value))
+
+
+def _normalize_env_value(value: str) -> str:
+    normalized = value.strip()
+    if len(normalized) >= 2 and normalized[0] == normalized[-1] and normalized[0] in {'"', "'"}:
+        return normalized[1:-1]
+    return normalized
+
+
+@dataclass(slots=True)
+class EmbeddingConfig:
+    api_key: str | None
+    base_url: str
+    model: str
+    enabled: bool
+    timeout_seconds: int = 30
+
+    @classmethod
+    def from_env(cls) -> "EmbeddingConfig":
+        _load_dotenv_if_present()
+        api_key = os.environ.get("MEMO_REE_EMBED_API_KEY") or os.environ.get("OPENAI_API_KEY") or None
+        mode = (os.environ.get("MEMO_REE_EMBED_MODE") or "enabled").strip().casefold()
+        return cls(
+            api_key=api_key,
+            base_url=(os.environ.get("MEMO_REE_EMBED_BASE_URL") or "https://api.openai.com/v1").rstrip("/"),
+            model=os.environ.get("MEMO_REE_EMBED_MODEL") or "text-embedding-3-small",
+            enabled=mode not in {"off", "disabled", "false", "0"} and bool(api_key),
+            timeout_seconds=int(os.environ.get("MEMO_REE_EMBED_TIMEOUT_SECONDS", "30")),
+        )
+
+
+class TextEmbedder:
+    def __init__(self, config: EmbeddingConfig) -> None:
+        self.config = config
+
+    @classmethod
+    def from_env(cls) -> "TextEmbedder":
+        return cls(EmbeddingConfig.from_env())
+
+    def embed_one(self, text: str) -> list[float] | None:
+        vectors = self.embed_texts([text])
+        if not vectors:
+            return None
+        return vectors[0]
+
+    def embed_texts(self, texts: list[str]) -> list[list[float]]:
+        if not self.config.enabled:
+            return []
+        clean_texts = [text.strip() for text in texts if text and text.strip()]
+        if not clean_texts:
+            return []
+        body = {
+            "model": self.config.model,
+            "input": clean_texts,
+        }
+        req = request.Request(
+            f"{self.config.base_url}/embeddings",
+            data=json.dumps(body, ensure_ascii=True).encode("utf-8"),
+            headers={
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {self.config.api_key}",
+            },
+            method="POST",
+        )
+        try:
+            with request.urlopen(req, timeout=self.config.timeout_seconds) as response:
+                payload = json.loads(response.read().decode("utf-8"))
+        except error.HTTPError as exc:
+            raise RuntimeError(exc.read().decode("utf-8", errors="ignore")) from exc
+        data = payload.get("data")
+        if not isinstance(data, list):
+            raise RuntimeError("Embedding API returned invalid payload")
+        vectors: list[list[float]] = []
+        for item in data:
+            embedding = item.get("embedding") if isinstance(item, dict) else None
+            if not isinstance(embedding, list):
+                continue
+            vectors.append([float(value) for value in embedding])
+        return vectors
+
+    @staticmethod
+    def vector_literal(vector: list[float]) -> str:
+        return json.dumps(vector, ensure_ascii=True, separators=(",", ":"))
+
+CREATE DATABASE IF NOT EXISTS memo_ree;
+USE memo_ree;
+
+CREATE TABLE IF NOT EXISTS ingest_runs (
+  ingest_run_id VARCHAR(32) PRIMARY KEY,
+  container_tag VARCHAR(128) NOT NULL DEFAULT 'default',
+  source_family VARCHAR(64) NOT NULL,
+  source_locator TEXT NULL,
+  status VARCHAR(32) NOT NULL,
+  stats_json JSON NULL,
+  started_at DATETIME(6) NOT NULL,
+  completed_at DATETIME(6) NULL,
+  created_at DATETIME(6) NOT NULL,
+  INDEX idx_ingest_runs_container (container_tag, started_at)
+);
+
+CREATE TABLE IF NOT EXISTS sources (
+  source_id VARCHAR(128) PRIMARY KEY,
+  source_family VARCHAR(64) NOT NULL,
+  source_name VARCHAR(255) NOT NULL,
+  source_kind VARCHAR(64) NOT NULL,
+  locator TEXT NULL,
+  metadata_json JSON NULL,
+  created_at DATETIME(6) NOT NULL,
+  updated_at DATETIME(6) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS entities (
+  entity_id VARCHAR(32) PRIMARY KEY,
+  entity_type VARCHAR(32) NOT NULL,
+  canonical_name VARCHAR(512) NULL,
+  normalized_name VARCHAR(512) NULL,
+  description TEXT NULL,
+  metadata_json JSON NULL,
+  first_observed_at DATETIME(6) NULL,
+  last_observed_at DATETIME(6) NULL,
+  created_at DATETIME(6) NOT NULL,
+  updated_at DATETIME(6) NOT NULL,
+  INDEX idx_entities_lookup (entity_type, normalized_name)
+);
+
+CREATE TABLE IF NOT EXISTS entity_aliases (
+  alias_id VARCHAR(32) PRIMARY KEY,
+  entity_id VARCHAR(32) NOT NULL,
+  alias_text VARCHAR(512) NOT NULL,
+  normalized_alias VARCHAR(512) NOT NULL,
+  alias_type VARCHAR(64) NOT NULL,
+  confidence DECIMAL(5,4) NOT NULL,
+  created_at DATETIME(6) NOT NULL,
+  UNIQUE KEY uq_entity_alias (entity_id, normalized_alias, alias_type)
+);
+
+CREATE TABLE IF NOT EXISTS observations (
+  observation_id VARCHAR(32) PRIMARY KEY,
+  container_tag VARCHAR(128) NOT NULL DEFAULT 'default',
+  source_id VARCHAR(128) NOT NULL,
+  ingest_run_id VARCHAR(32) NOT NULL,
+  external_id VARCHAR(255) NULL,
+  parent_observation_id VARCHAR(32) NULL,
+  thread_key VARCHAR(255) NULL,
+  observation_type VARCHAR(64) NOT NULL,
+  actor_entity_id VARCHAR(32) NULL,
+  subject_entity_id VARCHAR(32) NULL,
+  occurred_at DATETIME(6) NOT NULL,
+  effective_from DATETIME(6) NULL,
+  effective_to DATETIME(6) NULL,
+  time_granularity VARCHAR(32) NOT NULL DEFAULT 'instant',
+  title VARCHAR(512) NULL,
+  content_text LONGTEXT NULL,
+  content_json JSON NULL,
+  content_url TEXT NULL,
+  provenance_json JSON NULL,
+  checksum VARCHAR(64) NULL,
+  confidence DECIMAL(5,4) NOT NULL,
+  created_at DATETIME(6) NOT NULL,
+  UNIQUE KEY uq_observation_container_external (container_tag, source_id, external_id),
+  INDEX idx_observations_time (container_tag, occurred_at),
+  INDEX idx_observations_thread (container_tag, thread_key)
+);
+
+CREATE TABLE IF NOT EXISTS observation_entities (
+  observation_entity_id VARCHAR(32) PRIMARY KEY,
+  observation_id VARCHAR(32) NOT NULL,
+  entity_id VARCHAR(32) NOT NULL,
+  entity_role VARCHAR(64) NOT NULL,
+  created_at DATETIME(6) NOT NULL,
+  UNIQUE KEY uq_observation_entity (observation_id, entity_id, entity_role)
+);
+
+CREATE TABLE IF NOT EXISTS episodes (
+  episode_id VARCHAR(32) PRIMARY KEY,
+  container_tag VARCHAR(128) NOT NULL DEFAULT 'default',
+  episode_key VARCHAR(255) NOT NULL,
+  episode_type VARCHAR(64) NOT NULL,
+  subject_entity_id VARCHAR(32) NULL,
+  title VARCHAR(512) NOT NULL,
+  summary_text LONGTEXT NULL,
+  started_at DATETIME(6) NOT NULL,
+  ended_at DATETIME(6) NOT NULL,
+  source_scope VARCHAR(128) NOT NULL,
+  metadata_json JSON NULL,
+  created_at DATETIME(6) NOT NULL,
+  updated_at DATETIME(6) NOT NULL,
+  UNIQUE KEY uq_episode_container_key (container_tag, episode_key),
+  INDEX idx_episodes_container (container_tag, ended_at)
+);
+
+CREATE TABLE IF NOT EXISTS episode_membership (
+  episode_membership_id VARCHAR(32) PRIMARY KEY,
+  episode_id VARCHAR(32) NOT NULL,
+  observation_id VARCHAR(32) NOT NULL,
+  ordinal_in_episode BIGINT NOT NULL,
+  created_at DATETIME(6) NOT NULL,
+  UNIQUE KEY uq_episode_member (episode_id, observation_id)
+);
+
+CREATE TABLE IF NOT EXISTS assertions (
+  assertion_id VARCHAR(32) PRIMARY KEY,
+  container_tag VARCHAR(128) NOT NULL DEFAULT 'default',
+  observation_id VARCHAR(32) NOT NULL,
+  subject_entity_id VARCHAR(32) NOT NULL,
+  predicate VARCHAR(128) NOT NULL,
+  object_entity_id VARCHAR(32) NULL,
+  literal_value_text LONGTEXT NULL,
+  literal_value_number DOUBLE NULL,
+  literal_value_boolean TINYINT(1) NULL,
+  literal_value_json JSON NULL,
+  value_type VARCHAR(32) NOT NULL,
+  unit VARCHAR(64) NULL,
+  qualifier_json JSON NULL,
+  provenance_strategy VARCHAR(64) NOT NULL,
+  extraction_method VARCHAR(64) NOT NULL,
+  confidence DECIMAL(5,4) NOT NULL,
+  observed_at DATETIME(6) NOT NULL,
+  effective_from DATETIME(6) NULL,
+  effective_to DATETIME(6) NULL,
+  temporal_bucket VARCHAR(64) NULL,
+  conflict_key VARCHAR(255) NULL,
+  resolution_status VARCHAR(32) NOT NULL,
+  supersedes_assertion_id VARCHAR(32) NULL,
+  superseded_by_assertion_id VARCHAR(32) NULL,
+  created_at DATETIME(6) NOT NULL,
+  INDEX idx_assertions_subject_predicate (container_tag, subject_entity_id, predicate),
+  INDEX idx_assertions_conflict (container_tag, conflict_key),
+  INDEX idx_assertions_time (container_tag, observed_at)
+);
+
+CREATE TABLE IF NOT EXISTS assertion_refs (
+  assertion_ref_id VARCHAR(32) PRIMARY KEY,
+  assertion_id VARCHAR(32) NOT NULL,
+  ref_type VARCHAR(64) NOT NULL,
+  ref_uri TEXT NULL,
+  ref_locator TEXT NULL,
+  ref_json JSON NULL,
+  created_at DATETIME(6) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS assertion_conflicts (
+  conflict_key VARCHAR(255) NOT NULL,
+  container_tag VARCHAR(128) NOT NULL DEFAULT 'default',
+  subject_entity_id VARCHAR(32) NOT NULL,
+  predicate VARCHAR(128) NOT NULL,
+  conflict_class VARCHAR(32) NOT NULL,
+  winning_assertion_id VARCHAR(32) NULL,
+  active_assertion_count INT NOT NULL,
+  resolution_reason TEXT NULL,
+  updated_at DATETIME(6) NOT NULL,
+  PRIMARY KEY (container_tag, conflict_key),
+  INDEX idx_assertion_conflicts_container (container_tag, subject_entity_id, predicate)
+);
+
+CREATE TABLE IF NOT EXISTS current_facts (
+  current_fact_id VARCHAR(255) PRIMARY KEY,
+  container_tag VARCHAR(128) NOT NULL DEFAULT 'default',
+  conflict_key VARCHAR(255) NOT NULL,
+  subject_entity_id VARCHAR(32) NOT NULL,
+  predicate VARCHAR(128) NOT NULL,
+  object_entity_id VARCHAR(32) NULL,
+  literal_value_text LONGTEXT NULL,
+  literal_value_number DOUBLE NULL,
+  literal_value_boolean TINYINT(1) NULL,
+  literal_value_json JSON NULL,
+  value_type VARCHAR(32) NOT NULL,
+  unit VARCHAR(64) NULL,
+  qualifier_json JSON NULL,
+  source_assertion_id VARCHAR(32) NOT NULL,
+  as_of DATETIME(6) NOT NULL,
+  confidence DECIMAL(5,4) NOT NULL,
+  resolution_reason VARCHAR(255) NOT NULL,
+  updated_at DATETIME(6) NOT NULL,
+  UNIQUE KEY uq_current_fact_container_conflict (container_tag, conflict_key),
+  INDEX idx_current_facts_container (container_tag, subject_entity_id, predicate, as_of)
+);
+
+CREATE TABLE IF NOT EXISTS benchmark_cases (
+  benchmark_case_row_id VARCHAR(96) PRIMARY KEY,
+  container_tag VARCHAR(128) NOT NULL DEFAULT 'default',
+  benchmark_case_id VARCHAR(64) NOT NULL,
+  benchmark_name VARCHAR(64) NOT NULL,
+  query_observation_id VARCHAR(32) NULL,
+  expected_answer_text LONGTEXT NULL,
+  expected_answer_json JSON NULL,
+  metadata_json JSON NULL,
+  created_at DATETIME(6) NOT NULL,
+  UNIQUE KEY uq_benchmark_case_container (container_tag, benchmark_case_id),
+  INDEX idx_benchmark_cases_container (container_tag, benchmark_name)
+);
+
+CREATE TABLE IF NOT EXISTS wiki_pages (
+  path VARCHAR(512) PRIMARY KEY,
+  title VARCHAR(512) NOT NULL,
+  page_type VARCHAR(64) NOT NULL,
+  entity_id VARCHAR(32) NULL,
+  episode_id VARCHAR(32) NULL,
+  body_md LONGTEXT NOT NULL,
+  outbound_links_json JSON NULL,
+  updated_at DATETIME(6) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS observation_vectors (
+  observation_id           VARCHAR(64) PRIMARY KEY,
+  container_tag            VARCHAR(128) NOT NULL,
+  observation_type         VARCHAR(64) NOT NULL,
+  content_text             MEDIUMTEXT NOT NULL,
+  embedding_model          VARCHAR(128) NOT NULL,
+  embedding                VECTOR(1536) NOT NULL,
+  created_at               DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+  updated_at               DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6),
+  KEY idx_obs_vec_container (container_tag, observation_type, updated_at),
+  CONSTRAINT fk_obs_vec_observation FOREIGN KEY (observation_id) REFERENCES observations (observation_id)
+);
+
+# Research References
+
+This directory stores fetched primary materials for the research notes under [`docs/`](/Users/navanchauhan/Developer/AGIHouse/MemoryStuff/memo-ree/docs).
+
+Contents:
+
+- `repos/`: shallow clones of the main open-source codebases referenced by the notes
+- `papers/`: downloaded PDFs for the core papers, system cards, and benchmarks
+- `web/`: official articles, docs, benchmark pages, and other cited web references
+
+Scope:
+
+- Included: primary papers, official project repositories, official docs/blogs, benchmark pages, and concrete implementation references
+- Excluded: Reddit threads, Medium posts, and other secondary commentary where a stronger primary source was already cited
+
+Re-fetch:
+
+```bash
+./references/fetch_gemini_research_sources.sh
+./references/fetch_openai_research_sources.sh
+```
+
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+mkdir -p "$ROOT_DIR/repos" "$ROOT_DIR/papers" "$ROOT_DIR/web"
+
+FAILED_DOWNLOADS=()
+
+clone_repo() {
+  local url="$1"
+  local name="$2"
+  local dest="$ROOT_DIR/repos/$name"
+
+  if [[ -d "$dest/.git" ]]; then
+    echo "Updating repo: $name"
+    git -C "$dest" fetch --depth 1 origin
+    git -C "$dest" pull --ff-only
+  else
+    echo "Cloning repo: $name"
+    git clone --depth 1 "$url" "$dest"
+  fi
+}
+
+download_file() {
+  local url="$1"
+  local dest="$2"
+
+  if [[ -f "$dest" ]]; then
+    echo "Skipping existing file: $(basename "$dest")"
+  else
+    echo "Downloading: $(basename "$dest")"
+    if ! curl -L --fail --retry 3 --output "$dest" "$url"; then
+      echo "Failed: $url"
+      rm -f "$dest"
+      FAILED_DOWNLOADS+=("$url")
+    fi
+  fi
+}
+
+# Core codebases referenced in the research document.
+clone_repo "https://github.com/letta-ai/letta.git" "letta"
+clone_repo "https://github.com/WooooDyy/LLM-Agent-Paper-List.git" "LLM-Agent-Paper-List"
+clone_repo "https://github.com/noahshinn/reflexion.git" "reflexion"
+clone_repo "https://github.com/Itakello/Co-voyager.git" "Co-voyager"
+clone_repo "https://github.com/agentralabs/agentic-memory.git" "agentic-memory"
+clone_repo "https://github.com/WujiangXu/A-mem-sys.git" "A-mem-sys"
+clone_repo "https://github.com/vectorize-io/hindsight.git" "hindsight"
+clone_repo "https://github.com/yjs/yjs.git" "yjs"
+clone_repo "https://github.com/plastic-labs/honcho.git" "honcho"
+clone_repo "https://github.com/campfirein/byterover-cli.git" "byterover-cli"
+clone_repo "https://github.com/mem0ai/mem0.git" "mem0"
+clone_repo "https://github.com/blackwell-systems/claudewatch.git" "claudewatch"
+
+# Primary papers and benchmark references.
+download_file "https://aclanthology.org/2025.acl-long.413.pdf" "$ROOT_DIR/papers/2025_acl_reflective_memory_management.pdf"
+download_file "https://arxiv.org/pdf/2310.08560.pdf" "$ROOT_DIR/papers/memgpt_towards_llms_as_operating_systems.pdf"
+download_file "https://arxiv.org/pdf/2504.19413.pdf" "$ROOT_DIR/papers/mem0_building_production_ready_ai_agents.pdf"
+download_file "https://arxiv.org/pdf/2506.06326.pdf" "$ROOT_DIR/papers/memory_os_of_ai_agent.pdf"
+download_file "https://aclanthology.org/2026.eacl-long.15.pdf" "$ROOT_DIR/papers/h_mem_hierarchical_memory.pdf"
+download_file "https://arxiv.org/pdf/2305.16291.pdf" "$ROOT_DIR/papers/voyager_open_ended_embodied_agent.pdf"
+download_file "https://arxiv.org/pdf/2502.12110.pdf" "$ROOT_DIR/papers/a_mem_agentic_memory_for_llm_agents.pdf"
+download_file "https://arxiv.org/pdf/2602.13530.pdf" "$ROOT_DIR/papers/remem_reasoning_with_episodic_memory.pdf"
+download_file "https://arxiv.org/pdf/2603.10062.pdf" "$ROOT_DIR/papers/multi_agent_memory_computer_architecture.pdf"
+download_file "https://arxiv.org/pdf/2510.18893.pdf" "$ROOT_DIR/papers/codecrdt_observation_driven_coordination.pdf"
+download_file "https://arxiv.org/pdf/2601.06377.pdf" "$ROOT_DIR/papers/himem_hierarchical_long_term_memory.pdf"
+download_file "https://arxiv.org/pdf/2604.01599.pdf" "$ROOT_DIR/papers/byterover_agent_native_memory.pdf"
+download_file "https://ojs.aaai.org/index.php/AAAI/article/download/40884/44845" "$ROOT_DIR/papers/span_cross_calendar_temporal_reasoning.pdf"
+download_file "https://arxiv.org/pdf/2602.13272.pdf" "$ROOT_DIR/papers/temporalbench_time_series_agents.pdf"
+download_file "https://arxiv.org/pdf/2601.04170.pdf" "$ROOT_DIR/papers/agent_drift_behavioral_degradation.pdf"
+
+# Official articles, docs, and benchmark pages that are cited directly.
+download_file "https://www.letta.com/blog/context-repositories" "$ROOT_DIR/web/letta_context_repositories.html"
+download_file "https://www.letta.com/blog/memgpt-and-letta" "$ROOT_DIR/web/letta_memgpt_and_letta.html"
+download_file "https://honcho.dev/" "$ROOT_DIR/web/honcho_dev_home.html"
+download_file "https://www.sigarch.org/multi-agent-memory-from-a-computer-architecture-perspective-visions-and-challenges-ahead/" "$ROOT_DIR/web/sigarch_multi_agent_memory.html"
+download_file "https://www.mongodb.com/company/blog/technical/why-multi-agent-systems-need-memory-engineering" "$ROOT_DIR/web/mongodb_memory_engineering.html"
+download_file "https://www.byterover.dev/blog/benchmark-ai-agent-memory" "$ROOT_DIR/web/byterover_benchmark_blog.html"
+download_file "https://mem0.ai/research" "$ROOT_DIR/web/mem0_research.html"
+download_file "https://mem0.ai/blog/state-of-ai-agent-memory-2026" "$ROOT_DIR/web/mem0_state_of_agent_memory_2026.html"
+download_file "https://microsoft.github.io/autogen/0.2/docs/notebooks/agentchat_memory_using_mem0/" "$ROOT_DIR/web/autogen_mem0_notebook.html"
+download_file "https://github.com/plastic-labs/honcho/raw/main/CLAUDE.md" "$ROOT_DIR/web/honcho_CLAUDE.md"
+download_file "https://patch-diff.githubusercontent.com/raw/NousResearch/hermes-agent/pull/3499.patch" "$ROOT_DIR/web/hermes_agent_pr_3499.patch"
+
+echo "Fetch complete."
+
+if ((${#FAILED_DOWNLOADS[@]} > 0)); then
+  echo
+  echo "Some downloads failed:"
+  printf ' - %s\n' "${FAILED_DOWNLOADS[@]}"
+  exit 1
+fi
+
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+mkdir -p "$ROOT_DIR/repos" "$ROOT_DIR/papers" "$ROOT_DIR/web"
+
+FAILED_DOWNLOADS=()
+
+clone_repo() {
+  local url="$1"
+  local name="$2"
+  local dest="$ROOT_DIR/repos/$name"
+
+  if [[ -d "$dest/.git" ]]; then
+    echo "Updating repo: $name"
+    git -C "$dest" fetch --depth 1 origin
+    git -C "$dest" pull --ff-only
+  else
+    echo "Cloning repo: $name"
+    git clone --depth 1 "$url" "$dest"
+  fi
+}
+
+download_file() {
+  local url="$1"
+  local dest="$2"
+
+  if [[ -f "$dest" ]]; then
+    echo "Skipping existing file: $(basename "$dest")"
+    return 0
+  fi
+
+  echo "Downloading: $(basename "$dest")"
+  if ! curl -L --fail --retry 3 \
+    -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36" \
+    -H "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8" \
+    --output "$dest" "$url"; then
+    echo "Failed: $url"
+    rm -f "$dest"
+    FAILED_DOWNLOADS+=("$url")
+  fi
+}
+
+# OpenAI codebases directly relevant to agentic research, deep research, and
+# the benchmark pages linked from OpenAI research posts.
+clone_repo "https://github.com/openai/openai-agents-python.git" "openai-agents-python"
+clone_repo "https://github.com/openai/openai-cookbook.git" "openai-cookbook"
+clone_repo "https://github.com/openai/simple-evals.git" "simple-evals"
+clone_repo "https://github.com/openai/frontier-evals.git" "frontier-evals"
+clone_repo "https://github.com/openai/evals.git" "openai-evals"
+clone_repo "https://github.com/openai/human-eval.git" "human-eval"
+
+# Primary papers, benchmark PDFs, and system cards.
+download_file "https://cdn.openai.com/deep-research-system-card.pdf" "$ROOT_DIR/papers/openai_deep_research_system_card.pdf"
+download_file "https://cdn.openai.com/API/docs/deep_research_blog.pdf" "$ROOT_DIR/papers/openai_deep_research_blog.pdf"
+download_file "https://cdn.openai.com/pdf/5e10f4ab-d6f7-442e-9508-59515c65e35d/browsecomp.pdf" "$ROOT_DIR/papers/openai_browsecomp.pdf"
+download_file "https://arxiv.org/pdf/2504.01848.pdf" "$ROOT_DIR/papers/openai_paperbench.pdf"
+download_file "https://arxiv.org/pdf/2502.12115.pdf" "$ROOT_DIR/papers/openai_swe_lancer.pdf"
+download_file "https://cdn.openai.com/pdf/bd7a39d5-9e9f-47b3-903c-8b847ca650c7/healthbench_paper.pdf" "$ROOT_DIR/papers/openai_healthbench.pdf"
+download_file "https://cdn.openai.com/papers/simpleqa.pdf" "$ROOT_DIR/papers/openai_simpleqa.pdf"
+download_file "https://cdn.openai.com/pdf/839e66fc-602c-48bf-81d3-b21eacc3459d/chatgpt_agent_system_card.pdf" "$ROOT_DIR/papers/openai_chatgpt_agent_system_card.pdf"
+
+# Official OpenAI web references.
+download_file "https://r.jina.ai/http://openai.com/research/" "$ROOT_DIR/web/openai_research_overview.md"
+download_file "https://r.jina.ai/http://openai.com/index/introducing-deep-research/" "$ROOT_DIR/web/openai_introducing_deep_research.md"
+download_file "https://developers.openai.com/api/docs/guides/deep-research" "$ROOT_DIR/web/openai_deep_research_api_guide.html"
+download_file "https://academy.openai.com/public/resources/deep-research" "$ROOT_DIR/web/openai_academy_deep_research.html"
+download_file "https://r.jina.ai/http://openai.com/index/browsecomp/" "$ROOT_DIR/web/openai_browsecomp.md"
+download_file "https://r.jina.ai/http://openai.com/index/paperbench/" "$ROOT_DIR/web/openai_paperbench.md"
+download_file "https://r.jina.ai/http://openai.com/index/swe-lancer/" "$ROOT_DIR/web/openai_swe_lancer.md"
+download_file "https://r.jina.ai/http://openai.com/index/healthbench/" "$ROOT_DIR/web/openai_healthbench.md"
+download_file "https://r.jina.ai/http://openai.com/index/introducing-simpleqa/" "$ROOT_DIR/web/openai_simpleqa.md"
+download_file "https://r.jina.ai/http://openai.com/index/introducing-chatgpt-agent/" "$ROOT_DIR/web/openai_chatgpt_agent.md"
+download_file "https://r.jina.ai/http://openai.com/index/chatgpt-agent-system-card/" "$ROOT_DIR/web/openai_chatgpt_agent_system_card.md"
+download_file "https://r.jina.ai/http://openai.com/index/memory-and-new-controls-for-chatgpt" "$ROOT_DIR/web/openai_chatgpt_memory_controls.md"
+download_file "https://r.jina.ai/http://help.openai.com/en/articles/8590148-memory-faq" "$ROOT_DIR/web/openai_memory_faq.md"
+download_file "https://r.jina.ai/http://help.openai.com/en/articles/10169521" "$ROOT_DIR/web/openai_projects_in_chatgpt.md"
+
+echo "Fetch complete."
+
+if ((${#FAILED_DOWNLOADS[@]} > 0)); then
+  echo
+  echo "Some downloads failed:"
+  printf ' - %s\n' "${FAILED_DOWNLOADS[@]}"
+  exit 1
+fi
+
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import argparse
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+
+from memo_ree.proxy import ProxyConfig, serve_proxy
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Run the memo-ree OpenAI-compatible proxy with memory injection.")
+    parser.add_argument("--host", default="127.0.0.1")
+    parser.add_argument("--port", type=int, default=8790)
+    parser.add_argument("--upstream-base-url", default=None)
+    args = parser.parse_args()
+
+    config = ProxyConfig.from_env()
+    if args.upstream_base_url:
+        config.upstream_base_url = args.upstream_base_url
+    serve_proxy(host=args.host, port=args.port, config=config)
+
+
+if __name__ == "__main__":
+    main()
+
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import argparse
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+
+from memo_ree.compiler import MemoryCompiler
+from memo_ree.cxdb import ingest_cxdb_context
+from memo_ree.tidb import TiDBClient, TiDBConfig
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description="Ingest temporal memory sources into TiDB.")
+    parser.add_argument("--self-name", default="Navan")
+    parser.add_argument("--container-tag", default="default")
+    subparsers = parser.add_subparsers(dest="command", required=True)
+
+    health = subparsers.add_parser("vault-health", help="Ingest Apple Health observations from The Vault SQLite DB.")
+    health.add_argument("--vault-sqlite", required=True)
+    health.add_argument("--limit", type=int, default=None)
+
+    bookmarks = subparsers.add_parser("vault-twitter-bookmarks", help="Ingest Twitter bookmark observations from The Vault SQLite DB.")
+    bookmarks.add_argument("--vault-sqlite", required=True)
+    bookmarks.add_argument("--limit", type=int, default=None)
+
+    benchmark = subparsers.add_parser("longmemeval", help="Ingest LongMemEval-style benchmark JSONL.")
+    benchmark.add_argument("--jsonl", required=True)
+    benchmark.add_argument("--limit", type=int, default=None)
+
+    cxdb = subparsers.add_parser("cxdb-context", help="Ingest one CXDB context over the HTTP API.")
+    cxdb.add_argument("--cxdb-url", default="http://127.0.0.1:9010")
+    cxdb.add_argument("--context-id", required=True)
+
+    return parser
+
+
+def main() -> None:
+    parser = build_parser()
+    args = parser.parse_args()
+    client = TiDBClient(TiDBConfig.from_env())
+    compiler = MemoryCompiler(client, self_name=args.self_name)
+
+    try:
+        if args.command == "vault-health":
+            stats = compiler.ingest_vault_health(args.vault_sqlite, limit=args.limit, container_tag=args.container_tag)
+        elif args.command == "vault-twitter-bookmarks":
+            stats = compiler.ingest_vault_twitter_bookmarks(args.vault_sqlite, limit=args.limit, container_tag=args.container_tag)
+        elif args.command == "longmemeval":
+            stats = compiler.ingest_longmemeval_style(args.jsonl, limit=args.limit, container_tag=args.container_tag)
+        elif args.command == "cxdb-context":
+            stats = ingest_cxdb_context(
+                compiler,
+                cxdb_url=args.cxdb_url,
+                context_id=args.context_id,
+                container_tag=args.container_tag,
+            )
+        else:
+            raise ValueError(f"Unknown command: {args.command}")
+    finally:
+        client.close()
+
+    print(stats)
+
+
+if __name__ == "__main__":
+    main()
+
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import os
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+
+from memo_ree.tidb import TiDBClient, TiDBConfig
+
+
+def _rewrite_schema_for_database(sql_text: str, database: str) -> str:
+    statements: list[str] = []
+    for raw_statement in sql_text.split(";"):
+        statement = raw_statement.strip()
+        if not statement:
+            continue
+        upper = statement.upper()
+        if upper.startswith("CREATE DATABASE IF NOT EXISTS "):
+            statements.append(f"CREATE DATABASE IF NOT EXISTS {database}")
+            continue
+        if upper.startswith("USE "):
+            statements.append(f"USE {database}")
+            continue
+        statements.append(statement)
+    return ";\n\n".join(statements) + ";\n"
+
+
+def main() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    schema_paths = sorted((repo_root / "sql").glob("*.sql"))
+    base = TiDBConfig.from_env()
+    bootstrap_database = os.environ.get("TIDB_BOOTSTRAP_DATABASE", "mysql")
+    client = TiDBClient(
+        TiDBConfig(
+            host=base.host,
+            port=base.port,
+            user=base.user,
+            password=base.password,
+            database=bootstrap_database,
+            ssl_ca=base.ssl_ca,
+            ssl_verify_identity=base.ssl_verify_identity,
+        )
+    )
+    try:
+        for schema_path in schema_paths:
+            sql_text = schema_path.read_text(encoding="utf-8")
+            rewritten = _rewrite_schema_for_database(sql_text, base.database)
+            temp_path = repo_root / ".tmp_bootstrap_schema.sql"
+            temp_path.write_text(rewritten, encoding="utf-8")
+            try:
+                client.execute_schema_file(temp_path)
+            finally:
+                temp_path.unlink(missing_ok=True)
+            print(f"Applied schema from {schema_path}")
+    finally:
+        client.close()
+
+
+if __name__ == "__main__":
+    main()
+
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import argparse
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+
+from memo_ree.composer import QueryTimeMemoryComposer, TemporalMemoryAnswerer
+from memo_ree.tidb import TiDBClient, TiDBConfig
+
+
+DEFAULT_QUESTIONS = [
+    "What is my latest heart rate reading?",
+    "Where do I live now?",
+    "Where do I work now?",
+    "What domains have I bookmarked recently?",
+]
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Show personal-context answers and composed system memory.")
+    parser.add_argument("questions", nargs="*", default=DEFAULT_QUESTIONS)
+    parser.add_argument("--self-name", default="Navan")
+    parser.add_argument("--container-tag", default="default")
+    args = parser.parse_args()
+
+    client = TiDBClient(TiDBConfig.from_env())
+    answerer = TemporalMemoryAnswerer(QueryTimeMemoryComposer(client, self_name=args.self_name, default_container_tag=args.container_tag))
+    try:
+        for question in args.questions:
+            answer, memory = answerer.answer(question, container_tag=args.container_tag)
+            print(f"Q: {question}")
+            print(f"A: {answer}")
+            print(memory.to_xml())
+            print()
+    finally:
+        client.close()
+
+
+if __name__ == "__main__":
+    main()
+
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import os
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+
+from memo_ree.tidb import TiDBClient, TiDBConfig
+
+
+def _rewrite_schema_for_database(sql_text: str, database: str) -> str:
+    statements: list[str] = []
+    for raw_statement in sql_text.split(";"):
+        statement = raw_statement.strip()
+        if not statement:
+            continue
+        upper = statement.upper()
+        if upper.startswith("CREATE DATABASE IF NOT EXISTS "):
+            statements.append(f"CREATE DATABASE IF NOT EXISTS {database}")
+            continue
+        if upper.startswith("USE "):
+            statements.append(f"USE {database}")
+            continue
+        statements.append(statement)
+    return ";\n\n".join(statements) + ";\n"
+
+
+def main() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    schema_paths = sorted((repo_root / "sql").glob("*.sql"))
+    base = TiDBConfig.from_env()
+    bootstrap_database = os.environ.get("TIDB_BOOTSTRAP_DATABASE", "mysql")
+    client = TiDBClient(
+        TiDBConfig(
+            host=base.host,
+            port=base.port,
+            user=base.user,
+            password=base.password,
+            database=bootstrap_database,
+            ssl_ca=base.ssl_ca,
+            ssl_verify_identity=base.ssl_verify_identity,
+        )
+    )
+    try:
+        for schema_path in schema_paths:
+            sql_text = schema_path.read_text(encoding="utf-8")
+            rewritten = _rewrite_schema_for_database(sql_text, base.database)
+            temp_path = repo_root / ".tmp_bootstrap_schema.sql"
+            temp_path.write_text(rewritten, encoding="utf-8")
+            try:
+                client.execute_schema_file(temp_path)
+            finally:
+                temp_path.unlink(missing_ok=True)
+            print(f"Applied schema from {schema_path}")
+    finally:
+        client.close()
+
+
+if __name__ == "__main__":
+    main()
+
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import argparse
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+
+from memo_ree.fs_projection import FilesystemProjection
+from memo_ree.tidb import TiDBClient, TiDBConfig
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Materialize a read-only local filesystem projection of memo-ree.")
+    parser.add_argument("--container-tag", default="default")
+    parser.add_argument("--root-dir", default=".memo_ree_mount")
+    args = parser.parse_args()
+
+    client = TiDBClient(TiDBConfig.from_env())
+    try:
+        stats = FilesystemProjection(client).materialize(root_dir=args.root_dir, container_tag=args.container_tag)
+    finally:
+        client.close()
+    print(stats)
+
+
+if __name__ == "__main__":
+    main()
+
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import argparse
+import shutil
+from pathlib import Path
+
+
+def patch_once(path: Path, old: str, new: str) -> None:
+    text = path.read_text(encoding="utf-8")
+    if new in text:
+        return
+    if old not in text:
+        raise RuntimeError(f"Expected snippet not found in {path}")
+    path.write_text(text.replace(old, new), encoding="utf-8")
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Install the memo-ree provider into a MemoryBench checkout.")
+    parser.add_argument("--memorybench-dir", required=True)
+    args = parser.parse_args()
+
+    repo_root = Path(__file__).resolve().parents[1]
+    source_dir = repo_root / "integrations" / "memorybench" / "memoree"
+    target_root = Path(args.memorybench_dir).resolve()
+    target_provider_dir = target_root / "src" / "providers" / "memoree"
+    target_provider_dir.mkdir(parents=True, exist_ok=True)
+
+    for filename in ("index.ts", "prompts.ts"):
+        shutil.copy2(source_dir / filename, target_provider_dir / filename)
+
+    provider_types = target_root / "src" / "types" / "provider.ts"
+    patch_once(
+        provider_types,
+        'export type ProviderName = "supermemory" | "mem0" | "zep" | "filesystem" | "rag"',
+        'export type ProviderName = "supermemory" | "mem0" | "zep" | "filesystem" | "rag" | "memoree"',
+    )
+
+    providers_index = target_root / "src" / "providers" / "index.ts"
+    patch_once(
+        providers_index,
+        'import { RAGProvider } from "./rag"',
+        'import { RAGProvider } from "./rag"\nimport { MemoReeProvider } from "./memoree"',
+    )
+    patch_once(
+        providers_index,
+        '  rag: RAGProvider,\n}',
+        '  rag: RAGProvider,\n  memoree: MemoReeProvider,\n}',
+    )
+    patch_once(
+        providers_index,
+        'export { SupermemoryProvider, Mem0Provider, ZepProvider, FilesystemProvider, RAGProvider }',
+        'export { SupermemoryProvider, Mem0Provider, ZepProvider, FilesystemProvider, RAGProvider, MemoReeProvider }',
+    )
+
+    config_file = target_root / "src" / "utils" / "config.ts"
+    patch_once(
+        config_file,
+        "  googleApiKey: string\n}",
+        "  googleApiKey: string\n  memoReeApiKey: string\n  memoReeBaseUrl: string\n}",
+    )
+    patch_once(
+        config_file,
+        '  googleApiKey: process.env.GOOGLE_API_KEY || "",\n}',
+        '  googleApiKey: process.env.GOOGLE_API_KEY || "",\n  memoReeApiKey: process.env.MEMO_REE_API_KEY || "none",\n  memoReeBaseUrl: process.env.MEMO_REE_BASE_URL || "http://127.0.0.1:8787",\n}',
+    )
+    patch_once(
+        config_file,
+        '    case "rag":\n      return { apiKey: config.openaiApiKey } // RAG provider uses OpenAI for embeddings\n',
+        '    case "rag":\n      return { apiKey: config.openaiApiKey } // RAG provider uses OpenAI for embeddings\n    case "memoree":\n      return { apiKey: config.memoReeApiKey, baseUrl: config.memoReeBaseUrl }\n',
+    )
+
+    cli_index = target_root / "src" / "cli" / "index.ts"
+    patch_once(
+        cli_index,
+        "  rag            Hybrid RAG memory (OpenClaw/QMD style)\n                 Extracts memories via LLM, chunks + embeds extracted content, hybrid BM25 + vector search.\n                 Requires: OPENAI_API_KEY (for memory extraction via gpt-4o-mini + embeddings)\n",
+        "  rag            Hybrid RAG memory (OpenClaw/QMD style)\n                 Extracts memories via LLM, chunks + embeds extracted content, hybrid BM25 + vector search.\n                 Requires: OPENAI_API_KEY (for memory extraction via gpt-4o-mini + embeddings)\n\n  memoree        TiDB-backed temporal memory compiler with query-time system_memory composition\n                 Requires: MEMO_REE_BASE_URL (local API) and model keys for MemoryBench answer/judge phases\n",
+    )
+    patch_once(
+        cli_index,
+        "  -p rag            Use hybrid RAG memory (OpenClaw/QMD style)\n",
+        "  -p rag            Use hybrid RAG memory (OpenClaw/QMD style)\n  -p memoree        Use memo-ree via the local benchmark API\n",
+    )
+
+    print(f"Installed memo-ree provider into {target_root}")
+    print("Next steps:")
+    print("  1. Start the local API: uv run python scripts/serve_benchmark_api.py --port 8787")
+    print("  2. Set MEMO_REE_BASE_URL=http://127.0.0.1:8787")
+    print("  3. Run MemoryBench with provider `memoree`")
+
+
+if __name__ == "__main__":
+    main()
+
+#!/usr/bin/env python3
+from __future__ import annotations
+
+import argparse
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+
+from memo_ree.benchmark import BenchmarkEvaluator
+from memo_ree.composer import QueryTimeMemoryComposer
+from memo_ree.tidb import TiDBClient, TiDBConfig
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="Compare flat observation retrieval vs temporal memory.")
+    parser.add_argument("--limit", type=int, default=100)
+    parser.add_argument("--self-name", default="Navan")
+    parser.add_argument("--container-tag", default="default")
+    args = parser.parse_args()
+
+    client = TiDBClient(TiDBConfig.from_env())
+    try:
+        evaluator = BenchmarkEvaluator(client, QueryTimeMemoryComposer(client, self_name=args.self_name, default_container_tag=args.container_tag))
+        results = evaluator.evaluate(limit=args.limit, container_tag=args.container_tag)
+        for label, result in results.items():
+            print(f"{label}: {result.correct}/{result.total} = {result.accuracy:.3f}")
+            for row in result.rows:
+                print(f"  {row['case_id']}: expected={row['expected']!r} answer={row['answer']!r} correct={row['correct']}")
+    finally:
+        client.close()
+
+
+if __name__ == "__main__":
+    main()
