@@ -1,0 +1,97 @@
+{
+  "schema_version": "0.1.0",
+  "equation_id": "STD-GEO-S3X3-R4-0001",
+  "title": "Common carrier of three equal 3-spheres in four-dimensional Euclidean space",
+  "authority": {
+    "status": "authoritative_standard_input",
+    "source": "Standard Euclidean analytic geometry"
+  },
+  "equations": [
+    {
+      "label": "shell_constraints",
+      "expression": "F_a(x) = ||x-c_a||^2 - R^2 = 0, a=1,2,3"
+    },
+    {
+      "label": "carrier_radius",
+      "expression": "rho = sqrt(R^2 - d^2/3)"
+    },
+    {
+      "label": "carrier_circumference",
+      "expression": "C = 2*pi*rho"
+    }
+  ],
+  "variables": [
+    {
+      "symbol": "x",
+      "role": "ambient point",
+      "unit": "normalized_length",
+      "dimensions": {"M": 0, "L": 1, "T": 0}
+    },
+    {
+      "symbol": "R",
+      "role": "common shell radius",
+      "unit": "normalized_length",
+      "dimensions": {"M": 0, "L": 1, "T": 0}
+    },
+    {
+      "symbol": "d",
+      "role": "equilateral center separation",
+      "unit": "normalized_length",
+      "dimensions": {"M": 0, "L": 1, "T": 0}
+    },
+    {
+      "symbol": "rho",
+      "role": "intersection carrier radius",
+      "unit": "normalized_length",
+      "dimensions": {"M": 0, "L": 1, "T": 0}
+    }
+  ],
+  "domain": {
+    "ambient_space": "R^4",
+    "ambient_dimension": 4,
+    "shell_type": "S^3",
+    "expected_regular_intersection": "S^1"
+  },
+  "assumptions": [
+    "All three shells have equal radius R.",
+    "The three centers form an equilateral triangle of side d.",
+    "The shell equations are independent on the regular carrier.",
+    "The calculation is Euclidean and dimensionless until an external scale is supplied."
+  ],
+  "symmetries": [
+    "Global translation invariance",
+    "Global O(4) invariance",
+    "Permutation symmetry of the three equal shells"
+  ],
+  "constraints": [
+    "0 < d < sqrt(3) R for a regular S^1 carrier",
+    "rank(J) = 3 on the regular carrier"
+  ],
+  "boundary_conditions": [
+    "The carrier is closed."
+  ],
+  "known_solution": {
+    "kind": "analytic",
+    "carrier_topology": "S^1",
+    "carrier_radius": "sqrt(R^2-d^2/3)",
+    "carrier_circumference": "2*pi*sqrt(R^2-d^2/3)",
+    "bifurcation": "d=sqrt(3)R"
+  },
+  "empirical_anchors": [],
+  "mapping_request": {
+    "backend": "spherical_constraint",
+    "parameters": {
+      "R": 1.0,
+      "d": 1.0,
+      "trace_step": 0.025,
+      "radius_rate": 0.1,
+      "internal_speed": 0.25
+    }
+  },
+  "tolerances": {
+    "constraint_absolute": 1e-10,
+    "radius_relative": 1e-8,
+    "circumference_relative": 0.002,
+    "velocity_relative": 1e-9
+  }
+}

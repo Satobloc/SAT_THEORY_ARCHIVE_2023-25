@@ -1,0 +1,42 @@
+# SAT/H(s)H Core Equation Ledger v0.1.0
+# Classification: CORE
+# Environment: sat_core_311
+# Integrity Lock: SHA-256 Pending
+
+constants:
+  - id: SPIN_PIN_W0
+    name: Ground-State Winding Number
+    expression_ascii: "(2.0 * 1.5) / (2 * 3.141592653589793)"
+    expression_latex: 'W = \frac{\omega_{min} \Delta t}{2\pi}'
+    value: 0.477464829275686
+    symbols: [W, omega_min, delta_t]
+    dimensions: dimensionless
+    status: derived_pending_audit
+    notes: "Measured ground state of electron-diameter FCC cluster. Note: ~4.5% deviation from Spin-1/2 (0.5) target; requires resolution of scale-recursion defect (Delta_s)."
+
+  - id: STABILITY_PIN_HYS
+    name: Hadronic Hysteresis Width
+    expression_ascii: "3.16 - 2.45"
+    expression_latex: '\Delta K_{hys} = K_{c1} - K_{c2}'
+    value: 0.71
+    symbols: [delta_K_hys, Kc1, Kc2]
+    dimensions: dimensionless
+    status: accepted_core
+    notes: "Defines mechanical threshold for fermionic persistence."
+
+  - id: ALPHA_PIN_GEO
+    name: Geometric Coupling Efficiency
+    expression_ascii: "1 / (24 * 8 / 2)"
+    expression_latex: '\gamma = \frac{1}{96}'
+    value: 0.010416666666666666
+    symbols: [gamma]
+    dimensions: dimensionless
+    status: accepted_core
+    notes: "Corrected 24-cell edges (96). Note: 43% relative difference from Alpha (0.0073); discrepancy assigned to candidate Achromatic Phase Snap (Phi) correction."
+
+  - id: SCALE_PIN_COMPTON
+    name: Compton Wavelength Anchor
+    value: 3.8615926764e-13
+    dimensions: meters
+    status: accepted_core
+    notes: "Reduced Compton Wavelength (hbar/m_ec). Renamed per QED point-particle 
