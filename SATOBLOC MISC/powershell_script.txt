@@ -1,0 +1,15 @@
+Get-ChildItem -Recurse -file |
+Select-Object FullName, CreationTime |
+Sort-Object CreationTime |
+Format-Table FullName, CreationTime -AutoSize |
+Out-File FileIndex.txt
+
+Get-ChildItem -Recurse -File |
+    Select-Object FullName, CreationTime, LastWriteTime, LastAccessTime |
+    Sort-Object LastWriteTime |
+    Export-Csv FileIndex.csv -NoTypeInformation
+
+
+
+
+
