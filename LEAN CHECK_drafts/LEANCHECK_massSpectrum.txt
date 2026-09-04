@@ -1,0 +1,45 @@
+# ========================================================================
+# Interactive SAT.O–Blockwave Mass Spectrum
+# ========================================================================
+
+import numpy as np
+import matplotlib.pyplot as plt
+from ipywidgets import interact, FloatSlider, IntSlider
+from mpl_toolkits.mplot3d import Axes3D
+
+def plot_mass_spectrum(T_tension, ell_f, C, g1, M_sq, E_overlap, k, beta, a):
+    Q_values = np.arange(1, 6, 1)
+    N_values = np.arange(0, 6, 1)
+    
+    m0 = T_tension * ell_f / (3e8)**2
+    m_ind = C * g1**2 / M_sq * E_overlap
+    
+    m_grid = np.zeros((len(Q_values), len(N_values)))
+    for i, Q in enumerate(Q_values):
+        m_topo = m0 / Q
+        for j, N in enumerate(N_values):
+            m_grid[i,j] = m_topo + m_ind + np.sqrt(k * (N + beta * Q**2 - a))
+    
+    Q_mesh, N_mesh = np.meshgrid(Q_values, N_values)
+    fig = plt.figure(figsize=(10,7))
+    ax = fig.add_subplot(111, projection='3d')
+    surf = ax.plot_surface(Q_mesh, N_mesh, m_grid.T, cmap='viridis', edgecolor='k', alpha=0.9)
+    ax.set_xlabel('Topological Charge Q')
+    ax.set_ylabel('Excitation Number N')
+    ax.set_zlabel('Effective Mass m_eff (kg)')
+    ax.set_title('Interactive SAT.O–Blockwave Mass Spectrum')
+    fig.colorbar(surf, shrink=0.5, aspect=5, label='Mass contribution')
+    plt.show()
+
+interact(
+    plot_mass_spectrum,
+    T_tension=FloatSlider(value=1e22, min=1e20, max=1e23, step=1e20, description='Tension T'),
+    ell_f=FloatSlider(value=1e-35, min=1e-36, max=1e-34, step=1e-36, description='Filament l_f'),
+    C=FloatSlider(value=1.0, min=0.1, max=5.0, step=0.1),
+    g1=FloatSlider(value=0.01, min=0.001, max=0.1, step=0.001),
+    M_sq=FloatSlider(value=1e18, min=1e15, max=1e20, step=1e15),
+    E_overlap=FloatSlider(value=1e-5, min=1e-6, max=1e-3, step=1e-6),
+    k=FloatSlider(value=1.0, min=0.1, max=5.0, step=0.1),
+    beta=FloatSlider(value=1.0, min=0.1, max=5.0, step=0.1),
+    a=FloatSlider(value=0.0, min=0.0, max=5.0, step=0.1)
+)

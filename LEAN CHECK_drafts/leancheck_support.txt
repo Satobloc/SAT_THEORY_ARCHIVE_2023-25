@@ -1,0 +1,60 @@
+-- ========================================================================
+-- Minimal SAT.O Stubs for Lean_Dojo
+-- Provides tensor, spinor, manifold, and differential operator placeholders
+-- ========================================================================
+
+-- Basic scalar/vector/tensor types
+class real_tensors (T : Type)
+class field_structure (L : Type)
+class mass_density (M : Type)
+
+-- 4D manifold and tensor stubs
+class manifold_4D (M : Type)
+structure tensor_type (cov : ℕ) (contrav : ℕ) := (dummy : unit)
+
+-- Spinor stub
+structure spinor := (dummy : unit)
+
+-- 4-vector stub
+structure vector_4D := (components : fin 4 → ℝ)
+
+-- 3D vector stub
+structure vector (dim : Type) := (components : dim → ℝ)
+def vector.norm_sq {dim : Type} (v : vector dim) : ℝ := 0 -- placeholder
+def grad {dim : Type} (f : ℝ) : vector dim := ⟨λ _, 0⟩
+def div {dim : Type} (v : vector dim) : ℝ := 0
+def laplace {dim : Type} (f : ℝ) : ℝ := 0
+
+-- 4D covariant derivatives and Dirac operators
+def D_mu (Ψ : spinor) : spinor := Ψ
+def gamma_mu : ℝ := 0
+
+-- Differential operators
+def dt (f : ℝ) : ℝ := 0
+def partial_mu (f : vector_4D) : ℝ := 0
+
+-- Integral stubs
+def integral (f : ℝ) : ℝ := 0
+def integral_4D (f : ℝ) : ℝ := 0
+def sqrt_neg_g : ℝ := 1 -- placeholder for sqrt(-det(g_μν))
+
+-- Field theory typeclass stub
+class field_theory_L (L : Type)
+
+-- Placeholder constants
+def pi := 3.141592653589793
+def c := 299792458.0
+def hbar := 1.054571817e-34
+def G_ind := 6.67430e-11
+
+-- Logical helpers
+def EOM_satisfied (phi_a : ℝ) : Prop := true
+
+-- Dummy linear algebra helpers
+instance : has_dot (vector 4) (vector 4) ℝ := ⟨λ v1 v2, 0⟩
+
+-- Tensor arithmetic placeholders
+instance : has_add (tensor_type 0 2) := ⟨λ t1 t2, ⟨()⟩⟩
+instance : has_mul ℝ (tensor_type 0 2) := ⟨λ r t, ⟨()⟩⟩
+
+-- End of minimal stubs
