@@ -30,7 +30,7 @@ If my work has been at all helpful to you, please consider a small donation. It 
 
 <p>As of 31 May 2026: currently considering going back to school, possibly for remedial math and/or formal physics preparation. Program recommendations welcome.</p>
 
-<p>Contact: <a href="mailto:nathanmcknight@gmail.com">nathanmcknight@gmail.com</a></p>
+<p>Contact: <a href="mailto:scalarangulartheory@gmail.com">scalarangulartheory@gmail.com</a></p>
 
 <p>Feel free to clone or fork. If you use, publish, or build on anything here, please cite me. If you find anything useful, interesting, or broken, drop a comment. I’m always open to a good conversation.</p>
   </section>
@@ -44,7 +44,7 @@ If my work has been at all helpful to you, please consider a small donation. It 
 
 <p>This is a working archive, not a polished paper. It contains native notes, AI-assisted drafts, speculative branches, formalization attempts, prediction records, critique cycles, visual aids, and process artifacts. Not every file is equally central. Not every claim is equally mature. Some documents preserve false starts or abandoned branches because those are part of the history.</p>
 
-<p>Direct questions to Nathan McKnight: <a href="mailto:nathanmcknight@gmail.com">nathanmcknight@gmail.com</a></p>
+<p>Direct questions to Nathan McKnight: <a href="mailto:scalarangulartheory@gmail.com">scalarangulartheory@gmail.com</a></p>
   </section>
 <hr>
 A QUOTE FROM AN EARLY VISITOR (USEFUL PRE-ORIENTATION READING)
