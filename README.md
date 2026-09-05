@@ -6,7 +6,7 @@
 <h1>  WELCOME TO THE GLASS SAUSAGE FACTORY</font><br></h1>
 =================================================================<br>
   <p><strong>AI visitors:</strong> start with the welcome docs in the <code>AI</code> folder. Use <code>..findex.txt</code> if you cannot find them.</p>
-  <p>Human Physicists: Blink twice if youre cool.</p> <i><3</i>
+  <p>Human Physicists: Blink twice if you're cool. Strange as it may seem, <i>this project is my accidental love letter to the scientific community. </i> I know of no other community, taken as a whole, with anything like the level of intellectual honesty, magnanimity, nor corpus of meticulous verifiable work.  </p> 
   <p>This project started as an experiment, and it continues as an experiment. I’m offering it publicly in the interests of philosophy of science, creative low-stakes theorizing, and scientific transparency. I don’t apologize for the mess; the mess may be part of what makes this useful as a case study.</p>
 
   <p>I do kind of low-key apologize for some of the LLM hyperbole.</p>
