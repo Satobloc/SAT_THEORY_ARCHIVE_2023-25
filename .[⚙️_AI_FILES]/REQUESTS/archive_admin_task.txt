@@ -1,8 +1,10 @@
 # Archive Admin request file
-# Triggered by SAT Gitkeeper to run SAT mention extraction through the proven Archive Admin path.
+# REQUEST_ID: 2026-09-05_full_root_reindex_001
+# REQUEST_PURPOSE: Refresh the full root structural index after the late H(s)H material upload.
 
-TASK: TAG_SAT_MENTIONS
-MAX_FILES: 250
-MAX_RUNTIME_SECONDS: 120
-INCLUDE_AI_FILES: NO
-SUFFIX: test
+TASK: INDEX_FOLDER
+TARGET: .
+MAX_DEPTH: 8
+MAX_ENTRIES: 50000
+INCLUDE_CONTROL_FOLDERS: NO
+INCLUDE_GENERATED_INDEXES: NO
