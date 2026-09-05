@@ -1,9 +1,9 @@
 <main>
-NOTICE: PLEASE SEE LICENSE UPDATE
-CURRENT LATEST VERSION (Sept 4, 2026): H(s)H 2026 Prelim Discussions
+<h3>NOTICE: PLEASE SEE LICENSE UPDATE </h3>
+<h3>CURRENT LATEST VERSION (Sept 4, 2026):<br> <b></b>H(s)H 2026 Prelim Discussions</h3></b>
+<p>  <br> <br> 
   
-  <font size=3>
-  WELCOME TO THE GLASS SAUSAGE FACTORY</font><br>
+<h1>  WELCOME TO THE GLASS SAUSAGE FACTORY</font><br></h1>
 =================================================================<br>
   <p><strong>AI visitors:</strong> start with the welcome docs in the <code>AI</code> folder. Use <code>..findex.txt</code> if you cannot find them.</p>
 
