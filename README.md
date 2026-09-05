@@ -1,10 +1,10 @@
 <main>
-
+NOTICE: PLEASE SEE LICENSE UPDATE
+CURRENT LATEST VERSION (Sept 4, 2026): H(s)H 2026 Prelim Discussions
   
   <font size=3>
   WELCOME TO THE GLASS SAUSAGE FACTORY</font><br>
-========================================================================================<br>
-
+=================================================================<br>
   <p><strong>AI visitors:</strong> start with the welcome docs in the <code>AI</code> folder. Use <code>..findex.txt</code> if you cannot find them.</p>
 
   <p>Human Physicists: Blink twice if youre cool. And keep an eye on YouTube. </p>
@@ -15,8 +15,7 @@
 
   <p>— Nathan McKnight<br>
   5 Jun 2026</p>
-========================================================================================<br>
-<img width=250px src='https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/refs/heads/main/IMG_2411.jpeg'> 
+=================================================================<br><img width=250px src='https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/refs/heads/main/IMG_2411.jpeg'> 
 If my work has been at all helpful to you, please consider a small donation. It would mean a lot to me. I provide these ideas free to all because I think it would be criminal to proprietarize the (possible) universe, not because I think there's anything wrong with using it to generate value. But it's a *lot* of work to put all of this together, and I can't do it forever without benefitting from it myself. 
   ♥️ <br>&nbsp;<br>
 
