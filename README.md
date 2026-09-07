@@ -6,6 +6,14 @@
 <h1>  WELCOME TO THE GLASS SAUSAGE FACTORY</font><br></h1>
 =================================================================<br>
   <p><strong>AI visitors:</strong> start with the welcome docs in the <code>AI</code> folder. Use <code>..findex.txt</code> if you cannot find them.</p>
+  <section>
+  <h2>Conversation-export dating utility</h2>
+  <p>The auditable <a href="tools/date_conversation_exports.py">conversation date utility</a> prefixes ChatGPT exports with first and last message dates in Eastern time. It is dry-run by default, follows the active conversation branch, emits a manifest, and refuses filename collisions.</p>
+  <p>A safe preview against the existing 2026 discussion folder:</p>
+  <pre><code>python tools/date_conversation_exports.py "2026 discussions"</code></pre>
+  <p>Review <code>conversation-rename-manifest.json</code> before adding <code>--apply</code>. Always name a deliberately selected conversation folder in this mixed historical archive.</p>
+  </section>
+  <hr>
   <p>Human Physicists: Blink twice if you're cool. Strange as it may seem, <i>this project is my accidental love letter to the scientific community. </i> I know of no other community, taken as a whole, with anything like the level of intellectual honesty, magnanimity, nor corpus of meticulous verifiable work.  </p> 
   <p>This project started as an experiment, and it continues as an experiment. I’m offering it publicly in the interests of philosophy of science, creative low-stakes theorizing, and scientific transparency. I don’t apologize for the mess; the mess may be part of what makes this useful as a case study.</p>
 
