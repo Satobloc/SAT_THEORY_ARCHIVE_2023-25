@@ -1,0 +1,66 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{geometry}
+\geometry{margin=1in}
+\title{SAT Quantum Mass Coupling Module (QMC)}
+\date{June 2025}
+
+\begin{document}
+\maketitle
+
+\section*{Overview}
+This module defines the emergent mechanism by which mass is dynamically suppressed, modulated, and quantized within the SAT.4D formalism. Mass arises from filament geometry, is suppressed by topological class \( Q \), and modulated by curvature and entropy-based strain.
+
+\section*{1. Geometric Mass Scale}
+From filament tension \( T \) and rigidity \( A \), define:
+\[
+\ell_f = \left( \frac{2A}{T} \right)^{1/3}, \quad m_0 = \frac{T}{\ell_f}
+\]
+This sets the intrinsic vibrational scale of a free SAT filament.
+
+\section*{2. Topological Mass Suppression}
+Topological class \( Q \in \mathbb{Z}_+ \) (e.g., from O8) defines a suppression factor:
+\[
+m_{\text{eff}} = \frac{m_0}{Q}
+\]
+
+\section*{3. Phase-Based Class Locking}
+From SAT bundle phase quantization (D7):
+\[
+\Delta \phi = \phi_1 - \phi_2 = \frac{2\pi k}{n}, \quad Q \propto n
+\]
+This encodes discrete allowed states based on filament phase locking:
+\begin{itemize}
+  \item \( n=1 \): Neutrino-like states
+  \item \( n=2 \): Spinor bundles (Dirac fermions)
+  \item \( n=3 \): SU(3) triplet (baryons)
+\end{itemize}
+
+\section*{4. Geometry-Curvature Modulation}
+Allow \( Q \) to evolve with shear scalar \( S(\phi) \), e.g.:
+\[
+Q(\phi) = Q_0 + \gamma S(\phi), \quad S(\phi) = S_0 + \beta \phi
+\]
+Curvature (from O2/O6) contributes:
+\[
+m_{\text{eff}}(\phi) = \frac{m_0}{Q(\phi)} + \alpha R(\phi)
+\]
+
+\section*{5. Final Lagrangian Form}
+The quantum mass-coupled SAT Dirac Lagrangian is:
+\[
+\mathcal{L}_{\text{QMC}} =
+\bar\Psi \left(i\gamma^\mu \nabla_\mu - \left[\frac{m_0}{Q(\phi)} + \alpha R(\phi)\right]\right) \Psi
+\]
+
+\section*{Dependencies}
+\begin{itemize}
+  \item SAT.O1 — Tension and filament scale
+  \item SAT.O4, O8 — Topological class Q
+  \item SAT.O2 — Ricci curvature \( R(\phi) \)
+  \item SAT.D3 — Curvature-mass coupling
+  \item SAT.D5 — Entropy strain \( S(\phi) \)
+  \item SAT.D7 — Quantum phase topology
+\end{itemize}
+
+\end{document}
