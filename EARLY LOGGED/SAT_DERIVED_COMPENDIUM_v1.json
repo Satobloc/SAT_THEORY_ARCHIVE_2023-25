@@ -1,0 +1,31 @@
+{
+  "version": "SAT_DERIVED_COMPENDIUM_v1",
+  "modules": {
+    "D1": "Dirac bundle (Q=2): spinor fields, \u03b84-coupling, conserved current",
+    "D2": "SU(3) gauge triplet: covariant derivative, field strength, Yang\u2013Mills action",
+    "D3": "Curvature-modulated mass: meff(R) and geometric dispersion",
+    "D4": "Self-interaction: \u03be field quartic+sextic terms and effective potential",
+    "D5": "Entropy and emergent time: S(x), d\u03c4, drift vector",
+    "D6": "Cosmological shear: Friedmann-like dynamics a(\u03c6)",
+    "D7": "Spinor topology: phase locking, helicity, Reidemester transitions",
+    "D8": "Quantum spectrum: \u03c9_k(k,Q), mode energy levels E\u2099"
+  },
+  "core_dependencies": [
+    "O1",
+    "O2",
+    "O3",
+    "O4",
+    "O5",
+    "O6",
+    "O7",
+    "O8"
+  ],
+  "status": "validated",
+  "interpretive_mode": 1,
+  "integration_notes": {
+    "mass_suppression": "All modules use meff = m0 / Q",
+    "entropy_flow": "D5 links to curvature (D3) and cosmology (D6)",
+    "bundle_phase": "D1, D7 use \u0394\u03c6 = 2\u03c0k/n locking",
+    "quantization": "D8 derives from O1 and Q-index topology"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "O1": {
+    "Hamiltonian": "V_tension(xi0, xi1, xi2, xi3) + (pi0**2 + pi1**2 + pi2**2 + pi3**2)/(2*m)",
+    "Status": "Pass"
+  },
+  "O2": {
+    "MetricStructure": "g\u0303\u03bc\u03bd, \u0393\u03bb\u03bc\u03bd from filament ensemble",
+    "Status": "Pass"
+  },
+  "O3": {
+    "BindingCondition": "\u0394\u03c6 = 2\u03c0k/n; n \u2208 {1,2,3}",
+    "GaugeGroups": "{1: U(1), 2: SU(2), 3: SU(3)}",
+    "Status": "Pass"
+  },
+  "O4": {
+    "Q": "L_link + L_wind + W_writhe",
+    "n_max": 3,
+    "Status": "Pass"
+  },
+  "O5": {
+    "GaugeCouplings": {
+      "g_U1": "g_U1",
+      "g_SU2": "g_SU2",
+      "g_SU3": "g_SU3"
+    },
+    "Ratios": {
+      "SU2/U1": "sqrt(rho_wind*(A/T)**(2/3))/sqrt(rho_link*(A/T)**(2/3))",
+      "SU3/SU2": "sqrt(rho_link*(A/T)**(2/3))/sqrt(rho_triplet*(A/T)**(2/3))"
+    },
+    "Status": "Pass (after simplification)"
+  },
+  "O6": {
+    "Lagrangian": "F_SU2**2/(4*g_SU2**2) + F_SU3**2/(4*g_SU3**2) + F_U1**2/(4*g_U1**2) + Lambda + R/(2*kappa)",
+    "Status": "Pass"
+  },
+  "O7": {
+    "Theta4": "acos((u0*v0 + u1*v1 + u2*v2 + u3*v3)/(sqrt(u0**2 + u1**2 + u2**2 + u3**2)*sqrt(v0**2 + v1**2 + v2**2 + v3**2)))",
+    "Status": "Pass"
+  },
+  "O8": {
+    "meff": "m0/(L_link + L_wind + W_writhe)",
+    "Status": "Pass"
+  }
+}

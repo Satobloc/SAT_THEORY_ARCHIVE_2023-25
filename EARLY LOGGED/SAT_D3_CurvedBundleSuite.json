@@ -1,0 +1,29 @@
+{
+  "D3.0": {
+    "description": "Curvature-coupled mass term for SAT bundle",
+    "meff": "m0 / Q + alpha * R",
+    "action": "Dirac action with curved mass term"
+  },
+  "D3.1": {
+    "description": "Symbolic variation of Dirac action under curvature-modulated mass",
+    "variation_terms": [
+      "\u2202L/\u2202\u03c8_plus",
+      "\u2202L/\u2202\u03c8_minus"
+    ]
+  },
+  "D3.2": {
+    "description": "Eigenmode dispersion with curvature-induced mass shift",
+    "omega_k^2": "k^2 + (m0 / Q + alpha R)^2",
+    "omega_k": "sqrt(k^2 + meff^2)"
+  },
+  "metadata": {
+    "derived_from": [
+      "O1",
+      "O2",
+      "O3",
+      "O8"
+    ],
+    "interpretive_mode": 1,
+    "status": "validated"
+  }
+}
