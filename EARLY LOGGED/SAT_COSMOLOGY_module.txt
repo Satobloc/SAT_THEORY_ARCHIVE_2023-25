@@ -1,0 +1,52 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{geometry}
+\geometry{margin=1in}
+\title{SAT Cosmology Module: Shear-Driven Expansion}
+\date{June 2025}
+
+\begin{document}
+\maketitle
+
+\section*{Overview}
+This module defines a shear–entropy driven cosmological expansion model within the SAT.4D framework. The key dynamic quantity is the shear scalar \( S(\phi) \), which evolves with emergent time \( \phi \), affecting the Hubble-like rate \( H(\phi) \) and the scale factor \( a(\phi) \).
+
+\section*{Shear Model}
+\[
+S(\phi) = S_0 + \beta \phi
+\]
+where:
+\begin{itemize}
+  \item \( S_0 \) is the initial strain (shear scalar)
+  \item \( \beta \) is a coupling coefficient to entropy growth
+\end{itemize}
+
+\section*{Friedmann-like Expansion Equation}
+\[
+\left( \frac{\dot{a}}{a} \right)^2 = S(\phi)^2 + \Lambda
+\]
+\[
+H(\phi) = \sqrt{S(\phi)^2 + \Lambda}
+\]
+
+\section*{Emergent Scale Factor}
+\[
+a(\phi) = \exp\left( \int H(\phi)\, d\phi \right)
+\]
+In the case of linear shear \( S(\phi) = S_0 + \beta \phi \), the scale factor becomes:
+\[
+a(\phi) = \exp\left( \int \sqrt{(S_0 + \beta \phi)^2 + \Lambda} \, d\phi \right)
+\]
+
+\section*{Interpretation}
+This model produces SAT-native inflation purely from filament strain. No scalar inflaton is required. The geometry of the network governs expansion, with entropy-like growth encoded in the strain tensor.
+
+\section*{Derived From}
+\begin{itemize}
+  \item SAT.O2 — Strain Geometry
+  \item SAT.O7 — Entropy Scalar \( \theta_4 \)
+  \item SAT.D5 — Entropy Flow
+  \item SAT.D6 — Cosmological Scale Dynamics
+\end{itemize}
+
+\end{document}
