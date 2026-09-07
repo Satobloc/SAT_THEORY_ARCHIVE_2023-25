@@ -1,0 +1,64 @@
+
+SAT 20 — Glossary and Model Index (Version 8)
+
+Symbol / Term               | Definition
+-----------------------------|-------------------------------------------------------------
+M                            | 4-dimensional smooth, connected, orientable, time-orientable, paracompact, second-countable, parallelizable manifold.
+H^2(M, ℤ)                    | Second cohomology group — classifies closed 2-forms modulo exact forms; supports flux quantization.
+γ : ℝ → M                    | Worldline — smooth curve parameterized by λ.
+v^μ                          | Tangent vector to the worldline; v^μ = dx^μ/dλ.
+[∇]                          | Projective Structure — equivalence class of torsion-free affine connections under projective transformations.
+Ω                            | Smooth, nowhere-vanishing, closed 4-form on M (dΩ = 0), serving as the Volume Form.
+τ                            | Smooth, nowhere-vanishing 1-form globally defined on M — Time Volume Element.
+m                            | Mass — scalar invariant m = τ_μ v^μ.
+A                            | Smooth 1-form gauge field with minimal gauge redundancy; defines minimal coupling to charge.
+F                            | Field strength 2-form defined by F = dA.
+q                            | Scalar electric charge; couples minimally to A.
+g                            | Magnetic monopole charge — defined via quantized flux: g = 2π n, n ∈ ℤ.
+Dirac Quantization Condition | qg = 2π n — necessary for quantum consistency of electric and magnetic charges.
+[g_μν]                       | Conformal Structure — causal structure without fixing lengths.
+e^a_μ                        | Frame field mapping internal to spacetime indices.
+γ^a                          | Gamma matrices satisfying Clifford algebra.
+ψ(x)                         | Spinor field — section of Spin(1,3) bundle.
+D_μ ψ                        | Covariant derivative: D_μ ψ = ∂_μ ψ + i q A_μ ψ.
+S_spinor                     | Spinor action: S = ∫_M 𝜓̄ γ^a e^μ_a ( ∂_μ + i q A_μ ) ψ Ω.
+S_A                           | Gauge field action: S_A = (1/4) ∫_M F_{μν} F^{μν} Ω.
+h̄ (Planck's Constant)        | Emergent quantum of action — minimal nonzero period of action integrals.
+e (Elementary Charge)         | Emergent minimal coupling constant — topological quantization.
+c (Speed of Light)            | Emergent causal structure constant.
+α (Fine-Structure Constant)   | Emergent dimensionless constant: α = e² / (h̄ c).
+φ(x)                          | Minimal complex scalar field — responsible for spontaneous symmetry breaking.
+S_φ                           | Scalar action: S_φ = ∫_M [(D_μ φ)^* (D^μ φ) - (λ/4)(φ^*φ)²] Ω.
+v (VEV of φ)                  | Dynamically generated scale from spontaneous symmetry breaking.
+Emergent Mass Terms           | m_ψ = y v (spinor mass); m_A = q v (gauge field mass); m_φ² ~ λ v² (scalar mass).
+g_μν(x)                        | Dynamical metric tensor field — emerges from quantum effective action (induced gravity).
+G (Gravitational Constant)     | Emergent gravitational coupling — G ∼ v^{-2}.
+Induced Gravity                | Quantum fluctuations of matter fields generate Einstein–Hilbert term.
+Electric-Magnetic Duality     | Symmetry between electric and magnetic fields: F → cosθ F + sinθ ⋆F.
+Duality Transformations       | Rotate electric and magnetic currents: J_e, J_m mix under duality rotations.
+
+Action S_total                 | Full action combining worldline, gauge, spinor, scalar, and gravitational sectors; includes topological and duality effects.
+
+Falsifiability Criteria
+------------------------
+- H^2(M, ℤ): Detectable quantized magnetic flux.
+- Magnetic Monopoles: Detection of quantized magnetic charges.
+- Dirac Condition: Violation of qg = 2π n falsifies quantum consistency.
+- Electric-Magnetic Duality: Detectable symmetry between electric and magnetic fields.
+- M: Incompatible topology falsifies model assumptions.
+- [∇]: Deviation from projective geodesic motion observed.
+- Ω: Violation of local 4-volume conservation.
+- τ: Observation of mass sign flips or instability.
+- A: Detection of photon mass; gauge invariance violation.
+- q: Observation of charge non-conservation.
+- ψ(x): Failure of chirality or Dirac properties.
+- S_spinor: Deviations from predicted spinor dynamics.
+- S_A: Deviations from predicted gauge field dynamics.
+- h̄, e, α: Inconsistencies in quantization and fine-structure constant.
+- φ(x), v: Absence of spontaneous symmetry breaking or mass gaps.
+- g_μν(x), G: Absence of gravitational effects consistent with emergent metric dynamics.
+
+Notes:
+- All structures defined with strict minimal assumptions.
+- No hidden tunable parameters allowed.
+- Fully critic-hardened up to Stage 9 (Topological Sectors and Dualities).

@@ -1,0 +1,55 @@
+
+SAT 20 — Glossary and Model Index (Version 5)
+
+Symbol / Term               | Definition
+-----------------------------|-------------------------------------------------------------
+M                            | 4-dimensional smooth, connected, orientable, time-orientable, paracompact, second-countable, parallelizable manifold.
+γ : ℝ → M                    | Worldline — smooth curve parameterized by λ.
+v^μ                          | Tangent vector to the worldline; v^μ = dx^μ/dλ.
+[∇]                          | Projective Structure — equivalence class of torsion-free affine connections under projective transformations: ∇'_ν v^μ = ∇_ν v^μ + δ^μ_ν φ_ρ v^ρ.
+Ω                            | Smooth, nowhere-vanishing, closed 4-form on M (dΩ = 0), serving as the Volume Form.
+τ                            | Smooth, nowhere-vanishing 1-form globally defined on M due to parallelizability — Time Volume Element ensuring positive parametrization.
+m                            | Mass — scalar invariant defined as m = τ_μ v^μ, constant along free worldlines.
+A                            | Smooth 1-form gauge field with minimal gauge redundancy: A → A + dΛ for smooth function Λ; defines minimal coupling to charge.
+F                            | Field strength 2-form defined by F = dA.
+q                            | Scalar charge of the particle, coupling minimally to A via the action.
+[g_μν]                       | Conformal Structure — equivalence class of Lorentzian metrics under rescaling g' = Ω²g; defines causal structure without fixing lengths.
+e^a_μ                        | Frame field mapping internal indices to spacetime, defined up to conformal scaling; invertible at each point.
+γ^a                          | Gamma matrices satisfying Clifford algebra: {γ^a, γ^b} = 2η^{ab}.
+ψ(x)                         | Spinor field — smooth section of the Spin(1,3) bundle associated to M.
+D_μ ψ                        | Covariant derivative of ψ: D_μ ψ = ∂_μ ψ + i q A_μ ψ.
+S_spinor                     | Spinor action: S = ∫_M 𝜓̄ γ^a e^μ_a ( ∂_μ + i q A_μ ) ψ Ω.
+Equation of Motion (Spinor)   | γ^a e^μ_a D_μ ψ = 0 — minimal Dirac-like equation for ψ.
+S_A                           | Gauge field action: S_A = (1/4) ∫_M F_{μν} F^{μν} Ω.
+Equation of Motion (Gauge)    | ∂_μ F^{μν} = J^ν_{worldline} + J^ν_{spinor}.
+Equation of Motion (Worldline)| m (d/dλ) ( τ_μ / (τ_ν v^ν) ) + q F_{μν} v^ν = 0.
+
+h̄ (Planck's Constant)        | Emergent quantum of action — minimal nonzero period of action integrals over closed loops; no manual insertion.
+e (Elementary Charge)         | Emergent minimal coupling constant — derived from topological quantization (first Chern class) of the U(1) gauge bundle.
+c (Speed of Light)            | Emergent causal structure constant — defined by fixing a conformal gauge; no explicit insertion.
+α (Fine-Structure Constant)   | Emergent dimensionless constant: α = e² / (h̄ c); purely derived quantity without manual constants.
+
+Action S_total                | S_total = m ∫_γ τ + q ∫_γ A + ∫_M 𝜓̄ γ^a e^μ_a ( ∂_μ + i q A_μ ) ψ Ω + (1/4) ∫_M F_{μν} F^{μν} Ω.
+
+Falsifiability Criteria
+------------------------
+- M: Incompatible global topology detected (non-parallelizable).
+- [∇]: Deviation from projective geodesic motion observed.
+- Ω: Violation of local 4-volume conservation along worldlines.
+- τ: Observation of mass sign flips or instability.
+- m: Mass variation along inertial worldlines.
+- A: Detection of photon mass; gauge invariance violation.
+- q: Observation of charge non-conservation.
+- [g_μν]: Deviation from predicted lightcone propagation.
+- Spin Structure: Inconsistencies in half-integer spin behavior.
+- ψ(x): Failure of chirality, helicity conservation, or Dirac propagator properties.
+- S_spinor: Deviations from Dirac-like dispersion or gauge interaction predictions.
+- S_A: Deviations from predicted gauge field dynamics.
+- h̄: Inconsistencies in quantum phase quantization (e.g., Aharonov–Bohm effects).
+- e: Violation of electric charge quantization.
+- α: Precision deviation from measured fine-structure constant value.
+
+Notes:
+- All structures defined with strict minimal assumptions.
+- No hidden tunable parameters allowed.
+- Fully critic-hardened up to Stage 6 (Emergence of Constants and Dimensionless Quantities).
