@@ -1,0 +1,65 @@
+% SAT.O₉: 4D‐Only String Embedding Module (Tentative)
+
+\section*{SAT.O\textsubscript{9}: 4D‐Only String Embedding in Planck‐Thick Slab}
+
+\subsection*{Purpose}
+Embed the SAT​.4D filament‐network dynamics into a UV‐complete “string” formulation  
+restricted to the 4D slab of thickness one Planck length, without introducing extra compact dimensions.
+
+\subsection*{Definitions}
+\begin{itemize}
+  \item $\ell_f = \ell_P$: wavefront thickness fixed to one Planck length.
+  \item Filament tension $T_s \equiv T$ (from O\textsubscript{3} SU(3) calibration).
+  \item Embedding fields $X^M(\sigma,\tau)$, $M=0,1,2,3$:
+    \begin{itemize}
+      \item $\sigma$: parameter along the helical filament segment.
+      \item $\tau$: coordinate through the $\ell_P$‐thick time‐wavefront.
+    \end{itemize}
+  \item Liouville field $\varphi(\sigma,\tau)$: encodes local thickness fluctuations.
+\end{itemize}
+
+\subsection*{Worldsheet Action}
+\[
+  S_{\rm O9}
+  \;=\;
+  -\frac{T}{2}\!\int d^2\sigma\,\sqrt{-h}\,h^{ab}\,
+    \partial_a X^M\,\partial_b X^N\,g_{MN}(X)
+  \;+\;
+  \frac{1}{4\pi}\!\int d^2\sigma\,\sqrt{-h}\,
+    \bigl(h^{ab}\partial_a\varphi\,\partial_b\varphi + Q_R\,R^{(2)}\,\varphi\bigr).
+\]
+\begin{itemize}
+  \item $g_{MN}(X)$: emergent 4D metric from O\textsubscript{2}.
+  \item $h_{ab}$: worldsheet metric, dynamical via Liouville.
+  \item $Q_R$: background charge fixed by the central‐charge deficit.
+\end{itemize}
+
+\subsection*{Mode Expansion \& Topology}
+\[
+  X^M(\sigma,\tau)
+  = x^M
+    + \sum_{n\neq0}\frac{1}{n}\,\alpha^M_n\,e^{-i n\tau}
+      \bigl(e^{i n\sigma}+e^{-i n\sigma}\bigr),
+  \quad
+  \alpha^M_n\ (\!M=0..3\!)
+\]
+\begin{itemize}
+  \item Winding number $w\equiv Q$: maps to Hopf‐linking class of the filament.
+  \item No oscillators for $M\ge4$ (all extra dims frozen).
+\end{itemize}
+
+\subsection*{Recovering SAT​.4D Physics}
+\begin{itemize}
+  \item \emph{Misalignment \& tension:} Mixed kinetic terms
+    $\partial_\sigma X^i\,\partial_\tau X^0\,g_{i0}$ encode $\theta_4$ diagnostics.
+  \item \emph{Mass‐shell condition:}
+    $m^2 = \tfrac{4}{\alpha'}(N - a)$ with $\alpha'=1/(2\pi T)$, $N\leftrightarrow Q$.
+  \item \emph{Gauge couplings:} Background $B_{MN}(X)$ flux and densities from O\textsubscript{5}.
+\end{itemize}
+
+\subsection*{Next Steps}
+\begin{enumerate}
+  \item Derive Virasoro + Liouville constraints in this 4D‐only setting.
+  \item Quantize to obtain spectrum of states $\{m_{\rm eff}(Q)\}$.
+  \item Compare directly to O\textsubscript{4}–O\textsubscript{8} mass and coupling predictions.
+\end{enumerate}

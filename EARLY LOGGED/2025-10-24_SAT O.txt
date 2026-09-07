@@ -1,0 +1,76 @@
+% mode1_to_mode2_conversion.tex
+\section*{Mode 1 to Mode 2 Conversion}
+
+\begin{enumerate}
+  \item \textbf{Block-Gauge Baseline}\\
+    Freeze the spatial filament network.  
+    Solve the worldsheet + Liouville system on the background metric $g^{(0)}_{\mu\nu}(x)$ and extract the stress–energy tensor $T^{(0)}_{\mu\nu}(x)$.
+  
+  \item \textbf{Linearized Einstein Solve}\\
+    In the weak-field approximation, solve
+    \[
+      \Box\,\bar h^{(1)}_{\mu\nu}
+      = -16\pi G\bigl(T^{(0)}_{\mu\nu}-\tfrac12\,T^{(0)}\,g^{(0)}_{\mu\nu}\bigr)
+    \]
+    for the trace-reversed perturbation $\bar h^{(1)}_{\mu\nu}$, then recover $h^{(1)}_{\mu\nu}$.
+  
+  \item \textbf{Update the Background Metric}\\
+    Define the corrected metric
+    \[
+      g^{(1)}_{\mu\nu}(x)
+      = g^{(0)}_{\mu\nu}(x) + h^{(1)}_{\mu\nu}(x).
+    \]
+    Replace all occurrences of $g^{(0)}$ in your filament code with $g^{(1)}$.
+  
+  \item \textbf{Recompute Geometric Inputs}\\
+    For each filament link or worldsheet element:
+    \begin{itemize}
+      \item \emph{Length/Tension:}
+        $\ell = \sqrt{\Delta X^\mu\,g^{(1)}_{\mu\nu}\,\Delta X^\nu}$,
+        then recompute $V_{\rm tens}(\ell)$.
+      \item \emph{Misalignment $\theta_4$:}
+        \[
+          \cos\theta_4
+          = \frac{v^\mu\,u^\nu\,g^{(1)}_{\mu\nu}}{\|v\|\;\|u\|}.
+        \]
+      \item \emph{Worldsheet Kinetics:}
+        Update $\partial_a X^\mu\,\partial_b X^\nu\,g^{(1)}_{\mu\nu}$ in the action.
+    \end{itemize}
+  
+  \item \textbf{Resolve Block-Gauge Dynamics}\\
+    Rerun the worldsheet + Liouville solver using the updated potentials and metric.
+    Extract the new stress–energy tensor $T^{(1)}_{\mu\nu}(x)$.
+  
+  \item \textbf{Iterate as Needed}\\
+    If $T^{(1)}\neq T^{(0)}$ significantly, repeat steps 2–5 replacing
+    $g^{(0)}\to g^{(1)}$, $T^{(0)}\to T^{(1)}$, etc., until convergence.
+\end{enumerate}
+
+\subsection*{Pseudocode Sketch}
+\begin{verbatim}
+# 1. Baseline solve
+block_solution = solve_block_gauge(g0, V0, theta0)
+T0 = compute_stress_energy(block_solution)
+
+# Iteration loop
+for n in range(1, N_max):
+    # 2. Einstein solve
+    h_n = solve_linearized_einstein(T_prev, g_prev)
+
+    # 3. Update metric
+    g_n = g_prev + h_n
+
+    # 4. Recompute filament inputs
+    V_n, theta_n = recompute_potentials_and_angles(g_n)
+
+    # 5. Resolve block gauge with new geometry
+    block_solution = solve_block_gauge(g_n, V_n, theta_n)
+    T_n = compute_stress_energy(block_solution)
+
+    # Check convergence
+    if is_converged(T_n, T_prev):
+        break
+
+    # Prepare next iteration
+    g_prev, T_prev = g_n, T_n
+\end{verbatim}

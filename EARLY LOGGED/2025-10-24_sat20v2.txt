@@ -1,0 +1,37 @@
+
+SAT 20 — Glossary and Model Index (Version 2)
+
+Symbol / Term               | Definition
+-----------------------------|-------------------------------------------------------------
+M                            | 4-dimensional smooth, connected, orientable, time-orientable, paracompact, second-countable, parallelizable manifold.
+γ : ℝ → M                    | Worldline — smooth curve parameterized by λ.
+v^μ                          | Tangent vector to the worldline; v^μ = dx^μ/dλ.
+[∇]                          | Projective Structure — equivalence class of torsion-free affine connections under projective transformations: ∇'_ν v^μ = ∇_ν v^μ + δ^μ_ν φ_ρ v^ρ.
+Ω                            | Smooth, nowhere-vanishing, closed 4-form on M (dΩ = 0), serving as the Volume Form.
+τ                            | Smooth, nowhere-vanishing 1-form globally defined on M due to parallelizability — Time Volume Element ensuring positive parametrization.
+m                            | Mass — scalar invariant defined as m = τ_μ v^μ, constant along free worldlines.
+A                            | Smooth 1-form gauge field with minimal gauge redundancy: A → A + dΛ for smooth function Λ; defines minimal coupling to charge.
+F                            | Field strength 2-form defined by F = dA.
+q                            | Scalar charge of the particle, coupling minimally to A via the action.
+
+Action S                     | S = m ∫_γ τ + q ∫_γ A — reparameterization-invariant action for free massive charged particle.
+
+Equation of Motion (τ)        | v^ν ∂_ν τ_μ = 0 — conservation of the time volume element along the worldline.
+Gauge Invariance (A)          | Invariance under A → A + dΛ; ensures masslessness and conservation laws.
+Field Strength (F)            | F = dA ensures propagation of the gauge field.
+
+Falsifiability Criteria
+------------------------
+- M: Incompatible global topology detected (non-parallelizable).
+- [∇]: Deviation from projective geodesic motion observed.
+- Ω: Violation of local 4-volume conservation along worldlines.
+- τ: Observation of mass sign flips or instability.
+- m: Mass variation along inertial worldlines.
+- A: Detection of photon mass; gauge invariance violation.
+- q: Observation of charge non-conservation.
+
+Notes:
+- All structures defined with strict minimal assumptions.
+- No metric, no pre-assumed connection beyond projective class.
+- No hidden tunable parameters allowed.
+- Fully critic-hardened up to Stage 3 (Mass and Charge Introduction).
