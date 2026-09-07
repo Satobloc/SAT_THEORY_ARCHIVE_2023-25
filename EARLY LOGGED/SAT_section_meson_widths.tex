@@ -1,0 +1,82 @@
+
+% ==============================================================
+%  SAT Framework -- Meson Width Predictions
+% ==============================================================
+
+\section{Meson Widths from Vibrational Decay}
+\label{sec:meson_widths}
+
+\subsection{SAT Decay Mechanism for Q = 2 Bundles}
+
+For $Q=2$ bundles (mesons), the dominant decay channel is assumed to be
+a transition between vibrational levels $w \to w{-}1$ mediated by filament
+reconnection. The SAT model predicts a decay width
+\[
+\Gamma(w) = \Lambda \, \exp\left( -\frac{\alpha_{\text{top}}^2}{\Delta E} \right),
+\]
+with:
+\begin{itemize}
+  \item $\Lambda = 1~\text{GeV}$: reconnection rate scale,
+  \item $\alpha_{\text{top}} = 0.35~\text{GeV}$: filament reconnection barrier,
+  \item $\Delta E = m(w) - m(w{-}1)$: energy gap between adjacent vibrational levels.
+\end{itemize}
+
+\subsection{Numerical Evaluation}
+
+\begin{table}[ht]
+\centering
+\caption{SAT width predictions for vector mesons via $w \to w{-}1$ decay.}
+\label{tab:meson_widths}
+\begin{tabular}{lccccl}
+\toprule
+Meson & $\Delta E$ [GeV] & $\Gamma_{\exp}$ [GeV] & $\Gamma_{\SAT}$ [GeV] & Rel. Error \\
+\midrule
+$\rho$ & 0.630 & 0.149  & 0.823  & +452\% \\
+$K^*$  & 0.398 & 0.050  & 0.735  & +1370\% \\
+$\phi$ & 0.127 & 0.0043 & 0.381  & +8764\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Interpretation and Limitations}
+
+\paragraph{Successes.}
+The model reproduces the correct width hierarchy:
+\[
+\Gamma(\rho) > \Gamma(K^*) > \Gamma(\phi),
+\]
+confirming that energy gap $\Delta E$ is a primary control variable
+for filament decay in SAT dynamics.
+
+\paragraph{Failures.}
+Absolute magnitudes are severely overestimated, particularly for the $\phi$
+meson. These errors expose the limitations of the bare reconnection model.
+
+\paragraph{Missing physics.}
+\begin{itemize}
+  \item \textbf{OZI suppression:} The $\phi$ is an $s\bar{s}$ state; decays to light mesons are suppressed.
+  \item \textbf{Phase-space factors:} Near-threshold decays are not penalized.
+  \item \textbf{Spin constraints:} SAT does not yet account for angular-momentum conservation in decay geometry.
+  \item \textbf{Barrier variation:} A fixed $\alpha_{\text{top}}$ ignores flavor-specific stiffness of bundles.
+\end{itemize}
+
+\subsection{Proposed Refinements (SAT.O12)}
+
+We propose a refined decay formula:
+\[
+\Gamma = \Lambda \, \exp\left(-\frac{\alpha_{\text{eff}}^2}{\Delta E} \right)
+\cdot f_{\text{PS}} \cdot f_{\text{topo}},
+\]
+where:
+\begin{itemize}
+  \item $\alpha_{\text{eff}}$ varies with flavor and mode topology,
+  \item $f_{\text{PS}}$ is a phase-space factor,
+  \item $f_{\text{topo}}$ captures filament exit connectivity and OZI suppression.
+\end{itemize}
+
+\paragraph{Falsifiability.}
+Any decay width that violates the energy-controlled hierarchy, or does not match a refined version of this formula within $<100\%$ error, would challenge the SAT decay model.
+
+% ==============================================================
+%  End of Section
+% ==============================================================

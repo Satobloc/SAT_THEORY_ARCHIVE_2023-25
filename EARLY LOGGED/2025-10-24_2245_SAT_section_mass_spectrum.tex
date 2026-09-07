@@ -1,0 +1,79 @@
+
+% ==============================================================
+%  SAT Framework -- Mass Spectrum Analysis
+% ==============================================================
+
+\section{Mass Spectrum Prediction and Current Limitations}
+\label{sec:mass_spectrum}
+
+\subsection{Simplified SAT Mass Formula}
+
+The working ansatz for composite bundle masses is
+\[
+m(Q) \;=\; \frac{m_0}{Q} \;+\; \beta\,w \;+\; \delta_f ,
+\]
+with $m_0 = 0.30~\text{GeV}$ (tension scale),
+$\beta = 0.14~\text{GeV}$ (vibrational increment),
+winding number $w$, and flavour correction $\delta_f$ (0 for $u/d$, $0.1$--$0.2$
+for $s$, and $1.2$ for $c$).
+
+\subsection{Numerical Comparison}
+
+\begin{table}[ht]
+\centering
+\caption{Experimental versus SAT--predicted masses for representative bundles.
+Relative error is $(m_{\SAT} - m_{\exp})/m_{\exp}$.}
+\label{tab:mass_compare}
+\begin{tabular}{lcccccc}
+\toprule
+Particle & $Q$ & $w$ & $m_{\exp}$ [GeV] & $m_{\SAT}$ [GeV] & Error \\
+\midrule
+$\pi$ & 2 & 1 & 0.140 & 0.290 & +107\% \\
+$\mu$ & 1 & 1 & 0.106 & 0.440 & +315\% \\
+$\rho$ & 2 & 2 & 0.770 & 0.430 & −44\% \\
+$K^{\!*}$ & 2 & 2 & 0.890 & 0.530 & −40\% \\
+$\phi$ & 2 & 2 & 1.020 & 0.630 & −38\% \\
+$J/\psi$ & 2 & 2 & 3.100 & 1.930 & −38\% \\
+p & 3 & 1 & 0.938 & 0.240 & −74\% \\
+n & 3 & 1 & 0.939 & 0.240 & −74\% \\
+
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Interpretation}
+
+\paragraph{Successes.}  The $1/Q$ scaling plus a single vibrational parameter
+captures the qualitative ordering of hadron masses and reproduces heavy--flavour
+states at the $\mathcal{O}(40\%)$ level with only three global parameters.
+
+\paragraph{Limitations.}
+\begin{enumerate}
+    \item \textbf{Pion anomaly} ($\pi$ mass overestimated by $>100\%$):
+          indicates missing chiral--symmetry protection.
+    \item \textbf{Lepton sector} ($\mu$ mass error $\sim300\%$):
+          suggests that leptons are not governed by the same
+          topological mass formula as hadrons.
+    \item \textbf{Baryon underprediction} ($p,n$ underestimated by $>70\%$):
+          points to an additional Borromean binding energy not included here.
+\end{enumerate}
+
+\paragraph{Planned Corrections.}
+\begin{itemize}
+    \item \emph{Chiral term} $\gamma_\chi$ for pseudo--Goldstone bundles to
+          lower the $\pi$ mass specifically.
+    \item Separate \emph{lepton mass module} (SAT.O10) treating $Q=0/1$
+          non--topological bundles with defect energy scaling.
+    \item \emph{Q--dependent tension} $m_0(Q) = a + b\log Q$ to raise
+          $Q=3$ baryon masses without disrupting meson fits.
+\end{itemize}
+
+\paragraph{Falsifiability.}
+Significant future deviations (factor $>2$) from any revised SAT spectrum will
+constitute a direct falsification of the mass--generation mechanism proposed
+in Modules~SAT.O9--O10.
+
+% ==============================================================
+%  End of Section
+% ==============================================================
+

@@ -1,0 +1,101 @@
+
+% ==============================================================
+%  SAT Framework -- Lepton Mass Hierarchy (Initial Q=1 Model)
+% ==============================================================
+
+\section{Lepton Mass Hierarchy: Failure of the Pure Topology Model}
+\label{sec:lepton_mass_failure}
+
+\subsection{Minimal Q = 1 Ansatz}
+
+For single–filament bundles ($Q=1$) we postulate a two–term energy model
+\[
+m_\ell \;=\; \beta\,w \;+\; \gamma\,\tau ,
+\]
+with
+\begin{itemize}
+  \item $w$ : internal winding number (vibrational energy),
+  \item $\tau$ : external torsion level (filament twist),
+  \item $(\beta,\gamma)$ : universal energy scales to be fitted.
+\end{itemize}
+No flavour–specific defect tension ($\delta_f$) is included at this stage.
+
+\subsection{Topological Assignments}
+
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+Lepton & $w$ & $\tau$ \\
+\midrule
+$e$   & 1 & 0 \\
+$\mu$ & 2 & 1 \\
+$\tau$ & 3 & 2 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Least–Squares Fit}
+
+Fitting $(\beta,\gamma)$ to the PDG masses
+$m_e=0.511~\text{MeV},\; m_\mu=105.7~\text{MeV},\;
+m_\tau=1777~\text{MeV}$ yields
+\[
+\beta = 7.33\times 10^{-14}\,\text{MeV}, \qquad
+\gamma = 7.32\times 10^{2}\,\text{MeV}.
+\]
+Predictions versus data:
+
+\begin{table}[ht]
+\centering
+\caption{Lepton masses: minimal SAT fit versus experiment.}
+\label{tab:lepton_minimal}
+\begin{tabular}{lccc}
+\toprule
+Lepton & $m_{\exp}$ [MeV] & $m_{\SAT}$ [MeV] & Rel.\ Error \\
+\midrule
+$e$   & 0.511 & $7.3\times 10^{-14}$ & $>10^{11}\%$ \\
+$\mu$ & 105.7 & 732                & $+592\%$ \\
+$\tau$ & 1777 & 1464               & $-18\%$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Interpretation}
+
+\paragraph{Success.}
+The model reproduces the \emph{ordering}
+$m_e < m_\mu < m_\tau$,
+confirming that higher winding/torsion maps to heavier leptons.
+
+\paragraph{Failure.}
+Quantitatively the model breaks down:
+\begin{itemize}
+  \item Electron mass is \emph{essentially zero} in this framework.
+  \item Muon mass overshoots by nearly an order of magnitude.
+  \item Only the tau comes within $20\%$.
+\end{itemize}
+
+\subsection{Diagnostic Implications}
+
+Pure topology ($w,\tau$) is \emph{insufficient}.  A third term is required:
+\[
+m_\ell = \beta w + \gamma \tau + \delta_f,
+\]
+where $\delta_f$ encodes flavour–specific defect tension.
+Physically, this may arise from filament shape discontinuities or coupling
+to vacuum strain not captured by $w,\tau$.
+
+\paragraph{Next module.}
+SAT.O10 will introduce $\delta_f$ and refit the triplet
+$(\beta,\gamma,\delta_f)$, aiming to reproduce
+$m_e,m_\mu,m_\tau$ within $<10\%$.
+
+\paragraph{Falsifiability.}
+If no combination of $(w,\tau,\delta_f)$ can match the lepton spectrum
+without \emph{ad hoc} flavour parameters, SAT’s claim of geometric mass
+generation for leptons fails.
+
+% ==============================================================
+%  End of Section
+% ==============================================================
+

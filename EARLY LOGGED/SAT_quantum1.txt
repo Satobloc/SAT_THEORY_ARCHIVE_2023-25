@@ -1,0 +1,114 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE \textbf{Summary of the SAT Quantum Framework}}\\[1em]
+  {\large A. Researcher}
+\end{center}
+
+\section*{1. Core (O1–O8) Structure}
+
+\begin{itemize}
+  \item \textbf{O1:} Basic Hamiltonian for filament tension and kinetic terms.
+  \item \textbf{O2:} Emergent metric $g_{\mu\nu}$ from the filament ensemble.
+  \item \textbf{O3:} Quantization (binding) conditions yielding gauge groups U(1), SU(2), SU(3).
+  \item \textbf{O4:} Topological charge 
+    \[
+      Q = L + W + \text{Wr}
+    \]
+    via linking ($L$), winding ($W$), and writhe (Wr).
+  \item \textbf{O5–O6:} Gauge‐field Lagrangian and coupling‐constant ratios.
+  \item \textbf{O7:} Intrinsic angle $\theta_4$ between emergent four‐vectors.
+  \item \textbf{O8:} Topological effective mass 
+    \[
+      m_{\rm eff} = \frac{m_0}{Q}\,.
+    \]
+\end{itemize}
+
+\section*{2. Module D1: Dirac Bundles \& Spinor Couplings}
+
+\begin{itemize}
+  \item Dirac Lagrangian on the SAT bundle:
+    \[
+      \mathcal{L}_D = \bar\psi\bigl(i\gamma^\mu D_\mu - m_{\rm eff}\bigr)\psi
+      + \theta\text{-term}
+      \,,
+    \]
+    where $D_\mu$ is the covariant derivative on the filament bundle.
+  \item $\theta$–coupling variation yields the modified Dirac equation in curved, topological background.
+\end{itemize}
+
+\section*{3. Module D2: Triplet Gauge Coupling}
+
+\begin{itemize}
+  \item Construction of the $SU(2)\times SU(3)$ triplet bundle and field strength $F_{\mu\nu}$.
+  \item Yang–Mills action:
+    \[
+      \mathcal{L}_{\rm YM}
+      = -\tfrac{1}{4} \sum_{a} F^{a}_{\mu\nu} F^{a\,\mu\nu}
+      \,,
+    \]
+    with commutators and variations consistent with O5 coupling ratios.
+\end{itemize}
+
+\section*{4. Module D3: Curvature–Coupled Mass Terms}
+
+\begin{itemize}
+  \item Curvature‐modulated mass:
+    \[
+      m_{\rm eff}(R) = \frac{m_0}{Q} + \alpha\,R,
+      \quad
+      \omega_k^2 = k^2 + \bigl(m_{\rm eff}(R)\bigr)^2.
+    \]
+  \item Variation of $\mathcal{L}_D$ with $R$–dependent mass yields modified dispersion relations.
+\end{itemize}
+
+\section*{5. Module D4: Topological Self‐Interaction}
+
+\begin{itemize}
+  \item Scalar field $\xi$ self‐interaction:
+    \[
+      \mathcal{L}_{\rm self}
+      = \lambda_4(\xi\cdot\xi)^2 + \lambda_6(\xi\cdot\xi)^3,
+      \quad
+      V_{\rm eff}(\phi)=\lambda_4\phi^2+\lambda_6\phi^3.
+    \]
+  \item Force term and critical points from
+    $\delta\mathcal{L}_{\rm self}/\delta\xi=0\,$.
+\end{itemize}
+
+\section*{6. Module D5: Entropy, Emergent Time \& Drift}
+
+\begin{itemize}
+  \item Shear scalar 
+    \[
+      S(x)=\sqrt{S_{\mu\nu}S^{\mu\nu}}\,,
+      \quad
+      d\tau = S(x)\,d\varphi.
+    \]
+  \item Entropy rate and drift vector:
+    \[
+      \dot S = S(x)\,\frac{d\varphi}{dt},
+      \quad
+      v^\mu = S(x)\,u^\mu + \nabla^\mu S(x).
+    \]
+\end{itemize}
+
+\section*{7. Unified Action}
+
+Combining all sectors:
+\[
+  S = \int d^4x\,\sqrt{-g}\,
+  \Bigl[
+    \mathcal{L}_D(\psi,m_{\rm eff}(R)) +
+    \mathcal{L}_{\rm YM}(F) +
+    \mathcal{L}_{\rm self}(\xi)
+    + \mathcal{L}_{\rm entropic}(S)
+  \Bigr]\,.
+\]
+
+\end{document}
