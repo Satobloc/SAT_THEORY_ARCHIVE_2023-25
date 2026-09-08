@@ -1,0 +1,4647 @@
+Skip to main content
+
+The user profile image
+
+Debating A.I. On the Future of Physics
+
+Home
+
+Analytics
+
+Episodes
+
+Comments
+
+Subscriptions
+
+Monetize
+
+Settings
+
+Your shows (10)
+
+A Boxful of Light
+
+
+Hacked, Mortared, and Seethed — Historical Cookery
+
+
+Midjourney Legal Timebomb?
+
+
+N,n-DimethylMcFuqoiserie [Giving Midjourney Something to Chew On]
+
+
+Nathan McKnight’s Grab Bag
+
+All shows
+
+
+
+Quantum Kelvin Waves
+Audio
+40 min
+Published: July 12, 2026 at 7:30 PM
+
+Analytics
+Details
+Comments
+Clips
+Polls
+
+Your transcripts, chapters, and more have been automatically generated. You can review and edit them at any time. Learn more
+
+
+Episode info
+Title*(required)
+Quantum Kelvin Waves
+20 / 200
+Description*(required)
+
+HTML
+The updated file confirms dimensional convergence but also shows why we should stop collecting prose answers: some are promoting assumptions into “derived” results.
+
+﻿
+
+The immediate next step is a minimal rotational-expansion kinematics kernel. It should determine what geometry follows from the proposed expansion law before introducing BEC stiffness, 1.843, particle spectra, or Lorentzian recovery.
+
+﻿
+
+Updated-file verdict
+
+﻿
+
+The additions do not change the audit:
+
+​ Claude verifies that H_0L+c is algebraically consistent, but consistency does not establish that nature uses that law.
+​ NotebookLM’s “3:2 symmetry” is not derived by the normalization.
+​ T/\rho=c^2 is a legitimate later wave-speed question, but \rho must first be defined as line density, surface density, or bulk density.
+​ The claim that the Lorentzian minus sign has already been derived is unsupported.
+​ R_H=c/H_0 remains a normalization length, not yet the physical cosmological circumference.
+﻿
+
+Step 1: Freeze the active expansion model
+
+﻿
+
+Use the constant-gap benchmark:
+
+﻿
+
+\dot R_s=H_0R_s,
+
+\qquad
+
+\dot D=c,
+
+\qquad
+
+R_t=R_s+D.
+
+﻿
+
+Status:
+
+​ units: derived and settled;
+​ \dot D=c: SAT/ACTIVE premise;
+​ constant H_0: toy benchmark;
+​ R_H=R_{\rm cos}: still unassigned.
+﻿
+
+Its exact constant-H_0 solution is
+
+﻿
+
+R_s(t)=R_{s0}e^{H_0(t-t_0)},
+
+﻿
+
+D(t)=D_0+c(t-t_0),
+
+﻿
+
+R_t(t)=R_{s0}e^{H_0(t-t_0)}+D_0+c(t-t_0).
+
+﻿
+
+Step 2: Nondimensionalize it
+
+﻿
+
+Define
+
+﻿
+
+x=H_0(t-t_0),
+
+\qquad
+
+r_s=\frac{R_s}{R_H},
+
+\qquad
+
+d=\frac{D}{R_H},
+
+\qquad
+
+R_H=\frac{c}{H_0}.
+
+﻿
+
+Then the system becomes
+
+﻿
+
+\boxed{
+
+\frac{dr_s}{dx}=r_s,
+
+\qquad
+
+\frac{dd}{dx}=1,
+
+\qquad
+
+r_t=r_s+d.
+
+}
+
+﻿
+
+This is the clean Hubble-normalized form. It uses R_H as a unit without identifying it with the universe’s physical radius.
+
+﻿
+
+Step 3: Add rotational expansion
+
+﻿
+
+Introduce
+
+﻿
+
+\frac{d\phi}{dt}=\Omega(t)
+
+﻿
+
+or, dimensionlessly,
+
+﻿
+
+\frac{d\phi}{dx}
+
+﻿
+
+\omega(x),
+
+\qquad
+
+\omega=\frac{\Omega}{H_0}.
+
+﻿
+
+The first geometric curve should be
+
+﻿
+
+\gamma(t)
+
+﻿
+
+\left(
+
+\rho(t)\cos\phi(t),
+
+\rho(t)\sin\phi(t),
+
+D(t)
+
+\right).
+
+﻿
+
+Run two rotational laws:
+
+​ Control:
+﻿
+
+\Omega=\Omega_0.
+
+​ Kerr/Kelvin transport candidate:
+﻿
+
+\Omega(\rho)
+
+﻿
+
+\Omega_{\rm K}
+
+\left(\frac{\rho_{\rm K}}{\rho}\right)^2.
+
+﻿
+
+The solver then calculates rather than assumes:
+
+​ number of turns;
+​ radius at each turn;
+​ pitch;
+​ pitch angle;
+​ curvature;
+​ torsion;
+​ scale ratio between turns;
+​ whether the curve closes;
+​ whether any rank/bifurcation event occurs.
+﻿
+
+For constant \Omega, the benchmark identities are
+
+﻿
+
+P=\frac{2\pi c}{\Omega},
+
+﻿
+
+and, if \dot\rho=H_0\rho,
+
+﻿
+
+\frac{\rho_{k+1}}{\rho_k}
+
+﻿
+
+\exp\!\left(\frac{2\pi H_0}{\Omega}\right)
+
+﻿
+
+\exp\!\left(\frac{2\pi}{\omega}\right).
+
+﻿
+
+These give exact targets for testing the numerical implementation.
+
+﻿
+
+Step 4: Only then add matter formation
+
+﻿
+
+After establishing the kinematics, place a straight BEC tube in that flow and ask when it becomes unstable.
+
+﻿
+
+Use a finite-core rod energy
+
+﻿
+
+E
+
+﻿
+
+\frac12\int
+
+\left[
+
+B\kappa^2
+
++
+
+C\kappa_3^2
+
++
+
+K\epsilon^2
+
+\right]ds
+
+﻿
+
+subject to
+
+﻿
+
+Lk=Tw+Wr.
+
+﻿
+
+The particle-formation event is the first loss of stability of the straight-tube solution:
+
+﻿
+
+\lambda_{\min}
+
+\left(
+
+\delta^2E
+
+\right)
+
+\rightarrow0.
+
+﻿
+
+That is the bifurcation we actually want:
+
+﻿
+
+\text{straight vacuum tube}
+
+\rightarrow
+
+\text{twisted tube}
+
+\rightarrow
+
+\text{writhed/helical tube}.
+
+﻿
+
+Recommended sequence
+
+​ Produce one canonical H_0/c decision note; quarantine the accumulated alternatives.
+​ Implement the dimensionless constant-gap equations.
+​ Add constant-\Omega rotation and verify exact pitch/scale relations.
+​ Swap in Kerr/Kelvin r^{-2} transport.
+​ Calculate the resulting generalized helix.
+​ Add Cosserat stability and find the first twist-to-writhe bifurcation.
+​ Only after that test c_T^2=T/\mu and any proposed 1.843 scaling.
+﻿
+
+So the next build is not yet the complete BEC particle model. It is the smallest falsifiable bridge between the newly repaired H_0/c kinematics and the helical geometry: a rotational-expansion trajectory kernel with exact constant-rate controls.
+
+3942 / 4000
+Episode art
+Episode cover art
+
+In this episode
+Add shortcuts to episodes, shows, songs, albums, artists, audiobooks, or playlists that are relevant to this episode. Learn more
+Add a shortcut
+Search on Spotify
+
+
+
+Topics
+Topics are shown when someone plays your episode on Spotify. You can hide topics that aren’t relevant.
+Quantum Mechanics
+
+Cosmology
+
+Particle Physics
+
+
+Guests
+Guests are shown on your Spotify episode page. You can remove any guests that may not be relevant.
+No guests found for this episode.
+
+
+Schedule
+
+Publish date*(required)
+All times are local
+
+
+Now
+
+Schedule
+
+Content checks
+
+Explicit content
+Help fans of all ages avoid unwanted explicit content.
+
+
+No
+
+Promotional content
+Does your episode contain promotional content such as ads, product placement, sponsorship, or endorsement?
+
+
+No
+
+Additional details
+Episode type, season, and settings
+
+Episode type
+
+Full
+
+Trailer
+
+Bonus
+Season number
+0
+Episode number
+0
+Podcast cover art
+Quantum Kelvin Waves
+
+Episode preview
+
+Transcript
+
+Chapters
+© 2026 Spotify AB
+Legal
+Privacy
+Cookies
+
+
+1
+00:00:00,040 --> 00:00:01,440
+OK, let's unpack this right 
+away. 
+
+2
+00:00:01,440 --> 00:00:05,960
+I mean, imagine reality isn't 
+just this empty stage, you know,
+
+3
+00:00:05,960 --> 00:00:09,440
+filled with tiny dot like 
+particles pinging around. 
+
+4
+00:00:10,160 --> 00:00:14,480
+I want you, the listener, to 
+completely throw out that mental
+
+5
+00:00:14,480 --> 00:00:16,520
+image you probably learned in 
+high school chemistry. 
+
+6
+00:00:16,520 --> 00:00:17,120
+Oh. 
+Absolutely. 
+
+7
+00:00:17,120 --> 00:00:19,040
+Yeah, you have to toss that out 
+completely. 
+
+8
+00:00:19,040 --> 00:00:22,240
+Right, forget the little solar 
+system model of the atom. 
+
+9
+00:00:22,760 --> 00:00:26,880
+Instead I want you to picture a 
+natively Euclidean 4 dimensional
+
+10
+00:00:26,880 --> 00:00:30,400
+space where time, and this is 
+the crazy part where time isn't 
+
+11
+00:00:30,400 --> 00:00:34,480
+a line we move along, but the 
+actual uniform radial expansion 
+
+12
+00:00:34,480 --> 00:00:36,000
+of the universe itself. 
+Oh, exactly. 
+
+13
+00:00:36,080 --> 00:00:39,280
+Like imagine you are riding the 
+outward Crest of a massive 4D 
+
+14
+00:00:39,280 --> 00:00:40,000
+balloon. 
+Right. 
+
+15
+00:00:40,080 --> 00:00:43,160
+And the moment we adopt that 
+exact geometric perspective, we 
+
+16
+00:00:43,160 --> 00:00:47,280
+have to completely abandoned the
+old traditional idea of A1 
+
+17
+00:00:47,280 --> 00:00:49,280
+dimensional world line, a world 
+line. 
+
+18
+00:00:49,680 --> 00:00:51,640
+Let's pause right there, because
+I want to make sure we are all 
+
+19
+00:00:51,640 --> 00:00:54,520
+on the exact same page before we
+dive into the deep end of this 
+
+20
+00:00:54,560 --> 00:00:54,880
+deep. 
+Dive. 
+
+21
+00:00:54,880 --> 00:00:57,440
+That's a good idea, yeah. 
+Because in standard physics, a 
+
+22
+00:00:57,440 --> 00:01:00,440
+world line is basically just 
+tracing A particle's history, 
+
+23
+00:01:00,840 --> 00:01:02,680
+right? 
+Like drawing a pencil line on a 
+
+24
+00:01:02,680 --> 00:01:05,480
+graph where 1 axis is space and 
+the other is time. 
+
+25
+00:01:06,480 --> 00:01:10,240
+So if I throw a baseball, it's 
+world line is just the path it 
+
+26
+00:01:10,240 --> 00:01:13,280
+takes through space and time 
+from my hand to the catcher's 
+
+27
+00:01:13,280 --> 00:01:14,080
+MIT. 
+Exactly. 
+
+28
+00:01:14,080 --> 00:01:17,080
+Yeah, Standard physics treats 
+the fundamental building blocks 
+
+29
+00:01:17,080 --> 00:01:21,720
+of reality as 0 dimensional 
+points, just dots. 
+
+30
+00:01:21,760 --> 00:01:23,920
+Right, just little dots. 
+And when a dot move through 
+
+31
+00:01:23,920 --> 00:01:26,640
+time, it leaves a 1D trail which
+is the world line. 
+
+32
+00:01:27,440 --> 00:01:31,640
+But the source documents we are 
+exloring today completely 
+
+33
+00:01:31,640 --> 00:01:34,080
+rewrite this foundation. 
+Completely tear it down. 
+
+34
+00:01:34,080 --> 00:01:36,000
+Really. 
+I mean entirely in this 
+
+35
+00:01:36,000 --> 00:01:39,840
+framework, the true fundamental 
+entity is not a point, and it 
+
+36
+00:01:39,840 --> 00:01:41,680
+definitely doesn't leave a 1D 
+line. 
+
+37
+00:01:42,040 --> 00:01:45,800
+The primary entity is an NTH 
+order recursive super helical 
+
+38
+00:01:45,800 --> 00:01:48,440
+world tube. 
+OK, hold on NTH order recursive 
+
+39
+00:01:48,440 --> 00:01:51,240
+super helical world tube. 
+I know it's a mouthful. 
+
+40
+00:01:51,280 --> 00:01:53,920
+You are going to have to 
+translate that for me because 
+
+41
+00:01:53,920 --> 00:01:57,720
+what I am picturing right now is
+it's less of a pencil line on a 
+
+42
+00:01:57,720 --> 00:02:00,720
+graph and more of a twisting 40 
+garden hose. 
+
+43
+00:02:01,080 --> 00:02:01,960
+It's actually a great way to 
+put. 
+
+44
+00:02:01,960 --> 00:02:04,360
+Like a hose that acts as a 
+wormhole connecting different 
+
+45
+00:02:04,360 --> 00:02:05,600
+parts of the universe. 
+Is that close? 
+
+46
+00:02:05,800 --> 00:02:08,160
+That is actually a phenomenal 
+way to visualize it. 
+
+47
+00:02:08,520 --> 00:02:12,520
+Functionally, we're talking 
+about a literal Einstein Rosen 
+
+48
+00:02:12,520 --> 00:02:16,000
+bridge. 
+It is a hose, but a very 
+
+49
+00:02:16,000 --> 00:02:17,720
+specifically structured hose, 
+right? 
+
+50
+00:02:17,720 --> 00:02:21,240
+And what's fascinating here is 
+that by shifting from points and
+
+51
+00:02:21,240 --> 00:02:26,200
+lines to this exact tubular 
+geometry, the bizarre, abstract 
+
+52
+00:02:26,200 --> 00:02:30,800
+and honestly often infuriating 
+laws of quantum mechanics stop 
+
+53
+00:02:30,800 --> 00:02:32,720
+being arbitrary mathematical 
+rules. 
+
+54
+00:02:32,840 --> 00:02:35,800
+They actually make sense. 
+Yes, they become mandatory 
+
+55
+00:02:35,800 --> 00:02:38,400
+geometric consequences. 
+You can actually see why the 
+
+56
+00:02:38,400 --> 00:02:39,640
+universe behaves the way it 
+does. 
+
+57
+00:02:39,640 --> 00:02:41,280
+Which is exactly what we're 
+going to get into. 
+
+58
+00:02:41,560 --> 00:02:45,040
+Right today we are going to 
+explore exactly how these 
+
+59
+00:02:45,040 --> 00:02:48,080
+twisting tubes fit together, how
+they build the particles you are
+
+60
+00:02:48,080 --> 00:02:51,960
+made of, and how they solve some
+of the most stubborn infinities 
+
+61
+00:02:51,960 --> 00:02:54,600
+in standard physics. 
+I am so ready for this but OK 
+
+62
+00:02:54,640 --> 00:02:57,680
+right out of the gate I have a 
+massive conceptual hurdle. 
+
+63
+00:02:57,760 --> 00:02:59,920
+Sure, lay it on me. 
+If we are replacing all these 
+
+64
+00:03:00,360 --> 00:03:03,480
+billions of individual isolated 
+point particles with these 
+
+65
+00:03:03,480 --> 00:03:07,440
+continuous tubes, how are we 
+supposed to build a universe? 
+
+66
+00:03:07,440 --> 00:03:10,120
+That's the big question. 
+Because the sources talk about 
+
+67
+00:03:10,120 --> 00:03:13,680
+the universe being built on a 
+single connected Klein surface, 
+
+68
+00:03:13,680 --> 00:03:17,200
+like 1 continuous core to cosmos
+sheet of reality. 
+
+69
+00:03:17,240 --> 00:03:19,840
+Yes, a single unoriented 
+manifold. 
+
+70
+00:03:20,080 --> 00:03:23,640
+Right, so if everything is just 
+one giant continuous 4D hose, 
+
+71
+00:03:23,840 --> 00:03:26,320
+how am I currently looking at a 
+universe filled with billions of
+
+72
+00:03:26,320 --> 00:03:28,120
+separate things? 
+Seems like a contradiction, 
+
+73
+00:03:28,320 --> 00:03:31,000
+right? 
+How do you get multitudes, A 
+
+74
+00:03:31,000 --> 00:03:35,280
+coffee cup, A star, an electron 
+from one continuous object? 
+
+75
+00:03:35,440 --> 00:03:38,120
+That right there is what the 
+framework calls the problem of 
+
+76
+00:03:38,120 --> 00:03:41,000
+multitudes. 
+It is the first major hurdle you
+
+77
+00:03:41,000 --> 00:03:44,880
+hit and the answer lies in what 
+the documents refer to as the 
+
+78
+00:03:44,880 --> 00:03:47,200
+AHA topology. 
+The AHA topology. 
+
+79
+00:03:47,200 --> 00:03:49,960
+Yeah, and the key to the AHA 
+topology is the concept of 
+
+80
+00:03:49,960 --> 00:03:52,240
+recursive nesting. 
+Recursive nesting. 
+
+81
+00:03:52,240 --> 00:03:54,400
+OK, break that down for me. 
+Like like a set of Russian 
+
+82
+00:03:54,400 --> 00:03:56,320
+nesting galls. 
+Similar, yeah, but with a 
+
+83
+00:03:56,320 --> 00:03:58,720
+crucial geometric twist. 
+Let's compare it to older 
+
+84
+00:03:58,720 --> 00:04:00,480
+theories for a second to give it
+some context. 
+
+85
+00:04:01,000 --> 00:04:03,560
+Think about string theory. 
+Sure, vibrating strings. 
+
+86
+00:04:03,800 --> 00:04:05,760
+Right. 
+In standard string theory, you 
+
+87
+00:04:05,760 --> 00:04:10,240
+have one fundamental shape, a 
+tiny loop, a Taurus, and the 
+
+88
+00:04:10,240 --> 00:04:13,400
+different particles we see are 
+just that, one loop vibrating at
+
+89
+00:04:13,400 --> 00:04:16,600
+different frequencies. 
+Like clicking a guitar string, a
+
+90
+00:04:16,600 --> 00:04:19,560
+low note might be an electron, a
+high note might be a quirk. 
+
+91
+00:04:19,560 --> 00:04:21,920
+Exactly, but it's always the 
+same size string. 
+
+92
+00:04:22,079 --> 00:04:25,400
+OK, so the mass spectrum is just
+an excitation spectrum on a 
+
+93
+00:04:25,400 --> 00:04:26,840
+fixed shape. 
+Exactly. 
+
+94
+00:04:27,240 --> 00:04:29,360
+But the HHA topology doesn't do 
+that at all. 
+
+95
+00:04:29,440 --> 00:04:33,120
+It is not just one shape 
+vibrating, it is a system of 
+
+96
+00:04:33,120 --> 00:04:35,680
+nested shapes at entirely 
+different scales. 
+
+97
+00:04:36,280 --> 00:04:38,520
+OK, think back to the word super
+helical. 
+
+98
+00:04:39,200 --> 00:04:42,200
+A Helix is a spiral, right? 
+Like a slinky, right? 
+
+99
+00:04:42,520 --> 00:04:45,400
+Well, the Superhelix is a 
+slinky, where the wire itself is
+
+100
+00:04:45,400 --> 00:04:47,280
+also coiled into a smaller 
+slinky. 
+
+101
+00:04:47,400 --> 00:04:50,880
+Oh wow, OK, I can picture that. 
+And in an NTH order recursive 
+
+102
+00:04:50,880 --> 00:04:54,560
+superhelix, that smaller slinky 
+is made of an even smaller 
+
+103
+00:04:54,560 --> 00:04:57,040
+coiled wire, and so on, 
+basically infinitely. 
+
+104
+00:04:57,040 --> 00:04:58,680
+That is a wild image. 
+Right. 
+
+105
+00:04:58,800 --> 00:05:01,960
+Each order or level of the 
+superhelix contributes its own 
+
+106
+00:05:01,960 --> 00:05:04,000
+distinct radius. 
+So if you have N levels of 
+
+107
+00:05:04,000 --> 00:05:06,120
+nesting, you have N distinct 
+radii. 
+
+108
+00:05:06,720 --> 00:05:09,440
+It is genuinely unbounded self 
+similar recursion. 
+
+109
+00:05:09,440 --> 00:05:10,600
+OK wait, I have to push back 
+here. 
+
+110
+00:05:10,640 --> 00:05:13,720
+Go for it. 
+If we have this massive complex 
+
+111
+00:05:13,720 --> 00:05:18,000
+4D wormhole structure spiraling 
+infinitely, what makes the tube 
+
+112
+00:05:18,000 --> 00:05:19,160
+twist in the 1st place? 
+That's. 
+
+113
+00:05:19,160 --> 00:05:21,800
+A very logical question. 
+Right, because in standard 
+
+114
+00:05:21,800 --> 00:05:25,240
+physics, if something twists or 
+spins, it's usually because a 
+
+115
+00:05:25,240 --> 00:05:29,000
+force acted on it. 
+Is there some outside of force, 
+
+116
+00:05:29,000 --> 00:05:33,640
+Some cosmic giant, just ringing 
+this 4D hose out like a wet 
+
+117
+00:05:33,640 --> 00:05:35,520
+towel? 
+You would think so, but the 
+
+118
+00:05:35,520 --> 00:05:38,120
+answer is actually no. 
+This is where the framework 
+
+119
+00:05:38,120 --> 00:05:41,600
+looks to a stunning result from 
+classical fluid mechanics, 
+
+120
+00:05:42,240 --> 00:05:46,280
+specifically a mathematical 
+proof from 1972 called the 
+
+121
+00:05:46,280 --> 00:05:49,200
+Hasimoto transformation. 
+Hasimoto transformation? 
+
+122
+00:05:49,480 --> 00:05:51,360
+Honestly, that sounds like a 
+judo throw. 
+
+123
+00:05:51,360 --> 00:05:53,360
+It does, yeah. 
+What does fluid mechanics from 
+
+124
+00:05:53,360 --> 00:05:56,440
+the 70s have to do with the 
+fundamental geometry of the 
+
+125
+00:05:56,440 --> 00:05:58,680
+universe? 
+It changes everything, actually,
+
+126
+00:05:58,760 --> 00:06:01,440
+because it proves we don't need 
+to invent an outside twisting 
+
+127
+00:06:01,440 --> 00:06:03,960
+agent. 
+Hasimoto proved that a curved 
+
+128
+00:06:03,960 --> 00:06:07,400
+vortex filament in a fluid 
+actually induces its own motion.
+
+129
+00:06:07,400 --> 00:06:08,680
+Wait, really? 
+Yes. 
+
+130
+00:06:09,240 --> 00:06:11,560
+The local curvature of the 
+verticity field around it 
+
+131
+00:06:11,560 --> 00:06:13,040
+mathematically causes it to 
+move. 
+
+132
+00:06:13,480 --> 00:06:16,680
+If you track a vortex, filaments
+curvature and torsion, its bend 
+
+133
+00:06:16,960 --> 00:06:19,560
+and its twist, they package 
+together into a function that 
+
+134
+00:06:19,560 --> 00:06:22,640
+perfectly solves the non linear 
+Schrodinger equation. 
+
+135
+00:06:22,760 --> 00:06:25,400
+Whoa, hold on, you're saying 
+that the filaments own self 
+
+136
+00:06:25,400 --> 00:06:28,440
+induced dynamics generate the 
+twisting naturally just by the 
+
+137
+00:06:28,440 --> 00:06:30,720
+simple fact that it's curved? 
+Precisely. 
+
+138
+00:06:31,200 --> 00:06:34,320
+No outside force, no cosmic 
+giant ringing. 
+
+139
+00:06:34,320 --> 00:06:38,120
+The towel is required if you 
+leave a curved vortex ring alone
+
+140
+00:06:38,120 --> 00:06:40,560
+in a fluid. 
+It doesn't just sit there as a 
+
+141
+00:06:40,560 --> 00:06:43,280
+smooth dormant circle. 
+It does its own thing. 
+
+142
+00:06:43,360 --> 00:06:45,200
+Right. 
+It naturally develops traveling 
+
+143
+00:06:45,200 --> 00:06:48,880
+helical waves along its own 
+length, which fluid dynamicists 
+
+144
+00:06:48,880 --> 00:06:53,040
+called Kelvin waves Torsion. 
+That twisting action appears 
+
+145
+00:06:53,040 --> 00:06:56,000
+spontaneously from the filaments
+own internal motion. 
+
+146
+00:06:56,000 --> 00:06:58,280
+OK, I see. 
+And here's where it connects 
+
+147
+00:06:58,280 --> 00:07:02,080
+back to our expanding universe. 
+Because the 4D manifold we live 
+
+148
+00:07:02,080 --> 00:07:06,080
+in has a rotational component to
+its expansion, that universal 
+
+149
+00:07:06,080 --> 00:07:10,720
+rotation takes this single 
+radial path and naturally winds 
+
+150
+00:07:10,720 --> 00:07:13,560
+it into this scale, generating 
+superhelix. 
+
+151
+00:07:13,560 --> 00:07:16,280
+OK, let me see if I can 
+translate this into a visual for
+
+152
+00:07:16,280 --> 00:07:18,760
+everyone listening because this 
+is starting to seriously bend my
+
+153
+00:07:18,760 --> 00:07:20,320
+brain. 
+It's a lot to visualize for 
+
+154
+00:07:20,320 --> 00:07:21,080
+sure. 
+Right. 
+
+155
+00:07:21,080 --> 00:07:24,520
+So if you are driving your car 
+right now, imagine taking a 
+
+156
+00:07:24,520 --> 00:07:27,600
+tightly coiled metal spring, 
+like a suspension spring from a 
+
+157
+00:07:27,600 --> 00:07:30,800
+car, and imagine slicing 
+straight through it with an 
+
+158
+00:07:30,800 --> 00:07:33,120
+incredibly thin flat sheet of 
+paper. 
+
+159
+00:07:33,520 --> 00:07:35,720
+If you only look at what's on 
+the paper, you don't see a 
+
+160
+00:07:35,720 --> 00:07:37,120
+spring. 
+No, you wouldn't. 
+
+161
+00:07:37,240 --> 00:07:39,880
+You just see a bunch of separate
+disconnected little circles 
+
+162
+00:07:39,880 --> 00:07:42,960
+where the wire intersects the 
+page, but if you zoom out into 
+
+163
+00:07:42,960 --> 00:07:46,840
+3D and look at the whole object,
+it's all one continuous wire. 
+
+164
+00:07:46,840 --> 00:07:50,200
+Yes, exactly. 
+So in this model, your 3D 
+
+165
+00:07:50,200 --> 00:07:53,280
+reality, your perception of the 
+present moment, is that flat 
+
+166
+00:07:53,280 --> 00:07:57,120
+sheet of paper, and the billions
+of distinct particles you see 
+
+167
+00:07:57,120 --> 00:08:01,160
+everywhere are just the sliced 
+circles of a single continuous 
+
+168
+00:08:01,160 --> 00:08:04,480
+4D superhelix passing through 
+your slice of time. 
+
+169
+00:08:04,480 --> 00:08:06,240
+That is the perfect way to 
+visualize it. 
+
+170
+00:08:06,920 --> 00:08:09,360
+If the universe expanded 
+straight outward without 
+
+171
+00:08:09,360 --> 00:08:12,480
+rotating, the unrotated history 
+would give us a one particle 
+
+172
+00:08:12,480 --> 00:08:15,160
+universe, just a single tube. 
+Which would be pretty boring. 
+
+173
+00:08:15,200 --> 00:08:17,800
+Very boring, yeah, but the 
+rotational winding of the 
+
+174
+00:08:17,800 --> 00:08:21,640
+expansion makes its projection 
+onto our 3D surface multi 
+
+175
+00:08:21,640 --> 00:08:24,040
+valued. 
+It passes through the paper over
+
+176
+00:08:24,040 --> 00:08:27,000
+and over again, producing 
+multiple particle readouts from 
+
+177
+00:08:27,000 --> 00:08:29,360
+one continuous object. 
+OK, I'm following. 
+
+178
+00:08:29,480 --> 00:08:33,000
+And the scale hierarchy, the 
+reason we have huge macro 
+
+179
+00:08:33,000 --> 00:08:35,640
+structures and tiny 
+microstructures, comes directly 
+
+180
+00:08:35,640 --> 00:08:38,400
+from the ratio of that 
+rotational frequency to the 
+
+181
+00:08:38,400 --> 00:08:40,200
+Hubble expansion rate of the 
+universe. 
+
+182
+00:08:40,400 --> 00:08:42,240
+Now here's where it gets really 
+interesting. 
+
+183
+00:08:42,840 --> 00:08:46,440
+Because if this is true, if 
+particles are just sliced cross 
+
+184
+00:08:46,440 --> 00:08:50,920
+sections of a twisting 40 hose, 
+then we have to totally redefine
+
+185
+00:08:50,920 --> 00:08:53,120
+what standard physical 
+properties actually are. 
+
+186
+00:08:53,240 --> 00:08:54,520
+Fundamentally, yes. 
+Right. 
+
+187
+00:08:54,520 --> 00:08:57,240
+When a physicist measures a 
+particle today, they talk about 
+
+188
+00:08:57,240 --> 00:09:01,040
+3 main things. 
+Right, Mass charge and spin. 
+
+189
+00:09:01,160 --> 00:09:04,600
+Those are the big three. 
+But if I'm holding a rock, and 
+
+190
+00:09:04,600 --> 00:09:08,760
+that rock is made of particles, 
+what is the mass of that rock in
+
+191
+00:09:08,760 --> 00:09:12,000
+this framework? 
+Because in this geometry there 
+
+192
+00:09:12,000 --> 00:09:15,000
+is no actual solid matter as we 
+traditionally think of it. 
+
+193
+00:09:15,000 --> 00:09:17,160
+It's just a kink and a tube. 
+That's exactly right. 
+
+194
+00:09:17,160 --> 00:09:19,960
+The concept of solid matter is 
+just an illusion of the cross 
+
+195
+00:09:19,960 --> 00:09:23,560
+section. 
+In the HSH framework, mass is 
+
+196
+00:09:23,560 --> 00:09:26,240
+fundamentally redefined as 
+projective resistance. 
+
+197
+00:09:26,320 --> 00:09:28,760
+Projective resistance. 
+OK, explain that to me like I'm 
+
+198
+00:09:28,760 --> 00:09:30,560
+a 5 year old. 
+What is resisting what? 
+
+199
+00:09:30,600 --> 00:09:34,440
+Sure, Think of the World tube as
+a physical structural cable that
+
+200
+00:09:34,440 --> 00:09:37,280
+resists bending it wants to. 
+Go straight like a really stiff 
+
+201
+00:09:37,280 --> 00:09:38,760
+piece of wire. 
+Exactly. 
+
+202
+00:09:39,320 --> 00:09:43,240
+Now the world tube has a tangent
+vector, which is basically just 
+
+203
+00:09:43,240 --> 00:09:45,000
+the direction the tube itself is
+pointing. 
+
+204
+00:09:45,640 --> 00:09:48,280
+And then there is the outward 
+time flow vector of the 
+
+205
+00:09:48,280 --> 00:09:50,960
+universe's radial expansion. 
+So there's the direction the 
+
+206
+00:09:50,960 --> 00:09:53,280
+universe is expanding, and the 
+direction the tube wants to 
+
+207
+00:09:53,280 --> 00:09:55,920
+point. 
+Right mass is simply the 
+
+208
+00:09:55,920 --> 00:09:58,920
+physical bending energy required
+to maintain an angular 
+
+209
+00:09:58,920 --> 00:10:00,720
+misalignment between those two 
+directions. 
+
+210
+00:10:01,280 --> 00:10:04,040
+If the tube points exactly in 
+the direction of the universe's 
+
+211
+00:10:04,040 --> 00:10:06,480
+expansion, it takes no energy. 
+It's massless. 
+
+212
+00:10:07,080 --> 00:10:09,360
+But if you bend it away from 
+that outward flow, the tube 
+
+213
+00:10:09,360 --> 00:10:12,080
+fights back. 
+Mass is literally just the 
+
+214
+00:10:12,080 --> 00:10:14,880
+stored mechanical energy it 
+takes to keep a kink in the 
+
+215
+00:10:14,880 --> 00:10:17,440
+tube. 
+Let me make sure I am grasping 
+
+216
+00:10:17,440 --> 00:10:19,560
+this. 
+Are you saying that heavier 
+
+217
+00:10:19,560 --> 00:10:23,160
+particles like say a top cork 
+which is massively heavy 
+
+218
+00:10:23,160 --> 00:10:26,120
+compared to an electron, they 
+just have a sharper kink? 
+
+219
+00:10:26,120 --> 00:10:28,040
+Yes. 
+Their mass is literally just 
+
+220
+00:10:28,040 --> 00:10:30,920
+stored bending energy resisting 
+the outward flow of time. 
+
+221
+00:10:30,920 --> 00:10:33,720
+You've got it perfectly. 
+The resistance to null 
+
+222
+00:10:33,720 --> 00:10:36,640
+propagation, which means moving 
+smoothly at the speed of light, 
+
+223
+00:10:36,840 --> 00:10:39,800
+is a direct measure of the 
+bending energy stored within the
+
+224
+00:10:39,800 --> 00:10:42,520
+Super helical kink. 
+That is just wow. 
+
+225
+00:10:42,880 --> 00:10:45,640
+Right. 
+If a particle has mass, it just 
+
+226
+00:10:45,640 --> 00:10:48,600
+means it's world. 
+Tube geometry is resisting the 
+
+227
+00:10:48,600 --> 00:10:50,520
+natural outward flow of the 
+cosmos. 
+
+228
+00:10:51,200 --> 00:10:55,200
+And this pure structural 
+geometric logic doesn't just 
+
+229
+00:10:55,200 --> 00:10:58,840
+apply to mass, it elegantly 
+explains charge and spin too. 
+
+230
+00:10:58,960 --> 00:11:01,200
+OK, well let's unpack charge 
+then, because this is something 
+
+231
+00:11:01,200 --> 00:11:04,720
+we interact with constantly. 
+We do Like if I rub my feet on 
+
+232
+00:11:04,720 --> 00:11:08,480
+the carpet and get a static 
+shock from a doorknob, what am I
+
+233
+00:11:08,480 --> 00:11:11,440
+actually experiencing in a world
+tube universe? 
+
+234
+00:11:11,440 --> 00:11:14,360
+Because standard physics just 
+says, you know, I transferred 
+
+235
+00:11:14,360 --> 00:11:17,520
+electrons with negative charges.
+Yeah, in standard physics, 
+
+236
+00:11:17,600 --> 00:11:21,120
+electromagnetism is treated as 
+this somewhat magical field 
+
+237
+00:11:21,120 --> 00:11:24,640
+layered on top of space. 
+But in this geometry, charge is 
+
+238
+00:11:24,640 --> 00:11:28,280
+re parameterized as the 
+topological winding numbers of a
+
+239
+00:11:28,280 --> 00:11:30,480
+fundamental three form world 
+volume current. 
+
+240
+00:11:30,480 --> 00:11:33,920
+Whoa, time out topological 
+winding numbers of a fundamental
+
+241
+00:11:33,920 --> 00:11:36,640
+three form world volume current.
+I know it's very dense. 
+
+242
+00:11:36,640 --> 00:11:39,400
+You completely lost me there. 
+Bring that down to earth for us.
+
+243
+00:11:39,520 --> 00:11:44,000
+Fair enough, Let's simplify it. 
+Imagine the surface of the tube 
+
+244
+00:11:44,000 --> 00:11:47,760
+is woven from threads. 
+The winding number is literally 
+
+245
+00:11:47,760 --> 00:11:51,080
+just counting how many times 
+those threads wrapped completely
+
+246
+00:11:51,080 --> 00:11:53,560
+around the tube before coming 
+back to where they started. 
+
+247
+00:11:53,640 --> 00:11:55,520
+OK, wrapping threads, I can see 
+that right? 
+
+248
+00:11:56,000 --> 00:11:58,520
+In this framework, 
+electromagnetism isn't an 
+
+249
+00:11:58,520 --> 00:12:01,160
+invisible force field layered 
+over empty space. 
+
+250
+00:12:01,600 --> 00:12:04,680
+It is a mandatory geometric 
+requirement for keeping the 
+
+251
+00:12:04,680 --> 00:12:08,440
+surface of the tube intact and 
+conserved as it twists. 
+
+252
+00:12:08,440 --> 00:12:10,640
+Oh, I see. 
+These charges are fixed by 
+
+253
+00:12:10,640 --> 00:12:12,840
+something called native 
+quantization. 
+
+254
+00:12:13,360 --> 00:12:16,240
+Native quantization, meaning it 
+happens naturally, just 
+
+255
+00:12:16,240 --> 00:12:18,720
+natively. 
+Yes, specifically through 
+
+256
+00:12:18,720 --> 00:12:22,000
+holonomy constraints. 
+And what exactly is a holonomy 
+
+257
+00:12:22,000 --> 00:12:24,360
+constraint A? 
+Holonomy constraint dictates 
+
+258
+00:12:24,360 --> 00:12:27,000
+what happens when you travel 
+around a closed loop on a curved
+
+259
+00:12:27,000 --> 00:12:29,000
+surface. 
+Let me give you a classic 
+
+260
+00:12:29,000 --> 00:12:29,920
+analogy. 
+Please do. 
+
+261
+00:12:30,240 --> 00:12:33,280
+Imagine you were standing on the
+equator of a globe holding a 
+
+262
+00:12:33,280 --> 00:12:37,080
+stick so it points straight N 
+you walk perfectly straight up 
+
+263
+00:12:37,080 --> 00:12:40,160
+to the North Pole. 
+Then, without twisting your body
+
+264
+00:12:40,160 --> 00:12:43,600
+or the stick, you slide sideways
+down to the equator at a 
+
+265
+00:12:43,600 --> 00:12:46,800
+different longitude. 
+Finally, you slide sideways 
+
+266
+00:12:46,800 --> 00:12:49,040
+along the equator back to where 
+you started. 
+
+267
+00:12:49,520 --> 00:12:51,680
+Even though you never rotated 
+this stick yourself. 
+
+268
+00:12:51,960 --> 00:12:54,440
+The stick will now be pointing 
+in a different direction. 
+
+269
+00:12:54,720 --> 00:12:57,400
+Because the surface curved under
+me, yes. 
+
+270
+00:12:57,920 --> 00:13:00,240
+The curvature of the globe 
+forced a rotation. 
+
+271
+00:13:00,640 --> 00:13:04,640
+That is a holonomy effect. 
+OK, I can visualize that the 
+
+272
+00:13:04,640 --> 00:13:07,480
+shape of the surface itself 
+forces a change. 
+
+273
+00:13:08,040 --> 00:13:11,040
+Exactly. 
+Now apply that to our 4D tubes. 
+
+274
+00:13:11,480 --> 00:13:15,160
+The geometry of the tube demands
+that closed loop integrals of 
+
+275
+00:13:15,160 --> 00:13:17,840
+the phase field, basically 
+tracing the twist around the 
+
+276
+00:13:17,840 --> 00:13:22,080
+tube, must perfectly equal 
+integer multiples of 2π. 
+
+277
+00:13:22,080 --> 00:13:22,960
+It has to match. 
+Up. 
+
+278
+00:13:22,960 --> 00:13:25,880
+It has to sync up perfectly when
+it completes a loop or the tube 
+
+279
+00:13:25,880 --> 00:13:29,360
+would literally tear that 
+geometric requirement. 
+
+280
+00:13:29,360 --> 00:13:32,320
+That mathematically forced 
+alignment is what we perceive in
+
+281
+00:13:32,320 --> 00:13:34,240
+our 3D World as an electric 
+charge. 
+
+282
+00:13:34,800 --> 00:13:37,440
+That is incredible. 
+It turns a fundamental force 
+
+283
+00:13:37,440 --> 00:13:40,200
+into a structural necessity. 
+It really does. 
+
+284
+00:13:40,200 --> 00:13:42,840
+OK, what about spin? 
+Standard quantum mechanics says 
+
+285
+00:13:42,840 --> 00:13:46,200
+an electron has spin, but every 
+textbook immediately clarifies 
+
+286
+00:13:46,200 --> 00:13:48,120
+that it's not actually spinning 
+like a top. 
+
+287
+00:13:48,120 --> 00:13:50,520
+Right, they say it's just 
+intrinsic angular momentum. 
+
+288
+00:13:50,760 --> 00:13:53,040
+Yeah, an abstract mathematical 
+property. 
+
+289
+00:13:53,440 --> 00:13:56,200
+Does this geometry make spin 
+physical again? 
+
+290
+00:13:56,200 --> 00:13:58,920
+It absolutely does. 
+Spin is derived directly from 
+
+291
+00:13:58,920 --> 00:14:01,440
+that same holonomy quantization 
+we just talked about. 
+
+292
+00:14:01,880 --> 00:14:06,120
+Spin is the integrated internal 
+twist accumulated along the 
+
+293
+00:14:06,120 --> 00:14:08,080
+closed history of the filament 
+bundle. 
+
+294
+00:14:08,080 --> 00:14:11,760
+So it's a real twist, yes. 
+The reason we see half integer 
+
+295
+00:14:11,760 --> 00:14:15,560
+spin, which is the defining 
+characteristic of fermions, the 
+
+296
+00:14:15,560 --> 00:14:18,240
+particles that make up all solid
+matter like electrons and 
+
+297
+00:14:18,240 --> 00:14:21,400
+quarks. 
+It arises structurally from the 
+
+298
+00:14:21,400 --> 00:14:24,840
+integrated helical coiling 
+history of multi filament 
+
+299
+00:14:24,840 --> 00:14:28,840
+configurations. 
+It is the literal physical twist
+
+300
+00:14:28,840 --> 00:14:31,440
+of the cables. 
+So wait, if matter particles are
+
+301
+00:14:31,440 --> 00:14:35,000
+just specific types of twists, 
+what is the difference between a
+
+302
+00:14:35,000 --> 00:14:38,480
+fermion which makes up my 
+physical body and a boson which 
+
+303
+00:14:38,480 --> 00:14:40,720
+just carries forces like a 
+photon of light? 
+
+304
+00:14:40,720 --> 00:14:43,120
+That's a brilliant question. 
+Is it just a difference in how 
+
+305
+00:14:43,120 --> 00:14:45,960
+the tubes are woven? 
+Precisely, the framework 
+
+306
+00:14:45,960 --> 00:14:48,720
+establishes a strict geometric 
+hierarchy of the weave. 
+
+307
+00:14:49,280 --> 00:14:52,160
+True fermions are persistent 
+extended coils along the time 
+
+308
+00:14:52,160 --> 00:14:54,240
+axis. 
+They maintain their knotted 
+
+309
+00:14:54,240 --> 00:14:55,880
+structure as they expand 
+outward. 
+
+310
+00:14:56,080 --> 00:14:59,520
+True bosons, on the other hand, 
+like photons and neutrinos, are 
+
+311
+00:14:59,520 --> 00:15:02,160
+transient vibrations propagating
+along the network. 
+
+312
+00:15:02,160 --> 00:15:05,160
+OK, I have to stop you there, 
+because in the standard model of
+
+313
+00:15:05,160 --> 00:15:09,720
+particle physics, a neutrino and
+a photon are entirely different 
+
+314
+00:15:09,720 --> 00:15:11,160
+beasts. 
+Oh, completely. 
+
+315
+00:15:11,280 --> 00:15:13,160
+Right. 
+A neutrino has a tiny bit of 
+
+316
+00:15:13,160 --> 00:15:15,760
+mass and it's classified as a 
+fermion. 
+
+317
+00:15:16,280 --> 00:15:19,360
+A photon has zero mass and it's 
+a boson. 
+
+318
+00:15:19,960 --> 00:15:22,600
+Standard physics treats them 
+like entirely different 
+
+319
+00:15:22,600 --> 00:15:25,280
+categories of existence, but you
+just lump them both in as 
+
+320
+00:15:25,280 --> 00:15:26,520
+vibrations. 
+I did. 
+
+321
+00:15:26,640 --> 00:15:29,480
+So when a neutrino turns into a 
+photon, which I know can happen 
+
+322
+00:15:29,480 --> 00:15:33,200
+in certain nuclear reactions, is
+it not magically changing its 
+
+323
+00:15:33,200 --> 00:15:34,880
+entire identity? 
+Exactly. 
+
+324
+00:15:35,080 --> 00:15:38,040
+In standard physics, it's a huge
+headache to explain how one 
+
+325
+00:15:38,040 --> 00:15:40,960
+fundamental category of particle
+transforms into another. 
+
+326
+00:15:41,280 --> 00:15:44,680
+But in this geometry, they are 
+both modeled as unbound, 
+
+327
+00:15:44,680 --> 00:15:46,280
+unknotted filaments. 
+Really. 
+
+328
+00:15:46,440 --> 00:15:48,760
+Yeah, they both have a 
+topological charge of one thing.
+
+329
+00:15:49,360 --> 00:15:51,960
+The transition between a 
+neutrino and a photon is simply 
+
+330
+00:15:51,960 --> 00:15:55,560
+a rotation relative to your 
+observation angle on that 3D 
+
+331
+00:15:55,560 --> 00:15:58,320
+slice of paper. 
+You are just looking at the same
+
+332
+00:15:58,320 --> 00:16:00,840
+unknotted vibration from a 
+different geometric perspective.
+
+333
+00:16:01,040 --> 00:16:04,600
+That feels almost too elegant. 
+But what about heavier 
+
+334
+00:16:04,600 --> 00:16:05,920
+particles? 
+What do you mean? 
+
+335
+00:16:06,200 --> 00:16:10,320
+Like an electron is a fermion, 
+but it has a heavier cousin 
+
+336
+00:16:10,320 --> 00:16:13,280
+called the Muon and an even 
+heavier cousin called the Tau. 
+
+337
+00:16:14,040 --> 00:16:16,560
+The generations. 
+Yeah, In standard physics, they 
+
+338
+00:16:16,560 --> 00:16:18,880
+just say, well, the universe has
+three generations of particles 
+
+339
+00:16:18,880 --> 00:16:21,360
+and they just randomly happen to
+have these different masses. 
+
+340
+00:16:22,000 --> 00:16:26,160
+Does this geometry actually 
+explain why there are three and 
+
+341
+00:16:26,160 --> 00:16:29,360
+why they weigh what they do? 
+It does, and it retro dimmish 
+
+342
+00:16:29,360 --> 00:16:32,960
+mass hierarchy perfectly without
+needing any of those ad hoc 
+
+343
+00:16:33,160 --> 00:16:35,720
+random parameters that standard 
+physics uses. 
+
+344
+00:16:35,720 --> 00:16:38,240
+Wow. 
+In this framework, particle 
+
+345
+00:16:38,240 --> 00:16:42,960
+flavors, electron, Muon, Tau are
+discrete twists in the filaments
+
+346
+00:16:42,960 --> 00:16:46,000
+coiling order. 
+Specifically, they correspond to
+
+347
+00:16:46,000 --> 00:16:50,600
+twists of K = 2 one and zero in 
+the alternating group of order 
+
+348
+00:16:50,600 --> 00:16:53,120
+12, known mathematically as the 
+a four group. 
+
+349
+00:16:53,400 --> 00:16:55,440
+Alternating group of order 12. 
+You know, I'm going to ask you 
+
+350
+00:16:55,440 --> 00:16:56,520
+to explain that I. 
+Figured. 
+
+351
+00:16:56,600 --> 00:16:59,320
+Think of it like the symmetrical
+rotations of a tetrahedron, a 
+
+352
+00:16:59,320 --> 00:17:00,760
+pyramid with the triangular 
+base. 
+
+353
+00:17:01,400 --> 00:17:04,960
+There are exactly 12 ways you 
+can rotate that shape and have 
+
+354
+00:17:04,960 --> 00:17:08,119
+it look exactly the same. 
+The mathematical rules governing
+
+355
+00:17:08,119 --> 00:17:10,720
+those specific rotations are the
+a four group. 
+
+356
+00:17:10,880 --> 00:17:14,040
+Got it. 
+The tubes can only twist in 
+
+357
+00:17:14,040 --> 00:17:17,240
+discrete locksteps that match 
+those geometric symmetries. 
+
+358
+00:17:17,440 --> 00:17:20,319
+You can't have A twist of 1.5. 
+It has to be an integer state 
+
+359
+00:17:20,319 --> 00:17:22,640
+defined by the group geometry. 
+Oh, I see. 
+
+360
+00:17:22,839 --> 00:17:25,839
+That's why there are exactly 3 
+generations of these particles, 
+
+361
+00:17:26,119 --> 00:17:29,040
+and why their masses, their 
+bending energies, are locked 
+
+362
+00:17:29,040 --> 00:17:33,200
+into specific ratios. 
+The geometry literally forbids 
+
+363
+00:17:33,480 --> 00:17:36,160
+any other variation. 
+OK, my mind is thoroughly blown 
+
+364
+00:17:36,160 --> 00:17:39,000
+by these particle definitions. 
+A massive paradigm shift. 
+
+365
+00:17:39,000 --> 00:17:41,000
+It really is. 
+We have these individual 
+
+366
+00:17:41,000 --> 00:17:43,520
+particle cross sections, these 
+slice circles on our sheet of 
+
+367
+00:17:43,520 --> 00:17:46,800
+paper, and their mass, charge 
+and spin are all just physical 
+
+368
+00:17:46,800 --> 00:17:49,680
+twists and kinks. 
+But here is the massive logical 
+
+369
+00:17:49,680 --> 00:17:51,680
+gap I'm staring at right now. 
+What's the gap? 
+
+370
+00:17:52,120 --> 00:17:53,760
+How do they move? 
+Tangential Transport. 
+
+371
+00:17:53,840 --> 00:17:56,080
+Right. 
+But if this whole universe is a 
+
+372
+00:17:56,080 --> 00:18:00,560
+fixed solid 4D geometric 
+structure, how does my electron 
+
+373
+00:18:00,560 --> 00:18:03,720
+slice travel from a battery, 
+down a copper wire and into a 
+
+374
+00:18:03,720 --> 00:18:06,480
+light bulb without breaking the 
+universe's geometry? 
+
+375
+00:18:06,560 --> 00:18:10,240
+That is the big question. 
+If the tube is solid, the slice 
+
+376
+00:18:10,240 --> 00:18:13,320
+shouldn't be able to just drag 
+horizontally across the paper 
+
+377
+00:18:13,520 --> 00:18:15,600
+space itself has to be doing 
+something. 
+
+378
+00:18:15,680 --> 00:18:17,960
+And that brings us to the 
+structural substrate they are 
+
+379
+00:18:17,960 --> 00:18:20,880
+moving through, which the source
+material calls the spheres 
+
+380
+00:18:20,880 --> 00:18:22,880
+model. 
+If we want to understand 
+
+381
+00:18:22,880 --> 00:18:25,800
+tangential transport, how a 
+particle moves from point A to 
+
+382
+00:18:25,800 --> 00:18:28,440
+point B, we have to look at the 
+quantum foam. 
+
+383
+00:18:28,440 --> 00:18:31,680
+OK, so the quantum foam standard
+physics says empty space is 
+
+384
+00:18:31,680 --> 00:18:35,280
+actually a boiling frothy mess 
+of quantum fluctuations. 
+
+385
+00:18:35,720 --> 00:18:37,840
+How does this model treat the 
+foam? 
+
+386
+00:18:38,000 --> 00:18:42,000
+Because earlier you said we are 
+in a natively Euclidean space. 
+
+387
+00:18:42,160 --> 00:18:47,400
+We are imagine the quantum foam 
+not as a chaotic empty void, but
+
+388
+00:18:47,400 --> 00:18:50,680
+as an incredibly dense lattice 
+of interlock deforming 3 
+
+389
+00:18:50,680 --> 00:18:53,360
+dimensional hyperspheres packed 
+into 4D space. 
+
+390
+00:18:53,360 --> 00:18:56,400
+Wait, so space itself is 
+basically cosmic bubble wrap? 
+
+391
+00:18:56,400 --> 00:18:58,960
+Yes, interlocking hyperspheres. 
+And the most critical 
+
+392
+00:18:58,960 --> 00:19:01,680
+characteristic of this foam is 
+that it behaves exactly like a 
+
+393
+00:19:01,680 --> 00:19:04,320
+piezoelectric material. 
+Piezoelectric like Like the 
+
+394
+00:19:04,320 --> 00:19:07,360
+quartz crystal in a watch or the
+clicker on a gas grill. 
+
+395
+00:19:07,360 --> 00:19:09,520
+Exactly like that. 
+Because if you squeeze a 
+
+396
+00:19:09,520 --> 00:19:12,960
+piezoelectric crystal, it 
+generates a physical electric 
+
+397
+00:19:12,960 --> 00:19:16,320
+charge, and conversely, if you 
+run an electric charge through 
+
+398
+00:19:16,320 --> 00:19:18,880
+it, it physically distorts and 
+changes shape. 
+
+399
+00:19:19,120 --> 00:19:22,400
+That is the exact crucial 
+mechanic at play in the fabric 
+
+400
+00:19:22,400 --> 00:19:24,560
+of space. 
+The framework calls it 
+
+401
+00:19:24,720 --> 00:19:27,880
+transverse frame relaxation 
+versus tangential transport. 
+
+402
+00:19:27,960 --> 00:19:30,840
+OK, explain how that works. 
+When external pressure of force 
+
+403
+00:19:30,840 --> 00:19:34,400
+hits one of these hyperspheres 
+in the foam it deforms. 
+
+404
+00:19:34,720 --> 00:19:36,400
+It gets squished into a 
+spheroid. 
+
+405
+00:19:36,600 --> 00:19:38,720
+Like pushing down on a bubble. 
+Right. 
+
+406
+00:19:38,960 --> 00:19:41,560
+Now imagine each of these 
+spherical bubbles has a rigid 
+
+407
+00:19:41,560 --> 00:19:44,400
+set of internal structural axis 
+like scaffolding. 
+
+408
+00:19:45,040 --> 00:19:48,280
+When the sphere is squished, 
+that scaffolding has to bend. 
+
+409
+00:19:48,320 --> 00:19:52,320
+Bend stores mechanical energy, 
+which the sources term axis bend
+
+410
+00:19:52,320 --> 00:19:53,440
+energy. 
+OK, I have a. 
+
+411
+00:19:53,440 --> 00:19:55,640
+Picture of the squished bubbles 
+with bent scaffolding. 
+
+412
+00:19:55,640 --> 00:19:58,840
+But how does the stored axis 
+bend energy translate to my 
+
+413
+00:19:58,840 --> 00:20:01,080
+electron moving down the wire? 
+Remember that our. 
+
+414
+00:20:01,080 --> 00:20:03,720
+Particle, The slice circle is 
+technically an intersection 
+
+415
+00:20:03,720 --> 00:20:05,720
+carrier. 
+It is the exact circle where 
+
+416
+00:20:05,720 --> 00:20:08,640
+these hyperspheres overlap. 
+The particle itself is just a 
+
+417
+00:20:08,640 --> 00:20:12,360
+vector pointing along that 
+intersection, but its path is 
+
+418
+00:20:12,360 --> 00:20:15,640
+completely modulated by the 
+wobbly axis of the spheres 
+
+419
+00:20:15,840 --> 00:20:18,840
+dissipating their stored energy.
+OK, so they wobble, right? 
+
+420
+00:20:18,960 --> 00:20:23,120
+The pressure hits the shell, the
+shell deforms the internal axis 
+
+421
+00:20:23,120 --> 00:20:26,440
+bend and store energy, which 
+shifts the location of the 
+
+422
+00:20:26,440 --> 00:20:29,240
+intersection circle. 
+The particle rotates along that 
+
+423
+00:20:29,240 --> 00:20:34,000
+newly shifted carrier, then the 
+axis bend relaxes, transferring 
+
+424
+00:20:34,000 --> 00:20:37,000
+its energy into the next 
+adjacent shell, which squishes 
+
+425
+00:20:37,000 --> 00:20:40,000
+it, determining the next segment
+of the particles trajectory. 
+
+426
+00:20:40,040 --> 00:20:42,120
+Wow. 
+So it's not smoothly gliding at 
+
+427
+00:20:42,120 --> 00:20:43,960
+all, not even a little. 
+Bit it's like the. 
+
+428
+00:20:43,960 --> 00:20:47,600
+Particle is a train on a track, 
+but the track itself is buckling
+
+429
+00:20:47,600 --> 00:20:50,560
+and shifting under immense 
+pressure, forcing the train to 
+
+430
+00:20:50,560 --> 00:20:52,920
+violently jump the rails to the 
+next track over. 
+
+431
+00:20:52,920 --> 00:20:54,720
+That is a. 
+Brilliant way to picture it. 
+
+432
+00:20:54,960 --> 00:20:57,760
+And that jumping of the rails is
+what the framework rigorously 
+
+433
+00:20:57,960 --> 00:21:00,520
+defines as holonomic 
+reconnection holonomic. 
+
+434
+00:21:00,560 --> 00:21:03,400
+Reconnection, yeah. 
+The particle doesn't glide. 
+
+435
+00:21:03,640 --> 00:21:06,440
+Yeah, when the stored axis bend 
+energy in a sphere crosses a 
+
+436
+00:21:06,440 --> 00:21:09,120
+critical threshold, it can't 
+hold the tension anymore. 
+
+437
+00:21:09,600 --> 00:21:11,840
+We get a discreet topological 
+transition. 
+
+438
+00:21:12,280 --> 00:21:16,040
+The particle literally snaps or 
+leaps to the next intersection 
+
+439
+00:21:16,040 --> 00:21:18,560
+circle in the lattice A phase. 
+Snap yes. 
+
+440
+00:21:19,080 --> 00:21:21,800
+And the math here is not vague, 
+it is incredibly precise. 
+
+441
+00:21:22,280 --> 00:21:25,960
+This phase snap happened 
+specifically at a .246 Radian or
+
+442
+00:21:25,960 --> 00:21:28,800
+14.1° threshold. 
+It's that exact. 
+
+443
+00:21:28,880 --> 00:21:31,360
+It is. 
+Once the axis bends by exactly 
+
+444
+00:21:31,360 --> 00:21:35,680
+14.1°, it snaps. 
+This is the physical mechanism 
+
+445
+00:21:35,680 --> 00:21:37,640
+of parallel transport in the 
+quantum foam. 
+
+446
+00:21:38,120 --> 00:21:41,160
+It is what allows for the zigzag
+paths required for the complex 
+
+447
+00:21:41,160 --> 00:21:43,280
+nesting of these tubes. 
+That is mind. 
+
+448
+00:21:43,280 --> 00:21:45,520
+Boggling, the feeling of smooth.
+Movement that you and I 
+
+449
+00:21:45,520 --> 00:21:48,760
+experience is actually billions 
+of discrete handoffs from one 
+
+450
+00:21:48,760 --> 00:21:51,680
+geometry to the next, entirely 
+driven by the lattice trying to 
+
+451
+00:21:51,680 --> 00:21:53,800
+minimize its stored energy. 
+That is wild. 
+
+452
+00:21:53,800 --> 00:21:56,240
+So if you are out for a jog, you
+feel like you are moving 
+
+453
+00:21:56,240 --> 00:21:59,240
+smoothly through empty air, but 
+physically your fundamental 
+
+454
+00:21:59,240 --> 00:22:02,680
+geometry is just triggering 
+billions of tiny 14.1° 
+
+455
+00:22:02,680 --> 00:22:05,840
+structural face snaps in a 4D 
+piezoelectric bubble bath. 
+
+456
+00:22:06,000 --> 00:22:09,040
+Exactly. 
+You are basically surfing a wave
+
+457
+00:22:09,160 --> 00:22:11,240
+of continuous holonomic 
+reconnections. 
+
+458
+00:22:11,280 --> 00:22:13,560
+OK, so. 
+If a single intersection is a 
+
+459
+00:22:13,560 --> 00:22:16,920
+fundamental particle, and it 
+moves by jumping rails in the 
+
+460
+00:22:16,920 --> 00:22:21,960
+foam, how do these individual 
+intersections combine to build 
+
+461
+00:22:22,200 --> 00:22:24,960
+the macroscopic world chemistry?
+Right. 
+
+462
+00:22:25,160 --> 00:22:27,520
+How? 
+Do we get atoms and chemistry 
+
+463
+00:22:27,520 --> 00:22:31,400
+and biology out of buckling 
+tracks and phase snaps well to? 
+
+464
+00:22:31,400 --> 00:22:33,520
+Understand the construction of 
+the macro world. 
+
+465
+00:22:33,880 --> 00:22:36,400
+We have to clearly distinguish 
+between two types of nesting, 
+
+466
+00:22:37,040 --> 00:22:39,200
+super helical nesting and braid 
+nesting. 
+
+467
+00:22:39,400 --> 00:22:41,200
+Let's define those. 
+Because I'm guessing they are 
+
+468
+00:22:41,200 --> 00:22:42,360
+very different. 
+They are. 
+
+469
+00:22:42,520 --> 00:22:44,680
+Super helical nesting is what we
+talked about at the very 
+
+470
+00:22:44,680 --> 00:22:46,520
+beginning. 
+The rotational expansion of the 
+
+471
+00:22:46,520 --> 00:22:48,280
+universe creating successive 
+scales. 
+
+472
+00:22:48,560 --> 00:22:50,640
+The universe winding the tube, 
+The slinky. 
+
+473
+00:22:50,640 --> 00:22:54,200
+Inside the slinky right braid. 
+Nesting, however, is when 
+
+474
+00:22:54,200 --> 00:22:58,360
+multiple fully resolved coils, 
+multiple separate tubes, 
+
+475
+00:22:58,360 --> 00:22:59,920
+interact relationally with each 
+other. 
+
+476
+00:23:00,480 --> 00:23:03,000
+This is how you build composite 
+particles like protons and 
+
+477
+00:23:03,000 --> 00:23:04,480
+neutrons. 
+OK, this is where I really. 
+
+478
+00:23:04,480 --> 00:23:05,560
+Want to push back? 
+Bring it on. 
+
+479
+00:23:05,840 --> 00:23:07,640
+Let's look at the. 
+Nucleus of an atom. 
+
+480
+00:23:08,480 --> 00:23:10,920
+Standard physics says there is 
+something called the strong 
+
+481
+00:23:10,920 --> 00:23:15,120
+nuclear force holding the quarks
+together inside a proton or a 
+
+482
+00:23:15,120 --> 00:23:16,760
+neutron. 
+Yep, the strongest. 
+
+483
+00:23:16,760 --> 00:23:18,520
+Force in nature, it's 
+incredibly. 
+
+484
+00:23:18,520 --> 00:23:21,560
+Powerful, and it operates by 
+exchanging particles called 
+
+485
+00:23:21,560 --> 00:23:24,240
+gluons. 
+This is textbook stuff. 
+
+486
+00:23:24,520 --> 00:23:26,960
+Nobel prizes have been awarded 
+for modeling this. 
+
+487
+00:23:26,960 --> 00:23:29,720
+They have. 
+But in this HSH geometry you're 
+
+488
+00:23:29,720 --> 00:23:33,240
+telling me a nucleon, a proton, 
+is simply three of these 
+
+489
+00:23:33,240 --> 00:23:36,080
+hyperspheres interlocking? 
+Yes, specifically. 
+
+490
+00:23:36,080 --> 00:23:38,280
+Interlocking as Boromian rings. 
+Wait. 
+
+491
+00:23:38,600 --> 00:23:41,040
+You're saying strong for the 
+most powerful fundamental force 
+
+492
+00:23:41,040 --> 00:23:45,520
+we know of is just cosmic 
+Velcro, just braided rings 
+
+493
+00:23:45,600 --> 00:23:47,360
+effectively? 
+Yes, but if it's really. 
+
+494
+00:23:47,360 --> 00:23:49,680
+That simple. 
+Why has the entire physics 
+
+495
+00:23:49,680 --> 00:23:52,680
+community been doing the math 
+with gluons and force fields for
+
+496
+00:23:52,680 --> 00:23:54,280
+80? 
+Because when you only. 
+
+497
+00:23:54,280 --> 00:23:56,800
+Look at 3D cross sections, the 
+sliced paper. 
+
+498
+00:23:57,400 --> 00:24:00,200
+You have to invent invisible 
+force fields to explain why the 
+
+499
+00:24:00,200 --> 00:24:03,480
+dots won't pull apart. 
+Because they can't see the 4D 
+
+500
+00:24:03,480 --> 00:24:06,240
+braid exactly. 
+But when you zoom out to the 
+
+501
+00:24:06,240 --> 00:24:10,000
+full 4D geometry, we replace a 
+mysterious, invisible 
+
+502
+00:24:10,000 --> 00:24:13,320
+fundamental force with 
+structural inevitability. 
+
+503
+00:24:13,480 --> 00:24:16,760
+The framework calls it braid 
+rigidity, or exactly as you put 
+
+504
+00:24:16,760 --> 00:24:20,160
+it, the Velcro effect. 
+Think about Boromian rings. 
+
+505
+00:24:20,680 --> 00:24:24,880
+For you listening, imagine three
+rings LinkedIn a very specific 
+
+506
+00:24:24,880 --> 00:24:28,240
+pattern. 
+If you cut any one ring, all 
+
+507
+00:24:28,240 --> 00:24:30,280
+three completely fall apart. 
+I've seen that. 
+
+508
+00:24:30,280 --> 00:24:31,960
+Symbol. 
+It's like the Ballantine beer 
+
+509
+00:24:31,960 --> 00:24:35,560
+logo or ancient Celtic. 
+Not work exactly. 
+
+510
+00:24:36,040 --> 00:24:38,960
+Remarkably, No2 rings are 
+actually linked to each other 
+
+511
+00:24:38,960 --> 00:24:40,520
+directly. 
+They only hold together as a 
+
+512
+00:24:40,520 --> 00:24:41,760
+triplet. 
+OK, so how? 
+
+513
+00:24:41,760 --> 00:24:45,560
+Does that explain quarks well? 
+Apply that to quarks and a 
+
+514
+00:24:45,560 --> 00:24:48,120
+proton. 
+Standard physics calls it quark 
+
+515
+00:24:48,120 --> 00:24:50,240
+confinement. 
+The frustrating fact that we can
+
+516
+00:24:50,240 --> 00:24:53,760
+never, ever pull a single quark 
+out of a proton to study it 
+
+517
+00:24:53,760 --> 00:24:55,080
+alone, right? 
+They always stay. 
+
+518
+00:24:55,080 --> 00:24:58,040
+In groups standard model. 
+Physicists say this is because 
+
+519
+00:24:58,040 --> 00:25:00,400
+the strong force acts like a 
+magical rubber band. 
+
+520
+00:25:00,720 --> 00:25:03,680
+The harder you pull a quark, the
+stronger the band snaps it back.
+
+521
+00:25:04,160 --> 00:25:06,600
+But in the HSH framework it's 
+just geometry. 
+
+522
+00:25:06,920 --> 00:25:09,880
+You literally cannot pull 1 ring
+out without collapsing the 
+
+523
+00:25:09,880 --> 00:25:12,160
+entire triplets energy state. 
+Because they are. 
+
+524
+00:25:12,160 --> 00:25:16,480
+Topologically braided, yes. 
+The strong force is not a rubber
+
+525
+00:25:16,480 --> 00:25:20,720
+band, it is just the massive 
+mechanical resistance to de 
+
+526
+00:25:20,760 --> 00:25:23,360
+braiding these multi filament 
+bundles. 
+
+527
+00:25:23,600 --> 00:25:26,840
+It is mathematically governed by
+something called the log 
+
+528
+00:25:26,840 --> 00:25:29,640
+concavity of the link school 
+polynomial. 
+
+529
+00:25:29,640 --> 00:25:32,560
+OK, stop, right. 
+There link schooled polynomial. 
+
+530
+00:25:32,560 --> 00:25:34,720
+Translate that for the listener 
+because that sounds like 
+
+531
+00:25:34,720 --> 00:25:36,840
+advanced calculus jargon. 
+It sounds. 
+
+532
+00:25:36,840 --> 00:25:40,480
+Intimidating, but Simply put, 
+not theory. 
+
+533
+00:25:41,720 --> 00:25:44,520
+Mathematicians use polynomials, 
+algebraic expressions, to 
+
+534
+00:25:44,520 --> 00:25:47,720
+classify exactly how complex a 
+knot is and how much energy it 
+
+535
+00:25:47,720 --> 00:25:50,920
+would take to untie it. 
+The link schooled polynomial is 
+
+536
+00:25:50,920 --> 00:25:53,400
+a specific mathematical tool 
+that perfectly describes the 
+
+537
+00:25:53,400 --> 00:25:54,920
+braiding of these quantum 
+states. 
+
+538
+00:25:55,400 --> 00:25:58,040
+It establishes rigorous mass 
+selection rules for stable 
+
+539
+00:25:58,040 --> 00:25:59,200
+states. 
+Mass selection. 
+
+540
+00:25:59,200 --> 00:26:01,600
+Rules meaning the. 
+Knot will only hold together if 
+
+541
+00:26:01,600 --> 00:26:04,200
+the energy is perfectly aligned 
+with the polynomials rules. 
+
+542
+00:26:04,280 --> 00:26:07,120
+The physical, mechanical energy 
+required to untwist these 
+
+543
+00:26:07,160 --> 00:26:10,120
+intricately interwoven filaments
+is what humanity has 
+
+544
+00:26:10,120 --> 00:26:12,560
+historically measured and 
+misunderstood as the strong 
+
+545
+00:26:12,560 --> 00:26:15,640
+nuclear force that completely. 
+Flips physics on its head. 
+
+546
+00:26:15,640 --> 00:26:18,760
+It turns abstract force fields 
+into literal structural 
+
+547
+00:26:18,760 --> 00:26:19,920
+engineering. 
+It really does. 
+
+548
+00:26:20,240 --> 00:26:22,040
+But let's go. 
+One step further up the chain, 
+
+549
+00:26:22,760 --> 00:26:26,160
+how do protons and neutrons bind
+together to form an atomic 
+
+550
+00:26:26,160 --> 00:26:28,320
+nucleus? 
+If they're just triplets of 
+
+551
+00:26:28,320 --> 00:26:30,160
+rings, how do the triplets 
+connect? 
+
+552
+00:26:30,600 --> 00:26:32,680
+They form what? 
+The sources call a cluster of 
+
+553
+00:26:32,680 --> 00:26:36,520
+clusters inside the quantum 
+foam, the hyperspheres, 
+
+554
+00:26:36,520 --> 00:26:40,040
+naturally packed together in a 
+face centered cubic or FCC 
+
+555
+00:26:40,040 --> 00:26:42,640
+lattice like stacking. 
+Oranges in a grocery store 
+
+556
+00:26:42,640 --> 00:26:44,040
+pyramid? 
+Very similar, yeah. 
+
+557
+00:26:44,280 --> 00:26:47,240
+In that specific packing 
+arrangement, each sphere touches
+
+558
+00:26:47,240 --> 00:26:51,280
+exactly 12 near his neighbors. 
+This geometry provides 12 
+
+559
+00:26:51,280 --> 00:26:54,760
+natural ports or docking 
+stations for these three sphere 
+
+560
+00:26:54,760 --> 00:26:56,600
+nucleons to connect. 
+I see. 
+
+561
+00:26:56,800 --> 00:26:58,880
+When a proton. 
+And a neutron sit next to each 
+
+562
+00:26:58,880 --> 00:27:02,040
+other and share a common sphere 
+or axis within this lattice. 
+
+563
+00:27:02,320 --> 00:27:03,960
+They share their axis bend 
+energy. 
+
+564
+00:27:03,960 --> 00:27:07,200
+An atomic nucleus is just a 
+stable interlocking of these 
+
+565
+00:27:07,200 --> 00:27:10,160
+three sphere units physically 
+sharing that stored bending 
+
+566
+00:27:10,160 --> 00:27:11,680
+tension. 
+OK, I have another. 
+
+567
+00:27:11,680 --> 00:27:14,320
+Major objection here. 
+Bring it in standard physics. 
+
+568
+00:27:14,360 --> 00:27:16,360
+It's not just quarks exchanging 
+gluons. 
+
+569
+00:27:16,920 --> 00:27:19,720
+When a proton and a neutron bind
+together in a nucleus, 
+
+570
+00:27:19,960 --> 00:27:22,880
+physicists say they constantly 
+exchange other particles, called
+
+571
+00:27:22,880 --> 00:27:24,920
+pions to mediate the force 
+between them. 
+
+572
+00:27:24,960 --> 00:27:26,280
+Right, the pion exchange. 
+Model. 
+
+573
+00:27:26,440 --> 00:27:28,600
+Yeah, it's like. 
+They are playing an incredibly 
+
+574
+00:27:28,600 --> 00:27:30,920
+fast game of catch to stay 
+together. 
+
+575
+00:27:31,320 --> 00:27:34,680
+How does a dense lattice of 
+solid interlocking spheres 
+
+576
+00:27:34,720 --> 00:27:36,400
+exchange little bullet 
+particles? 
+
+577
+00:27:36,400 --> 00:27:38,520
+That is an. 
+Excellent push back, and it 
+
+578
+00:27:38,520 --> 00:27:43,120
+raises A crucial point about how
+misinterpreted standard physics 
+
+579
+00:27:43,120 --> 00:27:45,920
+can be. 
+In this model, a pion is a 
+
+580
+00:27:45,920 --> 00:27:50,640
+Spinara scaler, but it isn't a 
+tiny physical bullet flying 
+
+581
+00:27:50,640 --> 00:27:52,520
+through the empty space between 
+the nucleons. 
+
+582
+00:27:52,520 --> 00:27:54,280
+Well, yeah, in A. 
+Densely packed lattice. 
+
+583
+00:27:54,280 --> 00:27:56,960
+There is no empty space to fly 
+through exactly. 
+
+584
+00:27:57,560 --> 00:27:59,400
+Then what is the pion? 
+You tell me. 
+
+585
+00:27:59,560 --> 00:28:01,120
+It is a pure. 
+Breathing mode. 
+
+586
+00:28:01,120 --> 00:28:04,800
+It is a transverse pressure wave
+that ripples through the 
+
+587
+00:28:04,800 --> 00:28:07,200
+piezoelectric foam itself, so 
+it's sound. 
+
+588
+00:28:07,200 --> 00:28:09,680
+Basically a sound wave traveling
+through the bubble wrap 
+
+589
+00:28:09,800 --> 00:28:12,480
+conceptually. 
+Yes, it's the lattice rapidly 
+
+590
+00:28:12,480 --> 00:28:15,600
+expanding and contracting, 
+passing a physical pressure wave
+
+591
+00:28:15,600 --> 00:28:17,520
+from the proton to the neutron. 
+Wow. 
+
+592
+00:28:17,920 --> 00:28:20,080
+And the brilliant part is that 
+the mathematics of that 
+
+593
+00:28:20,080 --> 00:28:23,240
+breathing mode propagation 
+naturally generate the exact 
+
+594
+00:28:23,240 --> 00:28:26,560
+mathematical curve of the strong
+force holding nucleons together 
+
+595
+00:28:26,640 --> 00:28:28,080
+at short ranges. 
+The Ukawa. 
+
+596
+00:28:28,080 --> 00:28:29,480
+Potential. 
+Exactly. 
+
+597
+00:28:29,480 --> 00:28:33,880
+The Ukawa potential. 
+The framework provides the exact
+
+598
+00:28:33,880 --> 00:28:37,840
+required mechanical stiffness 
+between the nucleons without 
+
+599
+00:28:37,840 --> 00:28:40,760
+requiring a magical little 
+bullet to mysteriously fly 
+
+600
+00:28:40,760 --> 00:28:41,840
+between them. 
+So the. 
+
+601
+00:28:41,840 --> 00:28:44,920
+Math of the old standard model 
+that you call a potential is 
+
+602
+00:28:44,960 --> 00:28:48,840
+actually correct, but they 
+fundamentally misidentified the 
+
+603
+00:28:48,840 --> 00:28:51,520
+physical mechanism creating the 
+math precisely. 
+
+604
+00:28:52,120 --> 00:28:55,000
+And this leads us to the biggest
+reckoning in modern physics. 
+
+605
+00:28:55,600 --> 00:28:58,640
+If this interlocking, 
+beautifully geometric reality is
+
+606
+00:28:58,640 --> 00:29:02,760
+the truth, why is modern physics
+currently using a completely 
+
+607
+00:29:02,760 --> 00:29:05,800
+different mathematical language?
+Why are we stuck with standard 
+
+608
+00:29:05,800 --> 00:29:08,000
+quantum field theory? 
+Right standard. 
+
+609
+00:29:08,000 --> 00:29:11,360
+Quantum field theory uses 
+Feynman diagrams to calculate 
+
+610
+00:29:11,360 --> 00:29:13,480
+how particles interact. 
+Yes it does for. 
+
+611
+00:29:13,520 --> 00:29:15,400
+You listening? 
+If you've ever seen a physicist 
+
+612
+00:29:15,400 --> 00:29:18,040
+chalkboard in a movie, you've 
+probably seen a Feynman diagram.
+
+613
+00:29:18,480 --> 00:29:20,960
+There are these little drawings 
+with straight lines representing
+
+614
+00:29:20,960 --> 00:29:23,760
+particles coming in, squiggly 
+lines representing forces being 
+
+615
+00:29:23,760 --> 00:29:26,320
+exchanged, and lines going out. 
+They're iconic. 
+
+616
+00:29:26,320 --> 00:29:29,040
+They are, but they have a 
+massive, well known flaw. 
+
+617
+00:29:29,280 --> 00:29:32,160
+The famous actually produce 
+infinite loop divergences. 
+
+618
+00:29:32,160 --> 00:29:34,720
+Yes, the math. 
+Literally blows up to Infinity 
+
+619
+00:29:35,000 --> 00:29:38,200
+and. 
+Physicists hate infinities they 
+
+620
+00:29:38,200 --> 00:29:39,920
+despise. 
+Them to get around. 
+
+621
+00:29:39,920 --> 00:29:42,640
+This they invented a 
+mathematical trick called 
+
+622
+00:29:42,640 --> 00:29:45,720
+renormalization, which is. 
+Basically a highly educated way 
+
+623
+00:29:46,000 --> 00:29:49,320
+of sweeping the infinite numbers
+under the rug so they can get 
+
+624
+00:29:49,320 --> 00:29:53,120
+usable probabilities right if. 
+Feynman diagrams are so broken 
+
+625
+00:29:53,120 --> 00:29:57,960
+that they require rug sweeping. 
+How does the HHH geometry fix 
+
+626
+00:29:57,960 --> 00:29:59,720
+the calculation? 
+It fixes it. 
+
+627
+00:29:59,840 --> 00:30:02,880
+By completely redefining the 
+geometry of the interaction. 
+
+628
+00:30:03,520 --> 00:30:07,080
+Standard theory deals with point
+particles, 0 dimensional dots, 
+
+629
+00:30:07,600 --> 00:30:09,480
+and the problem with point 
+particles is that when you 
+
+630
+00:30:09,480 --> 00:30:12,560
+calculate the gravitational or 
+electromagnetic force between 
+
+631
+00:30:12,560 --> 00:30:15,960
+them, you have distance in the 
+denominator of your equation. 
+
+632
+00:30:15,960 --> 00:30:18,240
+OK, distance. 
+Is on the bottom when 2 points. 
+
+633
+00:30:18,240 --> 00:30:21,040
+Get infinitely close together. 
+The distance between them goes 
+
+634
+00:30:21,040 --> 00:30:23,080
+to zero. 
+And as we all learned in grade 
+
+635
+00:30:23,080 --> 00:30:25,000
+school, you cannot divide by 
+zero. 
+
+636
+00:30:25,040 --> 00:30:28,280
+It equals Infinity. 
+The entire crisis of quantum 
+
+637
+00:30:28,280 --> 00:30:31,800
+field theory is a category error
+in the underlying geometry 
+
+638
+00:30:31,800 --> 00:30:34,080
+because they assume. 
+Particles are dots with 0 
+
+639
+00:30:34,080 --> 00:30:35,360
+volume. 
+Exactly so. 
+
+640
+00:30:35,360 --> 00:30:39,560
+How does HSH fix it? 
+By utilizing world tubes and 
+
+641
+00:30:39,560 --> 00:30:40,960
+what are called cellular 
+actions. 
+
+642
+00:30:41,880 --> 00:30:44,440
+Feynman diagrams are completely 
+reinterpreted. 
+
+643
+00:30:44,720 --> 00:30:47,200
+How so? 
+Instead of integrating over 0 
+
+644
+00:30:47,200 --> 00:30:50,760
+dimensional points, interactions
+in this framework are calculated
+
+645
+00:30:50,760 --> 00:30:54,800
+as integrals of smooth forms 
+over compact manifold, 
+
+646
+00:30:54,800 --> 00:30:57,840
+specifically manifolds with 
+corners compact. 
+
+647
+00:30:57,840 --> 00:30:59,760
+Manifolds with corners. 
+Let me make sure I'm following. 
+
+648
+00:30:59,760 --> 00:31:02,520
+If we connect this to the bigger
+picture, you're saying that 
+
+649
+00:31:02,520 --> 00:31:05,560
+because the tube has physical 
+volume, because it has a radius,
+
+650
+00:31:05,800 --> 00:31:09,760
+2 particles can never actually 
+occupy the exact same 0 
+
+651
+00:31:09,760 --> 00:31:12,400
+dimensional space. 
+There is always a minimum 
+
+652
+00:31:12,400 --> 00:31:14,640
+distance, which means you never 
+divide by zero. 
+
+653
+00:31:14,720 --> 00:31:17,680
+You've nailed it. 
+Because we are integrating over 
+
+654
+00:31:17,680 --> 00:31:22,200
+a finite geometry that has tame 
+short distance behavior, meaning
+
+655
+00:31:22,200 --> 00:31:25,400
+it physically cannot collapse to
+A0 dimensional point. 
+
+656
+00:31:25,640 --> 00:31:27,960
+The resulting values are 
+naturally finite numbers. 
+
+657
+00:31:28,080 --> 00:31:31,440
+There are 0 divergencies in this
+perturbative quantum theory, so 
+
+658
+00:31:31,440 --> 00:31:32,600
+no more. 
+Renormalization. 
+
+659
+00:31:32,600 --> 00:31:34,800
+No more sweeping infinities 
+under the rug. 
+
+660
+00:31:35,000 --> 00:31:37,320
+None. 
+The physical volume of the world
+
+661
+00:31:37,320 --> 00:31:40,520
+tube structurally prevents the 
+distance from ever reaching 0. 
+
+662
+00:31:41,080 --> 00:31:44,920
+This elegant geometric fix 
+actually ties directly back to a
+
+663
+00:31:44,920 --> 00:31:48,560
+concept from the 1960s called 
+Jeffrey Chews S Matrix theory, 
+
+664
+00:31:49,200 --> 00:31:51,720
+and it aligns with modern 
+concepts being developed right 
+
+665
+00:31:51,720 --> 00:31:54,400
+now, like the amplitahedron I've
+heard. 
+
+666
+00:31:54,400 --> 00:31:57,240
+Of S matrix theory, but help me 
+visualize it in this context. 
+
+667
+00:31:57,480 --> 00:32:00,200
+How do we calculate interactions
+if we aren't drawing little 
+
+668
+00:32:00,200 --> 00:32:02,680
+squiggly Feynman lines instead 
+of? 
+
+669
+00:32:02,680 --> 00:32:06,400
+Cracking A chaotic local action 
+functional in space-time 
+
+670
+00:32:06,400 --> 00:32:10,000
+geometry, which means trying to 
+calculate every single tiny 
+
+671
+00:32:10,000 --> 00:32:13,400
+localized interaction at every 
+infinitesimal point. 
+
+672
+00:32:13,960 --> 00:32:17,560
+We zoom out OK, We look at the 
+entire world tube history as a 
+
+673
+00:32:17,560 --> 00:32:20,800
+topological equivalents class. 
+We treat it as a cobordism. 
+
+674
+00:32:20,920 --> 00:32:23,360
+A cobordism. 
+OK I need another explain like 
+
+675
+00:32:23,360 --> 00:32:26,360
+I'm 5 translation a cobordism. 
+Is a mathematical way of 
+
+676
+00:32:26,360 --> 00:32:28,920
+studying how one geometric shape
+morphs into another. 
+
+677
+00:32:29,520 --> 00:32:32,040
+Imagine 2 circles smoothly 
+merging into one circle. 
+
+678
+00:32:32,040 --> 00:32:33,560
+Like a pair of pants. 
+Like a pair of pants. 
+
+679
+00:32:33,560 --> 00:32:35,840
+OK, the legs are. 
+The two particles coming in, 
+
+680
+00:32:36,080 --> 00:32:38,320
+they merge at the waist and one 
+particle goes out. 
+
+681
+00:32:38,960 --> 00:32:42,160
+S matrix theory looks at what 
+goes into the interaction and 
+
+682
+00:32:42,160 --> 00:32:45,800
+what comes out based purely on 
+the allowable topology of the 
+
+683
+00:32:45,800 --> 00:32:47,200
+pants. 
+OK, I think I get. 
+
+684
+00:32:47,200 --> 00:32:50,200
+It it's like instead of trying 
+to map the chaotic trajectory of
+
+685
+00:32:50,240 --> 00:32:54,040
+every single, it really does. 
+But to fully validate this 
+
+686
+00:32:54,040 --> 00:32:57,680
+model, it can't just work for 
+the tiny knots of a proton. 
+
+687
+00:32:57,800 --> 00:33:00,880
+It has to scale all the way up. 
+It has to explain the 
+
+688
+00:33:00,880 --> 00:33:03,360
+macroscopic expansion of the 
+entire universe. 
+
+689
+00:33:03,360 --> 00:33:05,320
+It absolutely. 
+Does and that brings. 
+
+690
+00:33:05,320 --> 00:33:08,680
+Us to what might be the biggest,
+most embarrassing strip gear in 
+
+691
+00:33:08,680 --> 00:33:12,360
+all of modern cosmology. 
+The candle problem and the 
+
+692
+00:33:12,360 --> 00:33:15,640
+dimensional mismatch of our 
+foundational constants, Yes. 
+
+693
+00:33:15,960 --> 00:33:19,680
+This is a profound fundamental 
+error in the standard 
+
+694
+00:33:19,680 --> 00:33:23,240
+cosmological model, and it is 
+rarely talked about plainly. 
+
+695
+00:33:24,080 --> 00:33:26,440
+Let's look at the two most 
+important numbers in cosmology 
+
+696
+00:33:27,280 --> 00:33:31,120
+first, the Hubble constant H sub
+zero, which measures the 
+
+697
+00:33:31,120 --> 00:33:34,680
+expansion rate of the universe. 
+Mathematically, the Hubble 
+
+698
+00:33:34,680 --> 00:33:37,600
+constant is a rate. 
+It's unit of measurement is 
+
+699
+00:33:37,600 --> 00:33:39,000
+inverse seconds. 
+OK, so it's A. 
+
+700
+00:33:39,040 --> 00:33:41,160
+Frequency a rate right and the 
+second number. 
+
+701
+00:33:41,160 --> 00:33:43,920
+Is the speed of light C, which 
+is a velocity. 
+
+702
+00:33:43,920 --> 00:33:45,400
+It's units are meters per 
+second. 
+
+703
+00:33:46,000 --> 00:33:49,080
+In standard physics equations 
+attempting to unify the cosmos, 
+
+704
+00:33:49,360 --> 00:33:52,000
+these two constants are often 
+related or combined. 
+
+705
+00:33:52,560 --> 00:33:56,040
+But mathematically, adding or 
+relating a rate directly to a 
+
+706
+00:33:56,040 --> 00:33:58,400
+velocity is illegal, right? 
+It's a total. 
+
+707
+00:33:58,400 --> 00:34:01,520
+Category error. 
+It's like adding mph to degrees 
+
+708
+00:34:01,520 --> 00:34:03,840
+Fahrenheit to figure out how 
+heavy your car is. 
+
+709
+00:34:04,440 --> 00:34:07,360
+The units don't match, you can't
+just mash them together exactly.
+
+710
+00:34:07,520 --> 00:34:12,719
+But the HSH framework fixes this
+dimensional mismatch seamlessly 
+
+711
+00:34:13,080 --> 00:34:16,080
+through what it calls the Dual 
+shell Expansion model. 
+
+712
+00:34:16,159 --> 00:34:18,000
+How does it figure out? 
+The math by. 
+
+713
+00:34:18,000 --> 00:34:22,159
+Introducing a comparison length 
+designated as L By multiplying 
+
+714
+00:34:22,159 --> 00:34:24,440
+the Hubble rate by this 
+comparison length, both 
+
+715
+00:34:24,440 --> 00:34:27,199
+constants suddenly become 
+unified velocities. 
+
+716
+00:34:27,199 --> 00:34:29,159
+They share the same units. 
+OK, so they match. 
+
+717
+00:34:29,520 --> 00:34:31,480
+And once. 
+They do. 
+
+718
+00:34:31,639 --> 00:34:34,040
+A stunning picture of the 
+universe emerges. 
+
+719
+00:34:34,520 --> 00:34:38,120
+They represent the radio growth 
+rates of two interpenetrating 4D
+
+720
+00:34:38,120 --> 00:34:39,920
+Euclidean shells. 
+OK, slow. 
+
+721
+00:34:39,960 --> 00:34:43,199
+Down and break that down for me.
+We are living inside 2 expanding
+
+722
+00:34:43,199 --> 00:34:44,840
+shells. 
+Like 2 balloons blowing up 
+
+723
+00:34:44,840 --> 00:34:46,159
+inside each other. 
+Yes. 
+
+724
+00:34:46,560 --> 00:34:49,520
+Imagine the center of the 
+universe's expansion, the 
+
+725
+00:34:49,560 --> 00:34:52,080
+absolute origin point in 4D 
+space. 
+
+726
+00:34:52,560 --> 00:34:55,239
+Expanding outward from that 
+center is the matter frame. 
+
+727
+00:34:55,239 --> 00:34:56,639
+This is the shell that we 
+inhabit. 
+
+728
+00:34:57,440 --> 00:34:59,120
+All the stars, planets, and 
+galaxies. 
+
+729
+00:34:59,120 --> 00:35:02,040
+All the physical matter is 
+surfing along the shell, and 
+
+730
+00:35:02,040 --> 00:35:05,240
+this matter frame expands 
+outward at a velocity we call 
+
+731
+00:35:05,240 --> 00:35:07,960
+pissed the speed of. 
+Light the matter shell is 
+
+732
+00:35:07,960 --> 00:35:09,920
+expanding at the speed of light,
+correct? 
+
+733
+00:35:10,160 --> 00:35:14,240
+But there is a second shell, the
+radiation front, the edge of 
+
+734
+00:35:14,240 --> 00:35:18,440
+electromagnetic energy, and this
+radiation front is expanding 
+
+735
+00:35:18,520 --> 00:35:22,160
+outward from the center at the 
+velocity to C twice as fast. 
+
+736
+00:35:22,160 --> 00:35:24,280
+Wait, hold on. 
+If the radiation is expanding 
+
+737
+00:35:24,280 --> 00:35:27,840
+AT2C, why do we measure the 
+speed of light as just C? 
+
+738
+00:35:28,240 --> 00:35:30,760
+Because of our. 
+Relative position, The speed of 
+
+739
+00:35:30,760 --> 00:35:33,280
+light as we measure it locally, 
+is simply the velocity gap 
+
+740
+00:35:33,280 --> 00:35:36,240
+between our matter shell 
+expanding at C and the radiation
+
+741
+00:35:36,240 --> 00:35:38,880
+front expanding AT2C. 
+Oh my God, the difference 
+
+742
+00:35:38,880 --> 00:35:42,200
+between 2C and C is C that is. 
+Wow, yes. 
+
+743
+00:35:42,720 --> 00:35:46,240
+That is why light always appears
+to move at C relative to us, 
+
+744
+00:35:46,280 --> 00:35:47,840
+regardless of our local 
+velocity. 
+
+745
+00:35:48,320 --> 00:35:50,920
+We are standing on a train 
+moving at C, measuring a faster 
+
+746
+00:35:50,920 --> 00:35:53,720
+train moving it to C The 
+relative speed between them is 
+
+747
+00:35:53,720 --> 00:35:57,120
+always C that completely. 
+Redefines how we view the entire
+
+748
+00:35:57,120 --> 00:35:59,960
+cosmos. 
+It makes so much intuitive sense
+
+749
+00:35:59,960 --> 00:36:02,600
+and it gets even. 
+Deeper, this radial displacement
+
+750
+00:36:02,600 --> 00:36:05,280
+divergent, this constant 
+increasing shear between the 
+
+751
+00:36:05,280 --> 00:36:08,400
+matter shell and the radiation 
+front is exactly what casts the 
+
+752
+00:36:08,400 --> 00:36:10,800
+inductive shadow of the Lorenzi 
+in space-time metric. 
+
+753
+00:36:10,800 --> 00:36:12,920
+What does that mean? 
+Inductive shadow well in 
+
+754
+00:36:12,920 --> 00:36:13,880
+standard. 
+Relativity. 
+
+755
+00:36:14,080 --> 00:36:17,960
+The math uses a specific 
+signature for space-time -1 + 1 
+
+756
+00:36:17,960 --> 00:36:21,160
++ 1 + 1. 
+OK, that negative sign on the 
+
+757
+00:36:21,160 --> 00:36:24,600
+time coordinate is what makes 
+time act differently than the 
+
+758
+00:36:24,600 --> 00:36:27,680
+three spatial dimensions. 
+It's why time dilation happens. 
+
+759
+00:36:27,960 --> 00:36:31,600
+Standard physics just accepts 
+that negative sign as a given 
+
+760
+00:36:31,600 --> 00:36:33,760
+property of the universe. 
+They just say, well, that's how 
+
+761
+00:36:33,760 --> 00:36:37,360
+it is, but in HSH we finally 
+understand why it's there. 
+
+762
+00:36:37,800 --> 00:36:41,240
+The negative sign is precisely 
+the mathematical shadow cast by 
+
+763
+00:36:41,240 --> 00:36:43,960
+the shear between these two 
+expanding shells. 
+
+764
+00:36:44,120 --> 00:36:45,880
+So time isn't. 
+Fundamentally a different 
+
+765
+00:36:45,880 --> 00:36:47,280
+dimension. 
+No, it's not. 
+
+766
+00:36:47,280 --> 00:36:49,360
+It is a mandatory projection 
+artifact. 
+
+767
+00:36:49,680 --> 00:36:53,280
+Time is relative, and time 
+dilation exists strictly because
+
+768
+00:36:53,280 --> 00:36:56,640
+we are embedded in a 3D matter 
+shell that is sheared against a 
+
+769
+00:36:56,640 --> 00:37:00,400
+faster radiation front in a 
+natively 4D Euclidean space. 
+
+770
+00:37:00,720 --> 00:37:03,760
+Relativity is just the optical 
+illusion created by looking 
+
+771
+00:37:03,760 --> 00:37:05,360
+across the gap between the two 
+shells. 
+
+772
+00:37:05,360 --> 00:37:06,800
+I am genuinely. 
+Speechless. 
+
+773
+00:37:06,800 --> 00:37:09,800
+I mean, to recap this massive 
+journey for everyone listening, 
+
+774
+00:37:09,800 --> 00:37:12,200
+We have traveled from the 
+realization that we live in a 
+
+775
+00:37:12,200 --> 00:37:16,000
+natively Euclidean 4D space 
+expanding outward as a balloon. 
+
+776
+00:37:16,160 --> 00:37:20,200
+We've thrown away 0 dimensional 
+point particles and replaced 
+
+777
+00:37:20,200 --> 00:37:23,160
+them with vortex filaments, 
+world tubes that twist 
+
+778
+00:37:23,160 --> 00:37:25,320
+themselves naturally through 
+fluid dynamic. 
+
+779
+00:37:25,720 --> 00:37:28,200
+We've learned that mass is just 
+bending tension. 
+
+780
+00:37:28,480 --> 00:37:31,160
+We've looked inside the nucleus 
+and realized that the strong 
+
+781
+00:37:31,160 --> 00:37:34,600
+force is just Boromian rings 
+sharing axis bend energy in a 
+
+782
+00:37:34,600 --> 00:37:37,080
+piezoelectric bubble bath 
+communicating. 
+
+783
+00:37:37,080 --> 00:37:39,880
+Via sound waves communicating. 
+Via sound waves, instead of 
+
+784
+00:37:39,880 --> 00:37:43,360
+throwing particles at each 
+other, we fixed the infinities 
+
+785
+00:37:43,360 --> 00:37:46,080
+in quantum field theory by 
+giving particles physical 
+
+786
+00:37:46,080 --> 00:37:48,680
+volume. 
+And finally, we solved the speed
+
+787
+00:37:48,680 --> 00:37:51,440
+of light category error by 
+placing ourselves on an 
+
+788
+00:37:51,440 --> 00:37:54,960
+expanding matter shell chasing a
+faster radiation front we have. 
+
+789
+00:37:54,960 --> 00:37:59,080
+Replaced the abstract, heavily 
+patched mathematical black box 
+
+790
+00:37:59,080 --> 00:38:03,400
+of modern quantum mechanics with
+a rigorous, logically sound, 
+
+791
+00:38:03,520 --> 00:38:05,560
+geometrically visualizable 
+mechanics. 
+
+792
+00:38:06,040 --> 00:38:08,840
+Everything has a structural, 
+physical cause, and if we 
+
+793
+00:38:08,840 --> 00:38:10,760
+follow. 
+This geometric reality to its 
+
+794
+00:38:10,800 --> 00:38:14,320
+absolute ultimate conclusion. 
+What is the final take away 
+
+795
+00:38:14,320 --> 00:38:15,680
+like? 
+Where does this leave us as 
+
+796
+00:38:15,680 --> 00:38:17,440
+human beings living in this 
+universe? 
+
+797
+00:38:17,440 --> 00:38:20,280
+It leaves us with one. 
+Final incredibly mind bending 
+
+798
+00:38:20,280 --> 00:38:23,320
+implication, Super determinism 
+and the forward pull. 
+
+799
+00:38:23,480 --> 00:38:25,640
+The forward pull. 
+Explain that remember that 
+
+800
+00:38:25,640 --> 00:38:27,560
+these. 
+Continuous world tube structures
+
+801
+00:38:27,600 --> 00:38:29,720
+are under immense physical 
+tension. 
+
+802
+00:38:30,280 --> 00:38:32,400
+They're resisting the expansion 
+of the universe, right? 
+
+803
+00:38:32,400 --> 00:38:33,760
+The projective. 
+Resistance. 
+
+804
+00:38:33,920 --> 00:38:36,480
+The framework. 
+Calculates this tension at 
+
+805
+00:38:36,480 --> 00:38:40,440
+roughly 1.2 * 10 to the 44th 
+Newtons. 
+
+806
+00:38:40,560 --> 00:38:42,520
+Wait, how much? 
+Force is that give me a real 
+
+807
+00:38:42,520 --> 00:38:45,120
+world equivalent that is the. 
+Plank force. 
+
+808
+00:38:45,480 --> 00:38:48,440
+It is unimaginably massive. 
+It is the amount of force 
+
+809
+00:38:48,440 --> 00:38:52,600
+required to accelerate an entire
+solar mass to the speed of light
+
+810
+00:38:52,680 --> 00:38:54,200
+in a fraction of a second. 
+That's. 
+
+811
+00:38:54,800 --> 00:38:57,640
+Insane and that level. 
+Of tension is coursing through 
+
+812
+00:38:57,640 --> 00:39:00,720
+the fundamental geometry of 
+every particle in existence. 
+
+813
+00:39:01,280 --> 00:39:04,360
+They're incredibly tight, 
+unyielding braided cables of 
+
+814
+00:39:04,360 --> 00:39:06,920
+space. 
+And because they are continuous 
+
+815
+00:39:06,920 --> 00:39:09,960
+tubes extending from the past 
+through our present and into the
+
+816
+00:39:09,960 --> 00:39:14,040
+future, this means that the 
+future coordinates of the tubes 
+
+817
+00:39:14,440 --> 00:39:17,560
+further out along the radial 
+expansion are physically 
+
+818
+00:39:17,560 --> 00:39:19,400
+exerting tension on the present 
+state. 
+
+819
+00:39:19,400 --> 00:39:21,960
+The future is pulling. 
+On the present, quite literally.
+
+820
+00:39:22,480 --> 00:39:25,400
+The geometric destination of the
+universe is exerting a 
+
+821
+00:39:25,880 --> 00:39:29,480
+mechanical structural tension on
+the foam right now, pulling 
+
+822
+00:39:29,480 --> 00:39:32,520
+events forward. 
+It's an interconnected super 
+
+823
+00:39:32,520 --> 00:39:35,320
+deterministic web where the 
+future in the past are 
+
+824
+00:39:35,320 --> 00:39:37,840
+physically locked together by 4D
+tension. 
+
+825
+00:39:37,880 --> 00:39:40,000
+So if you are. 
+Listening to this right now, if 
+
+826
+00:39:40,000 --> 00:39:43,240
+you are sitting in your car or 
+at your desk, the next time you 
+
+827
+00:39:43,240 --> 00:39:46,280
+reach out and touch a solid 
+object, the steering wheel, a 
+
+828
+00:39:46,280 --> 00:39:49,880
+table, your cup of coffee, I 
+want you to stop and really 
+
+829
+00:39:49,880 --> 00:39:51,320
+think about what you were 
+touching. 
+
+830
+00:39:51,400 --> 00:39:54,640
+Absolutely do not. 
+Imagine empty space filled with 
+
+831
+00:39:54,640 --> 00:39:57,640
+vibrating, isolated little dots 
+floating in a void. 
+
+832
+00:39:57,880 --> 00:40:00,840
+Imagine a tightly braided, 
+mathematically perfect, 
+
+833
+00:40:00,880 --> 00:40:05,120
+unyielding knot of 4D space. 
+A knot that is locked into the 
+
+834
+00:40:05,120 --> 00:40:07,960
+geometry of the entire cosmos, 
+vibrating with the force of 
+
+835
+00:40:07,960 --> 00:40:10,960
+stars, physically anchoring you 
+firmly into the future. 
+
+836
+00:40:10,960 --> 00:40:12,440
+It's the ultimate. 
+Geometric connection. 
+
+837
+00:40:12,600 --> 00:40:15,320
+It really makes you. 
+Wonder, you know, how is your 
+
+838
+00:40:15,320 --> 00:40:18,680
+own World Tube weaving into that
+grand topology right now? 
+
+839
+00:40:18,760 --> 00:40:20,320
+It's something. 
+To think about Incredible. 
+
+840
+00:40:20,400 --> 00:40:22,720
+We will leave you with that to 
+chew on until next time.
+
