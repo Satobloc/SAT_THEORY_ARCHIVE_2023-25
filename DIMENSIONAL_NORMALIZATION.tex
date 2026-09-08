@@ -1,0 +1,1454 @@
+\documentclass[10pt]{article}
+\usepackage{draftwatermark}
+
+\SetWatermarkText{DRAFT}
+\SetWatermarkScale{1.2}
+\SetWatermarkLightness{0.92}
+\SetWatermarkAngle{45}
+\usepackage[letterpaper,margin=0.78in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb,mathtools,bm}
+\usepackage{booktabs,longtable,array,tabularx}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+\usepackage{titlesec}
+\usepackage{ragged2e}
+
+\definecolor{ink}{HTML}{1F2933}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=ink,
+  citecolor=ink,
+  urlcolor=ink,
+  pdfauthor={Author},
+  pdftitle={Deviation Is Data: A Cross-Sector Normalization Audit of Physical Laws}
+}
+
+\titleformat{\section}
+  {\large\bfseries\color{ink}}
+  {\thesection.}{0.55em}{}
+
+\titleformat{\subsection}
+  {\normalsize\bfseries\color{ink}}
+  {\thesubsection}{0.5em}{}
+
+\titlespacing*{\section}{0pt}{1.25em}{0.45em}
+\titlespacing*{\subsection}{0pt}{0.8em}{0.25em}
+
+\setlist[itemize]{
+  leftmargin=1.35em,
+  itemsep=0.15em,
+  topsep=0.25em
+}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.46em}
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.16}
+
+\newcommand{\dd}{\mathrm d}
+\newcommand{\ii}{\mathrm i}
+\newcommand{\grad}{\nabla}
+\newcommand{\lap}{\nabla^2}
+\newcommand{\lC}{\bar\lambda_{\!C}}
+\newcommand{\res}{\mathcal R}
+\newcommand{\trans}{\mathcal T}
+\newcommand{\Ncal}{\mathcal N_c}
+\newcommand{\vect}[1]{\bm{#1}}
+\newcommand{\EqClass}[1]{\textit{#1}}
+
+\title{
+  \vspace{-2.0em}
+  \textbf{Metric Symmetry}\\[-0.1em]
+  \large to Reveal the Grain
+}
+
+\author{Nathan McKnight \& Janus C. Sol}
+\date{September 9, 2026}
+
+\begin{document}
+
+\maketitle
+\vspace{-1.3em}
+
+\begin{abstract}
+We propose a deliberately simple diagnostic for physical equations:
+apply one frozen, lossless time-to-length normalization, reduce each
+law only by declared invertible transformations, and treat whatever
+survives as the result rather than as an inconvenience to be removed. The procedure was motivated by a representational principle developed in SAT/H(s)H: before assigning significance to an apparent asymmetry, first determine whether it survives the simplest lossless reorientation of the system. Here that principle is detached from the originating model and tested as a general method for physical equations.
+The base map is \(w=ct\). It is elementary and is not claimed as new.
+The proposed contribution is the \emph{cross-sector audit}: the same
+transformation grammar is applied to deliberately heterogeneous laws,
+including controls that should not collapse. Across mechanics,
+electromagnetism, circuits, quantum theory, transport, continuum
+physics, gravitation, cosmology, and static relations, the procedure
+separates coefficient conventions from persistent structure such as
+derivative order, characteristic scales, dimensionless couplings,
+nonlinearity, dissipation, dispersion, discreteness, sources, metric
+signature, and topology. Static laws are unchanged and therefore
+serve as negative controls. The method makes no ontological claim and
+derives no new constant. Its empirical content is prospective: if a
+small frozen grammar yields a stable residual taxonomy and organizes
+blinded holdout equations without retuning, that constitutes
+nontrivial representational compression; if the residual vocabulary
+proliferates or discretionary transformations are repeatedly
+required, the program fails to compress.
+\end{abstract}
+
+\section{Question}
+
+Dimensional analysis, natural units, similarity theory, and symmetry
+reduction are standard tools. Writing time as \(ct\) is standard in
+relativity. The question here is therefore not whether the
+substitution
+
+\begin{equation}
+  w = ct
+  \label{eq:base}
+\end{equation}
+
+is new. It is whether a \emph{single frozen normalization protocol},
+applied without sector-by-sector retuning, provides a useful
+classification of physical laws by the structure that cannot be
+normalized away.
+
+The operative principle is:
+
+\begin{quote}
+\textbf{Normalize without loss; record the residue. Deviation is data.}
+\end{quote}
+
+The desired output is not ``one equation for all physics.'' It is a
+map of exactly how far different systems are equivalent under a
+declared transformation class, and exactly what prevents further
+equivalence.
+
+\section{Protocol}
+
+Let \(E\) denote a physical equation and \(\trans\) the declared class
+of admissible transformations.
+
+\textbf{Base map.}
+Apply \(\Ncal:t\mapsto w=ct\) wherever a time coordinate appears.
+Then
+
+\begin{equation}
+  \partial_t = c\,\partial_w,
+  \qquad
+  \partial_t^n = c^n\partial_w^n,
+  \qquad
+  \frac{\dd x}{\dd w}=\frac{v}{c}.
+  \label{eq:derivative}
+\end{equation}
+
+The value of \(c\) is frozen after calibration and is not re-fit
+equation by equation.
+
+\textbf{Secondary maps.}
+Further transformations are allowed only if they are
+(i) invertible,
+(ii) explicitly recorded, and
+(iii) universal or algebraically determined by parameters already
+present in the law. Characteristic scales may be extracted and then
+scaled out, but the extracted scale remains part of the ledger.
+
+\textbf{Residual.}
+Define the audit residual only relative to the declared
+transformation class,
+
+\begin{equation}
+  \res(E\mid\trans)
+  =
+  \text{information in }E
+  \text{ that remains after canonicalization under }\trans .
+  \label{eq:residual}
+\end{equation}
+
+Typical residuals include derivative-order mismatch, characteristic
+length or inverse length, dimensionless coupling, signature,
+nonlinearity, dissipation, dispersion, finite spacing, source
+structure, boundary or topological data, or the absence of a
+temporal variable.
+
+\textbf{Failure condition.}
+If each sector requires a discretionary new map, the exercise reduces
+to ordinary problem-specific nondimensionalization. The method earns
+value only if the transformation grammar remains small while the
+residual classes remain stable across heterogeneous laws and,
+ultimately, blinded holdouts.
+
+\section{Calibration and representative outcomes}
+
+\subsection{Positive calibrators}
+
+For a trajectory \(v=\dd x/\dd t\), \cref{eq:base} gives
+
+\begin{equation}
+  \beta
+  =
+  \frac{\dd x}{\dd w}
+  =
+  \frac{v}{c},
+\end{equation}
+
+so a \(c\)-propagating trajectory has unit coordinate slope.
+
+For the generic wave equation
+
+\begin{equation}
+  \partial_t^2\psi=u^2\lap\psi,
+\end{equation}
+
+the base map gives
+
+\begin{equation}
+  \partial_w^2\psi
+  =
+  \left(\frac{u}{c}\right)^2\lap\psi .
+  \label{eq:wave}
+\end{equation}
+
+For \(u=c\), the temporal-length and spatial derivative coefficients
+balance. The Lorentzian sign remains when the operator is written as
+
+\begin{equation}
+  \partial_w^2-\lap ,
+\end{equation}
+
+so coefficient balance does not erase metric signature.
+
+Vacuum Maxwell theory provides a first-order positive control. With
+
+\begin{equation}
+  \widetilde{\vect B}=c\vect B ,
+\end{equation}
+
+the vacuum equations become
+
+\begin{align}
+  \grad\!\cdot\vect E &= 0,\\
+  \grad\!\cdot\widetilde{\vect B} &= 0,\\
+  \partial_w\vect E &= \grad\!\times\widetilde{\vect B},\\
+  \partial_w\widetilde{\vect B} &= -\grad\!\times\vect E.
+\end{align}
+
+This is a standard coefficient-balanced reformulation, not a new
+field theory.
+
+\subsection{Structured residues}
+
+The free Schr\"odinger equation,
+
+\begin{equation}
+  \ii\hbar\partial_t\psi
+  =
+  -\frac{\hbar^2}{2m}\lap\psi ,
+\end{equation}
+
+becomes
+
+\begin{equation}
+  \ii\partial_w\psi
+  =
+  -\frac{\lC}{2}\lap\psi ,
+  \qquad
+  \lC=\frac{\hbar}{mc}.
+  \label{eq:schr}
+\end{equation}
+
+The mass parameter therefore appears as a characteristic length while
+first-order temporal evolution remains first order.
+
+For hydrogen, after the same base normalization,
+
+\begin{equation}
+  \ii\partial_w\psi
+  =
+  -\frac{\lC}{2}\lap\psi
+  -
+  \frac{\alpha}{r}\psi ,
+\end{equation}
+
+where
+
+\begin{equation}
+  \alpha
+  =
+  \frac{e^2}{4\pi\epsilon_0\hbar c}.
+\end{equation}
+
+Scaling \(r=\lC\rho\) leaves \(\alpha\) as a dimensionless coupling.
+The procedure does not determine its value.
+
+Diffusion becomes
+
+\begin{equation}
+  \partial_w T
+  =
+  \frac{D}{c}\lap T ,
+  \label{eq:diff}
+\end{equation}
+
+retaining both the first-versus-second derivative-order distinction
+and the transport length
+
+\begin{equation}
+  \ell_D=\frac{D}{c}.
+\end{equation}
+
+A nonlinear pendulum,
+
+\begin{equation}
+  \ddot\theta+\frac{g}{L}\sin\theta=0 ,
+\end{equation}
+
+becomes
+
+\begin{equation}
+  \theta_{ww}
+  +
+  \frac{g}{Lc^2}\sin\theta
+  =
+  0 .
+\end{equation}
+
+With
+
+\begin{equation}
+  \ell_\theta=c\sqrt{\frac{L}{g}},
+  \qquad
+  W=\frac{w}{\ell_\theta},
+\end{equation}
+
+this reduces to
+
+\begin{equation}
+  \theta_{WW}+\sin\theta=0 .
+\end{equation}
+
+The harmonic core is
+
+\begin{equation}
+  \theta_{WW}+\theta=0 ,
+\end{equation}
+
+and the finite-amplitude residue is therefore
+
+\begin{equation}
+  \sin\theta-\theta .
+\end{equation}
+
+For a discrete oscillator chain,
+
+\begin{equation}
+  m\ddot x_n
+  =
+  K(x_{n+1}-2x_n+x_{n-1}),
+\end{equation}
+
+the exact dispersion relation is
+
+\begin{equation}
+  \omega^2
+  =
+  \frac{4K}{m}
+  \sin^2\!\left(\frac{qa}{2}\right).
+\end{equation}
+
+The continuum limit recovers a wave equation, while finite spacing
+leaves the regular correction
+
+\begin{equation}
+  \frac{\sin(qa/2)}{qa/2}.
+\end{equation}
+
+For Newtonian gravity,
+
+\begin{equation}
+  \ddot{\vect r}
+  =
+  -\frac{GM}{r^3}\vect r ,
+\end{equation}
+
+the base map gives
+
+\begin{equation}
+  \vect r_{ww}
+  =
+  -\frac{GM}{c^2}\frac{\vect r}{r^3},
+\end{equation}
+
+with gravitational length
+
+\begin{equation}
+  \ell_G=\frac{GM}{c^2}.
+\end{equation}
+
+For Coulomb attraction,
+
+\begin{equation}
+  \ddot{\vect r}
+  =
+  -\frac{qQ}{4\pi\epsilon_0m}
+  \frac{\vect r}{r^3},
+\end{equation}
+
+the corresponding interaction length is
+
+\begin{equation}
+  \ell_E
+  =
+  \frac{|qQ|}
+       {4\pi\epsilon_0mc^2}.
+\end{equation}
+
+After scaling distance by their respective interaction lengths, both
+reduce to the same dimensionless inverse-square central-force form.
+This identifies a representational equivalence class; it does not
+imply physical identity of the interactions.
+
+\section{Controls: where the procedure should not collapse}
+
+A useful diagnostic must include laws selected precisely because they
+should retain substantial structure.
+
+\textbf{Partial controls.}
+Radioactive decay, diffusion, Fokker--Planck, Navier--Stokes,
+Boltzmann, Korteweg--de Vries, Allen--Cahn, and Cahn--Hilliard
+equations all retain characteristic operator structure. The
+substitution \(w=ct\) changes dimensional bookkeeping but does not
+change first order into second order, remove collisions, erase
+nonlinear advection, or eliminate dispersion.
+
+For example,
+
+\begin{equation}
+  \dot N=-\lambda N
+\end{equation}
+
+becomes
+
+\begin{equation}
+  N_w=-\frac{\lambda}{c}N,
+\end{equation}
+
+leaving a decay inverse length and no spatial operator.
+
+The Navier--Stokes equation,
+
+\begin{equation}
+  \vect u_t
+  +
+  (\vect u\!\cdot\grad)\vect u
+  =
+  -\frac{1}{\rho}\grad p
+  +
+  \nu\lap\vect u
+  +
+  \vect f ,
+\end{equation}
+
+with
+
+\begin{equation}
+  \vect U=\frac{\vect u}{c},
+  \qquad
+  \Pi=\frac{p}{\rho c^2},
+\end{equation}
+
+becomes
+
+\begin{equation}
+  \vect U_w
+  +
+  (\vect U\!\cdot\grad)\vect U
+  =
+  -\grad\Pi
+  +
+  \frac{\nu}{c}\lap\vect U
+  +
+  \frac{\vect f}{c^2}.
+\end{equation}
+
+The nonlinear advection survives, while viscosity becomes the
+characteristic length \(\nu/c\).
+
+\textbf{Negative controls.}
+Static equations with no time variable are unchanged by the base map.
+Examples include
+
+\begin{align}
+  \lap\phi &= 0,\\
+  \lap\Phi &= 4\pi G\rho,\\
+  PV &= Nk_BT,\\
+  \dd U &= T\dd S-p\dd V+\mu\dd N,\\
+  S &= k_B\ln\Omega,\\
+  F &= -kx.
+\end{align}
+
+The method therefore does not manufacture temporal geometry where
+none occurs in the law. Such equations may still participate in a
+later invariant or scale comparison, but they are correctly
+classified as \emph{temporally silent} under the base audit.
+
+These failures are not exceptions to the procedure; they are among
+its primary observations.
+
+\section{What the audit measures}
+
+Across the battery, familiar dimensional conversions recur:
+
+\begin{equation}
+  \omega\mapsto\frac{\omega}{c},
+  \qquad
+  \tau\mapsto c\tau,
+  \qquad
+  D\mapsto\frac{D}{c},
+  \qquad
+  \frac{\hbar}{m}\mapsto\frac{\hbar}{mc},
+  \qquad
+  GM\mapsto\frac{GM}{c^2}.
+\end{equation}
+
+These identities are not the proposed result. The result is the
+\emph{residual pattern} after such conventional freedom has been
+factored out.
+
+The working conjecture is intentionally modest:
+
+\begin{quote}
+A common lossless normalization may provide a useful cross-sector
+coordinate system for classifying physical laws by the mathematical
+structures that survive it.
+\end{quote}
+
+The conjecture becomes interesting only if the residual vocabulary
+remains unexpectedly small, stable, and predictive on equations not
+used to formulate the taxonomy.
+
+\section{Prior art and scope}
+
+The components of the procedure have substantial precedent.
+Buckingham formalized dimensionless groups and similitude
+\cite{Buckingham1914}; Bridgman systematized dimensional analysis
+\cite{Bridgman1922}; Wolsky examined uniform changes of length and
+time scales across classical mechanics, nonrelativistic quantum
+mechanics, and relativistic quantum field theory
+\cite{Wolsky1971}.
+
+Natural-unit and geometrized-unit methods routinely identify time and
+length through \(c\). Gilliard explicitly rewrote broad classes of
+equations so that \(c\) and \(t\) enter through \(ct\)
+\cite{Gilliard2020}.
+
+Lie-symmetry methods formalize nondimensionalization through
+invariant coordinates \cite{Hubert2006}, and modern data-driven work
+searches for dimensionless groups and governing laws under
+Buckingham-\(\Pi\) constraints \cite{Bakarji2022,Xie2022}.
+
+Mukohyama and Uzan address a distinct but nearby problem. They begin
+with a positive-definite four-dimensional metric and introduce a
+scalar clock field whose gradient selects a local time direction;
+couplings are then chosen so that classical fields acquire effective
+Lorentzian dynamics \cite{MukohyamaUzan2013}.
+
+The present audit introduces no clock field and modifies no dynamics.
+It starts from established equations and asks only what a frozen,
+lossless normalization removes or leaves behind.
+
+Accordingly, no novelty is claimed for \(ct\) coordinates, natural
+units, nondimensionalization, similarity theory, or
+Euclidean-to-Lorentzian constructions. The proposed contribution is
+the protocol: broad cross-sector use of a frozen base map, an
+explicit transformation ledger, deliberately non-collapsing
+controls, and success criteria based on compression and
+out-of-sample organization.
+
+\section{Falsifiable next step}
+
+The next phase should be computational and preregistered. A parser
+should accept a held-out battery of equations and output:
+
+\begin{enumerate}[leftmargin=1.5em,itemsep=0.15em,topsep=0.2em]
+  \item the normalized form;
+  \item characteristic scales implied by the original coefficients;
+  \item dimensionless groups;
+  \item operator-order and algebraic structure;
+  \item a residual class.
+\end{enumerate}
+
+The allowed transformation grammar should be frozen before scoring
+the holdout set.
+
+Three outcomes are then distinguishable:
+
+\begin{enumerate}[leftmargin=1.5em,itemsep=0.15em,topsep=0.2em]
+  \item
+  \textbf{No compression.}
+  Residual classes proliferate or require discretionary retuning.
+
+  \item
+  \textbf{Representational compression.}
+  A small fixed grammar and a small stable residual vocabulary
+  organize many sectors.
+
+  \item
+  \textbf{Stronger structure.}
+  Residual relations inferred from one family correctly organize
+  quantitative relations in independent holdout families without
+  additional fitting.
+\end{enumerate}
+
+Only the third outcome would motivate claims beyond methodology.
+
+\section{Conclusion}
+
+The map \(w=ct\) is elementary. Used once, it is mostly a familiar
+change of units. Used as a frozen cross-sector audit, it poses a
+disciplined question:
+
+\begin{quote}
+\emph{What disappears, what survives, and do the survivors recur in
+a small number of forms?}
+\end{quote}
+
+The demonstrations below show both positive and negative behavior.
+That is the intended result. The method is not designed to make every
+equation fit; it is designed to turn the pattern of fit and non-fit
+into structured data.
+
+\appendix
+
+\section{Broad stress-test battery}
+\label{app:battery}
+
+\small
+\setlength{\LTleft}{0pt}
+\setlength{\LTright}{0pt}
+
+\begin{longtable}{
+  >{\RaggedRight\arraybackslash}p{0.17\textwidth}
+  >{\RaggedRight\arraybackslash}p{0.27\textwidth}
+  >{\RaggedRight\arraybackslash}p{0.31\textwidth}
+  >{\RaggedRight\arraybackslash}p{0.19\textwidth}
+}
+
+\caption{
+Representative cross-sector audit. The table is intentionally
+heterogeneous; static and non-collapsing laws are included as
+controls.
+}
+\label{tab:battery}\\
+
+\toprule
+\textbf{Law}
+&
+\textbf{Starting form}
+&
+\textbf{After \(w=ct\) and declared secondary maps}
+&
+\textbf{Primary residue}
+\\
+\midrule
+\endfirsthead
+
+\toprule
+\textbf{Law}
+&
+\textbf{Starting form}
+&
+\textbf{After \(w=ct\) and declared secondary maps}
+&
+\textbf{Primary residue}
+\\
+\midrule
+\endhead
+
+\midrule
+\multicolumn{4}{r}{\footnotesize Continued on next page}\\
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+Kinematics
+&
+\(v=\dd x/\dd t\)
+&
+\(\dd x/\dd w=v/c\equiv\beta\)
+&
+dimensionless slope \(\beta\)
+\\
+
+Acceleration
+&
+\(a=\dd^2x/\dd t^2\)
+&
+\(x_{ww}=a/c^2\)
+&
+curvature-like inverse length
+\\
+
+Newton II
+&
+\(m\ddot x=F\)
+&
+\(x_{ww}=F/(mc^2)\)
+&
+force relative to rest-energy scale
+\\
+
+Euler--Lagrange
+&
+\(\frac{\dd}{\dd t}L_{\dot q}-L_q=0\)
+&
+with
+\(\widetilde L(q,q_w,w)=L(q,cq_w,w/c)\),
+the variational form is preserved
+&
+transformed Lagrangian; no universal collapse
+\\
+
+Hamilton equations
+&
+\(\dot q=H_p,\ \dot p=-H_q\)
+&
+\(q_w=H_p/c,\ p_w=-H_q/c\)
+&
+Hamiltonian scale remains
+\\
+
+Lorentz force
+&
+\(m\dot{\vect v}=q(\vect E+\vect v\times\vect B)\)
+&
+\(mc^2\vect U_w
+ =q(\vect E+\vect U\times\widetilde{\vect B})\),
+\(\vect U=\vect v/c\),
+\(\widetilde{\vect B}=c\vect B\)
+&
+field coupling structure
+\\
+
+Simple harmonic oscillator
+&
+\(\ddot x+\omega^2x=0\)
+&
+\(x_{ww}+(\omega/c)^2x=0\)
+&
+\(\ell_\omega=c/\omega\)
+\\
+
+Damped oscillator
+&
+\(\ddot x+2\gamma\dot x+\omega_0^2x=0\)
+&
+\(x_{ww}+2(\gamma/c)x_w+(\omega_0/c)^2x=0\)
+&
+inverse lengths; ratio \(\gamma/\omega_0\)
+\\
+
+Driven oscillator
+&
+\(\ddot x+2\gamma\dot x+\omega_0^2x
+ =(F_0/m)\cos\Omega t\)
+&
+RHS
+\(=(F_0/mc^2)\cos[(\Omega/c)w]\)
+&
+forcing curvature; frequency ratios
+\\
+
+Pendulum
+&
+\(\ddot\theta+(g/L)\sin\theta=0\)
+&
+\(\theta_{ww}+[g/(Lc^2)]\sin\theta=0\)
+&
+\(c\sqrt{L/g}\); nonlinear \(\sin\theta\)
+\\
+
+Kepler orbit
+&
+\(\ddot{\vect r}=-(GM/r^3)\vect r\)
+&
+\(\vect r_{ww}=-(GM/c^2)\vect r/r^3\)
+&
+\(\ell_G=GM/c^2\)
+\\
+
+Coulomb orbit
+&
+\(\ddot{\vect r}
+ =-[qQ/(4\pi\epsilon_0m)]\vect r/r^3\)
+&
+\(\vect r_{ww}=-\ell_E\vect r/r^3\)
+&
+\(\ell_E
+ =|qQ|/(4\pi\epsilon_0mc^2)\)
+\\
+
+Discrete chain
+&
+\(m\ddot x_n
+ =K(x_{n+1}-2x_n+x_{n-1})\)
+&
+\(x_{n,ww}=[K/(mc^2)]\Delta_d x_n\)
+&
+spacing \(a\); sine dispersion
+\\
+
+Euler--Bernoulli beam
+&
+\(\rho A y_{tt}+EIy_{xxxx}=0\)
+&
+\(y_{ww}
+ +[EI/(\rho A c^2)]y_{xxxx}=0\)
+&
+fourth-order spatial operator
+\\
+
+Linear elasticity
+&
+\(\rho\vect u_{tt}
+ =(\lambda+\mu)\grad(\grad\!\cdot\vect u)
+ +\mu\lap\vect u\)
+&
+divide by \(\rho c^2\)
+&
+wave-speed ratios \(c_L/c,\ c_T/c\)
+\\
+
+Generic wave
+&
+\(\psi_{tt}=u^2\lap\psi\)
+&
+\(\psi_{ww}=(u/c)^2\lap\psi\)
+&
+characteristic speed \(u/c\)
+\\
+
+Vacuum Maxwell
+&
+\(\grad\times\vect E=-\vect B_t,\quad
+ \grad\times\vect B=\vect E_t/c^2\)
+&
+with \(\widetilde{\vect B}=c\vect B\):
+\(\widetilde{\vect B}_w=-\grad\times\vect E,\quad
+ \vect E_w=\grad\times\widetilde{\vect B}\)
+&
+Lorentzian field structure
+\\
+
+Conducting EM wave
+&
+\(\lap\vect E
+ =\mu\epsilon\vect E_{tt}
+ +\mu\sigma\vect E_t\)
+&
+\(\vect E_{ww}
+ =[1/(\mu\epsilon c^2)]\lap\vect E
+ -[\sigma/(\epsilon c)]\vect E_w\)
+&
+speed ratio; attenuation inverse length
+\\
+
+Telegrapher equation
+&
+\(V_{xx}=LCV_{tt}+RCV_t\)
+&
+\(V_{ww}
+ =[1/(LCc^2)]V_{xx}
+ -[R/(Lc)]V_w\)
+&
+propagation ratio; attenuation
+\\
+
+RC circuit
+&
+\(RC\dot V+V=0\)
+&
+\(V_w+V/(cRC)=0\)
+&
+\(\ell_{RC}=cRC\)
+\\
+
+LC circuit
+&
+\(LC\ddot Q+Q=0\)
+&
+\(Q_{ww}+Q/(c^2LC)=0\)
+&
+\(\ell_{LC}=c\sqrt{LC}\)
+\\
+
+RLC circuit
+&
+\(L\ddot Q+R\dot Q+Q/C=0\)
+&
+\(Q_{ww}
+ +[R/(Lc)]Q_w
+ +[1/(LCc^2)]Q=0\)
+&
+damping and recurrence inverse lengths
+\\
+
+Free Schr\"odinger
+&
+\(\ii\hbar\psi_t
+ =-(\hbar^2/2m)\lap\psi\)
+&
+\(\ii\psi_w
+ =-(\lC/2)\lap\psi\)
+&
+\(\lC=\hbar/(mc)\); operator order
+\\
+
+Time-dependent Schr\"odinger
+&
+\(\ii\hbar\psi_t
+ =[ -(\hbar^2/2m)\lap+V]\psi\)
+&
+\(\ii\psi_w
+ =[ -(\lC/2)\lap+V/(\hbar c)]\psi\)
+&
+Compton length; potential inverse length
+\\
+
+Hydrogen
+&
+TDSE with
+\(-e^2/(4\pi\epsilon_0r)\)
+&
+after \(r=\lC\rho\):
+Coulomb term \(-\alpha/\rho\)
+&
+\(\alpha\); Compton/Bohr scale ratio
+\\
+
+Quantum oscillator
+&
+TDSE with \(\tfrac12m\omega^2x^2\)
+&
+natural
+\(a_{\rm osc}^2
+ =\lC(c/\omega)
+ =\hbar/(m\omega)\)
+&
+geometric-mean scale
+\\
+
+Pauli equation
+&
+\(\ii\hbar\psi_t
+ =[(\vect p-q\vect A)^2/(2m)
+ +q\phi
+ -(q\hbar/2m)\vect\sigma\!\cdot\vect B]\psi\)
+&
+divide Hamiltonian by \(\hbar c\) after \(w=ct\)
+&
+Compton scale; gauge and Zeeman couplings
+\\
+
+Klein--Gordon
+&
+\(c^{-2}\phi_{tt}
+ -\lap\phi
+ +(mc/\hbar)^2\phi=0\)
+&
+\(\phi_{ww}
+ -\lap\phi
+ +\phi/\lC^2=0\)
+&
+signature; inverse Compton mass scale
+\\
+
+Dirac
+&
+\((\ii\hbar\gamma^\mu\partial_\mu-mc)\psi=0\)
+&
+with \(x^0=w\):
+\((\ii\gamma^\mu\partial_\mu-1/\lC)\psi=0\)
+&
+Clifford/Lorentz structure; \(1/\lC\)
+\\
+
+Proca
+&
+\(\partial_\mu F^{\mu\nu}
+ +(mc/\hbar)^2A^\nu=0\)
+&
+\(\partial_\mu F^{\mu\nu}
+ +A^\nu/\lC^2=0\)
+&
+mass length; covariant structure
+\\
+
+Gross--Pitaevskii
+&
+\(\ii\hbar\psi_t
+ =[ -(\hbar^2/2m)\lap+V+g|\psi|^2]\psi\)
+&
+\(\ii\psi_w
+ =[ -(\lC/2)\lap
+ +V/(\hbar c)
+ +g|\psi|^2/(\hbar c)]\psi\)
+&
+nonlinear coupling
+\\
+
+Planck--Einstein
+&
+\(E=\hbar\omega\)
+&
+\(E/(\hbar c)=\omega/c\)
+&
+algebraic inverse-length conversion
+\\
+
+de Broglie
+&
+\(p=\hbar k\)
+&
+\(p/\hbar=k\)
+&
+algebraic inverse-length conversion
+\\
+
+Relativistic dispersion
+&
+\(E^2-p^2c^2=m^2c^4\)
+&
+\(\varepsilon^2-\pi^2=1\),
+\(\varepsilon=E/(mc^2)\),
+\(\pi=p/(mc)\)
+&
+Lorentzian sign
+\\
+
+Advection
+&
+\(\phi_t+\vect u\!\cdot\grad\phi=0\)
+&
+with \(\vect U=\vect u/c\):
+\(\phi_w+\vect U\!\cdot\grad\phi=0\)
+&
+dimensionless velocity field
+\\
+
+Diffusion / heat
+&
+\(T_t=D\lap T\)
+&
+\(T_w=(D/c)\lap T\)
+&
+transport length; operator order
+\\
+
+Reaction--diffusion
+&
+\(u_t=D\lap u+R(u)\)
+&
+\(u_w=(D/c)\lap u+R(u)/c\)
+&
+transport and reaction scales; nonlinearity
+\\
+
+Radioactive decay
+&
+\(\dot N=-\lambda N\)
+&
+\(N_w=-(\lambda/c)N\)
+&
+decay inverse length; no spatial operator
+\\
+
+Logistic growth
+&
+\(\dot N=rN(1-N/K)\)
+&
+\(N_w=(r/c)N(1-N/K)\)
+&
+growth inverse length; saturation nonlinearity
+\\
+
+Fokker--Planck
+&
+\(p_t=-\grad\!\cdot(\vect b p)+D\lap p\)
+&
+with \(\vect b=c\vect B\):
+\(p_w=-\grad\!\cdot(\vect Bp)+(D/c)\lap p\)
+&
+drift field; diffusion length
+\\
+
+Continuity
+&
+\(\rho_t+\grad\!\cdot(\rho\vect u)=0\)
+&
+\(\rho_w+\grad\!\cdot(\rho\vect U)=0\)
+&
+coefficient-balanced conservation law
+\\
+
+Euler fluid
+&
+\(\vect u_t
+ +(\vect u\!\cdot\grad)\vect u
+ =-\grad p/\rho+\vect f\)
+&
+\(\vect U_w
+ +(\vect U\!\cdot\grad)\vect U
+ =-\grad[p/(\rho c^2)]
+ +\vect f/c^2\)
+&
+pressure ratio; forcing curvature
+\\
+
+Navier--Stokes
+&
+\(\vect u_t
+ +(\vect u\!\cdot\grad)\vect u
+ =-\grad p/\rho+\nu\lap\vect u+\vect f\)
+&
+\(\vect U_w
+ +(\vect U\!\cdot\grad)\vect U
+ =-\grad\Pi
+ +(\nu/c)\lap\vect U
+ +\vect f/c^2\)
+&
+viscosity length; nonlinear advection
+\\
+
+Burgers
+&
+\(u_t+uu_x=\nu u_{xx}\)
+&
+\(U_w+UU_x=(\nu/c)U_{xx}\)
+&
+viscosity length; nonlinearity
+\\
+
+Boltzmann
+&
+\(f_t
+ +\vect v\!\cdot\grad_xf
+ +(\vect F/m)\!\cdot\grad_vf
+ =C[f]\)
+&
+with \(\vect v=c\vect U\):
+\(f_w
+ +\vect U\!\cdot\grad_xf
+ +(\vect a/c^2)\!\cdot\grad_Uf
+ =C[f]/c\)
+&
+collision operator; phase-space structure
+\\
+
+Korteweg--de Vries
+&
+\(\eta_t+c_0\eta_x+\alpha\eta\eta_x+\beta\eta_{xxx}=0\)
+&
+\(\eta_w
+ +(c_0/c)\eta_x
+ +(\alpha/c)\eta\eta_x
+ +(\beta/c)\eta_{xxx}=0\)
+&
+mixed derivative order; nonlinear and dispersive scales
+\\
+
+Sine--Gordon
+&
+\(u_{tt}-v^2u_{xx}+\omega_0^2\sin u=0\)
+&
+\(u_{ww}
+ -(v/c)^2u_{xx}
+ +(\omega_0/c)^2\sin u=0\)
+&
+speed ratio; nonlinear recurrence scale
+\\
+
+Allen--Cahn
+&
+\(u_t=D\lap u-f(u)\)
+&
+\(u_w=(D/c)\lap u-f(u)/c\)
+&
+first-order time; nonlinear reaction
+\\
+
+Cahn--Hilliard
+&
+\(u_t=M\lap[f'(u)-\kappa\lap u]\)
+&
+\(u_w=(M/c)\lap[f'(u)-\kappa\lap u]\)
+&
+second/fourth spatial order; nonlinear chemical potential
+\\
+
+Porous-medium
+&
+\(u_t=D\lap(u^m)\)
+&
+\(u_w=(D/c)\lap(u^m)\)
+&
+nonlinear diffusion exponent \(m\)
+\\
+
+MHD induction
+&
+\(\vect B_t
+ =\grad\times(\vect u\times\vect B)
+ +\eta\lap\vect B\)
+&
+\(\vect B_w
+ =\grad\times(\vect U\times\vect B)
+ +(\eta/c)\lap\vect B\)
+&
+magnetic diffusivity length
+\\
+
+Newtonian Poisson
+&
+\(\lap\Phi=4\pi G\rho\)
+&
+base map unchanged; optionally
+\(\varphi=\Phi/c^2\Rightarrow
+ \lap\varphi=4\pi G\rho/c^2\)
+&
+static source structure
+\\
+
+Electrostatic Poisson
+&
+\(\lap V=-\rho_q/\epsilon_0\)
+&
+unchanged
+&
+static negative control
+\\
+
+Gauss electrostatics
+&
+\(\grad\!\cdot\vect E=\rho_q/\epsilon_0\)
+&
+unchanged
+&
+static negative control
+\\
+
+Laplace
+&
+\(\lap\phi=0\)
+&
+unchanged
+&
+static negative control
+\\
+
+Helmholtz
+&
+\(\lap\psi+k^2\psi=0\)
+&
+unchanged; if \(k=\omega/u\), compare with \(\omega/c\)
+&
+frequency-domain inverse length
+\\
+
+Geodesic
+&
+\(\ddot x^\mu
+ +\Gamma^\mu_{\alpha\beta}
+ \dot x^\alpha\dot x^\beta=0\)
+&
+with \(s=c\tau\):
+\(x^{\mu\prime\prime}
+ +\Gamma^\mu_{\alpha\beta}
+ x^{\alpha\prime}x^{\beta\prime}=0\)
+&
+connection/metric already geometric
+\\
+
+Einstein equation
+&
+\(G_{\mu\nu}
+ +\Lambda g_{\mu\nu}
+ =(8\pi G/c^4)T_{\mu\nu}\)
+&
+already geometrized under standard conventions
+&
+metric signature, curvature, \(\Lambda\), matter tensor
+\\
+
+Friedmann
+&
+\(H^2
+ =8\pi G\rho/3
+ -kc^2/a^2
+ +\Lambda c^2/3\)
+&
+\((H/c)^2
+ =8\pi G\rho/(3c^2)
+ -k/a^2
+ +\Lambda/3\)
+&
+density, curvature, \(\Lambda\), all inverse length\(^{2}\)
+\\
+
+Curved-space scalar
+&
+\((\Box-m^2c^2/\hbar^2)\phi=0\)
+&
+mass term \(1/\lC^2\);
+\(x^0=ct\) if chosen
+&
+metric and curvature dependence
+\\
+
+Ideal gas
+&
+\(PV=Nk_BT\)
+&
+unchanged
+&
+no-time negative control
+\\
+
+First law
+&
+\(\dd U=T\dd S-p\dd V+\mu\dd N\)
+&
+unchanged
+&
+no-time thermodynamic constraint
+\\
+
+Boltzmann entropy
+&
+\(S=k_B\ln\Omega\)
+&
+unchanged
+&
+no-time statistical relation
+\\
+
+Static Hooke law
+&
+\(F=-kx\)
+&
+unchanged
+&
+constitutive law; time enters only after dynamics
+\\
+
+Equation of state
+&
+\(p=w_{\rm eos}\rho c^2\)
+&
+\(p/(\rho c^2)=w_{\rm eos}\)
+&
+already dimensionless constitutive parameter
+\\
+
+\end{longtable}
+
+\normalsize
+
+\section{Interpretive ledger}
+
+For clarity, the audit classifies outcomes rather than ranking them:
+
+\begin{itemize}
+
+  \item
+  \EqClass{Balanced}: the fixed map produces equal or dimensionless
+  coefficients without further discretionary choices.
+
+  \item
+  \EqClass{Scaled}: the map exposes a characteristic length, inverse
+  length, or dimensionless ratio.
+
+  \item
+  \EqClass{Structured residue}: derivative order, nonlinearity,
+  dispersion, collision structure, signature, or topology persists.
+
+  \item
+  \EqClass{Null action}: the base temporal map does nothing because
+  the law contains no time variable.
+
+\end{itemize}
+
+A useful theory of the audit would explain why these classes recur
+and whether the list closes under a preregistered expansion of the
+battery.
+
+\begin{thebibliography}{99}
+\small
+
+\bibitem{Buckingham1914}
+E. Buckingham,
+``On physically similar systems; illustrations of the use of
+dimensional equations,''
+\emph{Physical Review} \textbf{4}, 345--376 (1914).
+\href{https://doi.org/10.1103/PhysRev.4.345}
+{doi:10.1103/PhysRev.4.345}.
+
+\bibitem{Bridgman1922}
+P. W. Bridgman,
+\emph{Dimensional Analysis}
+(Yale University Press, 1922).
+
+\bibitem{Wolsky1971}
+A. M. Wolsky,
+``The scales of length and time in classical and modern physics,''
+\emph{American Journal of Physics} \textbf{39}, 529 (1971).
+\href{https://doi.org/10.1119/1.1986206}
+{doi:10.1119/1.1986206}.
+
+\bibitem{MukohyamaUzan2013}
+S. Mukohyama and J.-P. Uzan,
+``From configuration to dynamics---Emergence of Lorentz signature
+in classical field theory,''
+\emph{Physical Review D} \textbf{87}, 065020 (2013).
+\href{https://doi.org/10.1103/PhysRevD.87.065020}
+{doi:10.1103/PhysRevD.87.065020}.
+
+\bibitem{Hubert2006}
+E. Hubert and A. Sedoglavic,
+``Polynomial time nondimensionalisation of ordinary differential
+equations via their Lie point symmetries,''
+arXiv:cs/0604060 (2006).
+
+\bibitem{Gilliard2020}
+R. P. Gilliard,
+``Fundamental units and constants of physics,''
+\emph{Advanced Studies in Theoretical Physics}
+\textbf{14} (2020).
+\href{https://doi.org/10.12988/astp.2020.91466}
+{doi:10.12988/astp.2020.91466}.
+
+\bibitem{Bakarji2022}
+J. Bakarji, J. L. Callaham, S. L. Brunton, and J. N. Kutz,
+``Dimensionally consistent learning with Buckingham Pi,''
+\emph{Nature Computational Science}
+\textbf{2}, 834--844 (2022).
+\href{https://doi.org/10.1038/s43588-022-00355-5}
+{doi:10.1038/s43588-022-00355-5}.
+
+\bibitem{Xie2022}
+X. Xie, A. Samaei, J. Guo, W. K. Liu, and Z. Gan,
+``Data-driven discovery of dimensionless numbers and governing laws
+from scarce measurements,''
+\emph{Nature Communications}
+\textbf{13}, 7562 (2022).
+\href{https://doi.org/10.1038/s41467-022-35084-w}
+{doi:10.1038/s41467-022-35084-w}.
+
+\end{thebibliography}
+
+\end{document}
