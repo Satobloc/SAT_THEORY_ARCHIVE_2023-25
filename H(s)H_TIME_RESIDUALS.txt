@@ -1,0 +1,1333 @@
+For LaTeX, the cleanest way is `draftwatermark`.
+
+Add this in the preamble:
+
+```latex
+\usepackage{draftwatermark}
+
+\SetWatermarkText{DRAFT}
+\SetWatermarkScale{3.2}
+\SetWatermarkLightness{0.92}
+\SetWatermarkAngle{45}
+```
+
+`Lightness` runs roughly from `0` = black to `1` = invisible, so `0.90–0.94` usually gives a professional faint watermark.
+
+For something more specific to this paper:
+
+```latex
+\usepackage{draftwatermark}
+
+\SetWatermarkText{WORKING DRAFT}
+\SetWatermarkScale{2.4}
+\SetWatermarkLightness{0.92}
+\SetWatermarkAngle{45}
+```
+
+Or a horizontal provenance watermark:
+
+```latex
+\usepackage{draftwatermark}
+
+\SetWatermarkText{SAT/H(s)H --- WORKING PAPER}
+\SetWatermarkScale{1.2}
+\SetWatermarkLightness{0.93}
+\SetWatermarkAngle{0}
+```
+
+That will appear on every page behind the text.
+
+If you want something more elegant—e.g. a tiny centered footer watermark like `PREPRINT • 8 SEPTEMBER 2026`, rather than a giant diagonal DRAFT—I’d use a different method.
+
+
+Ok, what happens to our UI, Whirlygig, Spheres, and Graticule?
+
+They don’t go away. This actually gives them a cleaner reason to exist.
+
+The normalization paper supplies the methodological spine; the UI, Whirlygig, Spheres, and Graticule become the instrument suite for doing the audit geometrically rather than only algebraically.
+
+The clean division I see is:
+
+* **UI** — the comparative workbench. Load a system, choose the admissible transformation class, normalize it, rotate/reorient it, and keep the before/after/residual ledger visible. It is where an “all-sector physicist” can compare systems in a common language without losing the original representation.
+
+* **Whirlygig** — the transformation engine/explorer. Its job becomes: *how far can this system be rotated, permuted, rescaled, or otherwise losslessly re-expressed before genuine structure stops us?* It searches the equivalence class. The interesting output is the obstruction to further symmetrization.
+
+* **Spheres** — the local kinematic laboratory. This is where we test whether apparently different dynamical constructions are actually the same under rotation/deformation, and where genuine bifurcations or admissibility boundaries appear. Your \(d=\sqrt{3}R\) carrier collapse is exactly the kind of thing that matters here: not a notation difference, but a geometric transition that survives the allowed transformations.
+
+* **Graticule** — the residual-anisotropy detector. This may have the clearest new role of all. It was already mapping chirality, parity, reconnection angle, tangent orientation, inner/outer relationships, ordinary/inverse constructions, asymptotes, medial contours, etc. Now its question becomes very crisp: after all removable asymmetry has been canceled or normalized, **what directional structure remains, where does it change sign, and where are its singular or invariant sets?**
+
+So I would almost redraw the architecture as
+
+$$
+\boxed{
+\text{Normalization}
+\rightarrow
+\text{Whirlygig search over equivalent representations}
+\rightarrow
+\text{Graticule measurement of residual anisotropy}
+\rightarrow
+\text{Spheres test of local dynamics/bifurcations}
+\rightarrow
+\text{UI comparison and ledger}
+}
+$$
+
+with some feedback loops between them.
+
+That also solves a problem we had before: these tools were in danger of looking like miscellaneous SAT/H(s)H visualization inventions. Now each has a precise methodological function.
+
+There is also a useful separation between the standalone paper and the larger project. I would **not** dump all four into *Leveling the Metric to Reveal the Grain*. That paper should remain very simple: establish the audit, show it algebraically across a ridiculous number of sectors, define residual anisotropy, include controls, and demonstrate that the method is representation-conscious and falsifiable.
+
+Then a companion paper/tool paper could be something like:
+
+**Visual Instruments for Residual Anisotropy**
+*Interactive transformation, symmetry, and bifurcation analysis across physical representations*
+
+That is where the Whirlygig, Graticule, Spheres, and UI become a coherent package.
+
+And there is a deeper point. The algebraic paper asks:
+
+$$
+\text{What survives normalization?}
+$$
+
+The visual machinery asks:
+
+$$
+\text{What survives reorientation?}
+$$
+
+Those are not quite the same test.
+
+A coefficient can disappear under normalization while a sign, handedness, singularity, winding class, bifurcation, or directional gradient survives every admissible orientation. That second category is exactly the “grain” in your title.
+
+So I think the Graticule in particular has just become more important, not less. It is almost literally a **grain detector**. The Whirlygig tries to rotate the grain away; the Graticule tells us whether it succeeded.
+
+
+
+I think it helps us to set our scales to a universal, it helps us to orient, it gives them more universality and d a sort of set natural size with respect to the things they focus on
+
+Yes. I think that is the stronger consequence.
+
+The normalization is not just a way of making equations comparable. It gives the visual instruments a common metrology.
+
+Right now the UI, Whirlygig, Spheres, and Graticule can all be mathematically well-defined while still having a somewhat arbitrary visual scale: How big is the torus? How far apart are the spheres? How large should a graticule cell be? What counts as one unit of displacement or rotation?
+
+The cross-sector normalization gives us a principled answer.
+
+Start with the universal conversion
+
+$$
+w=ct,
+$$
+
+so temporal and spatial displacements can at least be expressed in the same dimensional language. Then, for a particular system, extract its characteristic length rather than inventing one:
+
+$$
+\ell_* \in
+\left\{
+\frac{c}{\omega},
+\frac{\hbar}{mc},
+\frac{GM}{c^2},
+\frac{D}{c},
+c\tau,
+\ldots
+\right\}.
+$$
+
+Then define normalized coordinates such as
+
+$$
+X^\mu=\frac{x^\mu}{\ell_*}.
+$$
+
+Now the object under inspection has a natural order-one size in the instrument.
+
+That is quite powerful.
+
+A harmonic oscillator with characteristic scale \(c/\omega\), an electron with \(\hbar/(mc)\), a gravitational system with \(GM/c^2\), and a diffusion process with \(D/c\) can all be presented to the same apparatus in coordinates where the characteristic feature is roughly
+
+$$
+L_*=1.
+$$
+
+Not because those physical systems are identical, but because we have removed the arbitrary difference in scale before comparing their geometry.
+
+Then the instruments gain much more precise roles.
+
+The **UI** can have a universal coordinate frame. Instead of every problem coming in with wildly different SI magnitudes, it receives an order-one normalized object plus a scale ledger telling you exactly how to map back.
+
+The **Whirlygig** can operate on normalized geometry. Its rotations no longer depend on whether the thing being rotated happens to be \(10^{-15}\,\mathrm m\), \(10^3\,\mathrm m\), or \(10^{20}\,\mathrm m\). It asks the same geometric question of all of them.
+
+The **Spheres** acquire a natural radius convention. Rather than arbitrary \(R\),
+
+$$
+R=1
+$$
+
+can mean “one characteristic scale of the system.” Then something like
+
+$$
+d=\sqrt3\,R
+$$
+
+becomes a genuinely universal dimensionless relation:
+
+$$
+\frac dR=\sqrt3.
+$$
+
+That is exactly the kind of statement we want these tools to expose. The absolute size can change by forty orders of magnitude without changing the geometry.
+
+And the **Graticule** may benefit most of all. Its axes, contours, gradients, reconnection distances, and angular transitions can be measured against a normalized characteristic scale. So instead of saying “the feature occurs this far from the center,” we can say
+
+$$
+r/\ell_*=0.37,
+$$
+
+or whatever the actual result is.
+
+Then we can compare that number across entirely different systems.
+
+That gives us two different kinds of universality at once:
+
+$$
+\boxed{\text{universal coordinate convention}}
+$$
+
+and
+
+$$
+\boxed{\text{system-derived natural unit}}
+$$
+
+The first is common to everything. The second is supplied by the equation itself.
+
+That distinction is important. I would not try to force one literal absolute length scale on every physical system. That would throw away useful scale information. Instead:
+
+$$
+\text{universal metrology}
++
+\text{locally extracted characteristic scale}.
+$$
+
+Or more compactly,
+
+$$
+\boxed{
+x
+\longrightarrow
+\frac{x}{\ell_*(E)}
+}
+$$
+
+where \(\ell_*(E)\) is not chosen for convenience but mechanically extracted from the law being examined.
+
+And then the original scale remains in the ledger, so the map is completely reversible.
+
+This also gives the whole instrument family something like a standard specimen size. A microscopist changes magnification so the object fills the field; a crystallographer works in lattice units; a fluid dynamicist uses Reynolds-number scaling. We would be doing the analogous thing for cross-sector geometry.
+
+So your “natural size” language is exactly right, with one qualification: it is not necessarily a universal *physical size*. It is a **universal normalized size with respect to the characteristic structure the instrument is examining.**
+
+That could make the four tools substantially more useful than I was giving them credit for. They would no longer merely visualize H(s)H constructions. They could become general-purpose normalized geometric instruments for comparing systems across sectors.
+
+
+
+NOw, what does this mean for all our heavy math plans? And can we automate conversion? And... what about our Lagrangian(s, old and new)
+
+It changes the heavy-math plan in a useful way: it gives us a common front end for almost all of it. It does not replace the heavy math; it tells us what coordinate/scale conventions to use before we start doing the heavy math, so we stop carrying avoidable asymmetries and arbitrary units through every derivation.
+
+The rough architecture becomes
+
+$$
+\boxed{
+\text{original formulation}
+\rightarrow
+\text{universal normalization}
+\rightarrow
+\text{natural system scale}
+\rightarrow
+\text{dimensionless/canonical form}
+\rightarrow
+\text{heavy mathematics}
+\rightarrow
+\text{residual ledger}
+}
+$$
+
+That matters for the formalization program, the solvers, the geometric machinery, and especially the Lagrangians.
+
+For the heavy math generally, I would now make a distinction between two layers.
+
+The first is the universal representational layer:
+
+$$
+w=ct,\qquad
+X^i=\frac{x^i}{\ell_*},\qquad
+W=\frac{w}{\ell_*},
+$$
+
+where \(\ell_*\) is extracted from the system rather than chosen cosmetically.
+
+Then all derivatives become predictable:
+
+$$
+\partial_t=c\,\partial_w
+=\frac{c}{\ell_*}\partial_W,
+$$
+
+$$
+\nabla_x=\frac{1}{\ell_*}\nabla_X,
+$$
+
+$$
+\partial_t^n
+=
+\left(\frac{c}{\ell_*}\right)^n
+\partial_W^n.
+$$
+
+After that, the second layer is the actual mathematics: differential geometry, variational mechanics, topology, braid/holonomy machinery, Clifford algebra, PDE analysis, bifurcation analysis, numerical solution, whatever the problem actually requires.
+
+That separation is valuable because it tells us which mathematical complexity is intrinsic to the model and which was just inherited from representation.
+
+And yes: **we can automate a very large fraction of the conversion.**
+
+I think we should.
+
+The converter can operate on a symbolic representation of an equation and do, in order:
+
+$$
+t\mapsto w/c,
+$$
+
+$$
+\frac{d}{dt}\mapsto c\frac{d}{dw},
+$$
+
+$$
+\frac{d^n}{dt^n}\mapsto c^n\frac{d^n}{dw^n},
+$$
+
+then dimensional analysis of the resulting coefficients, extraction of candidate characteristic lengths, and finally
+
+$$
+x^\mu=\ell_*X^\mu.
+$$
+
+It can then output four things automatically:
+
+1. the original equation;
+2. the \(w\)-normalized equation;
+3. a dimensionless canonical form;
+4. the residuals that survived.
+
+For example, feed it
+
+$$
+\ddot x+\omega^2x=0.
+$$
+
+It obtains
+
+$$
+x_{ww}+\frac{\omega^2}{c^2}x=0,
+$$
+
+recognizes
+
+$$
+\ell_\omega=\frac{c}{\omega},
+$$
+
+sets
+
+$$
+W=\frac{w}{\ell_\omega},
+$$
+
+and produces
+
+$$
+x_{WW}+x=0.
+$$
+
+Residual ledger: harmonic recurrence; no remaining dimensional parameter.
+
+Feed it diffusion:
+
+$$
+T_t=D\nabla^2T,
+$$
+
+and it gets
+
+$$
+T_w=\frac Dc\nabla^2T,
+$$
+
+extracts
+
+$$
+\ell_D=\frac Dc,
+$$
+
+but also reports
+
+$$
+\boxed{\text{first temporal derivative versus second spatial derivative}}
+$$
+
+as a surviving operator anisotropy.
+
+That is exactly the sort of thing software is better at doing consistently than we are manually.
+
+The really interesting part is that we can apply the same machinery to our Lagrangians.
+
+There is one technical correction worth making explicit because it matters here. If
+
+$$
+S=\int L(q,\dot q,t)\,dt
+$$
+
+and
+
+$$
+w=ct,
+$$
+
+then
+
+$$
+dt=\frac{dw}{c},
+\qquad
+\dot q=c\,q_w.
+$$
+
+Therefore
+
+$$
+S
+=
+\int
+\frac1c
+L\!\left(q,cq_w,\frac wc\right)
+dw.
+$$
+
+So the properly transformed \(w\)-Lagrangian is
+
+$$
+\boxed{
+L_w(q,q_w,w)
+=
+\frac1c
+L\!\left(q,cq_w,\frac wc\right).
+}
+$$
+
+That overall \(1/c\) does not alter the Euler--Lagrange trajectories when \(c\) is constant, which is why it is easy to overlook. But it absolutely matters if we want the action, canonical momentum, Hamiltonian, units, and cross-sector comparison to remain exact.
+
+The Euler--Lagrange equations retain their form:
+
+$$
+\frac{d}{dw}
+\frac{\partial L_w}{\partial q_w}
+-
+\frac{\partial L_w}{\partial q}
+=0.
+$$
+
+And something rather nice happens to the canonical momentum:
+
+$$
+p_w
+=
+\frac{\partial L_w}{\partial q_w}
+=
+\frac{\partial L}{\partial\dot q}
+=
+p.
+$$
+
+So the momentum is unchanged by this particular reparameterization.
+
+Meanwhile,
+
+$$
+H_w
+=
+p q_w-L_w
+=
+\frac1c(p\dot q-L)
+=
+\frac{H}{c}.
+$$
+
+Thus energy naturally turns into energy-per-\(c\), i.e. momentum dimensionality, just as one would expect when temporal evolution has been parameterized by a length.
+
+That alone is worth putting in the paper.
+
+For field theory the analogous statement is
+
+$$
+S
+=
+\int dt\,d^3x\,\mathcal L
+=
+\int dw\,d^3x\,
+\frac{\mathcal L}{c},
+$$
+
+before any subsequent spatial normalization.
+
+Then introduce a characteristic length
+
+$$
+x^\mu=\ell_*X^\mu.
+$$
+
+The four-volume measure becomes
+
+$$
+d^4x=\ell_*^4\,d^4X
+$$
+
+when all four coordinates are length-valued, and derivatives acquire factors of \(1/\ell_*\). This is where a complicated Lagrangian starts revealing which coefficients are genuinely independent dimensionless numbers.
+
+And that brings us directly to the old and new H(s)H Lagrangians.
+
+I would **not discard or rewrite either one yet**.
+
+I would run both through the same normalization audit.
+
+That gives us a genuinely useful comparison:
+
+$$
+\boxed{
+L_{\rm old}
+\longrightarrow
+\widehat L_{\rm old}
+}
+$$
+
+and
+
+$$
+\boxed{
+L_{\rm new}
+\longrightarrow
+\widehat L_{\rm new}.
+}
+$$
+
+Then compare the residual mathematical content rather than comparing their raw notation.
+
+That could tell us that two terms which looked conceptually different were actually the same normalized invariant. Conversely, two terms we had been treating as analogous might remain inequivalent after everything removable is stripped away. That is exactly what we want to know.
+
+For the newer finite-core/worldtube formulation, this gets especially interesting.
+
+Suppose a curve or tube centerline has characteristic size \(\ell_*\), and write arc length as
+
+$$
+s=\ell_*\,\sigma.
+$$
+
+Then curvature scales as
+
+$$
+\kappa=\frac{\hat\kappa}{\ell_*},
+$$
+
+torsion as
+
+$$
+\tau=\frac{\hat\tau}{\ell_*},
+$$
+
+and derivatives of curvature scale as
+
+$$
+\frac{d\kappa}{ds}
+=
+\frac{1}{\ell_*^2}
+\frac{d\hat\kappa}{d\sigma}.
+$$
+
+So a schematic geometric functional such as
+
+$$
+S
+=
+\int ds
+\left[
+A
++
+B\kappa^2
++
+C\tau^2
++
+D\left(\frac{d\kappa}{ds}\right)^2
++\cdots
+\right]
+$$
+
+becomes
+
+$$
+S
+=
+\int d\sigma
+\left[
+A\ell_*
++
+\frac{B}{\ell_*}\hat\kappa^2
++
+\frac{C}{\ell_*}\hat\tau^2
++
+\frac{D}{\ell_*^3}
+\left(\frac{d\hat\kappa}{d\sigma}\right)^2
++\cdots
+\right].
+$$
+
+Then choose one natural action/energy scale and factor it out. What remains are dimensionless ratios such as
+
+$$
+\frac{B}{A\ell_*^2},
+\qquad
+\frac{C}{A\ell_*^2},
+\qquad
+\frac{D}{A\ell_*^4},
+$$
+
+or whatever the actual dimensional structure of our terms yields.
+
+Those ratios—not \(A,B,C,D\) in their raw form—are much closer to the actual mathematical degrees of freedom of the theory.
+
+For the recursive/nested hyperhelix Lagrangian, the same idea becomes even more important. Each scale order \(N\) can be described relative to its own inherited characteristic length,
+
+$$
+\ell_N,
+$$
+
+while the relations between levels are encoded by dimensionless ratios
+
+$$
+\rho_N=\frac{\ell_{N+1}}{\ell_N}.
+$$
+
+Suddenly “recursive scaling” ceases to mean carrying enormous or tiny dimensional numbers through the equations. It becomes a hierarchy of order-one geometries plus scale ratios.
+
+Something like
+
+$$
+H_N(\lambda)
+=
+\ell_N\,
+\widehat H_N(\lambda/\ell_N)
+$$
+
+could become the standard representation.
+
+Then the genuinely interesting quantities are things like
+
+$$
+\frac{\ell_{N+1}}{\ell_N},
+\quad
+\hat\kappa_N,
+\quad
+\hat\tau_N,
+\quad
+\text{winding numbers},
+\quad
+\text{holonomies},
+\quad
+\text{chirality},
+\quad
+\text{bifurcation thresholds},
+$$
+
+rather than arbitrary absolute coordinate magnitudes.
+
+That ties directly back to the Whirlygig, Spheres, and Graticule. They can all operate on the same normalized objects produced by the Lagrangian.
+
+So I think the heavy-math roadmap actually becomes cleaner:
+
+$$
+\boxed{1.\ \text{Build the normalization engine}}
+$$
+
+$$
+\boxed{2.\ \text{Normalize the old Lagrangian exactly}}
+$$
+
+$$
+\boxed{3.\ \text{Normalize the new finite-core/worldtube Lagrangian exactly}}
+$$
+
+$$
+\boxed{4.\ \text{Compare their dimensionless residual structures}}
+$$
+
+$$
+\boxed{5.\ \text{Feed the canonical geometry into Whirlygig/Spheres/Graticule}}
+$$
+
+$$
+\boxed{6.\ \text{formalize only the surviving kernel}}
+$$
+
+That last point is important. We had been contemplating a fairly large formalization effort—typed objects, admissibility, dynamics, readout, perhaps Lean, numerical solvers, etc.
+
+I would now **delay formalizing arbitrary dimensional baggage**.
+
+First normalize.
+
+Then formalize the invariant/residual kernel.
+
+That could substantially reduce the number of primitive constants, scale conventions, duplicated equations, and representation-specific cases that the formal system has to carry.
+
+And there is one potentially major payoff: if the old SAT Lagrangians and the newer H(s)H Lagrangians normalize to substantially the same dimensionless core, we have a mathematically meaningful way of saying that the later formulation is a refinement of the earlier one rather than merely another notation.
+
+If they do not, that is equally valuable. The residual mismatch tells us exactly where the theory actually changed.
+
+So yes: I think this should now come **before** a lot of the heavy math we were planning—not because it replaces that math, but because it can tell us which heavy math is genuinely necessary.
+
+
+It changes the heavy-math plan in a useful way: it gives us a common front end for almost all of it. It does not replace the heavy math; it tells us what coordinate/scale conventions to use before we start doing the heavy math, so we stop carrying avoidable asymmetries and arbitrary units through every derivation.
+
+The rough architecture becomes
+
+$$
+\boxed{
+\text{original formulation}
+\rightarrow
+\text{universal normalization}
+\rightarrow
+\text{natural system scale}
+\rightarrow
+\text{dimensionless/canonical form}
+\rightarrow
+\text{heavy mathematics}
+\rightarrow
+\text{residual ledger}
+}
+$$
+
+That matters for the formalization program, the solvers, the geometric machinery, and especially the Lagrangians.
+
+For the heavy math generally, I would now make a distinction between two layers.
+
+The first is the universal representational layer:
+
+$$
+w=ct,\qquad
+X^i=\frac{x^i}{\ell_*},\qquad
+W=\frac{w}{\ell_*},
+$$
+
+where \(\ell_*\) is extracted from the system rather than chosen cosmetically.
+
+Then all derivatives become predictable:
+
+$$
+\partial_t=c\,\partial_w
+=\frac{c}{\ell_*}\partial_W,
+$$
+
+$$
+\nabla_x=\frac{1}{\ell_*}\nabla_X,
+$$
+
+$$
+\partial_t^n
+=
+\left(\frac{c}{\ell_*}\right)^n
+\partial_W^n.
+$$
+
+After that, the second layer is the actual mathematics: differential geometry, variational mechanics, topology, braid/holonomy machinery, Clifford algebra, PDE analysis, bifurcation analysis, numerical solution, whatever the problem actually requires.
+
+That separation is valuable because it tells us which mathematical complexity is intrinsic to the model and which was just inherited from representation.
+
+And yes: **we can automate a very large fraction of the conversion.**
+
+I think we should.
+
+The converter can operate on a symbolic representation of an equation and do, in order:
+
+$$
+t\mapsto w/c,
+$$
+
+$$
+\frac{d}{dt}\mapsto c\frac{d}{dw},
+$$
+
+$$
+\frac{d^n}{dt^n}\mapsto c^n\frac{d^n}{dw^n},
+$$
+
+then dimensional analysis of the resulting coefficients, extraction of candidate characteristic lengths, and finally
+
+$$
+x^\mu=\ell_*X^\mu.
+$$
+
+It can then output four things automatically:
+
+1. the original equation;
+2. the \(w\)-normalized equation;
+3. a dimensionless canonical form;
+4. the residuals that survived.
+
+For example, feed it
+
+$$
+\ddot x+\omega^2x=0.
+$$
+
+It obtains
+
+$$
+x_{ww}+\frac{\omega^2}{c^2}x=0,
+$$
+
+recognizes
+
+$$
+\ell_\omega=\frac{c}{\omega},
+$$
+
+sets
+
+$$
+W=\frac{w}{\ell_\omega},
+$$
+
+and produces
+
+$$
+x_{WW}+x=0.
+$$
+
+Residual ledger: harmonic recurrence; no remaining dimensional parameter.
+
+Feed it diffusion:
+
+$$
+T_t=D\nabla^2T,
+$$
+
+and it gets
+
+$$
+T_w=\frac Dc\nabla^2T,
+$$
+
+extracts
+
+$$
+\ell_D=\frac Dc,
+$$
+
+but also reports
+
+$$
+\boxed{\text{first temporal derivative versus second spatial derivative}}
+$$
+
+as a surviving operator anisotropy.
+
+That is exactly the sort of thing software is better at doing consistently than we are manually.
+
+The really interesting part is that we can apply the same machinery to our Lagrangians.
+
+There is one technical correction worth making explicit because it matters here. If
+
+$$
+S=\int L(q,\dot q,t)\,dt
+$$
+
+and
+
+$$
+w=ct,
+$$
+
+then
+
+$$
+dt=\frac{dw}{c},
+\qquad
+\dot q=c\,q_w.
+$$
+
+Therefore
+
+$$
+S
+=
+\int
+\frac1c
+L\!\left(q,cq_w,\frac wc\right)
+dw.
+$$
+
+So the properly transformed \(w\)-Lagrangian is
+
+$$
+\boxed{
+L_w(q,q_w,w)
+=
+\frac1c
+L\!\left(q,cq_w,\frac wc\right).
+}
+$$
+
+That overall \(1/c\) does not alter the Euler--Lagrange trajectories when \(c\) is constant, which is why it is easy to overlook. But it absolutely matters if we want the action, canonical momentum, Hamiltonian, units, and cross-sector comparison to remain exact.
+
+The Euler--Lagrange equations retain their form:
+
+$$
+\frac{d}{dw}
+\frac{\partial L_w}{\partial q_w}
+-
+\frac{\partial L_w}{\partial q}
+=0.
+$$
+
+And something rather nice happens to the canonical momentum:
+
+$$
+p_w
+=
+\frac{\partial L_w}{\partial q_w}
+=
+\frac{\partial L}{\partial\dot q}
+=
+p.
+$$
+
+So the momentum is unchanged by this particular reparameterization.
+
+Meanwhile,
+
+$$
+H_w
+=
+p q_w-L_w
+=
+\frac1c(p\dot q-L)
+=
+\frac{H}{c}.
+$$
+
+Thus energy naturally turns into energy-per-\(c\), i.e. momentum dimensionality, just as one would expect when temporal evolution has been parameterized by a length.
+
+That alone is worth putting in the paper.
+
+For field theory the analogous statement is
+
+$$
+S
+=
+\int dt\,d^3x\,\mathcal L
+=
+\int dw\,d^3x\,
+\frac{\mathcal L}{c},
+$$
+
+before any subsequent spatial normalization.
+
+Then introduce a characteristic length
+
+$$
+x^\mu=\ell_*X^\mu.
+$$
+
+The four-volume measure becomes
+
+$$
+d^4x=\ell_*^4\,d^4X
+$$
+
+when all four coordinates are length-valued, and derivatives acquire factors of \(1/\ell_*\). This is where a complicated Lagrangian starts revealing which coefficients are genuinely independent dimensionless numbers.
+
+And that brings us directly to the old and new H(s)H Lagrangians.
+
+I would **not discard or rewrite either one yet**.
+
+I would run both through the same normalization audit.
+
+That gives us a genuinely useful comparison:
+
+$$
+\boxed{
+L_{\rm old}
+\longrightarrow
+\widehat L_{\rm old}
+}
+$$
+
+and
+
+$$
+\boxed{
+L_{\rm new}
+\longrightarrow
+\widehat L_{\rm new}.
+}
+$$
+
+Then compare the residual mathematical content rather than comparing their raw notation.
+
+That could tell us that two terms which looked conceptually different were actually the same normalized invariant. Conversely, two terms we had been treating as analogous might remain inequivalent after everything removable is stripped away. That is exactly what we want to know.
+
+For the newer finite-core/worldtube formulation, this gets especially interesting.
+
+Suppose a curve or tube centerline has characteristic size \(\ell_*\), and write arc length as
+
+$$
+s=\ell_*\,\sigma.
+$$
+
+Then curvature scales as
+
+$$
+\kappa=\frac{\hat\kappa}{\ell_*},
+$$
+
+torsion as
+
+$$
+\tau=\frac{\hat\tau}{\ell_*},
+$$
+
+and derivatives of curvature scale as
+
+$$
+\frac{d\kappa}{ds}
+=
+\frac{1}{\ell_*^2}
+\frac{d\hat\kappa}{d\sigma}.
+$$
+
+So a schematic geometric functional such as
+
+$$
+S
+=
+\int ds
+\left[
+A
++
+B\kappa^2
++
+C\tau^2
++
+D\left(\frac{d\kappa}{ds}\right)^2
++\cdots
+\right]
+$$
+
+becomes
+
+$$
+S
+=
+\int d\sigma
+\left[
+A\ell_*
++
+\frac{B}{\ell_*}\hat\kappa^2
++
+\frac{C}{\ell_*}\hat\tau^2
++
+\frac{D}{\ell_*^3}
+\left(\frac{d\hat\kappa}{d\sigma}\right)^2
++\cdots
+\right].
+$$
+
+Then choose one natural action/energy scale and factor it out. What remains are dimensionless ratios such as
+
+$$
+\frac{B}{A\ell_*^2},
+\qquad
+\frac{C}{A\ell_*^2},
+\qquad
+\frac{D}{A\ell_*^4},
+$$
+
+or whatever the actual dimensional structure of our terms yields.
+
+Those ratios—not \(A,B,C,D\) in their raw form—are much closer to the actual mathematical degrees of freedom of the theory.
+
+For the recursive/nested hyperhelix Lagrangian, the same idea becomes even more important. Each scale order \(N\) can be described relative to its own inherited characteristic length,
+
+$$
+\ell_N,
+$$
+
+while the relations between levels are encoded by dimensionless ratios
+
+$$
+\rho_N=\frac{\ell_{N+1}}{\ell_N}.
+$$
+
+Suddenly “recursive scaling” ceases to mean carrying enormous or tiny dimensional numbers through the equations. It becomes a hierarchy of order-one geometries plus scale ratios.
+
+Something like
+
+$$
+H_N(\lambda)
+=
+\ell_N\,
+\widehat H_N(\lambda/\ell_N)
+$$
+
+could become the standard representation.
+
+Then the genuinely interesting quantities are things like
+
+$$
+\frac{\ell_{N+1}}{\ell_N},
+\quad
+\hat\kappa_N,
+\quad
+\hat\tau_N,
+\quad
+\text{winding numbers},
+\quad
+\text{holonomies},
+\quad
+\text{chirality},
+\quad
+\text{bifurcation thresholds},
+$$
+
+rather than arbitrary absolute coordinate magnitudes.
+
+That ties directly back to the Whirlygig, Spheres, and Graticule. They can all operate on the same normalized objects produced by the Lagrangian.
+
+So I think the heavy-math roadmap actually becomes cleaner:
+
+$$
+\boxed{1.\ \text{Build the normalization engine}}
+$$
+
+$$
+\boxed{2.\ \text{Normalize the old Lagrangian exactly}}
+$$
+
+$$
+\boxed{3.\ \text{Normalize the new finite-core/worldtube Lagrangian exactly}}
+$$
+
+$$
+\boxed{4.\ \text{Compare their dimensionless residual structures}}
+$$
+
+$$
+\boxed{5.\ \text{Feed the canonical geometry into Whirlygig/Spheres/Graticule}}
+$$
+
+$$
+\boxed{6.\ \text{formalize only the surviving kernel}}
+$$
+
+That last point is important. We had been contemplating a fairly large formalization effort—typed objects, admissibility, dynamics, readout, perhaps Lean, numerical solvers, etc.
+
+I would now **delay formalizing arbitrary dimensional baggage**.
+
+First normalize.
+
+Then formalize the invariant/residual kernel.
+
+That could substantially reduce the number of primitive constants, scale conventions, duplicated equations, and representation-specific cases that the formal system has to carry.
+
+And there is one potentially major payoff: if the old SAT Lagrangians and the newer H(s)H Lagrangians normalize to substantially the same dimensionless core, we have a mathematically meaningful way of saying that the later formulation is a refinement of the earlier one rather than merely another notation.
+
+If they do not, that is equally valuable. The residual mismatch tells us exactly where the theory actually changed.
+
+So yes: I think this should now come **before** a lot of the heavy math we were planning—not because it replaces that math, but because it can tell us which heavy math is genuinely necessary.
+
+
+It’s relativityvision—the dynamics only universe—the time residual fringe 
+
+Yes. That phrase actually snaps several pieces together.
+
+**Relativityvision** could be the viewing mode: take a system, strip away removable representational asymmetries, normalize its characteristic scales, and then look only at the relations that remain invariant or anisotropic under admissible reorientation.
+
+The **dynamics-only universe** is what you get if you refuse to privilege static labels and instead describe everything by transformation, propagation, curvature, coupling, recurrence, deformation, and relative change. Not an ontology—just the most aggressively relational representation we can construct.
+
+And the **time residual fringe** is the particularly interesting part. If we make the four-coordinate description as symmetric as the mathematics permits, then whatever still distinguishes the \(w\)-direction is no longer being supplied merely by seconds-versus-metres notation. It is the residual left after the easy asymmetry has been removed.
+
+So schematically:
+
+$$
+\text{ordinary representation}
+\;\xrightarrow{\;w=ct\;}
+\text{common dimensional frame}
+\;\xrightarrow{\;\text{scale normalization}\;}
+\text{order-one system}
+$$
+
+$$
+\xrightarrow{\;\text{lossless reorientation/symmetrization}\;}
+\boxed{\text{residual anisotropy}}
+$$
+
+and within that residual,
+
+$$
+\boxed{\text{whatever persistently singles out the temporal direction}}
+$$
+
+is the **time fringe**.
+
+That is much more interesting than starting by declaring a special time axis. We deliberately try to erase its specialness. Then we ask what we cannot erase.
+
+And “fringe” is a surprisingly apt word because it need not be one giant categorical difference. It could be a small structured remainder distributed across several things:
+
+$$
+\text{signature},
+\quad
+\text{operator order},
+\quad
+\text{causal orientation},
+\quad
+\text{propagation direction},
+\quad
+\text{boundary conditions},
+\quad
+\text{irreversibility},
+\quad
+\text{phase/holonomy},
+\quad
+\text{expansion disequilibrium}.
+$$
+
+Some may turn out to be mutually reducible. Some may be independent. The audit tells us.
+
+This also gives the Whirlygig a wonderfully simple mission:
+
+$$
+\boxed{\text{Try to rotate time away.}}
+$$
+
+Not literally remove time. Rotate/reparameterize/reorient the representation as far as exact recoverability allows.
+
+Then:
+
+**Whirlygig:** tries to remove directional privilege.
+
+**Graticule:** maps the residual fringe.
+
+**Spheres:** tests how that fringe behaves dynamically under deformation and bifurcation.
+
+**Relativityvision/UI:** lets us see the normalized system, its transformations, and the residual simultaneously.
+
+And the Lagrangian question becomes sharper too. We can ask of every term:
+
+$$
+\text{Does this term survive leveling?}
+$$
+
+If not, it was partly representational baggage. If yes, determine exactly what invariant or anisotropy it encodes.
+
+That may be the best description yet of what our heavy-math reconstruction should actually be doing: **derive the dynamics of the residual fringe after maximal lawful symmetrization.**
+
+Not “find an ontology underneath physics.” Not even “unify all equations.”
+
+More like:
+
+$$
+\boxed{
+\text{Level everything we legitimately can,
+then mathematically characterize the grain that remains.}
+}
+$$
+
+And if time really is the stubborn dominant grain across otherwise very different sectors, *that* would be a result rather than an assumption.
+
+
+seconds-versus-metres notation
+
+Although we should always be using meters and meters. Doesn’t matter which direction.
+
+Exactly. That’s an important correction.
+
+The baseline should not be “seconds versus metres.” It should be:
+
+$$
+\boxed{\text{metres versus metres}}
+$$
+
+from the outset.
+
+So the temporal coordinate is already length-valued,
+
+$$
+w=ct,
+$$
+
+and every coordinate is expressed in the same dimensional currency. Then the question is not “what happens if we convert time into space-like units?” The conversion is just bookkeeping.
+
+The real question is:
+
+$$
+\boxed{
+\text{Given four length-valued coordinates, what asymmetry survives among them?}
+}
+$$
+
+That is much cleaner.
+
+And yes, the direction does not matter. We should not privilege a particular axis name more than the equations force us to. We can label the coordinates
+
+$$
+X^A,\qquad A=1,2,3,4
+$$
+
+with
+
+$$
+[X^A]=\mathrm{m}
+$$
+
+for all \(A\), and only later identify whichever direction carries the residual structure we conventionally call temporal.
+
+So a stronger version of the method is:
+
+$$
+\text{equal dimensional footing}
+\rightarrow
+\text{normalize scale}
+\rightarrowa
+\text{reorient freely within the admissible transformation class}
+\rightarrow
+\text{find the residual anisotropy}.
+$$
+
+That matters because if one axis is initially written in seconds and the others in metres, we have already baked an asymmetry into the representation before asking whether one exists.
+
+Better to remove that immediately.
+
+So I’d revise the language in the paper from “time-to-length normalization” toward something like:
+
+> **common length-coordinate normalization**
+
+or:
+
+> **four-coordinate length normalization**
+
+And instead of saying \(w=ct\) “makes time spatial,” say:
+
+> \(w=ct\) places temporal displacement and spatial displacement in the same dimensional representation.
+
+That is much closer to what we are actually doing.
+
+Then “time residual fringe” becomes even sharper: it is the structure that still distinguishes one direction after **all four axes already have the same units and comparable scale**.
