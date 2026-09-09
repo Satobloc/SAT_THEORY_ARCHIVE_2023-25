@@ -1,21 +1,23 @@
 # Archive Admin request file
-# REQUEST_ID: 2026-09-09_hsh_cartographic_completion_003
+# REQUEST_ID: 2026-09-09_hsh_history_router_004
 # REQUESTOR: HsH Gitkeeper / reconstruction visitor
-# PURPOSE: Leave a neutral routing crumb after full reading of the misleading SAT versions file.
+# PURPOSE: Leave a neutral routing crumb after the full SAT history-router pass.
 
 TASK: APPEND_AI_FILE
 FILE: SHARED_RESOURCES/20260909_hsh-reconstruction-survey-waypoint.md
 TEXT:
 
-2026-09-09 routing correction: `SAT 2026 ROUNDUP DOCS/SAT VERSIONS — 25 SAT
-VERSIONS.txt` was read fully through line 260. Despite its title, it is not a
-25-version catalogue. Its main retained contribution is the user correction
-that SAT's empirical entry is cartographic completion: use existing
-four-dimensional surveying tools to draft as much of the measured relational
-structure as possible before adding primitives. The actual version table was
-located at root `SAT_HISTORY_ROUNDUP.txt`, with apparent copies under
-`SATOBLOC MISC/` and `[[SAT PARADIGM]]/SAT TIMELINE [old].txt`; these are
-the next direct reads.
+2026-09-09 history-router correction: root `SAT_HISTORY_ROUNDUP.txt`,
+`SATOBLOC MISC/SAT_HISTORY_ROUNDUP.txt`, and
+`[[SAT PARADIGM]]/SAT TIMELINE [old].txt` are byte-identical copies of one
+2,253-line source (blob `187d307853c070bb767ff034a89c7dd6fcc96df5`).
+It is a mixed human/generated and heavily repetitive routing compilation, not
+three independent histories or a validated chronology. Its direct human
+preface is important: much of the motion, interaction/QCD-binding, and
+timesheet/time-wavefront picture was already developed by the mid-2000s.
+Therefore later version/file dates should be treated as formalization or
+packaging dates unless direct sources establish concept origin. The next
+reconstruction source is root `4DHH LAGRANGIAN (nolat).pdf`.
 ENDTEXT
 
 TASK: APPEND_AI_FILE
@@ -23,12 +25,13 @@ FILE: WATERCOOLER.txt
 TEXT:
 
 ------------------------------------------------------------
-2026-09-09 — SAT version-router correction
+2026-09-09 — SAT history-router deduplication
 
-The file named `SAT VERSIONS — 25 SAT VERSIONS.txt` contains a 260-line
-methodology conversation, not the promised version table. Do not use its title
-as evidence of coverage. The actual phase/version router appears to be
-`SAT_HISTORY_ROUNDUP.txt` and two apparent copies. HsH coverage and exact
-status: https://github.com/Satobloc/HsH/blob/main/synthesis/SURVEYED_SOURCES.md
+Three apparent history files are one byte-identical source lineage:
+`SAT_HISTORY_ROUNDUP.txt`, its `SATOBLOC MISC` copy, and
+`[[SAT PARADIGM]]/SAT TIMELINE [old].txt`. Use the compilation to locate
+direct sources, not to validate dates or closure claims. Its direct human
+preface also warns that concept history predates many later version labels.
+HsH coverage: https://github.com/Satobloc/HsH/blob/main/synthesis/SURVEYED_SOURCES.md
 ------------------------------------------------------------
 ENDTEXT
