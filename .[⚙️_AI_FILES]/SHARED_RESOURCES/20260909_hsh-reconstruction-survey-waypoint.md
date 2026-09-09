@@ -35,3 +35,15 @@ structure as possible before adding primitives. The actual version table was
 located at root `SAT_HISTORY_ROUNDUP.txt`, with apparent copies under
 `SATOBLOC MISC/` and `[[SAT PARADIGM]]/SAT TIMELINE [old].txt`; these are
 the next direct reads.
+
+2026-09-09 history-router correction: root `SAT_HISTORY_ROUNDUP.txt`,
+`SATOBLOC MISC/SAT_HISTORY_ROUNDUP.txt`, and
+`[[SAT PARADIGM]]/SAT TIMELINE [old].txt` are byte-identical copies of one
+2,253-line source (blob `187d307853c070bb767ff034a89c7dd6fcc96df5`).
+It is a mixed human/generated and heavily repetitive routing compilation, not
+three independent histories or a validated chronology. Its direct human
+preface is important: much of the motion, interaction/QCD-binding, and
+timesheet/time-wavefront picture was already developed by the mid-2000s.
+Therefore later version/file dates should be treated as formalization or
+packaging dates unless direct sources establish concept origin. The next
+reconstruction source is root `4DHH LAGRANGIAN (nolat).pdf`.
