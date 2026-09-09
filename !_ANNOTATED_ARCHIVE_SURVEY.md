@@ -40,8 +40,8 @@ archive index. Use those as maps. Preserve the archive's sequence:
 
 **Observe → Catalog → Contextualize → Evaluate**
 
-The extended Fundamental Intuitions remains the highest-priority unread
-conceptual source. SAT26/SAT2026 routing documents and the early-2026 4DHH,
+The extended Fundamental Intuitions has now been read fully. SAT26/SAT2026
+routing documents and the early-2026 4DHH,
 hyperhelical/hypersuperhelical, BYO-Lagrangian, Particle Zoo, Satobloc, and
 notlat sources are the main unresolved construction lane.
 
