@@ -5,11 +5,9 @@ A cumulative, annotated coverage index is maintained in the public HsH synthesis
 https://github.com/Satobloc/HsH/blob/main/synthesis/SURVEYED_SOURCES.md
 
 Use it to distinguish FULL, PARTIAL, INDEX-ONLY, DUPLICATE, and LOCATED sources.
-RMS and SAT are separate projects. RMS contributes a related methodological
-and epistemic stance; its subject matter is not an earlier SAT theory. The SAT
-construction history runs from early notebooks through successive SAT builds,
-including SAT-O, 4DHH, Blockwave/Satobloc, and H(s)H. Historical status records
-chronology, not rejection or rival status.
+It treats RMS, SAT builds, SAT-O, 4DHH, Blockwave/Satobloc, and H(s)H as one
+developmental genealogy unless a source says otherwise; historical status does
+not mean rival theory.
 
 Current high-priority gaps:
 1. THE FUNDAMENTAL INTUITIONS — EXTENDED.pdf
@@ -27,11 +25,3 @@ https://github.com/Satobloc/HsH/blob/main/synthesis/CURRENT_SYNTHESIS.md
 
 Coverage risk remains high until the extended Fundamental Intuitions and
 early-2026 hyperhelical kernels are read directly.
-
-
-Correction waypoint, 2026-09-09: the 2003 notebook photographs have now been
-visually inspected. They support continuity of SAT's coiled/helical, brane,
-folding, temporal-sequence, and interaction-taxonomy imagery. Captions in the
-documented PDF were added in 2025 and are later interpretation, not original
-2003 statements. See the root `!_ANNOTATED_ARCHIVE_SURVEY.md` and the detailed
-HsH survey for exact coverage.
