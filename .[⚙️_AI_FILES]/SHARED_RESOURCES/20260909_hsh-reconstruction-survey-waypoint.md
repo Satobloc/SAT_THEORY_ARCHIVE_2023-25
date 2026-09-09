@@ -25,3 +25,13 @@ https://github.com/Satobloc/HsH/blob/main/synthesis/CURRENT_SYNTHESIS.md
 
 Coverage risk remains high until the extended Fundamental Intuitions and
 early-2026 hyperhelical kernels are read directly.
+
+2026-09-09 routing correction: `SAT 2026 ROUNDUP DOCS/SAT VERSIONS — 25 SAT
+VERSIONS.txt` was read fully through line 260. Despite its title, it is not a
+25-version catalogue. Its main retained contribution is the user correction
+that SAT's empirical entry is cartographic completion: use existing
+four-dimensional surveying tools to draft as much of the measured relational
+structure as possible before adding primitives. The actual version table was
+located at root `SAT_HISTORY_ROUNDUP.txt`, with apparent copies under
+`SATOBLOC MISC/` and `[[SAT PARADIGM]]/SAT TIMELINE [old].txt`; these are
+the next direct reads.
