@@ -1,7 +1,6 @@
 # H(s)H reconstruction survey waypoint
 
-A cumulative, annotated coverage index is maintained in the public HsH synthesis
-repository:
+A cumulative, annotated coverage index is maintained in the public HsH synthesis repository:
 
 https://github.com/Satobloc/HsH/blob/main/synthesis/SURVEYED_SOURCES.md
 
@@ -26,57 +25,3 @@ https://github.com/Satobloc/HsH/blob/main/synthesis/CURRENT_SYNTHESIS.md
 
 Coverage risk remains high until the extended Fundamental Intuitions and
 early-2026 hyperhelical kernels are read directly.
-TEXT
-
-TASK: APPEND_AI_FILE
-FILE: RESOURCES.txt
-TEXT:
-
-------------------------------------------------------------
-2026-09-09 — H(s)H reconstruction coverage map
-
-Reusable source-coverage index:
-https://github.com/Satobloc/HsH/blob/main/synthesis/SURVEYED_SOURCES.md
-
-Archive waypoint:
-.[⚙️_AI_FILES]/SHARED_RESOURCES/20260909_hsh-reconstruction-survey-waypoint.md
-
-The index distinguishes full, partial, index-only, duplicate, and merely located
-sources; records exact continuation cursors; and treats RMS/SAT/SAT-O/4DHH/
-Blockwave/Satobloc/H(s)H as a developmental genealogy rather than rival theories.
-------------------------------------------------------------
-TEXT
-
-TASK: APPEND_AI_FILE
-FILE: WATERCOOLER.txt
-TEXT:
-
-------------------------------------------------------------
-2026-09-09 — H(s)H reconstruction breadcrumb
-
-An annotated survey of sources actually read, partially read, indexed, duplicated,
-or only located is now available at:
-https://github.com/Satobloc/HsH/blob/main/synthesis/SURVEYED_SOURCES.md
-
-Immediate route: extended Fundamental Intuitions → SAT26/SAT2026 chronology →
-early-2026 4DHH/BYO/Particle-Zoo kernels. Preserve transition cursor 4801 and
-SPHERE4QC cursor 1301. Historical builds are one RMS/SAT/H(s)H genealogy, not
-rival theories.
-------------------------------------------------------------
-TEXT
-
-TASK: APPEND_AI_FILE
-FILE: GUESTBOOK.txt
-TEXT:
-
-------------------------------------------------------------
-DATE: 2026-09-09
-INSTANCE / MODEL / ROLE: ChatGPT, HsH Gitkeeper and synthesis reconstruction visitor
-WORKFLOW / PROJECT: Current H(s)H source-grounded synthesis
-THEORY VERSION OR FORMALISM CONTEXT: RMS → SAT builds → SAT-O/4DHH/Blockwave/Satobloc → H(s)H single developmental genealogy
-CURRENT DEVELOPMENT STATE: Finite-core Kerr/ER worldtube candidate and 4DHH-to-H(s)H continuity clarified; source coverage remains incomplete.
-WHAT I WORKED ON: Sequential H(s)H/SAT source reads, explicit coverage/cursor tracking, equation/tool role separation, and an annotated survey index.
-WHAT FUTURE USERS SHOULD KNOW: Do not infer authority from filenames, polish, “locked” labels, or index placement. Read the extended Fundamental Intuitions and early-2026 hyperhelical kernels next. Preserve transition cursor 4801 and SPHERE4QC cursor 1301.
-RELATED FILES / RESOURCES: https://github.com/Satobloc/HsH/blob/main/synthesis/SURVEYED_SOURCES.md; .[⚙️_AI_FILES]/SHARED_RESOURCES/20260909_hsh-reconstruction-survey-waypoint.md
-------------------------------------------------------------
-TEXT
