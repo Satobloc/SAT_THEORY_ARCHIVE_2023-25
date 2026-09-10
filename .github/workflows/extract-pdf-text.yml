@@ -29,9 +29,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y ocrmypdf tesseract-ocr ghostscript
 
-      - name: Extract requested text from PDF or image
+      - name: Extract requested text from PDF/image or bounded directory batch
         run: |
           python <<'PY'
+          import hashlib
           import json
           import subprocess
           import sys
@@ -43,6 +44,8 @@ jobs:
           request_path = Path("_AI_REQUESTS/pdf_extract_request.json")
           out_root = Path("_AUTO_EXTRACTED_TEXT")
           work_root = Path("_OCR_WORK")
+          log_root = Path(".[⚙️_AI_FILES]/LOGS/pdf_extractor")
+          manifest_root = out_root / "_manifests"
 
           PDF_EXTENSIONS = {".pdf"}
           IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".tif", ".tiff", ".bmp", ".webp"}
@@ -54,45 +57,43 @@ jobs:
 
           request = json.loads(request_path.read_text(encoding="utf-8"))
 
-          # Backward compatible: pdf_path still works. New preferred key is source_path.
           source_path_raw = (
               request.get("source_path")
               or request.get("pdf_path")
               or request.get("image_path")
               or ""
           ).strip()
+          source_dir_raw = (request.get("source_dir") or "").strip()
 
-          request_id = request.get("request_id", "")
+          request_id = request.get("request_id", "") or datetime.now(timezone.utc).strftime("pdf-extract-%Y%m%dT%H%M%SZ")
           requested_by = request.get("requested_by", "unknown")
           force_ocr = bool(request.get("force_ocr", False))
           ocr_threshold = int(request.get("ocr_threshold", 200))
           language = request.get("ocr_language", "eng")
+          recursive = bool(request.get("recursive", False))
+          include_images = bool(request.get("include_images", False))
+          max_files = max(1, int(request.get("max_files", 100)))
 
-          if not source_path_raw:
-              print("Missing source_path, pdf_path, or image_path in request file.", file=sys.stderr)
+          if bool(source_path_raw) == bool(source_dir_raw):
+              print("Specify exactly one of source_path/pdf_path/image_path or source_dir.", file=sys.stderr)
               sys.exit(1)
 
-          source_path = Path(source_path_raw)
+          def safe_repo_path(raw: str) -> Path:
+              p = Path(raw)
+              if p.is_absolute() or ".." in p.parts:
+                  raise ValueError(f"Unsafe source path: {raw}")
+              resolved = p.resolve()
+              root = Path(".").resolve()
+              if resolved != root and root not in resolved.parents:
+                  raise ValueError(f"Path escapes repository: {raw}")
+              return p
 
-          # Safety: prevent absolute paths or path traversal.
-          if source_path.is_absolute() or ".." in source_path.parts:
-              print(f"Unsafe source path: {source_path_raw}", file=sys.stderr)
-              sys.exit(1)
-
-          suffix = source_path.suffix.lower()
-
-          if suffix not in SUPPORTED_EXTENSIONS:
-              print(f"Unsupported source type: {source_path_raw}", file=sys.stderr)
-              print(f"Supported extensions: {sorted(SUPPORTED_EXTENSIONS)}", file=sys.stderr)
-              sys.exit(1)
-
-          if not source_path.exists():
-              print(f"Source file not found: {source_path_raw}", file=sys.stderr)
-              sys.exit(1)
-
-          output_path = out_root / source_path.with_suffix(".txt")
-          output_path.parent.mkdir(parents=True, exist_ok=True)
-          work_root.mkdir(parents=True, exist_ok=True)
+          def sha256(path: Path) -> str:
+              h = hashlib.sha256()
+              with path.open("rb") as f:
+                  for chunk in iter(lambda: f.read(1024 * 1024), b""):
+                      h.update(chunk)
+              return h.hexdigest()
 
           def extract_pdf_pages(path: Path):
               doc = fitz.open(path)
@@ -106,7 +107,8 @@ jobs:
               return sum(len(text) for _, text in pages)
 
           def ocr_pdf(path: Path):
-              ocr_pdf_path = work_root / f"{path.stem}.ocr.pdf"
+              key = hashlib.sha1(path.as_posix().encode("utf-8")).hexdigest()[:12]
+              ocr_pdf_path = work_root / f"{path.stem}.{key}.ocr.pdf"
               subprocess.run(
                   [
                       "ocrmypdf",
@@ -120,83 +122,194 @@ jobs:
               return ocr_pdf_path
 
           def ocr_image(path: Path):
-              # Tesseract writes output_path without extension, then creates .txt.
-              base = work_root / f"{path.stem}.image_ocr"
+              key = hashlib.sha1(path.as_posix().encode("utf-8")).hexdigest()[:12]
+              base = work_root / f"{path.stem}.{key}.image_ocr"
               subprocess.run(
-                  [
-                      "tesseract",
-                      str(path),
-                      str(base),
-                      "-l", language,
-                  ],
+                  ["tesseract", str(path), str(base), "-l", language],
                   check=True,
               )
               text_path = base.with_suffix(".txt")
               text = text_path.read_text(encoding="utf-8", errors="replace") if text_path.exists() else ""
               return [(1, text.strip())]
 
-          extraction_engine = "unknown"
-          ocr_attempted = False
-          ocr_reason = "not needed"
+          def output_for(source: Path) -> Path:
+              return out_root / source.with_suffix(".txt")
 
-          if suffix in PDF_EXTENSIONS:
-              extraction_engine = "PyMuPDF"
-              pages = extract_pdf_pages(source_path)
-              char_count = count_chars(pages)
+          def process(source_path: Path):
+              suffix = source_path.suffix.lower()
+              extraction_engine = "unknown"
+              ocr_attempted = False
+              ocr_reason = "not needed"
 
-              if force_ocr or char_count < ocr_threshold:
+              if suffix in PDF_EXTENSIONS:
+                  extraction_engine = "PyMuPDF"
+                  pages = extract_pdf_pages(source_path)
+                  char_count = count_chars(pages)
+                  if force_ocr or char_count < ocr_threshold:
+                      ocr_attempted = True
+                      ocr_reason = "force_ocr requested" if force_ocr else f"embedded text below threshold ({char_count} < {ocr_threshold})"
+                      print(f"OCR fallback triggered for {source_path}: {ocr_reason}")
+                      ocr_pdf_path = ocr_pdf(source_path)
+                      extraction_engine = "OCRmyPDF + PyMuPDF"
+                      pages = extract_pdf_pages(ocr_pdf_path)
+                      char_count = count_chars(pages)
+              else:
                   ocr_attempted = True
-                  ocr_reason = "force_ocr requested" if force_ocr else f"embedded text below threshold ({char_count} < {ocr_threshold})"
-                  print(f"OCR fallback triggered: {ocr_reason}")
-                  ocr_pdf_path = ocr_pdf(source_path)
-                  extraction_engine = "OCRmyPDF + PyMuPDF"
-                  pages = extract_pdf_pages(ocr_pdf_path)
+                  ocr_reason = "image source requires OCR"
+                  extraction_engine = "Tesseract OCR"
+                  pages = ocr_image(source_path)
                   char_count = count_chars(pages)
 
+              now = datetime.now(timezone.utc).isoformat()
+              output_path = output_for(source_path)
+              output_path.parent.mkdir(parents=True, exist_ok=True)
+              digest = sha256(source_path)
+
+              with output_path.open("w", encoding="utf-8") as f:
+                  f.write("# Extracted Text\n\n")
+                  f.write(f"Source file: {source_path.as_posix()}\n")
+                  f.write(f"Source SHA256: {digest}\n")
+                  f.write(f"Source type: {suffix}\n")
+                  f.write(f"Request ID: {request_id}\n")
+                  f.write(f"Requested by: {requested_by}\n")
+                  f.write(f"Extraction time UTC: {now}\n")
+                  f.write(f"Extraction engine: {extraction_engine}\n")
+                  f.write(f"OCR attempted: {ocr_attempted}\n")
+                  f.write(f"OCR reason: {ocr_reason}\n")
+                  f.write(f"OCR language: {language}\n")
+                  f.write(f"Sections/pages: {len(pages)}\n")
+                  f.write(f"Characters extracted: {char_count}\n\n")
+                  f.write("---\n\n")
+                  for page_num, text in pages:
+                      label = "Page" if suffix in PDF_EXTENSIONS else "Image"
+                      f.write(f"\n\n## {label} {page_num}\n\n")
+                      f.write(text)
+                      f.write("\n")
+
+              return {
+                  "source": source_path.as_posix(),
+                  "output": output_path.as_posix(),
+                  "source_sha256": digest,
+                  "source_type": suffix,
+                  "engine": extraction_engine,
+                  "ocr_attempted": ocr_attempted,
+                  "ocr_reason": ocr_reason,
+                  "pages": len(pages),
+                  "characters": char_count,
+                  "status": "OK" if char_count >= ocr_threshold else "LOW_TEXT",
+              }
+
+          if source_path_raw:
+              source = safe_repo_path(source_path_raw)
+              if not source.exists() or not source.is_file():
+                  raise SystemExit(f"Source file not found: {source_path_raw}")
+              if source.suffix.lower() not in SUPPORTED_EXTENSIONS:
+                  raise SystemExit(f"Unsupported source type: {source_path_raw}")
+              sources = [source]
+              target_description = source.as_posix()
           else:
-              ocr_attempted = True
-              ocr_reason = "image source requires OCR"
-              extraction_engine = "Tesseract OCR"
-              pages = ocr_image(source_path)
-              char_count = count_chars(pages)
+              source_dir = safe_repo_path(source_dir_raw)
+              if not source_dir.exists() or not source_dir.is_dir():
+                  raise SystemExit(f"Source directory not found: {source_dir_raw}")
+              allowed = SUPPORTED_EXTENSIONS if include_images else PDF_EXTENSIONS
+              iterator = source_dir.rglob("*") if recursive else source_dir.iterdir()
+              sources = sorted(
+                  [p for p in iterator if p.is_file() and p.suffix.lower() in allowed],
+                  key=lambda p: p.as_posix().lower(),
+              )
+              if len(sources) > max_files:
+                  raise SystemExit(f"Refusing unbounded batch: found {len(sources)} supported files, MAX_FILES={max_files}")
+              target_description = f"directory={source_dir.as_posix()} recursive={recursive} include_images={include_images}"
 
-          now = datetime.now(timezone.utc).isoformat()
+          out_root.mkdir(parents=True, exist_ok=True)
+          work_root.mkdir(parents=True, exist_ok=True)
+          log_root.mkdir(parents=True, exist_ok=True)
+          manifest_root.mkdir(parents=True, exist_ok=True)
 
-          with output_path.open("w", encoding="utf-8") as f:
-              f.write("# Extracted Text\n\n")
-              f.write(f"Source file: {source_path.as_posix()}\n")
-              f.write(f"Source type: {suffix}\n")
-              f.write(f"Request ID: {request_id}\n")
-              f.write(f"Requested by: {requested_by}\n")
-              f.write(f"Extraction time UTC: {now}\n")
-              f.write(f"Extraction engine: {extraction_engine}\n")
-              f.write(f"OCR attempted: {ocr_attempted}\n")
-              f.write(f"OCR reason: {ocr_reason}\n")
-              f.write(f"OCR language: {language}\n")
-              f.write(f"Sections/pages: {len(pages)}\n")
-              f.write(f"Characters extracted: {char_count}\n\n")
-              f.write("---\n\n")
+          results = []
+          failures = []
+          for source in sources:
+              try:
+                  result = process(source)
+                  results.append(result)
+                  print(f"Wrote {result['output']} ({result['characters']} chars, {result['engine']})")
+              except Exception as exc:
+                  failures.append({"source": source.as_posix(), "error": f"{type(exc).__name__}: {exc}"})
+                  print(f"FAILED {source}: {type(exc).__name__}: {exc}", file=sys.stderr)
 
-              for page_num, text in pages:
-                  label = "Page" if suffix in PDF_EXTENSIONS else "Image"
-                  f.write(f"\n\n## {label} {page_num}\n\n")
-                  f.write(text)
-                  f.write("\n")
+          now = datetime.now(timezone.utc)
+          stamp = now.strftime("%Y%m%d_%H%M%S")
+          manifest = {
+              "request_id": request_id,
+              "requested_by": requested_by,
+              "utc": now.isoformat(),
+              "target": target_description,
+              "recursive": recursive,
+              "include_images": include_images,
+              "force_ocr": force_ocr,
+              "ocr_threshold": ocr_threshold,
+              "ocr_language": language,
+              "max_files": max_files,
+              "found": len(sources),
+              "succeeded": len(results),
+              "failed": len(failures),
+              "results": results,
+              "failures": failures,
+          }
 
-          print(f"Wrote {output_path}")
-          print(f"Extracted {char_count} characters from {source_path} using {extraction_engine}.")
+          safe_request_id = "".join(c if c.isalnum() or c in "-_." else "_" for c in request_id)
+          manifest_path = manifest_root / f"{safe_request_id}.json"
+          manifest_path.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+          log_lines = [
+              "PDF EXTRACTION RUN",
+              f"UTC: {now.isoformat()}",
+              f"REQUEST_ID: {request_id}",
+              f"REQUESTED_BY: {requested_by}",
+              f"TARGET: {target_description}",
+              f"RECURSIVE: {recursive}",
+              f"INCLUDE_IMAGES: {include_images}",
+              f"FORCE_OCR: {force_ocr}",
+              f"OCR_THRESHOLD: {ocr_threshold}",
+              f"OCR_LANGUAGE: {language}",
+              f"MAX_FILES: {max_files}",
+              f"FOUND: {len(sources)}",
+              f"SUCCEEDED: {len(results)}",
+              f"FAILED: {len(failures)}",
+              f"MANIFEST: {manifest_path.as_posix()}",
+              "",
+              "RESULTS:",
+          ]
+          for r in results:
+              log_lines.append(
+                  f"{r['status']} | {r['source']} -> {r['output']} | pages={r['pages']} chars={r['characters']} engine={r['engine']} ocr={r['ocr_attempted']}"
+              )
+          if failures:
+              log_lines.extend(["", "FAILURES:"])
+              for item in failures:
+                  log_lines.append(f"FAILED | {item['source']} | {item['error']}")
+
+          log_path = log_root / f"pdf_extract_{stamp}.txt"
+          log_path.write_text("\n".join(log_lines) + "\n", encoding="utf-8")
+          print(f"Wrote manifest {manifest_path}")
+          print(f"Wrote log {log_path}")
+
+          if failures:
+              sys.exit(1)
           PY
 
-      - name: Commit extracted text
+      - name: Commit extracted text and audit logs
+        if: always()
         run: |
+          set +e
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add _AUTO_EXTRACTED_TEXT/
+          git add _AUTO_EXTRACTED_TEXT/ '.[⚙️_AI_FILES]/LOGS/pdf_extractor/'
 
           if git diff --cached --quiet; then
-            echo "No extracted text changes to commit."
+            echo "No extracted text or log changes to commit."
           else
-            git commit -m "Auto-extract text from request"
+            git commit -m "Run PDF text extraction [skip archive-admin]"
             git push
           fi
