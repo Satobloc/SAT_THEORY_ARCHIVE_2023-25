@@ -1,0 +1,41 @@
+# Extracted Text
+
+Source file: LAB2_SAT_Dirac_Brackets_And_Closure_3D.pdf
+Source SHA256: 281bb9b67d7700579b4ebcb6d5337aebf8dbac3714b478484cdbc3d99b22dcd2
+Source type: .pdf
+Request ID: 2026-09-10_root_pdf_extraction_pass_002
+Requested by: Ravel / ChatGPT
+Extraction time UTC: 2026-09-10T16:02:30.711289+00:00
+Extraction engine: PyMuPDF
+OCR attempted: False
+OCR reason: not needed
+OCR language: eng
+Sections/pages: 1
+Characters extracted: 911
+
+---
+
+
+
+## Page 1
+
+LAB 2: Full Constraint Closure and Dirac Brackets (Beyond 1+1D)
+Primary Constraint (phi1):
+phi1 = -u0^2 + u1^2 + u2^2 + u3^2 + 1 ≈ 0
+Secondary Constraint (phi2):
+phi2 = -2 u0 du0/dt + 2 u1 du1/dt + 2 u2 du2/dt + 2 u3 du3/dt
++ beta * [dtheta/dt * (u0 du0/dt + u1 du1/dt + u2 du2/dt + u3 du3/dt)
+         + dtheta/dx * u0 du0/dx + dtheta/dx * u1 du1/dx
+         + dtheta/dy * u2 du2/dy + dtheta/dz * u3 du3/dz]
+Tertiary Constraint Candidate (phi3):
+phi3 = d/dt(phi2), contains higher derivatives (ddot(u), dot(theta), etc.)
+No new algebraic constraint — phi3 is a dynamical consistency identity.
+Constraint Classification:
+phi1: second-class
+phi2: second-class
+phi3: not independent, derived from EOM
+Dirac Bracket Summary:
+Dirac bracket defined by C_ij = {phi_i, phi_j}, with:
+C_12 != 0, C_11 = C_22 = 0
+Quantization can proceed using Dirac brackets.
+Canonical commutation relations must be replaced accordingly.

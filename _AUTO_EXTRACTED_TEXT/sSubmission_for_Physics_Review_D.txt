@@ -1,0 +1,1129 @@
+# Extracted Text
+
+Source file: sSubmission_for_Physics_Review_D.pdf
+Source SHA256: 687770551bb9798eae1bb2bb097f215f39341ac4e887af0e2c089be82db61322
+Source type: .pdf
+Request ID: 2026-09-10_root_pdf_extraction_pass_002
+Requested by: Ravel / ChatGPT
+Extraction time UTC: 2026-09-10T16:03:13.630753+00:00
+Extraction engine: PyMuPDF
+OCR attempted: False
+OCR reason: not needed
+OCR language: eng
+Sections/pages: 11
+Characters extracted: 38523
+
+---
+
+
+
+## Page 1
+
+Variational methods and geometric emergence in Scalar-Angular Torsion Theory
+Nathan J. Bellomy1, ∗
+1Independent Research Scholar
+(Dated: March 30, 2026)
+A covariant geometric field model, Scalar-Angular-Torsion (SAT), is analyzed under Lean 4 formal
+proof constraints, requiring explicit variational equations and robust conservation laws. The internal
+consistency of this structure is secured by Lean 4 formal verification, which enforces fundamental
+stability constraints, including Positive Effective Mass and Topological Dominance (R ≪1). The
+theory employs an underlying geometric ontology where particle worldlines (filaments) intersect a
+temporal sheet. The dynamics are derived from a hybrid action which must be σ-finite over the dis-
+crete twist ensemble (τ) and Fr´echet-differentiable over the continuous field space. Varying the
+emergent metric yields the Emergent Einstein Equation, establishing the Micro-to-Macro Scaling
+Relations. Intrinsic quantum properties like Spin and Flavor are recovered via Holonomy Quan-
+tization. This framework operates with no numerical parameters introduced axiomatically, relying
+on a single dimensional anchor, the Q = 1 effective mass (meff ≈1.0073 × 10−27 kg), which fixes
+the dimensionless coupling ratio R ≈0.007304, consistent with the fine-structure constant.
+I.
+INTRODUCTION AND FORMAL RIGOR
+The Scalar-Angular-Torsion (SAT) framework posits
+reality as a 4D network of worldlines (filaments) inter-
+secting a temporal sheet (Σt), serving as a mathemat-
+ical model without ontological commitment. For-
+mal predictions are derived exclusively from the action
+principle and variational equations. The ultimate rigor
+of the SAT theory is secured by detailed formal analy-
+sis, which must be fully presented to support claims of
+completeness.
+A.
+Formal Consistency and Dimensional Anchoring
+The numerical predictions are supported by Lean 4
+formal certification, which validates conservation laws
+and positivity constraints, such as Positive Effective
+Mass (meff > 0).
+Stable particle ground states are
+structurally constrained by the UV Finiteness Lock
+(Q ≤3). The framework introduces **no numerical pa-
+rameters axiomatically**. Scale is established by fixing
+the Q = 1 effective mass to meff ≈1.0073 × 10−27 kg,
+which structurally determines the dimensionless coupling
+ratio R ≈0.007304.
+II.
+THE COVARIANT FORMALISM AND
+DYNAMICS
+A.
+Total Covariant Action and Fields
+The dynamics are derived from a Total Covariant
+Action (SSAT). The action is composed of continuous
+fields and a discrete topological sector. The underlying
+∗ORCID: 0009-0006-2462-0062
+fields include the scalar field θ (f : N →R →R), the
+vector field u (f : N →R →R), the emergent spinor ψ
+(f : N →R →R), and the filament current J (f : N →
+N →R →R). The continuous field action is Fr´echet-
+differentiable over field space.
+The Lagrangian density Ltotal includes standard field
+terms, the BF Topological Action (SBF), and the filament
+kernel contribution:
+Ltotal =(θµx)2 + (uµx)2 + (Jµµx)2
++ SBF(u, θ, τ) + filament kernel(J, τ)
+(1)
+The action Stotal is the integral of Ltotal. The topolog-
+ical action SBF explicitly incorporates the discrete twist
+charge Q(τ). The discrete topological action (STop) is
+specified as σ-finite over the discrete twist ensemble (τ),
+ensuring a mathematically well-defined path integral.
+B.
+Metric Variation and Emergent Gravity
+Variation with respect to the emergent metric (gµν),
+defined by the filament bundle frame field (EIµ), yields
+the Emergent Einstein Equation:
+c4
+8πGind
+Gµν[g] = T (u)
+µν + T (θ)
+µν + T (ψ)
+µν + . . .
+(2)
+The right-hand side is sourced by the stress-energy
+tensors (T) of the emergent fields (θ, u, ψ).
+The de-
+tailed derivation of this relation links filament micro-
+physics (tension T, length ℓf, strain κ, linking den-
+sity ρG) to the macroscopic emergent constants via the
+Micro-to-Macro Scaling Relations.
+Applying the
+field equations to the spherically symmetric case is re-
+quired to formally recover known fixed points, such as
+the Schwarzschild metric.
+
+
+## Page 2
+
+2
+III.
+EMERGENT QUANTUM MECHANISMS
+A.
+Geometric Quantization
+Intrinsic particle properties, specifically Spin and Fla-
+vor, are not axiomatic inputs but are derived from the
+geometric and topological attributes of the underlying fil-
+ament helices. These quantum numbers are routinely re-
+covered via the Holonomy Quantization mechanism.
+This requires calculating the winding number of the
+compact phase field (θ) around a closed loop defined on
+the manifold, which, multiplied by π, yields the quan-
+tized physical property.
+B.
+Confinement and Gauge Structure
+The topological structure provides a geometric basis
+for strong interaction phenomena, enforced by the emer-
+gent topological twist field (τ) through a Z3 fusion rule.
+This rule serves as a direct topological analogy to the
+three-quark structure required by Quantum Chromody-
+namics (QCD), accounting geometrically for the stability
+of three-constituent particles (baryons).
+C.
+Projector Formalism
+The theory employs the spatial projector (Pµν), de-
+fined as Pµν = gµν + uµuν. This projector restricts the
+dynamics to the three-dimensional subspace orthogo-
+nal to uµ. This operation is necessary to eliminate un-
+physical longitudinal ghost modes and ensure that only
+the two transverse polarizations of the physical Tem-
+poron propagate.
+IV.
+RESEARCH FRONTIERS
+The pursuit of Level III completeness focuses on devel-
+oping an informational story. This involves defining an
+entropy functional (Sfilament = −
+R
+ρτ log ρτ dτ) for the
+discrete twist ensemble (τ) to bridge the gap toward in-
+formational closure. The model includes an internal mea-
+surement structure, which attributes entanglement and
+collapse to worldline backbleed.
+SUPPLEMENTAL MATERIAL
+This material contains the detailed variational deriva-
+tions and constraints required for full technical support
+of the main article.
+APPENDIX A: DETAILED VARIATIONAL
+DERIVATIONS AND CONSERVATION LAWS
+This section provides the formal variational derivations
+supporting the dynamical equations, demonstrating the
+rigorous consistency required by the Lean 4 verification
+check.
+A.1. THE LAGRANGIAN DENSITY
+(NON-RELATIVISTIC LIMIT)
+The non-relativistic fluid limit is governed by the di-
+mensionally consistent Lagrangian density:
+L = 1
+2ρv2 −ρ W(Φ) −κ
+2 (∇Φ)2 + λ ρ Φ (∇· v)
+(3)
+The system’s stationarity conditions (δS = 0) are com-
+puted under arbitrary compactly-supported variations of
+the independent fields (ρ, v, Φ) constrained by the La-
+grange multiplier (χ) enforcing mass continuity.
+Vari-
+ation with respect to the velocity field (v) yields the
+canonical momentum relation, and variation with respect
+to the density (ρ) yields the Bernoulli relation.
+A.2. DISCRETE TOPOLOGICAL SECTOR
+The discrete twist charge (τ) is defined by its topologi-
+cal invariants, where Q(τ) is the total topological charge:
+Q(τ) := τ.Lwind + τ.Llink + τ.Wwrithe
+(4)
+The topological mass suppression law depends inversely
+on this charge:
+mtopo(m, τ) := m/(Qτ : R)
+(5)
+The stability constraint, Qstable(τ) : Prop := Qτ ≤3,
+limits dynamically stable configurations in the theory.
+APPENDIX B: GEOMETRIC ORIGINS OF
+PARTICLE PROPERTIES
+B.1. HOLONOMY AND QUANTUM NUMBERS
+Intrinsic particle properties are emergent properties
+derived from the geometry and topology of the underly-
+ing filament helices. The Holonomy Quantization mecha-
+nism involves calculating the winding number of the com-
+pact phase field (θ) around a closed loop defined on the
+manifold. The winding number multiplied by π yields
+the quantized physical property.
+
+
+## Page 3
+
+3
+B.2. STRONG INTERACTION CONFINEMENT
+The stability of three-constituent particles (baryons) is
+geometrically accounted for by the emergent topological
+twist field (τ) enforcing a Z3 fusion rule, serving as a
+direct topological analogy to the three-quark structure of
+QCD.
+APPENDIX C: MASS SPECTRUM AND
+STABILITY
+The mass spectrum follows a quadratic string formula
+for unstable excited states (N ≥1):
+m2
+string = k · (N + β · Q2 −a)
+(6)
+The consistency and stability of the particle defini-
+tion rely on the Topological Dominance constraint
+(R ≡mind/mtopo ≪1).
+V.
+I. FORMAL CONSISTENCY AND RIGOR
+The foundation of the Scalar-Angular-Torsion (SAT)
+theory relies on securing Level I completeness through
+rigorous geometric definitions and computational verifi-
+cation.
+A.
+Mathematical Constraints on the Total Action
+The comprehensive dynamics are governed by the To-
+tal Covariant Action (SSAT), which integrates over con-
+tinuous fields (ξ) and sums over stable discrete topologi-
+cal configurations (τ) via a generalized partition function
+(ZSAT). To achieve a mathematically ”Well-defined path
+integral,” the hybrid action must satisfy two core require-
+ments:
+1. The action must be σ-finite over the discrete topo-
+logical space (τ).
+2. The action must be Fr´echet-differentiable over
+the continuous field space (ξ).
+These constraints define the geometric field space neces-
+sary for formal derivation.
+B.
+Lean 4 Certification and Stability Proofs
+The algebraic consistency and numerical predictions of
+the model are confirmed via Lean 4 formal certifica-
+tion. This process verifies the explicit variational equa-
+tions, conservation laws, and dimensional constraints.
+A critical stability condition, termed the **UV Finite-
+ness Lock**, emerges from these formal constraints, re-
+stricting dynamically stable filament configurations to a
+maximum topological charge: Q ≤3. This lock is neces-
+sary to maintain:
+• Positive Effective Mass (meff > 0), ensuring
+particles possess observable mass.
+• Adherence to the Topological Dominance Con-
+dition (R ≡mind/mtopo ≪1), proving that the
+intrinsic topological mass dominates the induced
+inertial mass.
+VI.
+II. DIMENSIONAL ANCHORING AND
+PREDICTED SPECTRUM
+The framework operates with the constraint that no
+numerical parameters are introduced axiomati-
+cally. The entire physical scale is set by anchoring the
+effective mass of the Q = 1 topological state to an em-
+pirical value:
+m eff(Q = 1) ≈1.0073 × 10−27 kg
+(7)
+This normalization structurally fixes the dimensionless
+coupling ratio at R ≈0.007304, which is consistent with
+the empirical value of the fine-structure constant (α).
+A.
+Topological Mass Suppression Law
+The mass of a particle is governed by the Topologi-
+cal Mass Suppression Law, where mass is inversely pro-
+portional to the Topological Charge Q(τ), ensuring that
+greater topological complexity yields smaller mass.
+B.
+Mass Spectrum Formula
+The resulting mass spectrum is rigorously described by
+a quadratic string formula for excited states (N ≥1):
+m2
+string = k · (N + β · Q2 −a)
+(8)
+C.
+Novel Stable Ground States
+The constraint imposed by the UV Finiteness Lock
+(Q ≤3) predicts the existence of two additional stable
+topological states (ground states, N = 0), serving as pri-
+mary dark matter candidates:
+• Q = 2 state: ≈0.5073 × 10−27 kg
+• Q = 3 state: ≈0.3403 × 10−27 kg
+
+
+## Page 4
+
+4
+VII.
+III. GEOMETRIC GAUGE MECHANISMS
+A.
+Strong Interaction Confinement
+The geometric basis for strong interaction confinement
+is achieved by the emergent topological twist field (τ) en-
+forcing a Z3 fusion rule. This rule directly models the sta-
+bility of three-constituent particles (baryons), providing
+a geometric equivalent to the requirements of Quantum
+Chromodynamics (QCD).
+B.
+Quantum Number Emergence
+Intrinsic quantum properties, such as Spin and Flavor,
+are recovered via the Holonomy Quantization mech-
+anism. This requires calculating the winding number of
+the compact phase field (θ) around a closed loop on the
+manifold, which, when multiplied by π, yields the quan-
+tized physical property.
+VIII.
+FIELD ALGEBRA AND DEFINING
+TENSORS
+The continuous dynamics of the Scalar-Angular Tor-
+sion (SAT) framework are governed by a covariant ge-
+ometric field model.
+The system operates on fields
+including the scalar field θ, the unit time-flow vector
+u, the emergent spinor ψ, and the filament current J
+[Manuscript Draft].
+A.
+A. Field Definitions and Derivatives
+The theory utilizes symbolic covariant derivatives
+(∇, D) on the emergent fields [Manuscript Draft]. The
+primary dynamic components that contribute to the gen-
+eralized stress-energy tensor are the geometric Strain (S)
+and Stress (T) fields, defined based on these underlying
+field structures:
+The **Strain Field (S)** is derived from the scalar (θ)
+and vector (u) fields:
+Sµν = ∇µθν + ∇νθµ + 1
+2(uµ∇νθ −uν∇µθ)
+(9)
+The **Stress Field (T)** is defined by the interaction
+of the scalar field with the derivative of the vector field:
+T µν = ρ (∇µuν + uµ∇νθ) + Jµθν
+(10)
+The Filament Current (J) is mathematically de-
+fined as a function of the discrete twist charge (τ)
+and continuous spacetime position (x): J is function-
+ally written as Jµµx within the core Lagrangian terms
+[Manuscript Draft, Variational Methods and Geometric
+Emergence in SAT Theory].
+IX.
+II. HYDRODYNAMIC LIMIT AND
+CONSERVATION
+The non-relativistic hydrodynamic limit provides the
+explicit spatial and temporal conservation laws governing
+the coarse-grained dynamics of the field model.
+A.
+A. Non-Relativistic Lagrangian Density
+The non-relativistic fluid limit is governed by the di-
+mensionally consistent Lagrangian density (L), which en-
+sures stationarity conditions (δS = 0) can be computed
+under arbitrary compactly-supported variations of the in-
+dependent fields (ρ, v, Φ):
+L = 1
+2ρv2 −ρ W(Φ) −κ
+2 (∇Φ)2 + λ ρ Φ (∇· v)
+(11)
+Variation with respect to the density (ρ) yields the
+Bernoulli relation, and variation with respect to the ve-
+locity field (v) yields the canonical momentum relation
+[Variational Methods and Geometric Emergence in SAT
+Theory].
+B.
+B. Momentum Balance Equation
+The system must satisfy conservation laws, yielding the
+momentum balance equation (Euler-Lagrange system for
+the fluid elements) [Lean-4 verified geometric constraint
+yields charge-dependent mass spectrum]:
+ρ (∂tv + (v · ∇)v) = −∇P−ρ∇W(Φ)−κ (∇2Φ) ∇Φ+λ ∇(ρΦ)
+(12)
+X.
+III. THEORETICAL AND INFORMATIONAL
+CLOSURE
+The project explicitly aims for high-level theoretical
+completion, necessitating constraints beyond empirical
+matching.
+A.
+A. Completeness Levels and Semantic Unity
+The framework attempts to synthesize physics by rig-
+orously formalizing predictions derived exclusively from
+the action principle and variational equations [Varia-
+tional Methods and Geometric Emergent in SAT The-
+ory]. This rigor extends to formal verification using the
+Lean 4 computational environment [Lean-4 verified ge-
+ometric constraint yields charge-dependent mass spec-
+trum].
+The demonstration that the physics can be formally
+verified in Lean 4 constitutes an ”embryonic gesture to-
+ward semantic unity,” implying that physics is, in
+
+
+## Page 5
+
+5
+principle, reconstructible within a proof-assistant logic
+[Scalar-Angular Torsion:
+Unified Geometric Physics]
+[Manuscript Draft]. This level of completeness is referred
+to as Metaphysical Closure Gesture (Level IV)
+[Scalar-Angular Torsion: Unified Geometric Physics].
+B.
+B. Informational Closure and Entanglement
+To pursue Level III completeness (”informational
+story”), the model introduces specific structures related
+to the discrete nature of the field system [Variational
+Methods and Geometric Emergence in SAT Theory].
+1.
+Entropy Functional: Informational closure re-
+quires defining an entropy functional for the discrete
+twist ensemble (τ), the collection of stable topological
+configurations:
+Sfilament = −
+Z
+ρτ log ρτ dτ
+(13)
+where ρτ is the density of the twist ensemble [Varia-
+tional Methods and Geometric Emergence in SAT The-
+ory] [Lean-4 verified geometric constraint yields charge-
+dependent mass spectrum]. 2. Quantum Phenomena:
+The model attributes entanglement and wave-function
+collapse to worldline backbleed [Variational Methods
+and Geometric Emergence in SAT Theory].
+C.
+C. Aesthetic and Topological Constraint
+The commitment to Zero-Parameter Economy is
+integral to the theory’s claim of aesthetic closure, serving
+as evidence of mathematical inevitability [Scalar-Angular
+Torsion: Unified Geometric Physics] [Manuscript Draft].
+All dimensionless constants are required to derive solely
+from internal geometry and topology [Manuscript Draft].
+XI.
+IV. EMERGENCE OF GRAVITATION AND
+QUANTUM STRUCTURE
+A.
+A. GEOMETRIC FOUNDATIONS OF
+UNIFICATION
+The Scalar-Angular Torsion (SAT) framework achieves
+unification structurally at the **intersection of the fil-
+ament with the timesheet**.
+The theory encompasses
+General Relativity (GR), the Standard Model (SM),
+Quantum Field Theory (QFT), Quantum Electrodynam-
+ics (QED), Quantum Chromodynamics (QCD), and re-
+covers part of String Theory (ST). The formal realiza-
+tion of this structure defines the standard gauge group
+(SU(3) × SU(2) × U(1)) as a **fiber bundle over the
+emergent metric manifold**.
+The model is defined as a mathematical model
+without ontological commitment [Variational Meth-
+ods and Geometric Emergence in SAT Theory].
+B.
+B. EMERGENT GRAVITATIONAL
+DYNAMICS
+Gravitation is recreated by the collective **”back-pull”
+exerted by the filament structure on the time surface**,
+which generates curvature. The variational principle, ap-
+plied to the emergent metric, leads to the **Emergent
+Einstein Equation** [Variational Methods and Geomet-
+ric Emergence in SAT Theory].
+The theory establishes **Micro-to-Macro Scaling Re-
+lations**, which link filament microphysics (tension T,
+length ℓf, strain κ, linking density ρG) to macroscopic
+emergent constants [Variational Methods and Geometric
+Emergence in SAT Theory].
+The induced gravitational constant (Gind) is shown to
+scale geometrically as:
+Gind ∼
+c4 ℓ2
+f
+16π A κ
+(14)
+Consistency validation requires that the numerical out-
+put derived from these parameters must match the
+known empirical value:
+C.
+C. HOLONOMY QUANTIZATION AND
+CONFINEMENT
+Intrinsic quantum properties, such as Spin and Flavor,
+are derived geometrically via the **Holonomy Quantiza-
+tion** mechanism [432, Variational Methods and Geo-
+metric Emergence in SAT Theory].
+This mechanism involves calculating the **winding
+number** of the compact phase field (θ) around a closed
+loop defined on the manifold. This winding number, mul-
+tiplied by π, yields the quantized physical property [Vari-
+ational Methods and Geometric Emergence in SAT The-
+ory].
+Particle stability in the strong interaction is accounted
+for by the emergent topological twist field (τ) enforcing
+a Z3 fusion rule. This rule serves as a direct topological
+analogy to the three-quark structure required by Quan-
+tum Chromodynamics (QCD) [432, Variational Methods
+and Geometric Emergence in SAT Theory].
+D.
+D. STABILITY CONSTRAINTS AND
+PREDICTIONS
+The stability of the system is governed by three fun-
+damental, formally certified constraints:
+1.
+Positive Effective Mass (meff > 0).
+2.
+Posi-
+tive Topological Charge (Q > 0).
+3.
+Topological
+Dominance (R ≡mind/mtopo ≪1).
+The adherence to these constraints, verified by **Lean
+4 formal certification**, imposes the **UV Finiteness
+Lock**, limiting dynamically stable ground states to con-
+figurations with topological charges Q ≤3.
+This con-
+straint leads directly to the prediction of stable, low-mass
+
+
+## Page 6
+
+6
+dark matter candidates at Q = 2 (≈0.5073 × 10−27 kg)
+and Q = 3 (≈0.3403 × 10−27 kg).
+Unstable excited states (N ≥1) are predicted to follow
+a quadratic mass-squared spectrum formula [427, Lean-4
+Verified Mass Spectrum]:
+m2 = k (N + β Q2 −a)
+(15)
+The derived dimensionless coupling ratio, fixed by the
+Q = 1 mass anchor, is R ≈0.007304.
+XII.
+V. AXIOMATIC STRUCTURE AND
+FORMAL VERIFICATION
+A.
+A. Axiomatic Foundation and Ontology
+The Scalar-Angular Torsion (SAT) theory is built upon
+a minimal geometric ontology consisting of three fun-
+damental primitives: the **Filament** (the 4D parti-
+cle worldline), the **Time Surface** (Σt, the advancing
+3D wavefront), and the **Particle** (the localized point
+of intersection) [Manuscript Draft]. The theory aims to
+structurally integrate General Relativity (GR), the Stan-
+dard Model (SM), Quantum Field Theory (QFT), Quan-
+tum Electrodynamics (QED), Quantum Chromodynam-
+ics (QCD), and part of String Theory (ST) by mapping
+them onto the geometry of the timesheet/filament inter-
+section.
+B.
+B. Zero-Parameter Economy and Semantic
+Unity
+A central constraint is the **Zero-Parameter Econ-
+omy** (Normalization Principle), asserting that the the-
+ory introduces **zero numerical parameters** axiomati-
+cally into its fundamental structure [Manuscript Draft].
+This constraint supports the claim of **aesthetic clo-
+sure** and mathematical inevitability. The formal struc-
+ture, verified via Lean 4 formal certification, im-
+plies that physics may be reconstructible within a proof-
+assistant logic, serving as an embryonic gesture to-
+ward **semantic unity** (Metaphysical Closure Gesture,
+Level IV) [461, Manuscript Draft].
+XIII.
+VI. THE TOPOLOGICAL MASS
+MECHANISM
+The theory replaces the Higgs mechanism by defining
+mass as an emergent property of geometric tension and
+topology [Manuscript Draft].
+A.
+A. Mass Definition and Suppression Law
+The total observable mass (meff) is the sum of the
+dominant **Topological Mass (mtopo)** and the sec-
+ondary **Induced Inertial Mass (mind)** [Manuscript
+Draft, 455]. The mass is fundamentally governed by the
+**Topological Mass Suppression Law**, which dictates
+an inverse relationship between topological mass and the
+discrete Topological Charge Q(τ):
+mtopo(m, τ) := m/(Qτ : R)
+(16)
+The Induced Mass (mind) arises from dynamic drag
+against bosonic excitations (Temporons), defined in the
+Lean 4 structure as:
+mind(params)(Eoverlap) := params.g2
+1/params.M2∗Eoverlap
+(17)
+B.
+B. Stability and the Mass Spectrum
+Particle stability requires the Topological Domi-
+nance Condition (R ≡mind/mtopo ≪1) to be satis-
+fied [Manuscript Draft, 88, 459]. The mass spectrum for
+unstable excited states (N ≥1) is defined by a quadratic
+string formula:
+m2 = k (N + β Q2 −a)
+(18)
+XIV.
+VII. QUANTITATIVE CALIBRATION
+AND CONSISTENCY
+The predictive power of the framework relies on suc-
+cessfully converging the geometrically derived ratios onto
+empirical constants (Calibration P).
+A.
+A. Empirical Anchors
+The two critical empirical anchors successfully estab-
+lished during calibration are:
+1. **Hadronic Mass Scale (Q = 1):** Final Effective
+Mass meff ≈1.0073 × 10−27 kg.
+2. **Coupling Ratio (R):** Final dimensionless ratio
+R ≈0.007304, which converges onto the known
+empirical value of the fine-structure constant (α ≈
+0.007297).
+B.
+B. Cross-Sector Consistency Validation
+The consistency of the calibrated parameters was ver-
+ified across disparate sectors of physics:
+• **Electroweak Check:** The calibrated coupling
+ratio (R ≈0.007304) successfully facilitates the cal-
+culation of the correct W-to-Z boson mass ratio
+(target empirical value: 0.88145(13)).
+• **Gravitational Check:** The derived numerical
+value for the induced gravitational constant (G)
+must match the known empirical value:
+
+
+## Page 7
+
+7
+XV.
+VIII. FALSIFIABILITY AND DARK
+MATTER PREDICTIONS
+A.
+A. UV Finiteness Lock
+The **Lean 4 formal verification** confirms the
+structural constraint imposed by the **UV Finite-
+ness Lock**, which mandates that only particle
+configurations with a Topological Charge Q ≤3
+can be dynamically stable ground states in 4D
+spacetime.
+This lock is necessary to meet the
+**Positive Effective Mass** and **Topological
+Dominance Condition** requirements.
+B.
+B. Novel Stable States
+Based on the Q ≤3 constraint, the framework
+structurally predicts two novel stable topological
+states (N = 0) proposed as primary candidates for
+dark matter:
+– Q = 2 state: ≈0.5073 × 10−27 kg.
+– Q = 3 state: ≈0.3403 × 10−27 kg.
+The successful detection of these specific, stable,
+low-mass particles is presented as the primary test
+of the framework.
+XVI.
+VIII. EMPIRICAL VALIDATION AND
+DARK MATTER PREDICTIONS
+A.
+A. ULTIMATE EMPIRICAL VALIDATION
+CHECK
+The progression of the Scalar-Angular-Torsion
+(SAT) theory from self-consistent theoretical pre-
+diction to direct test against physical observa-
+tion hinges on the **Ultimate Empirical Validation
+Check**. This check centers on the dedicated ex-
+perimental search for the novel stable states con-
+strained by the **UV Finiteness Lock (Q ≤3)**.
+B.
+B. NOVEL STABLE PARTICLE SEARCH
+TARGETS
+The dimensional anchor utilized in the theory fixed
+the Q = 1 state to the hadronic mass scale (≈
+1.0073 × 10−27 kg).
+The search program must
+target the precise effective masses (N = 0 ground
+states) predicted for the two remaining topologi-
+cally allowed stable configurations:
+1. **The Q = 2 state** is predicted to have an
+effective mass of ≈0.5073 × 10−27 kg.
+2. **The Q = 3 state** is predicted to have an
+effective mass of ≈0.3403 × 10−27 kg.
+C.
+C. SIGNIFICANCE: DARK MATTER
+CANDIDACY
+The predicted mass and stability of the Q = 2 and
+Q = 3 states position them as **leading candidates
+for dark matter**.
+1.
+**Stability:** Their stability is guaranteed
+because they are N
+=
+0 ground states con-
+strained by topological charge Q.
+2.
+**Decou-
+pling:** For dark matter candidacy, these par-
+ticles must possess **suppressed electroweak in-
+teractions**. This requirement is mathematically
+verified if they satisfy the **Topological Domi-
+nance Condition (R ≡mind/mtopo ≪1)** [3, 459,
+Manuscript Draft].
+3.
+**Gravitational Interac-
+tion:** Since they possess non-zero mass, they are
+confirmed to contribute to gravitational curvature
+via the geometric **”back-pull”** mechanism.
+XVII.
+IX. COMPLETION OF GEOMETRIC
+PARTICLE IDENTITY
+The final structural step in defining particle iden-
+tity involves applying the **Holonomy Quantiza-
+tion** mechanism to these stable states to derive
+their intrinsic quantum numbers.
+A.
+A. Holonomy Quantization
+This process involves calculating the **winding
+number** of the compact phase field (θ) around
+a closed loop, which yields intrinsic properties like
+**Spin and Flavor** [3, Variational Methods and
+Geometric Emergence in SAT Theory]. The deriva-
+tion confirms the geometric origin of spin based on
+filament structure:
+– **Fermions** are identified as the struc-
+tural filaments themselves and possess **half-
+integer spin**.
+– **Bosons** are defined as parasitic ripples
+propagating along the fermionic substrate
+(filaments) and possess **integer spin** [4,
+Manuscript Draft].
+
+
+## Page 8
+
+8
+XVIII.
+VII. COVARIANT FORMULATION AND
+TOPOLOGICAL ALGEBRA
+This Supplemental Material details the formal co-
+variant action and the algebraic structures govern-
+ing the coupling of continuous fields (ξ) to the dis-
+crete topological configurations (τ) in the Scalar-
+Angular Torsion (SAT) framework.
+A.
+A. Generalized Partition Function
+The comprehensive dynamics are governed by the
+**Total Action (SSAT)**, which is expressed via
+the generalized partition function ZSAT. This func-
+tional integrates over continuous fields and sums
+over stable discrete topological configurations:
+ZSAT =
+X
+τ
+Z
+D[ξ] exp
+ i
+ℏStotal[ξ, τ]
+
+(19)
+The action Stotal must be σ-finite over the discrete
+twist ensemble (τ) and **Fr´echet-differentiable**
+over the continuous field space (ξ) [Variational
+Methods and Geometric Emergence in SAT The-
+ory].
+B.
+B. Topological Charge Z3 Projection
+The
+discrete
+twist
+charge
+(τ)
+is
+central
+to
+mass emergence and geometric gauge structure
+[Manuscript Draft]. The components of the struc-
+ture ‘TopoInv‘ (winding number Lwind, linking
+number Llink, and writhe number Wwrithe) are con-
+strained by a Z3 fusion rule, essential for modeling
+the Strong Interaction [402, Variational Methods
+and Geometric Emergence in SAT Theory]. This
+constraint is implemented algebraically by project-
+ing the integers (N) onto the finite quotient set Z3:
+τproj = {Lwind := τ.Lwind
+(mod 3),
+Llink := τ.Llink
+(mod 3),
+Wwrithe := τ.Wwrithe
+(mod 3)}
+(20)
+The total Topological Charge Q(τ) is the sum of
+these invariants [Manuscript Draft].
+C.
+C. Component Actions and Field Coupling
+The total Lagrangian density (Ltotal) incorporates
+fields (θ, u, J) and parameters into the action cal-
+culation [402, Variational Methods and Geometric
+Emergence in SAT Theory].
+1.
+1. BF Topological Action
+The topological coupling is made explicit in the BF
+Topological Action (SBF), which couples fields B
+and A to the real representation of the topological
+charge Q(τ):
+SBF(B, A, τ) =
+Z 1
+0
+x, (B x) · (∇A x) + (Q(τ) : R) (21)
+(Note:
+The expression from the source is tran-
+scribed using standard integral notation and vec-
+tor/scalar fields).
+2.
+2. Filament Kernel Contribution
+The coupling defined by the ‘filament kernel‘ is re-
+sponsible for suppressing topological mass (mtopo)
+through an exponential dependence on Q(τ):
+filament kernel(J, τ) =
+Z 1
+0
+x, J x · exp (−(Q(τ) : R))
+(22)
+The total Lagrangian density (Ltotal) combines
+these continuous and topological terms.
+XIX.
+VIII. EXCITED STATE MASS
+PREDICTIONS
+The stability constraint imposed by the **UV
+Finiteness Lock** requires stable ground states
+(N = 0) to satisfy Q ≤3 [SUPP 5, SUPP 4]. The
+mass of unstable **excited states (N ≥1)** is gov-
+erned by a quadratic spectrum formula [404, SUPP
+4]:
+m2 = k (N + β Q2 −a)
+(23)
+Applying this spectrum to the first excited state
+(N = 1) yields specific mass-squared predictions
+for the topologically allowed charges:
+Q = 1, N = 1 →1.1
+(24)
+Q = 2, N = 1 →1.4
+(25)
+Q = 3, N = 1 →1.9
+(26)
+(These predicted values are relative mass-squared
+units derived from the internal geometry, analogous
+to normalized calibration points).
+A.
+A. Geometric Unification Scope
+The framework is claimed to cover **GR, SM,
+QFT, QED, QCD, and recovers part of ST**,
+
+
+## Page 9
+
+9
+with all sectors unified at the intersection of
+the filament with the timesheet.
+The geometry
+of unification defines the standard gauge group
+(SU(3) × SU(2) × U(1)) as a fiber bundle over
+the emergent metric manifold [SUPP 4].
+XX.
+IX. GEOMETRIC UNIFICATION
+ARCHITECTURE
+A.
+A. Scope of Synthesis
+The Scalar-Angular Torsion (SAT) theory is a geo-
+metric framework covering **GR, SM, QFT, QED,
+QCD, and recovers part of ST**.
+Unification is
+achieved structurally at the geometric **intersec-
+tion of the filament with the timesheet** [341,
+SUPP 7].
+This geometric realization defines the
+standard gauge group (SU(3) × SU(2) × U(1)) as
+a **fiber bundle over the emergent metric mani-
+fold** [SUPP 4, SUPP 7].
+B.
+B. Foundational Primitives
+The minimal geometric ontology is defined by the
+**Filament** (4D particle worldline), the **Time
+Surface** (Σt, the advancing 3D wavefront), and
+the **Particle** (the localized point of intersec-
+tion) [Manuscript Draft]. The entire framework is
+advanced as a **mathematical model without on-
+tological commitment** [Variational Methods and
+Geometric Emergence in SAT Theory]. The cur-
+vature observed in General Relativity (GR) is at-
+tributed geometrically to the collective “back-pull”
+exerted by the filament structure on the time sur-
+face [Manuscript Draft].
+XXI.
+X. FORMAL LOGIC AND VERIFICATION
+CONSTRAINTS
+A.
+A. Formal Constraints and Stability Indicators
+The numerical predictions and internal algebraic
+consistency rely upon formal certification using the
+Lean 4 computational environment [340, Lean 4
+Verified Mass Spec...]. This process validates ex-
+plicit variational equations and enforces three pri-
+mary stability criteria:
+1. Positive Effective Mass (meff > 0).
+2. Topological Dominance (R < 1), requir-
+ing that the topological mass component out-
+weighs the induced inertial mass component.
+3. Positive Topological Charge (Q > 0), en-
+suring only non-trivial topological configura-
+tions are permitted.
+The successful detection of the predicted stable par-
+ticles (Q = 2, 3) serves as the primary test for the
+geometric foundation of the search program.
+B.
+B. Constraint on Stability (UV Finiteness Lock)
+The consistency verified by Lean 4 imposes the
+**UV Finiteness Lock**, restricting dynamically
+stable ground states to configurations with topolog-
+ical charges Q ≤3 [SUPP 4, SUPP 5]. Adherence
+to the **Zero-Parameter Economy** is the frame-
+work’s ultimate honesty test, demanding that all
+dimensionless constants derive solely from internal
+geometry [Manuscript Draft].
+XXII.
+XI. PARTICLE IDENTITY AND FIELD
+OPERATORS
+A.
+A. Geometric Identity
+Particle identity is determined by the geometrical
+structure and dynamics relative to the filament sub-
+strate:
+– **Fermions** are identified as the struc-
+tural **filaments** themselves, carrying he-
+lices that yield half-integer spin [Manuscript
+Draft, SUPP 6].
+– **Bosons** (including Temporons) are de-
+fined as **dynamic torsional patterns** or
+**parasitic ripples** propagating along the
+fermionic substrate, and are **not indepen-
+dent filaments** [Manuscript Draft].
+B.
+B. Spatial Projector Formalism
+The continuous dynamics are constrained using
+a projection operator to ensure physical realism
+by managing kinematic degrees of freedom [Vari-
+ational Methods and Geometric Emergence in SAT
+Theory]:
+The **spatial projector (Pµν)** is defined as:
+Pµν = gµν + uµuν
+(27)
+This projector restricts the dynamics to the three-
+dimensional subspace orthogonal to the unit time-
+flow vector (uµ), which eliminates unphysical lon-
+gitudinal ghost modes and ensures that only the
+
+
+## Page 10
+
+10
+two transverse polarizations of the physical Tem-
+poron propagate [Variational Methods and Geo-
+metric Emergence in SAT Theory].
+— *Analogy for Projector Formalism:* Think of
+the **spatial projector** as a camera filter used by
+the universe. It only allows ripples (Bosons) mov-
+ing *across* the current of time (Filament flow, uµ)
+to be recorded as real physical forces, while ignoring
+any energy trying to move *along* the flow of time
+that would violate stability or consistency rules.
+This keeps the cinematic physics clean by cutting
+out the unphysical special effects (ghost modes).
+XXIII.
+XII. MODELING EXCITATION
+DYNAMICS AND UNSTABLE STATES
+This Supplemental Material details the companion
+predictive capability of the Scalar-Angular Torsion
+(SAT) framework concerning dynamically unstable,
+excited particle states (N ≥1).
+A.
+A. Foundation of the Stable State Search
+Program
+The ultimate empirical validation phase relies on
+the search for the **novel stable states** (N = 0
+ground states) constrained by the topological al-
+gebra.
+The geometric foundation for this search
+program is fully defined, confirming the targets for
+detection:
+– Q = 2 state at ≈0.5073 × 10−27 kg.
+– Q = 3 state at ≈0.3403 × 10−27 kg.
+For these particles, the necessary identity con-
+straints (Spin/Flavor) are confirmed to be derivable
+via **Holonomy Quantization**.
+B.
+B. Predictive Capability: Unstable Particle
+Dynamics
+The SAT theory extends beyond stable ground
+states to model **Excitation Dynamics** for un-
+stable configurations, defined by the excitation
+quantum number N ≥1.
+1. **Governing Formula:** The modeling of these
+unstable particles utilizes the **quadratic mass
+spectrum formula**, which was previously intro-
+duced as:
+m2 = k (N + β Q2 −a)
+[SUPP 4, SUPP 5, SUPP 7]
+(28)
+2. **Dynamic Geometry:** By applying this for-
+mula, the theory calculates the **dynamic geome-
+try of unstable particles**. This geometry differs
+significantly from the statically stable configura-
+tions constrained by the UV Finiteness Lock.
+3. **Decay Channel Foundation:** The ability to
+model the dynamic geometry of unstable states is
+essential for establishing the foundation required
+for **predicting their decay channels**. The de-
+cay is presumed to occur through topological trans-
+formations that relax the excited state (N ≥1)
+down to one of the allowed stable ground states
+(N = 0, Q ≤3) or by fragmenting into lower-Q sta-
+ble components, consistent with conservation laws
+derived from the variational principle [Variational
+Methods and Geometric Emergence in SAT The-
+ory].
+XXIV.
+XIII. COUPLING RATIO CONSISTENCY
+The robustness of the entire mass spectrum calcu-
+lation, including both stable and unstable states,
+relies on the success of the Zero-Parameter Econ-
+omy, which fixed the dimensionless coupling ratio
+at R ≈0.007304 [SUPP 5]. This value must be
+maintained consistently across the N ≥1 calcula-
+tions to ensure the predicted masses are dimension-
+ally consistent.
+XXV.
+XIV. MODELING EXCITATION
+DYNAMICS AND DECAY PREDICTION
+This Supplemental Material details the mechanism
+within the Scalar-Angular-Torsion (SAT) frame-
+work used to predict the dynamics and stability
+of both ground states (N = 0) and dynamically
+unstable excited particle states (N ≥1).
+This
+predictive capability relies fundamentally on the
+String/Filament Dynamics component embedded
+within the **Total Covariant Action** (SSAT).
+A.
+A. THE QUADRATIC MASS SPECTRUM
+FORMULA
+Excited particle states (N ≥1) are governed by the
+same quadratic mass spectrum formula utilized for
+ground state stability checks:
+m2
+string = k · (N + β · Q2 −a)
+(29)
+The predicted mass-squared values for the first ex-
+cited oscillator level (N = 1) for the stable topo-
+logical charges (Q ≤3) are confirmed to be:
+
+
+## Page 11
+
+11
+– Q = 1, N = 1 →1.1
+– Q = 2, N = 1 →1.4
+– Q = 3, N = 1 →1.9
+B.
+B. FILAMENT DISPLACEMENT AND
+DECAY CHANNELS
+The geometry of the filament bundle dictates the
+likelihood and nature of particle decay. The decay
+channels and interaction cross-sections for unsta-
+ble resonances (N ≥1) are determined by model-
+ing the filament’s **transverse displacement** (X
+and Y). This displacement is calculated based on
+the filament’s specific list of **String Modes**:
+X(z, t) =
+X
+n
+αx sin
+nπz
+L
+
+cos (nω0t + ϕx)
+(30)
+Y(z, t) =
+X
+n
+αy sin
+nπz
+L
+
+cos (nω0t + ϕy)
+(31)
+Here, z represents the position along the filament,
+t is time, n is the oscillator mode number, L is the
+length, ω0 is the fundamental frequency, and the
+coefficients (α) and phases (ϕ) define the dynamic
+geometry of the excitation.
+This modeling task predicts the **dynamic geome-
+try of excited particles**, which is the necessary
+precursor for predicting **decay channels** and
+**interaction cross-sections** for these resonances.
+C.
+C. STRUCTURAL CONSTRAINT ON
+HADRONIC STABILITY
+The consistency of this modeling approach with
+the Strong Interaction sector requires that the un-
+derlying topological structure enforces the Z3 fu-
+sion rule.
+This rule provides the geometric rea-
+son for the stability of three-constituent particles
+(baryons), reinforcing consistency with Quantum
+Chromodynamics (QCD).
+D.
+D. CONTEXT: STABLE STATE
+FOUNDATION
+This dynamic modeling complements the ultimate
+empirical validation targets for the **novel sta-
+ble states** (N = 0), which are fully defined at
+Q = 2 (≈
+0.5073 × 10−27 kg) and Q = 3 (≈
+0.3403 × 10−27 kg). The necessary particle iden-
+tity (Spin/Flavor) for these ground states is con-
+firmed to be derivable via **Holonomy Quantiza-
+tion**.

@@ -1,0 +1,176 @@
+# Extracted Text
+
+Source file:  ..✅ SATOBLOC_pre_lean.pdf
+Source SHA256: 726ef6bb4af02686a87513d95ac4815eec6df908d1fb4e34e48a7906c2dee8d9
+Source type: .pdf
+Request ID: 2026-09-10_root_pdf_extraction_pass_002
+Requested by: Ravel / ChatGPT
+Extraction time UTC: 2026-09-10T16:02:16.707200+00:00
+Extraction engine: PyMuPDF
+OCR attempted: False
+OCR reason: not needed
+OCR language: eng
+Sections/pages: 4
+Characters extracted: 3933
+
+---
+
+
+
+## Page 1
+
+SAT.O–Blockwave: Unified Action — Corrected,
+Dimensionally Consistent Formulation
+(Confidential Draft)
+December 28, 2025
+Abstract
+A single, dimensionally consistent formulation of the SAT.O/Blockwave unified-
+action model. This source consolidates the full field content, specifies SI-consistent
+units for all quantities, presents the corrected Lagrangian density, and lists the resulting
+coupled partial differential equations. An appendix provides line-by-line dimensional
+bookkeeping.
+Conventions and SI base units
+We use SI base symbols for dimensional analysis: M (mass), L (length), T (time). The
+metric signature is not required for this non-relativistic morphogenic presentation.
+1
+Field definitions and identities
+We define the basic fields used throughout:
+v(r, t) = J(r, t)
+ρ(r, t),
+[v] = LT −1,
+(1)
+S[Φ] ≡(∇Φ),
+[∇Φ] = LT −2.
+(2)
+The curvature tensor for the scalar field is the rank-2 morphotensor C = ∇⊗∇Φ.
+1
+
+
+## Page 2
+
+Symbol
+Physical meaning and SI dimensions
+ρ
+mass (energy) density, [ρ] = ML−3
+J
+mass flux density, [J] = ML−2T −1
+v
+velocity field, [v] = LT −1
+Φ
+morphogenic potential per unit mass, [Φ] = L2T −2
+W(Φ)
+potential per unit mass (same units as Φ), [W] =
+L2T −2
+U(Φ) = ρW(Φ)
+energy density, [U] = ML−1T −2
+κ
+curvature coupling, [κ] = ML−3T 2
+c
+characteristic wave speed, [c] = LT −1
+γ
+damping, [γ] = T −1
+λ
+dimensionless coupling (appears in Lagrangian as
+λ ρ Φ ∇· v)
+P
+pressure, [P] = ML−1T −2
+Table 1: Primary symbols and their SI-base dimensions used in the text.
+2
+Corrected Lagrangian density
+We choose a dimensionally consistent Lagrangian density (energy density units):
+L = 1
+2ρv2 −ρ W(Φ) −κ
+2(∇Φ)2 + λ ρ Φ (∇· v).
+(3)
+Here W(Φ) is the potential per unit mass; the coupling λ is taken dimensionless and ρ
+supplies appropriate units in the interaction term.
+3
+Euler–Lagrange system (resulting PDEs)
+Variation of L with respect to the hydrodynamic variables and Φ yields the following coupled
+PDE system.
+Mass continuity
+∂tρ + ∇· (ρv) = 0.
+(4)
+Momentum balance
+The momentum equation (obtained from δL/δv) reads:
+ρ (∂tv + (v · ∇)v) = −∇P −ρ∇W(Φ) −κ (∇2Φ) ∇Φ + λ ∇(ρΦ),
+(5)
+2
+
+
+## Page 3
+
+where the curvature-derived body force has the form fκ = −κ(∇2Φ) ∇Φ (see Appendix for
+derivation). The last term arises from the interaction piece and is dimensionally consistent
+when λ is dimensionless.
+Scalar (per-unit-mass) evolution
+The scalar evolution equation (variation w.r.t. Φ) in mass-normalized form is:
+∂2
+t Φ + γ ∂tΦ = c2 ∇2Φ −dW
+dΦ + λ
+ρ ∇· (ρv).
+(6)
+Here dW/dΦ carries units of T −2 so that each term has the same dimensions [Φ]/T 2 = L2T −4.
+4
+Energy and conserved quantity
+Define total energy (for γ = 0) as
+Etot =
+Z
+V
+1
+2ρv2 + ρW(Φ) + κ
+2(∇Φ)2
+dV.
+(7)
+Direct computation, using the PDEs above, shows that dEtot/dt = 0 when γ = 0 and
+appropriate boundary conditions apply (see Appendix).
+Dimensionless rescaling
+Introduce characteristic scales L0, T0, ρ0, and Φ0. Define nondimensional variables
+˜r = r
+L0
+,
+˜t = t
+T0
+,
+˜ρ = ρ
+ρ0
+,
+˜Φ = Φ
+Φ0
+,
+˜v = vT0
+L0
+.
+The governing equations can be written in terms of dimensionless control numbers such as
+ReΦ = ρ0L2
+0
+κT 2
+0
+,
+MaΦ = V0
+c ,
+DaΦ = W(Φ0)T 2
+0
+Φ0
+.
+3
+
+
+## Page 4
+
+Appendix: Dimensional bookkeeping and derivations
+A. Units for the curvature force
+The curvature energy density is κ
+2(∇Φ)2. Variation with respect to Φ yields a functional
+derivative that produces a body-force density of the form
+fκ = −κ (∇2Φ) ∇Φ + (higher-order gradient terms).
+Check units: [∇2Φ] = T −2, [∇Φ] = LT −2, [κ] = ML−3T 2 so [fκ] = ML−2T −2 as required for
+a force density.
+B. Euler–Lagrange to PDE mapping
+A short derivation of the scalar equation: compute δL/δΦ and apply continuity where nec-
+essary; one finds the mass-normalized wave-like equation shown in Eq. (6).
+C. Energy conservation sketch
+Multiply Eq. (5) by v and integrate, combine with Eq. (6) multiplied by ρ ∂tΦ, and integrate
+by parts. Under vanishing-flux boundary conditions the total energy time derivative vanishes
+for γ = 0.
+4

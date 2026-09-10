@@ -1,0 +1,123 @@
+# Extracted Text
+
+Source file: 4PHYS_REV_D_V_1_Submission.pdf
+Source SHA256: b680a5ae9fa1f0adbc10c7b7d4d44d2f5f3c53f34fde47b71743b2ba34a0f4bd
+Source type: .pdf
+Request ID: 2026-09-10_root_pdf_extraction_pass_002
+Requested by: Ravel / ChatGPT
+Extraction time UTC: 2026-09-10T16:02:17.173512+00:00
+Extraction engine: PyMuPDF
+OCR attempted: False
+OCR reason: not needed
+OCR language: eng
+Sections/pages: 1
+Characters extracted: 3633
+
+---
+
+
+
+## Page 1
+
+1
+The following is Section IV, continuing the introduc-
+tion to the Scalar–Angular Theory (SAT).
+I.
+PATH INTEGRAL QUANTIZATION OF SAT
+While the canonical quantization procedure (Section
+III) provides the local commutation relations necessary
+for operator formalism, the **path integral formula-
+tion** offers a complementary method crucial for in-
+corporating non-perturbative effects and summing over
+topological sectors inherent in the Scalar–Angular The-
+ory (SAT).
+A.
+The Functional Integral over Continuous Fields
+The partition function Z for a quantum field theory is
+generally defined as the functional integral over all field
+configurations ξ(x), weighted by the phase factor deter-
+mined by the total action S. In the context of the SAT
+continuous fields ξ = (θµ, uµ, Jµν), the general form of
+the path integral is:
+Z =
+Z
+D[ξ] eiS[ξ]/ℏ,
+(1)
+where S[ξ] is the total action derived from the Lagrangian
+density Ltotal. Since the classical dynamics are derived
+from the variational principle applied to the constrained
+action, the action SSAT takes the relativistic form:
+SSAT =
+Z
+d4x √−g Ltotal,
+(2)
+where Ltotal encapsulates the scalar potential (θµ)2, the
+vector kinetic term (uµ)2, the filament current energy
+(Jµ
+µ)2, the BF topological term SBF, and the filament
+kernel Kfil.
+B.
+Hybrid Quantization over Continuous and
+Discrete Sectors
+A distinguishing feature of SAT is its hybrid nature,
+coupling the continuous field dynamics to a discrete topo-
+logical twist charge τ = (Lwind, Llink, Wwrithe). This re-
+quires the partition function to not only integrate over
+the continuous degrees of freedom but also to **sum over
+all possible topological configurations** τ that are stable
+or admissible within the theory.
+The quantization condition is thus a summation over
+discrete topological invariants combined with a func-
+tional integration over the continuous fields, symbolized
+by ξ:
+ZSAT =
+X
+τ
+Z
+D[ξ] exp
+ i
+ℏStotal[ξ, τ]
+
+.
+(3)
+Here, the total action Stotal depends explicitly on the
+discrete charge τ through the topological coupling term
+SBF and the mass-suppressing filament kernel Kfil. The
+BF action term includes the total twist number Q(τ) =
+Lwind + Llink + Wwrithe directly.
+C.
+Handling Constraints and the Gravitational
+Sector
+The full functional integral for SAT must address the
+constraints arising from the time-flow vector uµ and the
+gravitational interaction gµν.
+1.
+Constrained Time-Flow Field
+The vector field uµ is dynamically normalized via the
+constraint C1 : uµuµ + 1 = 0, enforced classically by a
+Lagrange multiplier λ(x). In the path integral formula-
+tion, this constraint must be handled, typically by inte-
+grating out the multiplier λ or choosing a specific gauge
+fixing for the timelike field uµ. The associated gravita-
+tional Lagrangian Lgrav already includes this multiplier
+term.
+2.
+Gravitational Constraints
+When treating the metric gµν as a field to be quantized
+(as required for Quantum Gravity effects), the integra-
+tion D[g] must account for the spacetime diffeomorphism
+invariance.
+Using the ADM decomposition, the gravi-
+tational Hamiltonian density HGR+SAT is expressed in
+terms of the lapse (N) and shift (N i) functions and the
+constraints (H0, Hi):
+HGR+SAT = NH0 + N iHi + λ(uµuµ + 1).
+(4)
+These Hamiltonian (H0) and momentum (Hi) con-
+straints involve the canonical momentum πij conjugate
+to the spatial metric hij.
+The full path integral over the combined fields D[ξ, g]
+thus requires employing the Faddeev–Popov procedure
+(or other gauge fixing methods) to properly integrate over
+the constraints H0 and Hi, ensuring only the physical
+degrees of freedom contribute to Z.

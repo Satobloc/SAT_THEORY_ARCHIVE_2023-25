@@ -1,0 +1,42 @@
+# Extracted Text
+
+Source file: LAB2_SAT_Dirac_And_Coupling_Closure_ReportLab.pdf
+Source SHA256: f10bc82129e0a22a17dc3696e2bc82c2d240a4aa86f7bcdfe97517fccb0fa780
+Source type: .pdf
+Request ID: 2026-09-10_root_pdf_extraction_pass_002
+Requested by: Ravel / ChatGPT
+Extraction time UTC: 2026-09-10T16:02:30.708980+00:00
+Extraction engine: PyMuPDF
+OCR attempted: False
+OCR reason: not needed
+OCR language: eng
+Sections/pages: 1
+Characters extracted: 924
+
+---
+
+
+
+## Page 1
+
+LAB 2: SAT Constraint Closure and Coupled Field Dynamics
+I. Dirac Constraint Closure (u^mu Sector)
+Primary Constraint:
+phi1 = u^mu u_mu + 1 = -u0^2 + u1^2 + 1
+Secondary Constraint (time evolution + theta coupling):
+phi2 = -2 u0 du0/dt + 2 u1 du1/dt + beta * [(du0/dt * u0 + du1/dt * u1) * dtheta/dt
+       + (du0/dx * u0 + du1/dx * u1) * dtheta/dx]
+Tertiary Constraint:
+phi3 not required; phi2 closes under time evolution.
+phi1 and phi2 are second-class => Use Dirac brackets for quantization.
+II. Coupled theta–tau Field Theory (1+1D)
+Lagrangian:
+L = 1/2 (dtheta/dt)^2 - 1/2 (dtheta/dx)^2 - mu^2 cos(3theta)
+    - epsilon_f tau^2 - epsilon_f gamma tau^2 (dtheta/dx)^2
+Euler–Lagrange Equations:
+EOM for theta:
+d^2theta/dt^2 - d^2theta/dx^2 + 3mu^2 sin(3theta)
++ 2epsilon_f gamma tau^2 d^2theta/dx^2
++ 4epsilon_f gamma tau (dtau/dx)(dtheta/dx) = 0
+EOM for tau:
+deltaL/delta tau = -2epsilon_f (1 + gamma (dtheta/dx)^2) tau = 0
