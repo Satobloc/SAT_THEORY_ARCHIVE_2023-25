@@ -1,5 +1,5 @@
 <main>
-<h3>A special welcome to Braid theorists and the broader topological community. I must apologize for not knowing there were others out here doing this work for the last century (you were too quiet about it.!) …anyway. I guess now I have some bibliographers to do. *eek*. Regardless, good to know I don’t have to try and figure out the math on my own anymore. —N 
+<h3>A special welcome to Braid theorists and the broader topological community. I must apologize for not knowing there were others out here doing this work for the last century (you were too quiet about it.!) …anyway. I guess now I have some bibliographery to do. *eek*. Regardless, good to know I don’t have to try and figure out the math on my own anymore. —N 
 
   <br>
 <h3>NOTICE: PLEASE SEE LICENSE UPDATE </h3>
