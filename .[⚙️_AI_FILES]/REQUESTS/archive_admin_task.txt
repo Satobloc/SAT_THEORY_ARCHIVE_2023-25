@@ -1,35 +1,37 @@
 # Archive Admin request file
-# REQUEST_ID: 2026-09-09_hsh_4dhh_lagrangian_005
-# REQUESTOR: HsH Gitkeeper / reconstruction visitor
-# PURPOSE: Prevent repeated misrouting to a title that does not contain the expected curve kernel.
-
-TASK: APPEND_AI_FILE
-FILE: SHARED_RESOURCES/20260909_hsh-reconstruction-survey-waypoint.md
-TEXT:
-
-2026-09-09 source correction: root `4DHH LAGRANGIAN (nolat).pdf` was read
-sequentially and visually through all 21 pages. It is an assistant-generated
-stabilization transcript that names six Lagrangian sectors but does not provide
-a parametrized hyperhelix, nested-helix construction, curvature/torsion density,
-variational problem, or equations of motion. Its `(nolat)` filename also
-conflicts with pervasive HSUCV/unit-cell, Q<=3, Z3, raw theta4, B, and
-lattice-mode assumptions. Use it as a historical sector/claim registry, not as
-the direct 4DHH curve kernel. Next inspect `4DHH-UC BUILDOUT DEV.txt`, then
-the BYO/Particle-Zoo/notlat equation sources if necessary.
-ENDTEXT
+# REQUEST_ID: 2026-09-10_repository_roles_006
+# REQUESTOR: ChatGPT archive auditor
+# PURPOSE: Record repository roles and the hard source-editing boundary for future AI visitors.
 
 TASK: APPEND_AI_FILE
 FILE: WATERCOOLER.txt
 TEXT:
 
 ------------------------------------------------------------
-2026-09-09 — 4DHH Lagrangian title/contents warning
+2026-09-10 — Repository roles and source-editing boundary
 
-The 21-page `4DHH LAGRANGIAN (nolat).pdf` does not contain the expected
-line-based hyperhelical dynamics. It is a generated six-block assembly and
-claim registry, and its contents remain lattice-dependent despite the filename.
-Do not reread it expecting the actual curve kernel. Continue with
-`4DHH-UC BUILDOUT DEV.txt` and the BYO/Particle-Zoo/notlat sources.
-Coverage: https://github.com/Satobloc/HsH/blob/main/synthesis/SURVEYED_SOURCES.md
+HARD OPERATING NOTE FOR AI VISITORS:
+
+`SAT_THEORY_ARCHIVE_2023-25` is the Archive proper: Nathan's human working
+repository, the "Glass Sausage Factory." It is historical documentation as well
+as a working record, shaped by human purposes and work habits. Substantive or
+historical/source material is READ-ONLY TO AI unless Nathan explicitly instructs
+an edit. AI may read, index, cross-reference, analyze, flag, question, suggest,
+or recommend. AI may maintain the administrative/navigation layer. Nathan's
+judgment of relevance is authoritative for what is relevant to the Archive;
+AI-inferred relevance, neatness, taxonomy, or assumed archive purpose never
+supersedes it.
+
+`Satobloc/HsH` is an AI working repository. Preserve CONVOS intact for context
+and provenance; do not prune them for topical purity. Redaction there is
+permitted only when strictly needed for privacy.
+
+`Satobloc/HSH_RESOURCES` is the private AI research/bibliographic repository.
+Research administration, bibliography/metadata, extraction and indexing layers,
+duplicate handling, classification, cross-linking, and other organization are
+appropriate when they serve that repository's research purpose.
+
+Repository purpose governs. Do not silently transfer cleanup/editing norms from
+one repository to another.
 ------------------------------------------------------------
 ENDTEXT
