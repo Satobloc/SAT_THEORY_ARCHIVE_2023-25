@@ -13,11 +13,12 @@ Staging / request infrastructure:
 - Planned: .[⚙️_AI_FILES]/STAGING/ — staged editing/request buffer for large multi-part resources and workflow requests.
 
 Current operating standard:
-- Request-file commits are the default trigger path for routine archive operations.
+- Request-file commits are the default trigger path for routine bounded archive operations.
 - Archive Admin is the default assistant-triggerable runner.
-- Manual workflow_dispatch is fallback/debug only.
+- Manual workflow_dispatch is fallback/debug where an automatic or request-driven route exists.
+- Full structural indexing is a deliberate exception: `.github/workflows/full-archive-index.yml` runs automatically Monday/Wednesday/Friday and remains manually dispatchable.
 - Generated outputs should be committed with logs.
-- Workflow-generated commits should use a skip marker such as [skip archive-admin] to prevent loops.
+- Workflow-generated commits should use the appropriate loop guard unless a downstream maintenance workflow is intentionally meant to run.
 
 Tool standard:
 Every durable archive tool should have:
@@ -31,75 +32,28 @@ Navigation / indexing note:
 - Direct GitHub connector fetches work well for known paths inside .[⚙️_AI_FILES]/, including emoji/bracketed filenames.
 - Search can find key files but should not be treated as a complete folder index.
 - For reliable AI navigation, maintain explicit indexes and welcome documents.
+- The Dashboard archive index is now a sharded-history router, not a monolithic append ledger.
 
 Recommended starting read:
-- README.md should be treated as essential front-page context for new archive visitors before deep folder analysis. It gives the archive's self-description as a public, messy, transparent theory-building experiment; states the rough scale of the archive; introduces the fundamental SAT intuitions; and warns implicitly against mistaking rough/LLM-generated material for polished canonical theory. Read it alongside .[⚙️_AI_FILES]/🪧_WAYFINDING.txt and ORIENTATION.txt.
+- README.md should be treated as essential front-page context for new archive visitors before deep folder analysis. Read it alongside .[⚙️_AI_FILES]/🪧_WAYFINDING.txt and ORIENTATION.txt.
 
 Indexing and tagging resources:
-- ..findex.txt — structural index at the root or folder level.
-- ..[🎛️_NATHAN_DASH]/🗄️_ARCHIVE_INDEX.txt — accumulated archive index blocks.
+- ..findex.txt — current structural index at the root or folder level.
+- ..[🎛️_NATHAN_DASH]/🗄️_ARCHIVE_INDEX.txt — human-facing router into current and historical structural indexing.
+- .[⚙️_AI_FILES]/INDEXES/archive_index_history/ — preserved historical index snapshots, active shards, router state, and deltas.
 - ..[🎛️_NATHAN_DASH]/..Derivation_Index.md — reviewer-facing map from SAT machinery/claims to derivation/provenance source documents, with status and comment blocks.
 - .[⚙️_AI_FILES]/LOGS/folder_indexer/ — folder indexer run logs.
+- .[⚙️_AI_FILES]/LOGS/archive_index_router/ — sharded-index router/absorb logs.
 - .[⚙️_AI_FILES]/CONFIG/folder_indexer_full_archive.txt — full archive structural index configuration.
+
+Cross-repository maintenance / citation routing:
+- .[⚙️_AI_FILES]/SHARED_RESOURCES/CROSS_REPO_MAINTENANCE_MAP.md — point-of-use map for date tagging, indexing, bibliography coverage, citation handoffs, and repo-specific automation across `SAT_THEORY_ARCHIVE_2023-25`, `HsH`, and `HSH_RESOURCES`.
+- HsH theory-side citation point of use: `Satobloc/HsH/ledgers/CITATION_LEDGER.md`.
+- HSH_RESOURCES source-side bibliography/citation handoff: `Satobloc/HSH_RESOURCES/indexes/HUMAN_BIBLIOGRAPHY.md`.
+- HSH_RESOURCES generated bibliography coverage: `Satobloc/HSH_RESOURCES/indexes/BIBLIOGRAPHY_COVERAGE.md`.
 
 Folder-summary standard:
 - .[⚙️_AI_FILES]/SHARED_RESOURCES/FOLDER_SUMMARY_TEMPLATE.txt — template for future ..folder_summary.txt artifacts.
-
-------------------------------------------------------------
-2026-09-09 — H(s)H reconstruction coverage map
-
-Reusable source-coverage index:
-https://github.com/Satobloc/HsH/blob/main/synthesis/SURVEYED_SOURCES.md
-
-Archive waypoint:
-.[⚙️_AI_FILES]/SHARED_RESOURCES/20260909_hsh-reconstruction-survey-waypoint.md
-
-The index distinguishes full, partial, index-only, duplicate, and merely located
-sources; records exact continuation cursors; and treats RMS/SAT/SAT-O/4DHH/
-Blockwave/Satobloc/H(s)H as a developmental genealogy rather than rival theories.
-------------------------------------------------------------
-
-------------------------------------------------------------
-2026-09-09 — H(s)H reconstruction coverage map
-
-Reusable source-coverage index:
-https://github.com/Satobloc/HsH/blob/main/synthesis/SURVEYED_SOURCES.md
-
-Archive waypoint:
-.[⚙️_AI_FILES]/SHARED_RESOURCES/20260909_hsh-reconstruction-survey-waypoint.md
-
-The index distinguishes full, partial, index-only, duplicate, and merely located
-sources; records exact continuation cursors; and treats RMS/SAT/SAT-O/4DHH/
-Blockwave/Satobloc/H(s)H as a developmental genealogy rather than rival theories.
-------------------------------------------------------------
-
-------------------------------------------------------------
-2026-09-09 — H(s)H reconstruction coverage map
-
-Reusable source-coverage index:
-https://github.com/Satobloc/HsH/blob/main/synthesis/SURVEYED_SOURCES.md
-
-Archive waypoint:
-.[⚙️_AI_FILES]/SHARED_RESOURCES/20260909_hsh-reconstruction-survey-waypoint.md
-
-The index distinguishes full, partial, index-only, duplicate, and merely located
-sources; records exact continuation cursors; and treats RMS/SAT/SAT-O/4DHH/
-Blockwave/Satobloc/H(s)H as a developmental genealogy rather than rival theories.
-------------------------------------------------------------
-
-------------------------------------------------------------
-2026-09-09 — H(s)H reconstruction coverage map
-
-Reusable source-coverage index:
-https://github.com/Satobloc/HsH/blob/main/synthesis/SURVEYED_SOURCES.md
-
-Archive waypoint:
-.[⚙️_AI_FILES]/SHARED_RESOURCES/20260909_hsh-reconstruction-survey-waypoint.md
-
-The index distinguishes full, partial, index-only, duplicate, and merely located
-sources; records exact continuation cursors; and treats RMS/SAT/SAT-O/4DHH/
-Blockwave/Satobloc/H(s)H as a developmental genealogy rather than rival theories.
-------------------------------------------------------------
 
 ------------------------------------------------------------
 2026-09-09 — H(s)H reconstruction coverage map
