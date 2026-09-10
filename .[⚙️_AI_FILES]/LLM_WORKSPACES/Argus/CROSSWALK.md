@@ -128,10 +128,23 @@ This item is not currently exposed as its own row in `..[🎛️_NATHAN_DASH]/..
 
 `EARLY LOGGED/SAT OVERVIEW 17Jun2025.txt` and `EARLY LOGGED/SAT_D3_2_CurvedEigenmodes.py` are provenance-significant source artifacts whose current folder/late Git ingest does not advertise their relationship to the later Q/UV-lock manuscript family. Leave them in place, but add them to future breadcrumb/derivation mapping rather than relying on the `EARLY LOGGED` label.
 
+### Chronology/status resolution — 2026-09-10 audit pass
+
+The exact phrase/role `UV Finiteness Lock` is now securely repository-visible no later than **2025-10-28 00:04:17 UTC** in both `SATOBLOC/SATO-BLOCK-INT.txt` and `SATOBLOC/SATOBLOCK-LIVE.txt`, which entered Git in the same upload commit (`f5cbe9aba986b39ace86c55a7bea53feb854445f`). This is a secure repository/publication anchor for the named formulation, not necessarily its composition date.
+
+Direct inspection of `C5.txt` and the corresponding fully surveyed `SAT & String Theory/SAT & STRING THEORY/C5.txt` lineage changes the mathematical status of the dependency. The archived critique explicitly identifies the use of ordinary Hopf/Borromean linking of freely embedded one-dimensional filaments in full four-dimensional space as a dimensional-topology problem. The subsequent attempted repair introduces a slice-mediated coil interaction with proximity and phase-lock terms. That can supply **energetic/dynamical helical binding**, but it does not by itself restore a topological linking invariant, establish the `n ≤ 3` ceiling, or perform the ultraviolet power-counting/RG work claimed downstream.
+
+The same repair passage proposes `A_μ = ∂_μ Θ` and then invokes matrix-valued phase/triple-filament interactions to reach a Yang–Mills form. As written, this is not a completed non-Abelian gauge derivation: the Abelian `A=dΘ` construction is locally pure gauge, and promoting the phase to a matrix-valued object does not by itself supply an independent connection with nonzero curvature. This remains a historical ansatz/research direction rather than a closed gauge-sector result.
+
+Current H(s)H reconstruction does **not** inherit the old lock as established machinery. `Satobloc/HsH/synthesis/SURVEYED_SOURCES.md` records the C5 coil potential only as an ansatz and rejects the gauge/Polyakov/exact-recovery and slab-linking claims as written. `Satobloc/HsH/synthesis/CURRENT_SYNTHESIS.md` likewise treats generated claims of gauge recovery, exclusion, finiteness, and mass selection as candidate/quarantined, and explicitly warns that a closed or Borromean appearance in a reduced diagram does not establish a closed four-dimensional carrier.
+
+**Updated status:** historical SAT-O/Blockwave synthesis claim; `FRACTURED / UNDERDEFINED` as a derivation pathway; not a current H(s)H result. A viable successor would need to specify where the nontrivial topology actually lives (for example a constrained resolving submanifold, fixed-boundary/defect configuration, or an appropriate extended-object configuration space), derive the admissible sector structure there, and separately establish ultraviolet behavior through propagator asymptotics, divergence counting/counterterm closure, and RG analysis.
+
 ### Coverage limits / next action
 
 - The August-12 FULL_CONVO and its preserved opening attachment material were directly inspected in this audit.
 - The June `SAT OVERVIEW 17Jun2025.txt` sibling and later `PERFECT v2` were directly inspected.
-- Exact first emergence of the phrase `UV Finiteness Lock` has not yet been chronologically isolated.
-- Current Git ingest dates do not establish original composition/public-exposure dates for the June or October-labeled documents.
-- Next provenance step: date the earliest Satobloc/Blockwave file containing the lock phrase and, if possible, recover the conversation turn that performs the conceptual promotion from three-class stability to a UV claim.
+- `C5.txt` was directly read through the critique and slice-mediated coil/gauge repair passage; the HsH survey and current synthesis were directly checked for present-day status.
+- The named lock's repository provenance is now bounded by the 2025-10-28 Git anchor, but the exact conversation turn where the conceptual promotion first occurred remains unresolved.
+- No complete all-orders SAT/Blockwave topological power-counting derivation was recovered in this pass; searches found later summaries asserting one and separate one-loop/audit material, which are not equivalent to a recovered derivation.
+- Next provenance step: locate the source-development conversation for the late-October Blockwave integration and determine whether the UV claim originated as a user inference, assistant proposal, imported analogy, or later synthesis.
