@@ -3,19 +3,15 @@ name: Full Archive Structural Index
 on:
   workflow_dispatch:
   schedule:
-    # Historical archive maintenance: frequent enough to catch active upload periods
-    # without turning every source push into a full-tree scan.
     - cron: "23 9 * * 1,3,5"
   push:
-    branches: [main]
+    branches:
+      - main
     paths:
       - ".github/workflows/full-archive-index.yml"
-      - ".[⚙️_AI_FILES]/TOOLS/index_folder.py"
-      - ".[⚙️_AI_FILES]/CONFIG/folder_indexer_full_archive.txt"
 
 permissions:
   contents: write
-  actions: read
 
 concurrency:
   group: full-archive-structural-index
@@ -35,7 +31,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
       - name: Verify indexer and config
         run: |
@@ -80,11 +76,10 @@ jobs:
             echo "Structural index already current"
             exit 0
           fi
-          # Do not use [skip archive-admin] here: the resulting push intentionally
-          # lets Archive Admin absorb the dashboard append buffer into the sharded
-          # index-history router.
+          # Do not use [skip archive-admin]: Archive Admin should absorb the
+          # Dashboard append buffer into the sharded index-history router.
           git commit -m "Refresh full archive structural index"
           if ! git push origin HEAD:main; then
-            echo "::warning::Main advanced during indexing. A later scheduled/manual pass will refresh from the newer tree; refusing to rebase generated structural artifacts over newer source changes."
+            echo "::warning::Main advanced during indexing. A later scheduled/manual pass will refresh from the newer tree; generated structural artifacts will not be rebased over newer source changes."
             exit 0
           fi
