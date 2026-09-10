@@ -1,0 +1,82 @@
+# OPEN LOOP PROJECTOR
+
+#@title Guitar String (straight filament) in 3D with dot + short trail — lean & Colab-friendly
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
+from IPython.display import HTML, display
+
+# -----------------------
+# parameters (edit here)
+# -----------------------
+n         = 3       #@param {type:"integer"}  # vibration mode (1,2,3,...)
+L         = 4.0     #@param {type:"number"}   # string length (z extent)
+A         = 0.25     #@param {type:"number"}   # transverse amplitude
+frames    = 150     #@param {type:"integer"}  # animation frames
+fps       = 24      #@param {type:"integer"}  # playback fps
+z0        = 0.5*L   #@param {type:"number"}   # z-position of the timesheet intersection (the dot)
+trail_len = 20      #@param {type:"integer"}  # how many past dot points to keep (short trail)
+
+# geometry resolution (keep modest for stability)
+Nz = 200
+z = np.linspace(0, L, Nz)
+
+fig = plt.figure(figsize=(6,6))
+ax = fig.add_subplot(111, projection='3d')
+
+# plot handles
+string_line, = ax.plot([], [], [], lw=2, color='tab:blue', label='string')
+dot,         = ax.plot([], [], [], 'o', ms=6, color='crimson', label='dot')
+trail_line,  = ax.plot([], [], [], lw=1.5, color='crimson', alpha=0.9, label='dot trail')
+
+# axes
+ax.set_xlim(-1.5*A, 1.5*A)
+ax.set_ylim(-0.1, 0.1)  # y is unused, keep at ~0 to make a ribbon-like view
+ax.set_zlim(0, L)
+ax.set_xlabel("x (transverse displacement)")
+ax.set_ylabel("y (≈0)")
+ax.set_zlabel("z (string axis)")
+ax.set_title(f"Guitar String (mode n={n}) with dot at z0 = {z0:.2f}")
+
+# storage for a short trail
+tx, ty, tz = [], [], []
+
+def init():
+    string_line.set_data([], [])
+    string_line.set_3d_properties([])
+    dot.set_data([], [])
+    dot.set_3d_properties([])
+    trail_line.set_data([], [])
+    trail_line.set_3d_properties([])
+    return string_line, dot, trail_line
+
+def update(frame):
+    # time parameter tau in units where the mode frequency is n
+    tau = 2*np.pi*frame/frames
+
+    # vibrating string profile (displacement in x)
+    x = A * np.sin(n*np.pi*z/L) * np.cos(n*tau)
+    y = np.zeros_like(z)
+
+    string_line.set_data(x, y)
+    string_line.set_3d_properties(z)
+
+    # dot at fixed z0 (the “timesheet intersection”)
+    x0 = A * np.sin(n*np.pi*z0/L) * np.cos(n*tau)
+    y0 = 0.0
+
+    dot.set_data([x0], [y0])
+    dot.set_3d_properties([z0])
+
+    # dot trail (keeps last 'trail_len' points so you see the diameter getting traced)
+    tx.append(x0); ty.append(y0); tz.append(z0)
+    if len(tx) > trail_len:
+        del tx[0]; del ty[0]; del tz[0]
+    trail_line.set_data(tx, ty)
+    trail_line.set_3d_properties(tz)
+
+    return string_line, dot, trail_line
+
+anim = FuncAnimation(fig, update, init_func=init, frames=frames, interval=1000/fps, blit=False)
+display(HTML(anim.to_jshtml()))
+plt.close(fig)
