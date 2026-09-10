@@ -34,6 +34,7 @@ ROUTER_MARKER = "ARCHIVE_INDEX_MODE: SHARDED_HISTORY_ROUTER"
 SEP_RE = re.compile(r"(?m)^-{20,}\r?\n(?=INDEXED_UTC:\s*)")
 LEGACY_RE = re.compile(r"(?m)^\[INDEXED\.[^\n]+\]\s*$")
 FIELD_RE = re.compile(r"(?m)^([A-Z][A-Z0-9_]+):\s*(.*?)\s*$")
+TEXT_BLOCK_RE = re.compile(r"```text\s*\r?\n.*?```", re.DOTALL)
 
 
 def now() -> datetime:
@@ -244,7 +245,6 @@ def finalize(target_bytes: int) -> int:
     if ROUTER_MARKER in text:
         log(["ARCHIVE INDEX ROUTER FINALIZE", f"UTC: {iso()}", "NOOP: router already installed"])
         return 0
-    # Care gate: refuse to replace a suspiciously small/non-historical object.
     if len(data) < 500_000 or "INDEXED_UTC:" not in text:
         raise RuntimeError("Master does not look like the expected large historical ledger; refusing migration")
     snap = snapshot_current(data, target_bytes)
@@ -254,9 +254,7 @@ def finalize(target_bytes: int) -> int:
     }
     save_state(state)
     rebuild_history(state)
-    router = build_router(state)
-    MASTER.write_text(router, encoding="utf-8")
-    # Verify rewrite only after exact snapshot preservation exists.
+    MASTER.write_text(build_router(state), encoding="utf-8")
     written = MASTER.read_text(encoding="utf-8")
     if ROUTER_MARKER not in written or SENTINEL not in written:
         raise RuntimeError("Router rewrite verification failed")
@@ -280,16 +278,20 @@ def absorb() -> int:
         return 0
     if SENTINEL not in text:
         raise RuntimeError("Router marker present but append-buffer sentinel missing")
-    prefix, tail = text.split(SENTINEL, 1)
+    _prefix, tail = text.split(SENTINEL, 1)
     payload = tail.lstrip("\r\n")
     if not payload.strip():
         print("Archive Index append buffer empty; absorb noop.")
         return 0
-    # Care gate: only absorb complete index blocks. Unknown material remains visible in Dashboard.
     if "INDEXED_UTC:" not in payload or "```text" not in payload:
         raise RuntimeError("Append buffer contains unrecognized material; leaving Dashboard untouched")
-    if payload.count("```text") != payload.count("```"):
-        raise RuntimeError("Append buffer appears incomplete; leaving Dashboard untouched")
+    opening_count = payload.count("```text")
+    complete_blocks = len(TEXT_BLOCK_RE.findall(payload))
+    if opening_count == 0 or complete_blocks != opening_count:
+        raise RuntimeError(
+            f"Append buffer appears incomplete ({complete_blocks}/{opening_count} complete text blocks); "
+            "leaving Dashboard untouched"
+        )
 
     ACTIVE.mkdir(parents=True, exist_ok=True)
     month = now().strftime("%Y-%m")
@@ -310,6 +312,7 @@ def absorb() -> int:
     log([
         "ARCHIVE INDEX ROUTER ABSORB", f"UTC: {iso()}", f"PAYLOAD_BYTES: {len(pb)}",
         f"PAYLOAD_SHA256: {sha256(pb)}", f"SHARD: {rel(shard)}",
+        f"COMPLETE_TEXT_BLOCKS: {complete_blocks}",
         "SHARD_APPEND_VERIFIED: YES", "DASHBOARD_BUFFER_CLEANED: YES",
     ])
     return 0
