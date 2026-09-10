@@ -283,7 +283,12 @@ def absorb() -> int:
     if not payload.strip():
         print("Archive Index append buffer empty; absorb noop.")
         return 0
-    if "INDEXED_UTC:" not in payload or "```text" not in payload:
+
+    # Current folder indexing writes legacy `[INDEXED.<timestamp>]` blocks; newer
+    # producers may write `INDEXED_UTC:` fields. The router parses both formats,
+    # so validation must accept either before touching the Dashboard buffer.
+    has_supported_header = "INDEXED_UTC:" in payload or LEGACY_RE.search(payload) is not None
+    if not has_supported_header or "```text" not in payload:
         raise RuntimeError("Append buffer contains unrecognized material; leaving Dashboard untouched")
     opening_count = payload.count("```text")
     complete_blocks = len(TEXT_BLOCK_RE.findall(payload))
