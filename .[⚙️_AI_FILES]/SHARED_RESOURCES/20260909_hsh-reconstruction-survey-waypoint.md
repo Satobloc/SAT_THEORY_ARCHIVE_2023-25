@@ -137,3 +137,13 @@ conflicts with pervasive HSUCV/unit-cell, Q<=3, Z3, raw theta4, B, and
 lattice-mode assumptions. Use it as a historical sector/claim registry, not as
 the direct 4DHH curve kernel. Next inspect `4DHH-UC BUILDOUT DEV.txt`, then
 the BYO/Particle-Zoo/notlat equation sources if necessary.
+
+2026-09-09 source correction: root `4DHH LAGRANGIAN (nolat).pdf` was read
+sequentially and visually through all 21 pages. It is an assistant-generated
+stabilization transcript that names six Lagrangian sectors but does not provide
+a parametrized hyperhelix, nested-helix construction, curvature/torsion density,
+variational problem, or equations of motion. Its `(nolat)` filename also
+conflicts with pervasive HSUCV/unit-cell, Q<=3, Z3, raw theta4, B, and
+lattice-mode assumptions. Use it as a historical sector/claim registry, not as
+the direct 4DHH curve kernel. Next inspect `4DHH-UC BUILDOUT DEV.txt`, then
+the BYO/Particle-Zoo/notlat equation sources if necessary.
