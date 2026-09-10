@@ -39,7 +39,7 @@ jobs:
           from pathlib import Path
           from datetime import datetime, timezone
 
-          import fitz  # PyMuPDF
+          import pymupdf
 
           request_path = Path("_AI_REQUESTS/pdf_extract_request.json")
           out_root = Path("_AUTO_EXTRACTED_TEXT")
@@ -96,7 +96,7 @@ jobs:
               return h.hexdigest()
 
           def extract_pdf_pages(path: Path):
-              doc = fitz.open(path)
+              doc = pymupdf.open(path)
               pages = []
               for i, page in enumerate(doc, start=1):
                   text = page.get_text("text") or ""
@@ -305,11 +305,13 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
+          mkdir -p _AUTO_EXTRACTED_TEXT '.[⚙️_AI_FILES]/LOGS/pdf_extractor'
           git add _AUTO_EXTRACTED_TEXT/ '.[⚙️_AI_FILES]/LOGS/pdf_extractor/'
 
           if git diff --cached --quiet; then
             echo "No extracted text or log changes to commit."
           else
             git commit -m "Run PDF text extraction [skip archive-admin]"
+            git pull --rebase origin main
             git push
           fi
