@@ -1,7 +1,7 @@
 # Archive Admin request file
-# STATUS: IDLE
-# Last completed request: 2026-09-10_repository_roles_006
-#
-# Add bounded TASK blocks below when work is requested.
-# After successful execution, return this file to IDLE so later unrelated
-# commits do not replay stale tasks.
+# REQUEST_ID: 2026-09-10_crossrepo_archive_chunk_001
+# REQUESTOR: Cross-repo admin
+# PURPOSE: Non-destructively chunk the large accumulated Dashboard Archive Index, capture the latest root-index baseline, and verify exact byte reassembly before root refresh.
+
+TASK: CHUNK_ARCHIVE_INDEX
+TARGET_BYTES: 180000
