@@ -9,9 +9,45 @@ on:
     paths:
       - ".github/workflows/full-archive-index.yml"
 
+permissions:
+  contents: write
+
 jobs:
-  self-test:
+  full-archive-index:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: echo "full archive index wrapper trigger is valid"
+      - name: Check out current main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run structural indexer
+        run: |
+          python '.[⚙️_AI_FILES]/TOOLS/index_folder.py' --settings '.[⚙️_AI_FILES]/CONFIG/folder_indexer_full_archive.txt'
+
+      - name: Show latest indexer log
+        run: |
+          latest_log=$(ls -t '.[⚙️_AI_FILES]/LOGS/folder_indexer'/folder_indexer_*.txt | head -n 1)
+          echo "$latest_log"
+          cat "$latest_log"
+
+      - name: Commit generated navigation
+        run: |
+          git config user.name "SAT Archive Index Bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add '..findex.txt' '..[🎛️_NATHAN_DASH]/🗄️_ARCHIVE_INDEX.txt' '.[⚙️_AI_FILES]/LOGS/folder_indexer/' || true
+          if git diff --cached --quiet; then
+            echo "Structural index already current"
+            exit 0
+          fi
+          git commit -m "Refresh full archive structural index"
+          if ! git push origin HEAD:main; then
+            echo "Main advanced during indexing; leaving the newer tree untouched for a later fresh pass."
+            exit 0
+          fi
