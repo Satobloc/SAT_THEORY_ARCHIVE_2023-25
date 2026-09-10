@@ -113,6 +113,91 @@ jobs:
               print('No TAG_SAT_MENTIONS task requested.')
           PY
 
+      - name: Run archive index maintenance task if requested
+        run: |
+          python <<'PY'
+          from pathlib import Path
+          import subprocess
+
+          req = Path('.[⚙️_AI_FILES]/REQUESTS/archive_admin_task.txt')
+          if not req.exists():
+              print('No Archive Admin request file found.')
+              raise SystemExit(0)
+
+          text = req.read_text(encoding='utf-8')
+          blocks = []
+          current = None
+          for raw in text.splitlines():
+              line = raw.strip()
+              if not line or line.startswith('#'):
+                  continue
+              if line.upper().startswith('TASK:'):
+                  if current:
+                      blocks.append(current)
+                  current = {'TASK': line.split(':', 1)[1].strip().upper()}
+              elif current is not None and ':' in line:
+                  k, v = line.split(':', 1)
+                  current[k.strip().upper()] = v.strip()
+          if current:
+              blocks.append(current)
+
+          ran = False
+          for b in blocks:
+              task = b.get('TASK')
+              if task == 'CHUNK_ARCHIVE_INDEX':
+                  ran = True
+                  target_bytes = b.get('TARGET_BYTES', '180000')
+                  cmd = [
+                      'python', '.[⚙️_AI_FILES]/TOOLS/archive_index_maintenance.py',
+                      '--task', 'chunk', '--target-bytes', target_bytes,
+                  ]
+              elif task == 'COMPARE_ROOT_INDEX':
+                  ran = True
+                  cmd = [
+                      'python', '.[⚙️_AI_FILES]/TOOLS/archive_index_maintenance.py',
+                      '--task', 'compare',
+                  ]
+              else:
+                  continue
+              print('RUN:', ' '.join(cmd))
+              subprocess.run(cmd, check=True)
+          if not ran:
+              print('No archive-index maintenance task requested.')
+          PY
+
+      - name: Mark completed request idle
+        if: success()
+        run: |
+          python <<'PY'
+          from pathlib import Path
+          import re
+
+          req = Path('.[⚙️_AI_FILES]/REQUESTS/archive_admin_task.txt')
+          if not req.exists():
+              raise SystemExit(0)
+          text = req.read_text(encoding='utf-8')
+          if not any(
+              line.strip().upper().startswith('TASK:')
+              for line in text.splitlines()
+              if line.strip() and not line.strip().startswith('#')
+          ):
+              print('Request already idle.')
+              raise SystemExit(0)
+          m = re.search(r'(?m)^#?\s*REQUEST_ID:\s*(.+?)\s*$', text)
+          request_id = m.group(1).strip() if m else 'unlabeled-request'
+          req.write_text(
+              '# Archive Admin request file\n'
+              '# STATUS: IDLE\n'
+              f'# Last completed request: {request_id}\n'
+              '#\n'
+              '# Add bounded TASK blocks below when work is requested.\n'
+              '# Successful runs automatically return this file to IDLE so unrelated\n'
+              '# later commits cannot replay stale tasks.\n',
+              encoding='utf-8',
+          )
+          print(f'Marked completed request idle: {request_id}')
+          PY
+
       - name: Commit archive admin results
         if: always()
         run: |
