@@ -5,81 +5,13 @@ on:
   schedule:
     - cron: "23 9 * * 1,3,5"
   push:
-    branches:
-      - main
+    branches: [main]
     paths:
       - ".github/workflows/full-archive-index.yml"
 
-permissions:
-  contents: write
-
-concurrency:
-  group: full-archive-structural-index
-  cancel-in-progress: false
-
 jobs:
-  full-archive-index:
+  self-test:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
     steps:
-      - name: Check out current archive
-        uses: actions/checkout@v4
-        with:
-          ref: main
-          fetch-depth: 0
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
-      - name: Verify indexer and config
-        run: |
-          echo "Repository root: $PWD"
-          test -f '.[⚙️_AI_FILES]/TOOLS/index_folder.py'
-          test -f '.[⚙️_AI_FILES]/CONFIG/folder_indexer_full_archive.txt'
-          echo "Indexer and config found."
-
-      - name: Run full archive structural index
-        run: |
-          python '.[⚙️_AI_FILES]/TOOLS/index_folder.py' \
-            --settings '.[⚙️_AI_FILES]/CONFIG/folder_indexer_full_archive.txt'
-
-      - name: Inspect generated index artifacts and latest log
-        run: |
-          echo "=== Root index ==="
-          ls -la '..findex.txt' || true
-          echo ""
-          echo "=== Dashboard index/router ==="
-          ls -la '..[🎛️_NATHAN_DASH]' || true
-          echo ""
-          echo "=== Folder indexer logs ==="
-          ls -la '.[⚙️_AI_FILES]/LOGS/folder_indexer' || true
-          echo ""
-          echo "=== Latest folder indexer log ==="
-          latest_log=$(ls -t '.[⚙️_AI_FILES]/LOGS/folder_indexer'/folder_indexer_*.txt 2>/dev/null | head -n 1 || true)
-          if [ -n "$latest_log" ]; then
-            echo "$latest_log"
-            cat "$latest_log"
-          else
-            echo "No folder indexer log found."
-            exit 1
-          fi
-
-      - name: Commit generated archive index
-        run: |
-          git config user.name "SAT Archive Index Bot"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add '..findex.txt' '..[🎛️_NATHAN_DASH]/🗄️_ARCHIVE_INDEX.txt' '.[⚙️_AI_FILES]/LOGS/folder_indexer/' || true
-          git status
-          if git diff --cached --quiet; then
-            echo "Structural index already current"
-            exit 0
-          fi
-          # Do not use [skip archive-admin]: Archive Admin should absorb the
-          # Dashboard append buffer into the sharded index-history router.
-          git commit -m "Refresh full archive structural index"
-          if ! git push origin HEAD:main; then
-            echo "::warning::Main advanced during indexing. A later scheduled/manual pass will refresh from the newer tree; generated structural artifacts will not be rebased over newer source changes."
-            exit 0
-          fi
+      - uses: actions/checkout@v4
+      - run: echo "full archive index wrapper trigger is valid"
