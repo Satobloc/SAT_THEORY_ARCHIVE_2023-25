@@ -50,11 +50,6 @@ jobs:
               '        f"MAX_DEPTH_REQUESTED: {max_depth_requested}",\n        f"MAX_DEPTH_USED: {max_depth}",\n        f"DEPTH_SELECTION_MODE: {depth_selection_mode}",\n        f"MAX_ENTRIES_REQUESTED: {max_entries_requested}",\n        f"MAX_ENTRIES_USED: {max_entries}",\n        f"ENTRY_LIMIT_SELECTION_MODE: {entry_limit_selection_mode}",'
           )
 
-          text = text.replace(
-              '        f"MAX_DEPTH: {max_depth}",\n        f"MAX_ENTRIES: {max_entries}",',
-              '        f"MAX_DEPTH_REQUESTED: {max_depth_requested}",\n        f"MAX_DEPTH_USED: {max_depth}",\n        f"DEPTH_SELECTION_MODE: {depth_selection_mode}",\n        f"MAX_ENTRIES_REQUESTED: {max_entries_requested}",\n        f"MAX_ENTRIES_USED: {max_entries}",\n        f"ENTRY_LIMIT_SELECTION_MODE: {entry_limit_selection_mode}",'
-          )
-
           path.write_text(text, encoding='utf-8')
           PY
 
@@ -157,6 +152,13 @@ jobs:
                       'python', '.[⚙️_AI_FILES]/TOOLS/archive_index_maintenance.py',
                       '--task', 'compare',
                   ]
+              elif task == 'FINALIZE_ARCHIVE_INDEX_SHARDING':
+                  ran = True
+                  target_bytes = b.get('TARGET_BYTES', '180000')
+                  cmd = [
+                      'python', '.[⚙️_AI_FILES]/TOOLS/archive_index_router.py',
+                      '--task', 'finalize', '--target-bytes', target_bytes,
+                  ]
               else:
                   continue
               print('RUN:', ' '.join(cmd))
@@ -164,6 +166,11 @@ jobs:
           if not ran:
               print('No archive-index maintenance task requested.')
           PY
+
+      - name: Absorb Archive index append buffer into dated shard
+        if: success()
+        run: |
+          python '.[⚙️_AI_FILES]/TOOLS/archive_index_router.py' --task absorb
 
       - name: Mark completed request idle
         if: success()
