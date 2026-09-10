@@ -1,7 +1,7 @@
 # Archive Admin request file
-# REQUEST_ID: 2026-09-10_crossrepo_archive_shard_test_005_retry
-# REQUESTOR: Cross-repo admin
-# PURPOSE: Retry only the safe shard-finalization/absorb path after fixing fence validation. Existing Dashboard append buffer is preserved from the failed integration test; finalize should detect the installed router and no-op, then absorb should move that already-generated block into the dated shard.
-
-TASK: FINALIZE_ARCHIVE_INDEX_SHARDING
-TARGET_BYTES: 180000
+# STATUS: IDLE
+# Last completed request: 2026-09-10_crossrepo_archive_shard_test_005_retry
+#
+# Add bounded TASK blocks below when work is requested.
+# Successful runs automatically return this file to IDLE so unrelated
+# later commits cannot replay stale tasks.

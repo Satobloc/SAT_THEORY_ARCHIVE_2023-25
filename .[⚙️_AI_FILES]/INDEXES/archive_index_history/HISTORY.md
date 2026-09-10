@@ -12,4 +12,4 @@ Human/AI router for preserved historical index snapshots and post-migration shar
 - Manifest: `.[⚙️_AI_FILES]/INDEXES/archive_index_history/snapshots/471b1e63d1b3fe09/manifest.json`
 
 ## Active shards
-No post-migration shards yet.
+- `.[⚙️_AI_FILES]/INDEXES/archive_index_history/active/2026-09.txt` — 604 bytes — SHA-256 `859c2cacb2da1557503d4d06c7dc46f8b5acb88d125f1ba1fd97e4f333c09864` — 2026-09-10T11:34:08.018004+00:00 → 2026-09-10T11:34:08.018004+00:00
