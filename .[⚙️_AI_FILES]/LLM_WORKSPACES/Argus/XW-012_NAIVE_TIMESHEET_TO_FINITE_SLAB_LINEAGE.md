@@ -15,18 +15,18 @@ The file is a mixed Notebook-style transcript. A firsthand Nathan passage states
 The immediately following generated response interprets this as a transition from an infinitesimal 3D resolving slice to finite-sheet resolution of the filament neighborhood.
 
 ## Provenance consequence
-This resolves an important ambiguity left open in XW-011: **finite resolving thickness was not solely an assistant-generated topological rescue or later notation introduced in `H(s)H MANIFOLDS.txt`. Nathan explicitly proposed moving from a “naïve timesheet” to a “slab thickness with flow dynamics model.”**
+This resolves an important ambiguity left open in XW-011: **finite resolving thickness was not solely an assistant-generated topological rescue or notation confined to `H(s)H MANIFOLDS.txt`. Nathan explicitly proposed moving from a “naïve timesheet” to a “slab thickness with flow dynamics model.”**
 
 However, the exact composition date of this firsthand statement remains unresolved from the inspected source. The source displays relative UI timestamps (“Today”), so no absolute date is assigned here. The secure public repository bound is 2026-09-04T19:57:55Z.
 
-## Relation to later formalization
-`H(s)H Dev +/H(s)H MANIFOLDS.txt` begins with `7/4/2026` and contains the later explicit slab notation
+## Relation to the explicit manifold formalization
+`H(s)H Dev +/H(s)H MANIFOLDS.txt` begins with `7/4/2026` and contains the explicit slab notation
 
 \[
 \Sigma_t^{(h)}=\{x\in \mathbb E_{\exp}:|\tau(x)-t|\le h_\Sigma/2\}.
 \]
 
-That document cites internal numeric tags `(54, 849)` and later `(2, 90, 1133)`, but those tags have not yet been resolved to source artifacts. Its formalization therefore remains provenance-incomplete even though the concept now has a direct Nathan-authored antecedent.
+That document cites internal numeric tags `(54, 849)` and later `(2, 90, 1133)`, but those tags have not yet been resolved to source artifacts. Because the firsthand transcript’s absolute composition date is unresolved, **no chronological ordering is assigned between the Nathan slab statement and the `7/4/2026` manifold formalization** until those source tags or an absolute transcript date are recovered. The formalization is provenance-incomplete even though a direct Nathan-authored statement of the slab idea now exists elsewhere in the archive.
 
 ## Architecture discrimination
 The firsthand statement supports **finite resolving-intersection thickness as an explicitly considered historical architecture component**, but does not determine:
@@ -65,4 +65,4 @@ The open dependency is no longer merely “why was finite thickness introduced?�
 Nothing in the inspected firsthand passage derives a value for `h_Σ`, specifies whether the slab samples bulk/support/boundary, or defines the map from 4D worldtube data through the slab to resolved observables.
 
 ## Next quarry target
-Resolve the internal source tags behind `H(s)H MANIFOLDS.txt` — especially `(54, 849)` and `(2, 90, 1133)` — or locate the development conversation where the finite-sheet notation `P_t^(h)` / `Σ_t^(h)` first appears. Goal: determine whether the slab formula was Nathan-authored, collaboratively derived, or generated as a formalization of the firsthand slab proposal.
+Resolve the internal source tags behind `H(s)H MANIFOLDS.txt` — especially `(54, 849)` and `(2, 90, 1133)` — or locate the development conversation where the finite-sheet notation `P_t^(h)` / `Σ_t^(h)` first appears. Goal: determine the earliest source ordering and whether the slab formula was Nathan-authored, collaboratively derived, or generated as a formalization of the firsthand slab proposal.
