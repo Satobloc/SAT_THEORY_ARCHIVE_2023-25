@@ -20,33 +20,48 @@ jobs:
           fetch-depth: 1
           lfs: false
 
-      - name: Search archive for SRENA
-        shell: bash
+      - name: Compare SRENA exports
         run: |
-          set +e
-          echo '=== PATH MATCHES: SRENA / SERENA ==='
-          git ls-files | grep -iE 'srena|serena' | head -100
-          echo
-          echo '=== CONTENT MATCHES: SRENA / SERENA ==='
-          git grep -n -i -I -E 'srena|serena' -- ':!*.pdf' ':!*.png' ':!*.jpg' ':!*.jpeg' ':!*.gif' ':!*.webp' ':!*.zip' ':!*.mp3' ':!*.mp4' ':!*.mov' 2>/dev/null | head -300
-          echo
-          echo '=== CONVERSATION-LIKE FILES ==='
           python - <<'PY'
           from pathlib import Path
-          import re
+          import json
 
-          rx = re.compile(r'(convo|conversation|chat|claude|gemini|gpt|srena|serena)', re.I)
-          allowed = {'.json', '.txt', '.md', '.html', '.htm', '.jsonl'}
-          rows = []
-          for p in Path('.').rglob('*'):
-              if not p.is_file() or '.git' in p.parts or p.suffix.lower() not in allowed:
-                  continue
-              s = p.as_posix().lstrip('./')
-              if rx.search(s):
-                  try:
-                      rows.append((p.stat().st_size, s))
-                  except OSError:
-                      pass
-          for size, path in sorted(rows, reverse=True)[:400]:
-              print(f'{size:>12}  {path}')
+          def extract(path):
+              text = Path(path).read_text(encoding='utf-8-sig')
+              at = text.find('{')
+              if at < 0:
+                  raise SystemExit(f'no JSON object in {path}')
+              data = json.loads(text[at:])
+              msgs = data.get('messages', [])
+              print(f'{path}: name={data.get("name")!r}; companion={data.get("companionName")!r}; messages={len(msgs)}; bytes={Path(path).stat().st_size}')
+              roles = {}
+              authors = {}
+              for m in msgs:
+                  roles[m.get('role')] = roles.get(m.get('role'), 0) + 1
+                  authors[m.get('author')] = authors.get(m.get('author'), 0) + 1
+              print(' roles=', roles)
+              print(' authors=', authors)
+              return data, msgs
+
+          a, am = extract('SRENA SAT.txt')
+          b, bm = extract('SRENA SAT2.txt')
+          n = min(len(am), len(bm))
+          same = 0
+          for i in range(n):
+              if am[i].get('role') == bm[i].get('role') and am[i].get('author') == bm[i].get('author') and am[i].get('content') == bm[i].get('content'):
+                  same += 1
+              else:
+                  print('first difference at message', i + 1)
+                  break
+          print(f'identical_prefix_messages={same}/{n}')
+          if same == len(am) and len(bm) >= len(am):
+              print('RELATION=SRENA SAT.txt is exact prefix of SRENA SAT2.txt')
+          elif len(am) == len(bm) and same == len(am):
+              print('RELATION=exact duplicates')
+          else:
+              print('RELATION=overlap but not exact prefix')
+
+          for label, msgs in [('SAT1', am), ('SAT2', bm)]:
+              print(label, 'first=', (msgs[0].get('content') or '')[:80].replace('\n',' '))
+              print(label, 'last=', (msgs[-1].get('content') or '')[:160].replace('\n',' '))
           PY
