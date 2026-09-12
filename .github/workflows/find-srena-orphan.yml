@@ -1,0 +1,52 @@
+name: Find SRENA orphan
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/find-srena-orphan.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  search:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+          lfs: false
+
+      - name: Search archive for SRENA
+        shell: bash
+        run: |
+          set +e
+          echo '=== PATH MATCHES: SRENA / SERENA ==='
+          git ls-files | grep -iE 'srena|serena' | head -100
+          echo
+          echo '=== CONTENT MATCHES: SRENA / SERENA ==='
+          git grep -n -i -I -E 'srena|serena' -- ':!*.pdf' ':!*.png' ':!*.jpg' ':!*.jpeg' ':!*.gif' ':!*.webp' ':!*.zip' ':!*.mp3' ':!*.mp4' ':!*.mov' 2>/dev/null | head -300
+          echo
+          echo '=== CONVERSATION-LIKE FILES ==='
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          rx = re.compile(r'(convo|conversation|chat|claude|gemini|gpt|srena|serena)', re.I)
+          allowed = {'.json', '.txt', '.md', '.html', '.htm', '.jsonl'}
+          rows = []
+          for p in Path('.').rglob('*'):
+              if not p.is_file() or '.git' in p.parts or p.suffix.lower() not in allowed:
+                  continue
+              s = p.as_posix().lstrip('./')
+              if rx.search(s):
+                  try:
+                      rows.append((p.stat().st_size, s))
+                  except OSError:
+                      pass
+          for size, path in sorted(rows, reverse=True)[:400]:
+              print(f'{size:>12}  {path}')
+          PY
