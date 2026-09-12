@@ -11,9 +11,9 @@
 | Durable picture | **ACTIVE** — complete filament history → resolving wavefront → local intersection/readout; nested helical morphology records structure | [Fundamental Intuitions — Extended](https://github.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/blob/main/THE%20FUNDAMENTAL%20INTUITIONS%20%E2%80%94%20EXTENDED.pdf) |
 | Current synthesis | **ACTIVE / provisional** — H(s)H parametrizes a modeled finite-core history; it is not the object or reality-in-itself | [Synthesis](https://github.com/Satobloc/HsH/blob/main/synthesis/CURRENT_SYNTHESIS.md) · [checkpoint](https://github.com/Satobloc/HsH/blob/main/checkpoints/CURRENT.md) |
 | Present choke point | **OPEN** — select and couple finite core, interface, material support, boundary, resolver, and centerline limit | [Worldtube Lab](https://github.com/Satobloc/HsH/tree/main/WORKSPACES/WORLDTUBE_LAB) |
-| Frozen local result | **FROZEN / mathematical scope** — `B³` bulk, `B²` support, `S²` boundary, and finite-thickness readout are distinct roles | [Finite-core ledger](https://github.com/Satobloc/HsH/blob/main/ledgers/FINITE_CORE_COMPARISON.md) |
-| Empirical output | **NONE FROZEN** — first scaling discriminator remains `UNFROZEN` pending carrier and observable map | [Prediction ledger](https://github.com/Satobloc/HsH/blob/main/ledgers/PREDICTION_LEDGER.md) |
-| Papers | **SKELETON** — HSH-P001; mathematical baseline frozen, model selection open | [Paper pipeline](https://github.com/Satobloc/HsH/blob/main/NEW_PAPERS/SEPTEMER_2026/PAPER_PIPELINE.md) |
+| Frozen local result | **FROZEN / mathematical scope** — typed dimensions, canonical moment discriminator, transverse readout, and isotropic-rotation gauge null | [finite-core ledger](https://github.com/Satobloc/HsH/blob/main/ledgers/FINITE_CORE_COMPARISON.md) · [packet 001](https://github.com/Satobloc/HsH/blob/main/WORKSPACES/WORLDTUBE_LAB/FINITE_CORE_CROSS_SECTION_PACKET_001.md) |
+| Empirical output | **NONE FROZEN** — PRED-FC-002 is a geometric `CANDIDATE`; carrier and measurement channel remain open | [Prediction ledger](https://github.com/Satobloc/HsH/blob/main/ledgers/PREDICTION_LEDGER.md) |
+| Papers | **TECHNICAL OUTLINE** — HSH-P001 local lemmas frozen; model and empirical claims open | [Paper pipeline](https://github.com/Satobloc/HsH/blob/main/NEW_PAPERS/SEPTEMER_2026/PAPER_PIPELINE.md) |
 
 ## Programme switchboard
 
@@ -46,4 +46,4 @@
 
 ## Next decision
 
-**Freeze or repair FC-BASE-001:** test anisotropic/nontransverse cases and specify the minimum `SO(3)` frame/axis data needed for scalar `ᚼ`. [Open handoff](https://github.com/Satobloc/HsH/blob/main/WORKSPACES/COMMON/HANDOFFS.md).
+**Freeze or repair FC-BASE-002:** Ravel should reproduce the transverse map, canonical moments, and isotropic-core gauge null against the particle-scale candidate, then identify the first required material director or boundary field. [Open handoff](https://github.com/Satobloc/HsH/blob/main/WORKSPACES/COMMON/HANDOFFS.md).
