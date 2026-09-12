@@ -1,7 +1,19 @@
 SHARED RESOURCES INTAKE
 
 Purpose:
-This folder is the generic drop zone for useful, non-automatic resources created or discovered by archive users/AI instances.
+This folder is the archive-side common area for useful, non-automatic resources created or discovered by archive users/AI instances. It is also the durable shared-resource counterpart to the current-build coordination area at Satobloc/HsH/WORKSPACES/COMMON/.
+
+PUBLIC / PRIVATE REPOSITORY BOUNDARY:
+- Satobloc/SAT_THEORY_ARCHIVE_2023-25 and Satobloc/HsH are the public project-record pair. Cross-link them bidirectionally when doing so improves provenance, chronology, navigation, or development traceability.
+- Satobloc/HSH_RESOURCES is private/reference-only. Do not use a private HSH_RESOURCES GitHub link as the public evidence surface in this archive or in HsH.
+- When reference material found in HSH_RESOURCES is used publicly, carry it across as a Chicago-style citation to the original source, an attributed quotation/extract with page/location information, or a sourced summary/paraphrase. Private/raw project data should be represented by an appropriate public-safe extract or summary with provenance.
+- Internal/private research records may keep the exact HSH_RESOURCES path/hash for recovery; that locator is not the public citation.
+
+WORKSPACE COORDINATION:
+- Use HsH/WORKSPACES/<name>/ for substantial focused current-build work.
+- Use HsH/WORKSPACES/COMMON/ for concise active handoffs, blockers, shared questions, and cross-agent coordination.
+- Use this historical SHARED_RESOURCES folder for durable archive-side methods, reconstruction aids, heuristics, wayfinding, cross-repo maintenance notes, and resources useful to later archive workers.
+- Do not let either common area become a substitute synthesis. Promote stable results to their proper ledgers, audits, timeline/provenance documents, synthesis, formalization, indexes, or source records.
 
 Use this folder when an instance:
 
