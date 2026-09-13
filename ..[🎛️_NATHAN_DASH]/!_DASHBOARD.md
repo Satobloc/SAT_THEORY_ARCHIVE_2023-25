@@ -1,7 +1,9 @@
-# SAT / H(s)H Dashboard
+> **QUARANTINED — 2026-09-13:** Nathan halted the originating integration lane after identifying a category failure in its assessment process. This generated artifact is preserved only as history and must not control theory or future work. See the [quarantine manifest](https://github.com/Satobloc/HsH/blob/main/QUARANTINE/2026-09-13_INTEGRATION_HALT/README.md).
+
+# SAT / H(s)H Dashboard — QUARANTINED
 
 **Updated:** 2026-09-12  
-**Use:** live access page. Linked artifacts control; this page does not promote claims.  
+**Use:** archival snapshot only. It is not a live access or control page.  
 **Status:** `FROZEN` = fixed only in stated scope · `ACTIVE` = current construction · `OPEN` = unresolved · `HISTORICAL` = retained genealogy · `QUARANTINED` = unsupported dependency.
 
 ## State of the theory
