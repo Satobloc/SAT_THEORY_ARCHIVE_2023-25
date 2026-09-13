@@ -1,3 +1,5 @@
+> **QUARANTINED — 2026-09-13:** Nathan halted the originating integration lane after identifying a category failure in its assessment process. This generated artifact is preserved only as history and must not control theory or future work. See the [quarantine manifest](https://github.com/Satobloc/HsH/blob/main/QUARANTINE/2026-09-13_INTEGRATION_HALT/README.md).
+
 # Annotated cross-archive survey
 
 Updated: 2026-09-09
