@@ -44,3 +44,14 @@ Use this file only when Nathan explicitly asks that something be ignored, redact
 - **Reason:** Nathan explicitly stated that it is not a thing.
 - **Audit handling:** phrase excluded from terminology/tag vocabulary; no corpus tag bearing this name was found in the durable batch ledger.
 - **Status:** `APPLIED`
+
+### 2026-09-14 — Kerr / Kelvin / Whirligig current-status correction
+
+- **Requested by:** Nathan
+- **Request type:** `DOWNGRADE` / status correction
+- **Affected repository/source:** analyst summaries, synthesis/status labels, tags, and future metadata wherever Kerr, Kelvin, Whirligig, or `donut` as a Whirligig synonym are classified as historical rather than current/live H(s)H hypotheses
+- **Affected message/item IDs:** current live Nathan correction; exact raw message ID not yet backfilled
+- **Exact scope of requested action:** Strip incorrect `historical` status from Kerr, Kelvin, and Whirligig/Donut-as-Whirligig. Treat them as live H(s)H hypotheses. Kerr construction work should be routed through the RAVEL conversation family.
+- **Reason:** Nathan explicitly stated these are later conclusions and that the historical classification is reversed.
+- **Audit handling:** current status recorded in `Satobloc/HsH/WORKSPACES/COMMON/CURRENT_HSH_HYPOTHESIS_STATUS_2026-09-14.md`; preserve prior misclassification only as audit history, not as current theory status.
+- **Status:** `APPLIED`
