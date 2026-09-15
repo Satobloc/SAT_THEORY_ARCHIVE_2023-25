@@ -12,6 +12,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: full-archive-structural-index
+  cancel-in-progress: false
+
 jobs:
   full-archive-index:
     runs-on: ubuntu-latest
@@ -27,27 +31,44 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Run structural indexer
+      - name: Regenerate, validate, and publish structural index
+        shell: bash
         run: |
-          python '.[⚙️_AI_FILES]/TOOLS/index_folder.py' --settings '.[⚙️_AI_FILES]/CONFIG/folder_indexer_full_archive.txt'
-
-      - name: Show latest indexer log
-        run: |
-          latest_log=$(ls -t '.[⚙️_AI_FILES]/LOGS/folder_indexer'/folder_indexer_*.txt | head -n 1)
-          echo "$latest_log"
-          cat "$latest_log"
-
-      - name: Commit generated navigation
-        run: |
+          set -euo pipefail
           git config user.name "SAT Archive Index Bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add '..findex.txt' '..[🎛️_NATHAN_DASH]/🗄️_ARCHIVE_INDEX.txt' '.[⚙️_AI_FILES]/LOGS/folder_indexer/' || true
-          if git diff --cached --quiet; then
-            echo "Structural index already current"
-            exit 0
-          fi
-          git commit -m "Refresh full archive structural index"
-          if ! git push origin HEAD:main; then
-            echo "Main advanced during indexing; leaving the newer tree untouched for a later fresh pass."
-            exit 0
-          fi
+
+          # Generated navigation is a snapshot of the repository tree. Never rebase a
+          # generated snapshot after computation: if main advances, discard the local
+          # generated commit, reset to newest main, regenerate, validate, and retry.
+          for attempt in 1 2 3 4; do
+            echo "Publish attempt ${attempt}/4"
+            git fetch origin main
+            git reset --hard origin/main
+
+            python '.[⚙️_AI_FILES]/TOOLS/index_folder.py' --settings '.[⚙️_AI_FILES]/CONFIG/folder_indexer_full_archive.txt'
+
+            latest_log=$(ls -t '.[⚙️_AI_FILES]/LOGS/folder_indexer'/folder_indexer_*.txt | head -n 1)
+            test -s "$latest_log"
+            test -s '..findex.txt'
+            test -s '..[🎛️_NATHAN_DASH]/🗄️_ARCHIVE_INDEX.txt'
+            echo "$latest_log"
+            cat "$latest_log"
+
+            git add '..findex.txt' '..[🎛️_NATHAN_DASH]/🗄️_ARCHIVE_INDEX.txt' '.[⚙️_AI_FILES]/LOGS/folder_indexer/'
+            if git diff --cached --quiet; then
+              echo "Structural index already current on latest main"
+              exit 0
+            fi
+
+            git commit -m "[skip archive-index] Refresh full archive structural index"
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+
+            echo "Push race on attempt ${attempt}; discarding generated commit and rebuilding from latest main." >&2
+            sleep $((attempt * 2))
+          done
+
+          echo "Structural index changed but could not be published after four rebuild-from-main attempts." >&2
+          exit 1
