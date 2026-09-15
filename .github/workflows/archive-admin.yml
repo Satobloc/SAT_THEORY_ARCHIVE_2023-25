@@ -10,6 +10,10 @@ permissions:
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
+concurrency:
+  group: archive-admin-main
+  cancel-in-progress: false
+
 jobs:
   archive-admin:
     if: "!contains(github.event.head_commit.message, '[skip archive-admin]')"
@@ -20,7 +24,8 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 1
+          ref: main
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -167,13 +172,17 @@ jobs:
               print('No archive-index maintenance task requested.')
           PY
 
-      - name: Absorb Archive index append buffer into dated shard
-        if: success()
+      - name: Safely attempt append-buffer absorption
         run: |
+          set +e
           python '.[⚙️_AI_FILES]/TOOLS/archive_index_router.py' --task absorb
+          STATUS=$?
+          if [ "$STATUS" -ne 0 ]; then
+            echo "::warning::Archive append buffer was not absorbed. The router rejected material it could not classify and left the Dashboard/index state untouched. Routine Archive Admin work will continue; inspect or explicitly route the buffer separately."
+          fi
+          exit 0
 
       - name: Mark completed request idle
-        if: success()
         run: |
           python <<'PY'
           from pathlib import Path
@@ -206,9 +215,9 @@ jobs:
           PY
 
       - name: Commit archive admin results
-        if: always()
+        shell: bash
         run: |
-          set +e
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add '..[🎛️_NATHAN_DASH]' '.[⚙️_AI_FILES]' '..findex.txt'
@@ -217,15 +226,7 @@ jobs:
             exit 0
           fi
           git commit -m "Run archive admin [skip archive-admin]"
-          COMMIT_STATUS=$?
-          if [ $COMMIT_STATUS -ne 0 ]; then
-            echo "Commit failed with status $COMMIT_STATUS"
-            exit 0
+          if ! git push origin HEAD:main; then
+            echo "::error::Archive Admin produced changes but main advanced before publication. This workflow will not hide the failed push or merge stale admin state; a fresh run must recompute from current main."
+            exit 1
           fi
-          git push
-          PUSH_STATUS=$?
-          if [ $PUSH_STATUS -ne 0 ]; then
-            echo "Push failed with status $PUSH_STATUS"
-            exit 0
-          fi
-          exit 0
