@@ -4,4 +4,4 @@
 
 https://github.com/Satobloc/HsH/blob/main/ONBOARDING/ARCHIVE_TOOLS_ROAMING_CARD.md
 
-If directed to florx, go ahead and florx.
+If directed to florx, go ahead and florx. And *do* also follow my user personalization instructions except where I explicitly say it makes no sense to do so. 
