@@ -1,14 +1,9 @@
 {
-  "schema_version": 2,
-  "parser_version": "2026-09-23.1",
-  "project_id": "floating-liars-club",
+  "schema_version": 3,
   "issue_id": "02",
   "issue_title": "november 2002",
-  "source_file": "flc2_lo.pdf",
-  "source_sha256": "1ce7ebcf5c15940e6569949a203b2cac44a927d8bcf4ea0350b4239636a484c3",
-  "generated_utc": "2026-09-23T13:07:23+00:00",
-  "method": "spread-aware Tesseract TSV -> logical left/right pages -> printed-page reconstruction -> title-anchor story spans",
-  "review_state": "auto-only",
+  "story_boundary_method": "source-reviewed printed contents table",
+  "page_parser": "one photographed page -> column-aware OCR -> printed page number",
   "stories": [
     {
       "story_id": "02-elders-love-garden",
@@ -18,21 +13,22 @@
       "start_printed_page": 4,
       "end_printed_page": 8,
       "boundary_basis": "source-reviewed printed contents table",
-      "text_state": "spread-split-ocr-provisional",
-      "logical_page_count": 12,
-      "printed_pages": [
+      "text_state": "page-aware-column-ocr-provisional",
+      "text_completeness": "page-range-partial / text-unreviewed",
+      "resolved_page_count": 2,
+      "expected_page_count": 5,
+      "missing_printed_pages": [
         4,
-        4,
-        4,
-        4,
-        4,
-        5,
-        5,
-        5,
         6,
-        7,
-        8,
         8
+      ],
+      "unplaced_candidate_pdf_pages": [
+        3,
+        7
+      ],
+      "resolved_printed_pages": [
+        5,
+        7
       ],
       "story_json": "stories/elders-in-the-love-garden.json"
     },
@@ -44,12 +40,20 @@
       "start_printed_page": 9,
       "end_printed_page": 12,
       "boundary_basis": "source-reviewed printed contents table",
-      "text_state": "spread-split-ocr-provisional",
-      "logical_page_count": 2,
-      "printed_pages": [
+      "text_state": "printed-pages-not-yet-resolved",
+      "text_completeness": "unresolved",
+      "resolved_page_count": 0,
+      "expected_page_count": 4,
+      "missing_printed_pages": [
         9,
-        10
+        10,
+        11,
+        12
       ],
+      "unplaced_candidate_pdf_pages": [
+        3
+      ],
+      "resolved_printed_pages": [],
       "story_json": "stories/two-skirmishes-in-the-never-ending-war-in-rural-ohio.json"
     },
     {
@@ -60,9 +64,23 @@
       "start_printed_page": 13,
       "end_printed_page": 17,
       "boundary_basis": "source-reviewed printed contents table",
-      "text_state": "logical-pages-not-yet-resolved",
-      "logical_page_count": 0,
-      "printed_pages": [],
+      "text_state": "printed-pages-not-yet-resolved",
+      "text_completeness": "unresolved",
+      "resolved_page_count": 0,
+      "expected_page_count": 5,
+      "missing_printed_pages": [
+        13,
+        14,
+        15,
+        16,
+        17
+      ],
+      "unplaced_candidate_pdf_pages": [
+        15,
+        16,
+        17
+      ],
+      "resolved_printed_pages": [],
       "story_json": "stories/timothy.json"
     },
     {
@@ -73,9 +91,25 @@
       "start_printed_page": 18,
       "end_printed_page": 24,
       "boundary_basis": "source-reviewed printed contents table",
-      "text_state": "logical-pages-not-yet-resolved",
-      "logical_page_count": 0,
-      "printed_pages": [],
+      "text_state": "page-aware-column-ocr-provisional",
+      "text_completeness": "page-range-partial / text-unreviewed",
+      "resolved_page_count": 6,
+      "expected_page_count": 7,
+      "missing_printed_pages": [
+        18,
+        20
+      ],
+      "unplaced_candidate_pdf_pages": [
+        3
+      ],
+      "resolved_printed_pages": [
+        19,
+        21,
+        22,
+        22,
+        23,
+        24
+      ],
       "story_json": "stories/the-dreams-a-sleeping-lion.json"
     },
     {
@@ -86,11 +120,18 @@
       "start_printed_page": 25,
       "end_printed_page": 28,
       "boundary_basis": "source-reviewed printed contents table",
-      "text_state": "spread-split-ocr-provisional",
-      "logical_page_count": 3,
-      "printed_pages": [
+      "text_state": "page-aware-column-ocr-provisional",
+      "text_completeness": "page-range-complete / text-unreviewed",
+      "resolved_page_count": 4,
+      "expected_page_count": 4,
+      "missing_printed_pages": [],
+      "unplaced_candidate_pdf_pages": [
+        3
+      ],
+      "resolved_printed_pages": [
+        25,
+        26,
         27,
-        28,
         28
       ],
       "story_json": "stories/the-memory-of-flesh.json"
@@ -103,15 +144,21 @@
       "start_printed_page": 29,
       "end_printed_page": 34,
       "boundary_basis": "source-reviewed printed contents table",
-      "text_state": "spread-split-ocr-provisional",
-      "logical_page_count": 7,
-      "printed_pages": [
+      "text_state": "page-aware-column-ocr-provisional",
+      "text_completeness": "page-range-partial / text-unreviewed",
+      "resolved_page_count": 2,
+      "expected_page_count": 6,
+      "missing_printed_pages": [
         29,
-        29,
-        30,
-        30,
         31,
         32,
+        34
+      ],
+      "unplaced_candidate_pdf_pages": [
+        3
+      ],
+      "resolved_printed_pages": [
+        30,
         33
       ],
       "story_json": "stories/the-recovery-of-sunken-vessels.json"
@@ -124,9 +171,18 @@
       "start_printed_page": 35,
       "end_printed_page": 36,
       "boundary_basis": "source-reviewed printed contents table",
-      "text_state": "logical-pages-not-yet-resolved",
-      "logical_page_count": 0,
-      "printed_pages": [],
+      "text_state": "printed-pages-not-yet-resolved",
+      "text_completeness": "unresolved",
+      "resolved_page_count": 0,
+      "expected_page_count": 2,
+      "missing_printed_pages": [
+        35,
+        36
+      ],
+      "unplaced_candidate_pdf_pages": [
+        3
+      ],
+      "resolved_printed_pages": [],
       "story_json": "stories/a-cover-letter.json"
     },
     {
@@ -137,13 +193,20 @@
       "start_printed_page": 37,
       "end_printed_page": 38,
       "boundary_basis": "source-reviewed printed contents table",
-      "text_state": "spread-split-ocr-provisional",
-      "logical_page_count": 1,
-      "printed_pages": [
+      "text_state": "page-aware-column-ocr-provisional",
+      "text_completeness": "page-range-partial / text-unreviewed",
+      "resolved_page_count": 1,
+      "expected_page_count": 2,
+      "missing_printed_pages": [
+        37
+      ],
+      "unplaced_candidate_pdf_pages": [
+        3
+      ],
+      "resolved_printed_pages": [
         38
       ],
       "story_json": "stories/concrete-afternoon.json"
     }
-  ],
-  "story_boundary_method": "source-reviewed printed contents table"
+  ]
 }

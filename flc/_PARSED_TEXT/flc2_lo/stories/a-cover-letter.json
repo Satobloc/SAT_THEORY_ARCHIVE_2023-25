@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "story_id": "02-cover-letter",
   "slug": "a-cover-letter",
   "title": "A Cover Letter",
@@ -8,11 +8,28 @@
   "start_printed_page": 35,
   "end_printed_page": 36,
   "boundary_basis": "source-reviewed printed contents table",
-  "text_state": "logical-pages-not-yet-resolved",
+  "text_state": "printed-pages-not-yet-resolved",
+  "text_completeness": "unresolved",
   "review_state": "unresolved",
   "reading_order_basis": null,
-  "logical_pages": [],
+  "expected_printed_pages": [
+    35,
+    36
+  ],
+  "resolved_printed_pages": [],
+  "missing_printed_pages": [
+    35,
+    36
+  ],
+  "unplaced_candidate_pages": [
+    {
+      "pdf_page": 3,
+      "story_hit_score": 14,
+      "reason": "story title/running-title OCR hit but printed page unresolved"
+    }
+  ],
+  "pages": [],
   "display_text": null,
   "display_text_sha256": null,
-  "editorial_note": "Story range comes from the printed contents table; page-number reconstruction and OCR wording remain provisional until checked against the facsimile."
+  "editorial_note": "Story range comes from the printed contents table. PDF page order is ignored. Page-number recovery, column reading order, paragraphing and OCR wording remain provisional until checked against the facsimile. Unnumbered pages are surfaced as candidates rather than silently inserted."
 }
