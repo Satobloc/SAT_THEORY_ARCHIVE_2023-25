@@ -9,6 +9,8 @@ on:
       - 'flc/_SITE_FEED/story_catalog.json'
       - 'tools/parse_flc_pages.py'
       - 'tools/reflow_flc_pages.py'
+      - 'tools/reflow_flc_pages_v2.py'
+      - 'tools/solve_flc_page_order.py'
       - 'tools/apply_flc_story_ranges.py'
       - 'tools/build_flc_story_text_feed.py'
       - '.github/workflows/flc-story-feed.yml'
@@ -24,7 +26,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 55
     steps:
       - uses: actions/checkout@v4
         with:
@@ -33,7 +35,7 @@ jobs:
       - name: Install page parser dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y tesseract-ocr poppler-utils
+          sudo apt-get install -y tesseract-ocr poppler-utils python3-pil
 
       - name: Parse photographed pages and recover printed order
         shell: bash
@@ -45,13 +47,21 @@ jobs:
           python tools/parse_flc_pages.py flc/flc2_lo.pdf --issue-id 02 --catalog flc/_SITE_FEED/story_catalog.json --out flc/_PARSED_TEXT/flc2_lo --dpi 140
           python tools/parse_flc_pages.py flc/flc3_lo.pdf --issue-id 03 --catalog flc/_SITE_FEED/story_catalog.json --out flc/_PARSED_TEXT/flc3_lo --dpi 140
 
-      - name: Reflow OCR by page geometry
+      - name: Reflow OCR by independent text-block crops
         shell: bash
         run: |
           set -euo pipefail
-          python tools/reflow_flc_pages.py flc/flc1_lo.pdf --parsed-dir flc/_PARSED_TEXT/flc1_lo --dpi 180
-          python tools/reflow_flc_pages.py flc/flc2_lo.pdf --parsed-dir flc/_PARSED_TEXT/flc2_lo --dpi 180
-          python tools/reflow_flc_pages.py flc/flc3_lo.pdf --parsed-dir flc/_PARSED_TEXT/flc3_lo --dpi 180
+          python tools/reflow_flc_pages_v2.py flc/flc1_lo.pdf --parsed-dir flc/_PARSED_TEXT/flc1_lo --dpi 180
+          python tools/reflow_flc_pages_v2.py flc/flc2_lo.pdf --parsed-dir flc/_PARSED_TEXT/flc2_lo --dpi 180
+          python tools/reflow_flc_pages_v2.py flc/flc3_lo.pdf --parsed-dir flc/_PARSED_TEXT/flc3_lo --dpi 180
+
+      - name: Solve printed-page assignments conservatively
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/solve_flc_page_order.py --catalog flc/_SITE_FEED/story_catalog.json --issue-id 01 --parsed-dir flc/_PARSED_TEXT/flc1_lo
+          python tools/solve_flc_page_order.py --catalog flc/_SITE_FEED/story_catalog.json --issue-id 02 --parsed-dir flc/_PARSED_TEXT/flc2_lo
+          python tools/solve_flc_page_order.py --catalog flc/_SITE_FEED/story_catalog.json --issue-id 03 --parsed-dir flc/_PARSED_TEXT/flc3_lo
 
       - name: Apply source-reviewed printed story ranges
         shell: bash
@@ -71,6 +81,7 @@ jobs:
           for stem in flc1_lo flc2_lo flc3_lo; do
             python -m json.tool "flc/_PARSED_TEXT/$stem/manifest.json" >/dev/null
             python -m json.tool "flc/_PARSED_TEXT/$stem/story-text-index.json" >/dev/null
+            python -m json.tool "flc/_PARSED_TEXT/$stem/PAGE_ORDER_SOLVER_REPORT.json" >/dev/null
             test -f "flc/_PARSED_TEXT/$stem/TEXT_REFLOW_REPORT.md"
           done
 
@@ -106,7 +117,7 @@ jobs:
               exit 0
             fi
 
-            git commit -m "Refresh geometry-reflowed flc story text [skip archive-admin]"
+            git commit -m "Refresh block-reflowed flc story text [skip archive-admin]"
             if git push origin HEAD:main; then
               exit 0
             fi
