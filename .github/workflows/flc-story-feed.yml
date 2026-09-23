@@ -1,0 +1,38 @@
+name: flc story feed
+
+on:
+  push:
+    paths:
+      - 'flc/_SITE_FEED/story_catalog.json'
+      - 'tools/build_flc_story_text_feed.py'
+      - '.github/workflows/flc-story-feed.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build story feed
+        run: python tools/build_flc_story_text_feed.py
+
+      - name: Validate feed
+        run: |
+          python -m json.tool flc/_SITE_FEED/latest.json >/dev/null
+          python -m json.tool flc/_SITE_FEED/story-index.json >/dev/null
+
+      - name: Publish derived story feed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add flc/_SITE_FEED/latest.json flc/_SITE_FEED/story-index.json flc/_SITE_FEED/stories
+          git diff --cached --quiet && exit 0
+          git commit -m "Refresh flc story feed [skip archive-admin]"
+          git pull --rebase origin main
+          git push origin HEAD:main
