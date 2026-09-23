@@ -1,8 +1,10 @@
 # FLC text reflow pass
 
-- Version: `2026-09-23.1`
-- Pages reflowed: 40
-- Layout counts: `{"single-or-mixed": 16, "two-column-geometric": 24}`
-- Method: Tesseract word coordinates -> gutter split -> left column -> right column -> conservative paragraph reconstruction.
-- Source PDF and printed-page assignments are unchanged.
-- OCR wording remains provisional; this pass addresses reading order and line/paragraph structure, not source verification.
+- Version: `2026-09-23.2`
+- Pages reflowed: 39
+- Layout counts: `{"single-or-mixed-block-crop": 13, "two-column-block-crop": 23, "word-fallback": 3}`
+- TSV parser: literal physical-line/tab parser; stray OCR quote marks cannot consume following TSV records.
+- Main method: discover text blocks on the page, crop them from the scan, OCR each crop independently, then order left-column blocks before right-column blocks.
+- Full-width/centre blocks on two-column pages are preserved as supplemental metadata rather than silently injected into prose.
+- Source scans and printed-page assignments are unchanged.
+- Wording remains provisional until checked against the facsimile.
