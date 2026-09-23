@@ -8,6 +8,7 @@ on:
       - 'flc/flc3_lo.pdf'
       - 'flc/_SITE_FEED/story_catalog.json'
       - 'tools/parse_flc_pages.py'
+      - 'tools/reflow_flc_pages.py'
       - 'tools/apply_flc_story_ranges.py'
       - 'tools/build_flc_story_text_feed.py'
       - '.github/workflows/flc-story-feed.yml'
@@ -38,47 +39,27 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          # _PARSED_TEXT is rebuildable derived output. Clear any older
-          # experimental geometry so stale split-column files cannot survive.
           rm -rf flc/_PARSED_TEXT
 
-          python tools/parse_flc_pages.py \
-            flc/flc1_lo.pdf \
-            --issue-id 01 \
-            --catalog flc/_SITE_FEED/story_catalog.json \
-            --out flc/_PARSED_TEXT/flc1_lo \
-            --dpi 140
+          python tools/parse_flc_pages.py flc/flc1_lo.pdf --issue-id 01 --catalog flc/_SITE_FEED/story_catalog.json --out flc/_PARSED_TEXT/flc1_lo --dpi 140
+          python tools/parse_flc_pages.py flc/flc2_lo.pdf --issue-id 02 --catalog flc/_SITE_FEED/story_catalog.json --out flc/_PARSED_TEXT/flc2_lo --dpi 140
+          python tools/parse_flc_pages.py flc/flc3_lo.pdf --issue-id 03 --catalog flc/_SITE_FEED/story_catalog.json --out flc/_PARSED_TEXT/flc3_lo --dpi 140
 
-          python tools/parse_flc_pages.py \
-            flc/flc2_lo.pdf \
-            --issue-id 02 \
-            --catalog flc/_SITE_FEED/story_catalog.json \
-            --out flc/_PARSED_TEXT/flc2_lo \
-            --dpi 140
-
-          python tools/parse_flc_pages.py \
-            flc/flc3_lo.pdf \
-            --issue-id 03 \
-            --catalog flc/_SITE_FEED/story_catalog.json \
-            --out flc/_PARSED_TEXT/flc3_lo \
-            --dpi 140
+      - name: Reflow OCR by page geometry
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/reflow_flc_pages.py flc/flc1_lo.pdf --parsed-dir flc/_PARSED_TEXT/flc1_lo --dpi 180
+          python tools/reflow_flc_pages.py flc/flc2_lo.pdf --parsed-dir flc/_PARSED_TEXT/flc2_lo --dpi 180
+          python tools/reflow_flc_pages.py flc/flc3_lo.pdf --parsed-dir flc/_PARSED_TEXT/flc3_lo --dpi 180
 
       - name: Apply source-reviewed printed story ranges
         shell: bash
         run: |
           set -euo pipefail
-          python tools/apply_flc_story_ranges.py \
-            --catalog flc/_SITE_FEED/story_catalog.json \
-            --issue-id 01 \
-            --parsed-dir flc/_PARSED_TEXT/flc1_lo
-          python tools/apply_flc_story_ranges.py \
-            --catalog flc/_SITE_FEED/story_catalog.json \
-            --issue-id 02 \
-            --parsed-dir flc/_PARSED_TEXT/flc2_lo
-          python tools/apply_flc_story_ranges.py \
-            --catalog flc/_SITE_FEED/story_catalog.json \
-            --issue-id 03 \
-            --parsed-dir flc/_PARSED_TEXT/flc3_lo
+          python tools/apply_flc_story_ranges.py --catalog flc/_SITE_FEED/story_catalog.json --issue-id 01 --parsed-dir flc/_PARSED_TEXT/flc1_lo
+          python tools/apply_flc_story_ranges.py --catalog flc/_SITE_FEED/story_catalog.json --issue-id 02 --parsed-dir flc/_PARSED_TEXT/flc2_lo
+          python tools/apply_flc_story_ranges.py --catalog flc/_SITE_FEED/story_catalog.json --issue-id 03 --parsed-dir flc/_PARSED_TEXT/flc3_lo
 
       - name: Build story feed
         run: python tools/build_flc_story_text_feed.py
@@ -90,6 +71,7 @@ jobs:
           for stem in flc1_lo flc2_lo flc3_lo; do
             python -m json.tool "flc/_PARSED_TEXT/$stem/manifest.json" >/dev/null
             python -m json.tool "flc/_PARSED_TEXT/$stem/story-text-index.json" >/dev/null
+            test -f "flc/_PARSED_TEXT/$stem/TEXT_REFLOW_REPORT.md"
           done
 
       - name: Publish derived page text and story feed safely
@@ -99,9 +81,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          # Preserve the freshly generated derived bytes outside the worktree
-          # before syncing with a main branch that may have advanced because
-          # archive-admin automation is active in this repository.
           rm -rf /tmp/flc-publish
           mkdir -p /tmp/flc-publish/site
           cp -a flc/_PARSED_TEXT /tmp/flc-publish/_PARSED_TEXT
@@ -127,7 +106,7 @@ jobs:
               exit 0
             fi
 
-            git commit -m "Refresh page-aware flc story text [skip archive-admin]"
+            git commit -m "Refresh geometry-reflowed flc story text [skip archive-admin]"
             if git push origin HEAD:main; then
               exit 0
             fi
