@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
-"""Build the public flc story-text feed from current derived text.
+"""Build the public FLC story-text feed from current derived text.
 
 Preferred source order:
-1. spread-aware logical-page/story parser output;
-2. legacy whole-spread OCR association as fallback.
+1. page-aware column OCR, reordered by printed page number and bounded by the
+   source-reviewed contents table;
+2. legacy whole-page layout OCR association as fallback.
 
-Facsimile remains source of record; all machine text is provisional until
-reviewed against the scan.
+Facsimile remains source of record. Machine text is provisional until reviewed
+against the scan.
 """
 from __future__ import annotations
 
@@ -48,19 +49,8 @@ def safe_write(path: Path, text: str) -> None:
     tmp.replace(path)
 
 
-def printed_page_candidates(page_text: str) -> list[int]:
-    candidates: set[int] = set()
-    for m in re.finditer(r"(?m)(?:^|\s)[\-–—]\s*(\d{1,3})\s*[\-–—](?:\s|$)", page_text):
-        n = int(m.group(1))
-        if 1 <= n <= 200:
-            candidates.add(n)
-    for line in page_text.splitlines():
-        t = line.strip()
-        if re.fullmatch(r"\d{1,3}", t):
-            n = int(t)
-            if 1 <= n <= 200:
-                candidates.add(n)
-    return sorted(candidates)
+def load_json(path: Path) -> dict[str, Any]:
+    return json.loads(path.read_text(encoding="utf-8"))
 
 
 def alias_score(page_text: str, aliases: list[str]) -> int:
@@ -79,151 +69,154 @@ def alias_score(page_text: str, aliases: list[str]) -> int:
     return best
 
 
-def load_json(path: Path) -> dict[str, Any]:
-    return json.loads(path.read_text(encoding="utf-8"))
+def legacy_story_text(issue: dict[str, Any], story: dict[str, Any], pages: list[str]) -> tuple[str | None, list[dict[str, Any]]]:
+    """Fallback discovery text only; not trusted reading order."""
+    excluded = {int(issue["contents_pdf_page"])} if issue.get("contents_pdf_page") else set()
+    matched: list[dict[str, Any]] = []
+    for i, page_text in enumerate(pages, 1):
+        if i in excluded:
+            continue
+        score = alias_score(page_text, story.get("aliases", [story["title"]]))
+        if score:
+            clean = page_text.rstrip()
+            matched.append({
+                "pdf_page": i,
+                "match_score": score,
+                "text": clean,
+                "text_sha256": sha256_text(clean),
+            })
+    matched.sort(key=lambda p: p["pdf_page"])
+    display = "\n\n".join(p["text"] for p in matched) if matched else None
+    return display, matched
 
 
 def main() -> int:
     catalog = load_json(CATALOG)
+    OUT.mkdir(parents=True, exist_ok=True)
     story_dir = OUT / "stories"
     story_dir.mkdir(parents=True, exist_ok=True)
     built_at = dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat()
 
     index: dict[str, Any] = {
-        "schema_version": 3,
+        "schema_version": 4,
         "project_id": catalog["project_id"],
         "display_name": catalog["display_name"],
         "short_name": catalog["short_name"],
         "built_utc": built_at,
         "self_url": f"{RAW_FEED}/story-index.json",
         "latest_url": f"{RAW_FEED}/latest.json",
-        "text_policy": "Machine-derived provisional text. Prefer spread-aware logical-page OCR when available; source facsimile remains authoritative; reviewed text may supersede this layer without changing story ids/routes.",
+        "text_policy": "Machine-derived provisional text. Prefer page-aware column OCR reordered by printed page number; source facsimile remains authoritative.",
         "issues": [],
     }
+
     total_stories = 0
-    text_ready = 0
-    spread_ready = 0
+    machine_text_count = 0
+    page_aware_count = 0
+    complete_range_count = 0
 
     for issue in catalog["issues"]:
         source_file = issue["source_file"]
         stem = Path(source_file).stem
         issue_auto = AUTO / stem
         issue_parsed = PARSED / stem
-        text_path = issue_auto / "embedded_text.txt"
-        manifest_path = issue_auto / "manifest.json"
+        legacy_text_path = issue_auto / "embedded_text.txt"
+        legacy_manifest_path = issue_auto / "manifest.json"
         parsed_manifest_path = issue_parsed / "manifest.json"
-        pages: list[str] = []
+        parsed_index_path = issue_parsed / "story-text-index.json"
+
+        legacy_pages: list[str] = []
+        if legacy_text_path.exists():
+            legacy_pages = legacy_text_path.read_text(encoding="utf-8", errors="replace").split("\f")
+            if legacy_pages and not legacy_pages[-1].strip():
+                legacy_pages.pop()
+
         source_sha = None
-        if text_path.exists():
-            pages = text_path.read_text(encoding="utf-8", errors="replace").split("\f")
-            if pages and not pages[-1].strip():
-                pages.pop()
+        parser_manifest = None
         if parsed_manifest_path.exists():
-            source_sha = load_json(parsed_manifest_path).get("source_sha256")
-        elif manifest_path.exists():
-            source_sha = load_json(manifest_path).get("source_sha256")
+            parser_manifest = load_json(parsed_manifest_path)
+            source_sha = parser_manifest.get("source_sha256")
+        elif legacy_manifest_path.exists():
+            source_sha = load_json(legacy_manifest_path).get("source_sha256")
 
-        # Legacy contents/index exclusion. This is only used by the fallback
-        # whole-spread OCR path; the spread parser builds logical pages first.
-        page_story_hits: dict[int, set[str]] = {}
-        for i, page_text in enumerate(pages, 1):
-            for story in issue["stories"]:
-                if alias_score(page_text, story.get("aliases", [story["title"]])):
-                    page_story_hits.setdefault(i, set()).add(story["id"])
-        index_pages = {p for p, ids in page_story_hits.items() if len(ids) >= 3}
-
+        parsed_story_index = load_json(parsed_index_path) if parsed_index_path.exists() else None
         issue_index: dict[str, Any] = {
             "id": issue["id"],
             "display_title": issue["display_title"],
             "source_file": source_file,
             "source_pdf_url": f"{RAW_FLC}/{source_file}",
             "story_count": len(issue["stories"]),
-            "text_source_available": text_path.exists(),
-            "spread_parser_available": parsed_manifest_path.exists(),
-            "spread_parser_manifest": f"flc/_PARSED_TEXT/{stem}/manifest.json" if parsed_manifest_path.exists() else None,
-            "excluded_index_pages": sorted(index_pages),
+            "contents_pdf_page": issue.get("contents_pdf_page"),
+            "contents_page_review_state": catalog.get("contents_page_review_state"),
+            "legacy_text_source_available": legacy_text_path.exists(),
+            "page_parser_available": parsed_manifest_path.exists(),
+            "page_parser_manifest": f"flc/_PARSED_TEXT/{stem}/manifest.json" if parsed_manifest_path.exists() else None,
+            "page_parser_summary": {
+                "parser_version": parser_manifest.get("parser_version"),
+                "geometry_model": parser_manifest.get("geometry_model"),
+                "printed_pages_detected_directly": parser_manifest.get("printed_pages_detected_directly"),
+                "printed_pages_resolved_after_local_interpolation": parser_manifest.get("printed_pages_resolved_after_local_interpolation"),
+                "duplicate_page_number_conflicts": parser_manifest.get("duplicate_page_number_conflicts"),
+            } if parser_manifest else None,
             "stories": [],
         }
+
+        parsed_status_by_slug = {}
+        if parsed_story_index:
+            parsed_status_by_slug = {s["slug"]: s for s in parsed_story_index.get("stories", [])}
 
         for story in issue["stories"]:
             total_stories += 1
             parsed_story_path = issue_parsed / "stories" / f"{story['slug']}.json"
-            parsed_story: dict[str, Any] | None = None
-            if parsed_story_path.exists():
-                candidate = load_json(parsed_story_path)
-                if candidate.get("display_text"):
-                    parsed_story = candidate
+            parsed_story = load_json(parsed_story_path) if parsed_story_path.exists() else None
+            use_parsed = bool(parsed_story and parsed_story.get("display_text"))
 
-            matched: list[dict[str, Any]] = []
-            logical_pages: list[dict[str, Any]] = []
-            display_text: str | None = None
-            text_source_kind: str | None = None
-            text_state: str
-            review_state: str
-            order_basis: str | None
-            first_pdf_page: int | None = None
-            machine_source: str | None = None
-
-            if parsed_story is not None:
+            if use_parsed:
                 display_text = parsed_story["display_text"]
-                logical_pages = parsed_story.get("logical_pages", [])
-                text_state = parsed_story.get("text_state", "spread-split-ocr-provisional")
-                review_state = parsed_story.get("review_state", "auto-only")
-                order_basis = parsed_story.get("reading_order_basis", "printed-page-reconstruction")
-                text_source_kind = "spread-aware-logical-page-ocr"
+                text_state = parsed_story.get("text_state", "page-aware-column-ocr-provisional")
+                text_source_kind = "page-aware-column-ocr"
+                review_state = parsed_story.get("review_state", "structure-source-reviewed/text-auto-only")
+                order_basis = parsed_story.get("reading_order_basis")
+                text_completeness = parsed_story.get("text_completeness")
+                pages_meta = parsed_story.get("pages", [])
+                missing_printed_pages = parsed_story.get("missing_printed_pages", [])
+                unplaced_candidates = parsed_story.get("unplaced_candidate_pages", [])
+                legacy_matches: list[dict[str, Any]] = []
                 machine_source = str(parsed_story_path.relative_to(ROOT))
-                if logical_pages:
-                    first_pdf_page = logical_pages[0].get("pdf_page")
-                text_ready += 1
-                spread_ready += 1
+                first_pdf_page = pages_meta[0].get("pdf_page") if pages_meta else None
+                page_aware_count += 1
+                if text_completeness == "page-range-complete / text-unreviewed":
+                    complete_range_count += 1
             else:
-                # Fallback: legacy whole-spread OCR title association. Useful as
-                # a discovery layer, but it can interleave facing pages.
-                for i, page_text in enumerate(pages, 1):
-                    if i in index_pages:
-                        continue
-                    score = alias_score(page_text, story.get("aliases", [story["title"]]))
-                    if score:
-                        clean = page_text.rstrip()
-                        matched.append({
-                            "pdf_page": i,
-                            "printed_page_candidates": printed_page_candidates(page_text),
-                            "match_score": score,
-                            "text": clean,
-                            "text_sha256": sha256_text(clean),
-                        })
+                display_text, legacy_matches = legacy_story_text(issue, story, legacy_pages)
+                text_state = "legacy-whole-page-layout-ocr-provisional" if display_text else "text-not-yet-derived"
+                text_source_kind = "legacy-whole-page-layout-ocr" if display_text else None
+                review_state = "auto-only" if display_text else "unavailable"
+                order_basis = "source-pdf-order-provisional" if display_text else None
+                text_completeness = "unknown / potentially partial" if display_text else "unavailable"
+                pages_meta = []
+                missing_printed_pages = parsed_status_by_slug.get(story["slug"], {}).get("missing_printed_pages", [])
+                unplaced_candidates = []
+                machine_source = str(legacy_text_path.relative_to(ROOT)) if legacy_text_path.exists() else None
+                first_pdf_page = legacy_matches[0]["pdf_page"] if legacy_matches else None
 
-                matched = list({p["pdf_page"]: p for p in matched}.values())
-                exact_printed = [p["printed_page_candidates"][0] for p in matched if len(p["printed_page_candidates"]) == 1]
-                can_sort_printed = bool(matched) and len(exact_printed) == len(matched) and len(set(exact_printed)) == len(exact_printed)
-                if can_sort_printed:
-                    matched.sort(key=lambda p: p["printed_page_candidates"][0])
-                    order_basis = "printed-page-candidates"
-                else:
-                    matched.sort(key=lambda p: p["pdf_page"])
-                    order_basis = "source-pdf-order-provisional" if matched else None
-
-                display_text = "\n\n".join(p["text"] for p in matched) if matched else None
-                text_state = "whole-spread-ocr-provisional" if matched else "text-not-yet-derived"
-                review_state = "auto-only" if matched else "unavailable"
-                text_source_kind = "legacy-whole-spread-ocr" if matched else None
-                machine_source = str(text_path.relative_to(ROOT)) if text_path.exists() else None
-                first_pdf_page = matched[0]["pdf_page"] if matched else None
-                if matched:
-                    text_ready += 1
+            if display_text:
+                machine_text_count += 1
 
             rel_story = f"stories/{story['slug']}.json"
             text_url = f"{RAW_FEED}/{rel_story}" if display_text else None
-            facsimile_route = f"/?issue={issue['id']}&page={first_pdf_page}" if first_pdf_page else f"/?issue={issue['id']}&page=1"
+            facsimile_route = f"/?issue={issue['id']}&page={first_pdf_page or 1}"
 
-            editorial_note = (
-                "Spread-aware machine reconstruction: facing pages were separated geometrically before OCR text was assembled in printed-page order. Verify page numbering, story boundaries, paragraphing, and wording against the facsimile before treating as reviewed transcription."
-                if parsed_story is not None
-                else "Legacy whole-spread OCR association. Facing pages may be interleaved; use as discovery/fallback text only until the spread-aware parser supersedes it."
-            )
+            if use_parsed:
+                editorial_note = (
+                    "Story boundary comes from the source-reviewed printed contents table. Text is assembled from page-aware OCR in recovered printed-page order. Missing printed pages and unplaced candidates are explicit; wording and page-number reconstruction remain provisional until checked against the facsimile."
+                )
+            else:
+                editorial_note = (
+                    "Legacy fallback association from whole-page OCR in source PDF order. Useful for discovery, but page order and completeness are not established. Prefer the page-aware parser when available."
+                )
 
             record = {
-                "schema_version": 3,
+                "schema_version": 4,
                 "project_id": catalog["project_id"],
                 "story_id": story["id"],
                 "slug": story["slug"],
@@ -233,8 +226,10 @@ def main() -> int:
                 "author": story["author"],
                 "issue_id": issue["id"],
                 "issue_title": issue["display_title"],
+                "start_printed_page": story.get("start_printed_page"),
                 "text_state": text_state,
                 "text_source_kind": text_source_kind,
+                "text_completeness": text_completeness,
                 "review_state": review_state,
                 "reading_order_basis": order_basis,
                 "source_pdf": f"flc/{source_file}",
@@ -242,19 +237,23 @@ def main() -> int:
                 "source_pdf_sha256": source_sha,
                 "facsimile_route": facsimile_route,
                 "machine_text_source": machine_source,
-                "logical_pages": logical_pages,
-                "legacy_matched_spreads": matched,
+                "pages": pages_meta,
+                "missing_printed_pages": missing_printed_pages,
+                "unplaced_candidate_pages": unplaced_candidates,
+                "legacy_matched_pdf_pages": [p["pdf_page"] for p in legacy_matches],
                 "display_text": display_text,
                 "display_text_sha256": sha256_text(display_text) if display_text else None,
                 "frontend": {
                     "show_story_link": bool(display_text),
                     "default_view": "text" if display_text else "facsimile",
                     "available_views": ["text", "facsimile"] if display_text else ["facsimile"],
-                    "text_label": "Machine text — provisional" if display_text else None,
+                    "text_label": "Provisional machine text" if display_text else None,
+                    "show_completeness_warning": text_completeness not in (None, "page-range-complete / text-unreviewed"),
                 },
                 "editorial_note": editorial_note,
             }
             safe_write(story_dir / f"{story['slug']}.json", json.dumps(record, indent=2, ensure_ascii=False) + "\n")
+
             issue_index["stories"].append({
                 "id": story["id"],
                 "slug": story["slug"],
@@ -264,26 +263,27 @@ def main() -> int:
                 "data_url": record["data_url"],
                 "text_state": text_state,
                 "text_source_kind": text_source_kind,
-                "text_href": rel_story if display_text else None,
+                "text_completeness": text_completeness,
                 "text_url": text_url,
                 "facsimile_route": facsimile_route,
-                "logical_pages": logical_pages,
-                "matched_pdf_pages": [p["pdf_page"] for p in matched],
+                "missing_printed_pages": missing_printed_pages,
                 "reading_order_basis": order_basis,
             })
+
         index["issues"].append(issue_index)
 
     index["summary"] = {
         "story_count": total_stories,
-        "stories_with_machine_text": text_ready,
-        "stories_with_spread_parsed_text": spread_ready,
-        "issues_with_text_source": sum(1 for i in index["issues"] if i["text_source_available"]),
-        "issues_with_spread_parser": sum(1 for i in index["issues"] if i["spread_parser_available"]),
+        "stories_with_machine_text": machine_text_count,
+        "stories_with_page_aware_text": page_aware_count,
+        "stories_with_complete_page_ranges": complete_range_count,
+        "issues_with_legacy_text_source": sum(1 for i in index["issues"] if i["legacy_text_source_available"]),
+        "issues_with_page_parser": sum(1 for i in index["issues"] if i["page_parser_available"]),
     }
     safe_write(OUT / "story-index.json", json.dumps(index, indent=2, ensure_ascii=False) + "\n")
 
     latest = {
-        "schema_version": 3,
+        "schema_version": 4,
         "project_id": catalog["project_id"],
         "display_name": catalog["display_name"],
         "short_name": catalog["short_name"],
@@ -294,8 +294,8 @@ def main() -> int:
         "story_index": "story-index.json",
         "story_index_url": f"{RAW_FEED}/story-index.json",
         "summary": index["summary"],
-        "tunnel_status": "story feed generated / spread-aware parser preferred when available",
-        "frontend_instruction": "Fetch story_index_url on page load with cache disabled or a cache-busting query. If a story has text_url, make its title/byline a link to route and fetch text_url for provisional text; keep facsimile_route beside it. Prefer spread-split-ocr-provisional over legacy whole-spread OCR when reporting text quality."
+        "tunnel_status": "story feed generated / page-aware column parser preferred when available",
+        "frontend_instruction": "Fetch story_index_url fresh. If a story has text_url, link its title/byline to route and fetch text_url. Show text_completeness compactly when the recovered printed-page range is partial. Keep facsimile_route beside machine text."
     }
     safe_write(OUT / "latest.json", json.dumps(latest, indent=2, ensure_ascii=False) + "\n")
     print(json.dumps(latest["summary"]))
