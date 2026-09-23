@@ -1,9 +1,9 @@
 {
-  "schema_version": 3,
+  "schema_version": 4,
   "project_id": "floating-liars-club",
   "display_name": "floating liars' club",
   "short_name": "flc",
-  "bundle_version": "2026-09-23.5",
+  "bundle_version": "2026-09-23.6",
   "default_experience": "editorial",
   "tunnel_contract_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/tunnel.json",
   "dynamic_feed": {
@@ -23,20 +23,22 @@
     "Load tunnel_contract_url once as the consumer protocol; it defines bootstrap, routing, cache and status-handshake behavior.",
     "On every page load, fetch dynamic_feed.latest_url first rather than resolving latest.json against the chatgpt.site origin.",
     "Then fetch latest.story_index_url. Do not guess a relative backend base path.",
-    "Use each story's route, text_url, text_state, text_source_kind, facsimile_route, and reading_order_basis.",
+    "Use each story's route, text_url, text_state, text_source_kind, text_completeness, facsimile_route, and reading_order_basis.",
     "When text_url is present, title and byline link to /stories/<slug>/.",
     "The story route fetches text_url and renders display_text as provisional machine text, with facsimile_route beside it.",
-    "Prefer spread-aware logical-page OCR over legacy whole-spread OCR whenever both exist.",
+    "Prefer page-aware column OCR reordered by printed page number over legacy layout-text OCR whenever both exist.",
+    "If text_completeness says the recovered printed-page range is partial, show a compact warning rather than implying a complete transcription.",
     "Do not hide a story because text is provisional; label the text state compactly.",
     "If backend fetch fails, keep the packaged site snapshot and report fallback state on /reconstruction-status/.",
-    "On /reconstruction-status/, show bundle_version, latest.built_utc, story counts, spread-parser counts, live-vs-fallback state, frontend fetch time, and the actual backend URL fetched.",
+    "On /reconstruction-status/, show bundle_version, latest.built_utc, story counts, page-parser counts, complete-range counts, live-vs-fallback state, frontend fetch time, and the actual backend URL fetched.",
     "A successful backend fetch should never leave a text-ready story as an unlinked contents item."
   ],
   "current_backend_expectation": {
     "story_count": 22,
     "minimum_text_ready_now": 7,
-    "spread_parser_pipeline": "active",
-    "note": "spread-aware parsing is being promoted ahead of the older whole-spread OCR layer; counts should rise as logical-page outputs publish"
+    "page_parser_pipeline": "active",
+    "geometry_model": "one PDF page is one photographed printed magazine page; many pages contain two text columns; source PDF page order may differ from printed reading order",
+    "note": "the active parser reconstructs column reading order inside each page, then sorts pages by recovered printed page number and applies story starts from the source-reviewed contents tables"
   },
   "style": {
     "brand_lockup": "flc -- floating liars' club",
