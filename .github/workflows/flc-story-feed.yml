@@ -8,6 +8,7 @@ on:
       - 'flc/flc3_lo.pdf'
       - 'flc/_SITE_FEED/story_catalog.json'
       - 'tools/parse_flc_spreads.py'
+      - 'tools/apply_flc_story_ranges.py'
       - 'tools/build_flc_story_text_feed.py'
       - '.github/workflows/flc-story-feed.yml'
   workflow_dispatch:
@@ -53,6 +54,23 @@ jobs:
             --catalog flc/_SITE_FEED/story_catalog.json \
             --out flc/_PARSED_TEXT/flc3_lo \
             --dpi 100
+
+      - name: Apply source-reviewed printed story ranges
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/apply_flc_story_ranges.py \
+            --catalog flc/_SITE_FEED/story_catalog.json \
+            --issue-id 01 \
+            --parsed-dir flc/_PARSED_TEXT/flc1_lo
+          python tools/apply_flc_story_ranges.py \
+            --catalog flc/_SITE_FEED/story_catalog.json \
+            --issue-id 02 \
+            --parsed-dir flc/_PARSED_TEXT/flc2_lo
+          python tools/apply_flc_story_ranges.py \
+            --catalog flc/_SITE_FEED/story_catalog.json \
+            --issue-id 03 \
+            --parsed-dir flc/_PARSED_TEXT/flc3_lo
 
       - name: Build story feed
         run: python tools/build_flc_story_text_feed.py
