@@ -1,9 +1,12 @@
-name: FLC auto-digitize field trial
+name: FLC auto-digitize + live story feed
 
 on:
   push:
     paths:
       - '.github/workflows/flc-auto-digitize-test.yml'
+      - '.[⚙️_AI_FILES]/TOOLS/flc_auto_digitize.py'
+      - '.[⚙️_AI_FILES]/TOOLS/build_flc_story_text_feed.py'
+      - 'flc/_SITE_FEED/story_catalog.json'
   workflow_dispatch:
 
 permissions:
@@ -16,7 +19,7 @@ concurrency:
 jobs:
   trial:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 55
     steps:
       - uses: actions/checkout@v4
         with:
@@ -24,8 +27,8 @@ jobs:
 
       - name: Declare scope
         run: |
-          echo "READ: flc/flc1_lo.pdf"
-          echo "WRITE: flc/_AUTO_DIGITIZE_TEST/**"
+          echo "READ: flc/flc1_lo.pdf flc/flc2_lo.pdf flc/flc3_lo.pdf"
+          echo "WRITE: flc/_AUTO_DIGITIZE_TEST/** and flc/_SITE_FEED/**"
           echo "CLASS: derived/generated output"
           echo "SOURCE PRESERVATION: required"
           echo "QUARANTINE: no quarantine trees read"
@@ -35,30 +38,43 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y qpdf poppler-utils ocrmypdf ghostscript unpaper tesseract-ocr
 
-      - name: Run field trial
+      - name: Run digitization passes
+        shell: bash
         run: |
-          python ".[⚙️_AI_FILES]/TOOLS/flc_auto_digitize.py"             "flc/flc1_lo.pdf"             --out "flc/_AUTO_DIGITIZE_TEST"             --dpi 72
+          set -euo pipefail
+          for src in flc/flc1_lo.pdf flc/flc2_lo.pdf flc/flc3_lo.pdf; do
+            python ".[⚙️_AI_FILES]/TOOLS/flc_auto_digitize.py" "$src" --out "flc/_AUTO_DIGITIZE_TEST" --dpi 72
+          done
+
+      - name: Build Sites story-text feed
+        run: |
+          python ".[⚙️_AI_FILES]/TOOLS/build_flc_story_text_feed.py"
+          python -m json.tool "flc/_SITE_FEED/latest.json" >/dev/null
+          python -m json.tool "flc/_SITE_FEED/story-index.json" >/dev/null
 
       - name: Validate declared write scope
         shell: bash
         run: |
           set -euo pipefail
-          test -s "flc/_AUTO_DIGITIZE_TEST/flc1_lo/manifest.json"
-          test -s "flc/_AUTO_DIGITIZE_TEST/flc1_lo/HERE_IS_WHAT_THERE_IS.md"
-          python -m json.tool "flc/_AUTO_DIGITIZE_TEST/flc1_lo/manifest.json" >/dev/null
-          git diff --name-only HEAD -- flc | grep -v '^flc/_AUTO_DIGITIZE_TEST/' && {
+          for stem in flc1_lo flc2_lo flc3_lo; do
+            test -s "flc/_AUTO_DIGITIZE_TEST/$stem/manifest.json"
+            test -s "flc/_AUTO_DIGITIZE_TEST/$stem/embedded_text.txt"
+          done
+          test -s "flc/_SITE_FEED/story-index.json"
+          test -s "flc/_SITE_FEED/latest.json"
+          git diff --name-only HEAD -- flc | grep -Ev '^flc/(_AUTO_DIGITIZE_TEST|_SITE_FEED)/' && {
             echo "Unexpected write under flc"; exit 1;
           } || true
           git status --short
 
-      - name: Publish derived trial from fresh base
+      - name: Publish derived feeds from fresh base
         shell: bash
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add "flc/_AUTO_DIGITIZE_TEST"
+          git add "flc/_AUTO_DIGITIZE_TEST" "flc/_SITE_FEED"
           git diff --cached --quiet && exit 0
-          git commit -m "FLC auto-digitize v0 field trial [skip archive-admin]"
+          git commit -m "Refresh flc digitization and live story feed [skip archive-admin]"
           git pull --rebase origin main
           git push origin HEAD:main

@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "project_id": "floating-liars-club",
+  "display_name": "floating liars' club",
+  "short_name": "flc",
+  "bundle_version": "2026-09-23.2",
+  "default_experience": "editorial",
+  "dynamic_feed": {
+    "latest": "latest.json",
+    "story_index": "story-index.json",
+    "polling": "fetch-on-page-load; optional periodic refresh",
+    "cache_policy": "frontend should append bundle_version or timestamp cache-buster when Nathan requests a live refresh"
+  },
+  "routes": [
+    {"path":"/","template":"collection-home"},
+    {"path":"/reconstruction-status/","template":"reconstruction-status"},
+    {"path":"/stories/:slug/","template":"story-reader","data_source":"story-index.json -> stories/<slug>.json"},
+    {"path":"/facsimile/","template":"facsimile"}
+  ],
+  "frontend_contract": [
+    "Fetch latest.json before rendering editorial state.",
+    "Fetch story-index.json and use each story's route/text_href/text_state fields.",
+    "When text_href is present, title and byline should link to /stories/<slug>/.",
+    "The story route fetches the referenced story JSON and renders display_text as OCR-derived provisional text, with source/facsimile controls visible.",
+    "Do not hide a story merely because text is provisional; label the text state compactly.",
+    "If backend fetch fails, keep the packaged site snapshot and report fallback state on /reconstruction-status/.",
+    "Show backend version/built timestamp on /reconstruction-status/ so tunnel health is visible."
+  ],
+  "style": {
+    "short_name": "flc",
+    "display_name": "floating liars' club",
+    "case_rule": "Keep the publication styling lowercase in site chrome and project labels."
+  }
+}
