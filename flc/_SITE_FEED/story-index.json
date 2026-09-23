@@ -3,7 +3,7 @@
   "project_id": "floating-liars-club",
   "display_name": "floating liars' club",
   "short_name": "flc",
-  "built_utc": "2026-09-23T12:53:35+00:00",
+  "built_utc": "2026-09-23T13:08:04+00:00",
   "self_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/story-index.json",
   "latest_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/latest.json",
   "text_policy": "Machine-derived provisional text. Prefer spread-aware logical-page OCR when available; source facsimile remains authoritative; reviewed text may supersede this layer without changing story ids/routes.",
@@ -15,8 +15,8 @@
       "source_pdf_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/flc1_lo.pdf",
       "story_count": 7,
       "text_source_available": true,
-      "spread_parser_available": false,
-      "spread_parser_manifest": null,
+      "spread_parser_available": true,
+      "spread_parser_manifest": "flc/_PARSED_TEXT/flc1_lo/manifest.json",
       "excluded_index_pages": [
         7
       ],
@@ -28,17 +28,63 @@
           "author": "Joe Bellomy",
           "route": "/stories/the-lion-in-the-parking-lot/",
           "data_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/stories/the-lion-in-the-parking-lot.json",
-          "text_state": "whole-spread-ocr-provisional",
-          "text_source_kind": "legacy-whole-spread-ocr",
+          "text_state": "spread-split-ocr-provisional",
+          "text_source_kind": "spread-aware-logical-page-ocr",
           "text_href": "stories/the-lion-in-the-parking-lot.json",
           "text_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/stories/the-lion-in-the-parking-lot.json",
-          "facsimile_route": "/?issue=01&page=5",
-          "logical_pages": [],
-          "matched_pdf_pages": [
-            5,
-            6
+          "facsimile_route": "/?issue=01&page=7",
+          "logical_pages": [
+            {
+              "logical_page_id": "pdf-007-r",
+              "pdf_page": 7,
+              "spread_side": "R",
+              "printed_page": 4,
+              "printed_page_basis": "detected-without-safe-pair-inference",
+              "mean_ocr_confidence": 80.92
+            },
+            {
+              "logical_page_id": "pdf-008-r",
+              "pdf_page": 8,
+              "spread_side": "R",
+              "printed_page": 4,
+              "printed_page_basis": "detected-without-safe-pair-inference",
+              "mean_ocr_confidence": 81.57
+            },
+            {
+              "logical_page_id": "pdf-010-l",
+              "pdf_page": 10,
+              "spread_side": "L",
+              "printed_page": 4,
+              "printed_page_basis": "right-detected-left-inferred",
+              "mean_ocr_confidence": 92.18
+            },
+            {
+              "logical_page_id": "pdf-039-r",
+              "pdf_page": 39,
+              "spread_side": "R",
+              "printed_page": 4,
+              "printed_page_basis": "detected-without-safe-pair-inference",
+              "mean_ocr_confidence": 87.52
+            },
+            {
+              "logical_page_id": "pdf-010-r",
+              "pdf_page": 10,
+              "spread_side": "R",
+              "printed_page": 5,
+              "printed_page_basis": "right-detected-left-inferred",
+              "mean_ocr_confidence": 88.07
+            },
+            {
+              "logical_page_id": "pdf-013-r",
+              "pdf_page": 13,
+              "spread_side": "R",
+              "printed_page": 5,
+              "printed_page_basis": "detected-without-safe-pair-inference",
+              "mean_ocr_confidence": 82.35
+            }
           ],
-          "reading_order_basis": "source-pdf-order-provisional"
+          "matched_pdf_pages": [],
+          "reading_order_basis": "printed-page-reconstruction + source-reviewed story starts"
         },
         {
           "id": "01-dark-continent",
@@ -47,18 +93,63 @@
           "author": "Benjamin Crites",
           "route": "/stories/the-dark-continent-episodes/",
           "data_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/stories/the-dark-continent-episodes.json",
-          "text_state": "whole-spread-ocr-provisional",
-          "text_source_kind": "legacy-whole-spread-ocr",
+          "text_state": "spread-split-ocr-provisional",
+          "text_source_kind": "spread-aware-logical-page-ocr",
           "text_href": "stories/the-dark-continent-episodes.json",
           "text_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/stories/the-dark-continent-episodes.json",
-          "facsimile_route": "/?issue=01&page=3",
-          "logical_pages": [],
-          "matched_pdf_pages": [
-            3,
-            11,
-            13
+          "facsimile_route": "/?issue=01&page=44",
+          "logical_pages": [
+            {
+              "logical_page_id": "pdf-044-l",
+              "pdf_page": 44,
+              "spread_side": "L",
+              "printed_page": 6,
+              "printed_page_basis": "right-detected-left-inferred",
+              "mean_ocr_confidence": 91.68
+            },
+            {
+              "logical_page_id": "pdf-044-r",
+              "pdf_page": 44,
+              "spread_side": "R",
+              "printed_page": 7,
+              "printed_page_basis": "right-detected-left-inferred",
+              "mean_ocr_confidence": 93.17
+            },
+            {
+              "logical_page_id": "pdf-016-l",
+              "pdf_page": 16,
+              "spread_side": "L",
+              "printed_page": 8,
+              "printed_page_basis": "left-detected-right-inferred",
+              "mean_ocr_confidence": 90.69
+            },
+            {
+              "logical_page_id": "pdf-016-r",
+              "pdf_page": 16,
+              "spread_side": "R",
+              "printed_page": 9,
+              "printed_page_basis": "left-detected-right-inferred",
+              "mean_ocr_confidence": 90.29
+            },
+            {
+              "logical_page_id": "pdf-021-l",
+              "pdf_page": 21,
+              "spread_side": "L",
+              "printed_page": 10,
+              "printed_page_basis": "left-detected-right-inferred",
+              "mean_ocr_confidence": 89.83
+            },
+            {
+              "logical_page_id": "pdf-021-r",
+              "pdf_page": 21,
+              "spread_side": "R",
+              "printed_page": 11,
+              "printed_page_basis": "left-detected-right-inferred",
+              "mean_ocr_confidence": 88.06
+            }
           ],
-          "reading_order_basis": "source-pdf-order-provisional"
+          "matched_pdf_pages": [],
+          "reading_order_basis": "printed-page-reconstruction + source-reviewed story starts"
         },
         {
           "id": "01-eye-angry-god",
@@ -67,17 +158,55 @@
           "author": "Nathan McKnight",
           "route": "/stories/eye-of-the-angry-god/",
           "data_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/stories/eye-of-the-angry-god.json",
-          "text_state": "whole-spread-ocr-provisional",
-          "text_source_kind": "legacy-whole-spread-ocr",
+          "text_state": "spread-split-ocr-provisional",
+          "text_source_kind": "spread-aware-logical-page-ocr",
           "text_href": "stories/eye-of-the-angry-god.json",
           "text_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/stories/eye-of-the-angry-god.json",
-          "facsimile_route": "/?issue=01&page=15",
-          "logical_pages": [],
-          "matched_pdf_pages": [
-            15,
-            17
+          "facsimile_route": "/?issue=01&page=9",
+          "logical_pages": [
+            {
+              "logical_page_id": "pdf-009-l",
+              "pdf_page": 9,
+              "spread_side": "L",
+              "printed_page": 12,
+              "printed_page_basis": "right-detected-left-inferred",
+              "mean_ocr_confidence": 90.49
+            },
+            {
+              "logical_page_id": "pdf-009-r",
+              "pdf_page": 9,
+              "spread_side": "R",
+              "printed_page": 13,
+              "printed_page_basis": "right-detected-left-inferred",
+              "mean_ocr_confidence": 87.12
+            },
+            {
+              "logical_page_id": "pdf-015-l",
+              "pdf_page": 15,
+              "spread_side": "L",
+              "printed_page": 18,
+              "printed_page_basis": "right-detected-left-inferred",
+              "mean_ocr_confidence": 93.94
+            },
+            {
+              "logical_page_id": "pdf-003-l",
+              "pdf_page": 3,
+              "spread_side": "L",
+              "printed_page": 19,
+              "printed_page_basis": "detected-without-safe-pair-inference",
+              "mean_ocr_confidence": 90.88
+            },
+            {
+              "logical_page_id": "pdf-015-r",
+              "pdf_page": 15,
+              "spread_side": "R",
+              "printed_page": 19,
+              "printed_page_basis": "right-detected-left-inferred",
+              "mean_ocr_confidence": 89.75
+            }
           ],
-          "reading_order_basis": "source-pdf-order-provisional"
+          "matched_pdf_pages": [],
+          "reading_order_basis": "printed-page-reconstruction + source-reviewed story starts"
         },
         {
           "id": "01-mobius-strip",
@@ -104,18 +233,23 @@
           "author": "Joe Bellomy",
           "route": "/stories/the-money-pig/",
           "data_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/stories/the-money-pig.json",
-          "text_state": "whole-spread-ocr-provisional",
-          "text_source_kind": "legacy-whole-spread-ocr",
+          "text_state": "spread-split-ocr-provisional",
+          "text_source_kind": "spread-aware-logical-page-ocr",
           "text_href": "stories/the-money-pig.json",
           "text_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/stories/the-money-pig.json",
-          "facsimile_route": "/?issue=01&page=25",
-          "logical_pages": [],
-          "matched_pdf_pages": [
-            25,
-            29,
-            35
+          "facsimile_route": "/?issue=01&page=33",
+          "logical_pages": [
+            {
+              "logical_page_id": "pdf-033-l",
+              "pdf_page": 33,
+              "spread_side": "L",
+              "printed_page": 32,
+              "printed_page_basis": "right-detected-left-inferred",
+              "mean_ocr_confidence": 94.06
+            }
           ],
-          "reading_order_basis": "source-pdf-order-provisional"
+          "matched_pdf_pages": [],
+          "reading_order_basis": "printed-page-reconstruction + source-reviewed story starts"
         },
         {
           "id": "01-eyesores",
@@ -124,17 +258,31 @@
           "author": "Benjamin Crites",
           "route": "/stories/eyesores/",
           "data_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/stories/eyesores.json",
-          "text_state": "whole-spread-ocr-provisional",
-          "text_source_kind": "legacy-whole-spread-ocr",
+          "text_state": "spread-split-ocr-provisional",
+          "text_source_kind": "spread-aware-logical-page-ocr",
           "text_href": "stories/eyesores.json",
           "text_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/stories/eyesores.json",
-          "facsimile_route": "/?issue=01&page=31",
-          "logical_pages": [],
-          "matched_pdf_pages": [
-            31,
-            37
+          "facsimile_route": "/?issue=01&page=33",
+          "logical_pages": [
+            {
+              "logical_page_id": "pdf-033-r",
+              "pdf_page": 33,
+              "spread_side": "R",
+              "printed_page": 33,
+              "printed_page_basis": "right-detected-left-inferred",
+              "mean_ocr_confidence": 93.04
+            },
+            {
+              "logical_page_id": "pdf-026-r",
+              "pdf_page": 26,
+              "spread_side": "R",
+              "printed_page": 38,
+              "printed_page_basis": "detected-without-safe-pair-inference",
+              "mean_ocr_confidence": 90.82
+            }
           ],
-          "reading_order_basis": "source-pdf-order-provisional"
+          "matched_pdf_pages": [],
+          "reading_order_basis": "printed-page-reconstruction + source-reviewed story starts"
         },
         {
           "id": "01-spytown",
@@ -143,17 +291,39 @@
           "author": "Shannon Rampe",
           "route": "/stories/spytown/",
           "data_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/stories/spytown.json",
-          "text_state": "whole-spread-ocr-provisional",
-          "text_source_kind": "legacy-whole-spread-ocr",
+          "text_state": "spread-split-ocr-provisional",
+          "text_source_kind": "spread-aware-logical-page-ocr",
           "text_href": "stories/spytown.json",
           "text_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/stories/spytown.json",
-          "facsimile_route": "/?issue=01&page=39",
-          "logical_pages": [],
-          "matched_pdf_pages": [
-            39,
-            43
+          "facsimile_route": "/?issue=01&page=43",
+          "logical_pages": [
+            {
+              "logical_page_id": "pdf-043-l",
+              "pdf_page": 43,
+              "spread_side": "L",
+              "printed_page": 42,
+              "printed_page_basis": "right-detected-left-inferred",
+              "mean_ocr_confidence": 92.13
+            },
+            {
+              "logical_page_id": "pdf-013-l",
+              "pdf_page": 13,
+              "spread_side": "L",
+              "printed_page": 43,
+              "printed_page_basis": "detected-without-safe-pair-inference",
+              "mean_ocr_confidence": 79.79
+            },
+            {
+              "logical_page_id": "pdf-043-r",
+              "pdf_page": 43,
+              "spread_side": "R",
+              "printed_page": 43,
+              "printed_page_basis": "right-detected-left-inferred",
+              "mean_ocr_confidence": 85.02
+            }
           ],
-          "reading_order_basis": "source-pdf-order-provisional"
+          "matched_pdf_pages": [],
+          "reading_order_basis": "printed-page-reconstruction + source-reviewed story starts"
         }
       ]
     },
@@ -164,8 +334,8 @@
       "source_pdf_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/flc2_lo.pdf",
       "story_count": 8,
       "text_source_available": true,
-      "spread_parser_available": false,
-      "spread_parser_manifest": null,
+      "spread_parser_available": true,
+      "spread_parser_manifest": "flc/_PARSED_TEXT/flc2_lo/manifest.json",
       "excluded_index_pages": [
         3
       ],
@@ -177,17 +347,111 @@
           "author": "Nathan McKnight",
           "route": "/stories/elders-in-the-love-garden/",
           "data_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/stories/elders-in-the-love-garden.json",
-          "text_state": "whole-spread-ocr-provisional",
-          "text_source_kind": "legacy-whole-spread-ocr",
+          "text_state": "spread-split-ocr-provisional",
+          "text_source_kind": "spread-aware-logical-page-ocr",
           "text_href": "stories/elders-in-the-love-garden.json",
           "text_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/stories/elders-in-the-love-garden.json",
-          "facsimile_route": "/?issue=02&page=5",
-          "logical_pages": [],
-          "matched_pdf_pages": [
-            5,
-            7
+          "facsimile_route": "/?issue=02&page=10",
+          "logical_pages": [
+            {
+              "logical_page_id": "pdf-010-l",
+              "pdf_page": 10,
+              "spread_side": "L",
+              "printed_page": 4,
+              "printed_page_basis": "detected-without-safe-pair-inference",
+              "mean_ocr_confidence": 92.2
+            },
+            {
+              "logical_page_id": "pdf-014-r",
+              "pdf_page": 14,
+              "spread_side": "R",
+              "printed_page": 4,
+              "printed_page_basis": "detected-without-safe-pair-inference",
+              "mean_ocr_confidence": 87.24
+            },
+            {
+              "logical_page_id": "pdf-021-l",
+              "pdf_page": 21,
+              "spread_side": "L",
+              "printed_page": 4,
+              "printed_page_basis": "detected-without-safe-pair-inference",
+              "mean_ocr_confidence": 90.83
+            },
+            {
+              "logical_page_id": "pdf-022-r",
+              "pdf_page": 22,
+              "spread_side": "R",
+              "printed_page": 4,
+              "printed_page_basis": "detected-without-safe-pair-inference",
+              "mean_ocr_confidence": 89.0
+            },
+            {
+              "logical_page_id": "pdf-035-l",
+              "pdf_page": 35,
+              "spread_side": "L",
+              "printed_page": 4,
+              "printed_page_basis": "left-detected-right-inferred",
+              "mean_ocr_confidence": 88.64
+            },
+            {
+              "logical_page_id": "pdf-009-l",
+              "pdf_page": 9,
+              "spread_side": "L",
+              "printed_page": 5,
+              "printed_page_basis": "detected-without-safe-pair-inference",
+              "mean_ocr_confidence": 84.53
+            },
+            {
+              "logical_page_id": "pdf-027-l",
+              "pdf_page": 27,
+              "spread_side": "L",
+              "printed_page": 5,
+              "printed_page_basis": "detected-without-safe-pair-inference",
+              "mean_ocr_confidence": 85.83
+            },
+            {
+              "logical_page_id": "pdf-035-r",
+              "pdf_page": 35,
+              "spread_side": "R",
+              "printed_page": 5,
+              "printed_page_basis": "left-detected-right-inferred",
+              "mean_ocr_confidence": null
+            },
+            {
+              "logical_page_id": "pdf-016-l",
+              "pdf_page": 16,
+              "spread_side": "L",
+              "printed_page": 6,
+              "printed_page_basis": "left-detected-right-inferred",
+              "mean_ocr_confidence": 91.18
+            },
+            {
+              "logical_page_id": "pdf-016-r",
+              "pdf_page": 16,
+              "spread_side": "R",
+              "printed_page": 7,
+              "printed_page_basis": "left-detected-right-inferred",
+              "mean_ocr_confidence": 89.49
+            },
+            {
+              "logical_page_id": "pdf-003-r",
+              "pdf_page": 3,
+              "spread_side": "R",
+              "printed_page": 8,
+              "printed_page_basis": "detected-without-safe-pair-inference",
+              "mean_ocr_confidence": 70.97
+            },
+            {
+              "logical_page_id": "pdf-029-l",
+              "pdf_page": 29,
+              "spread_side": "L",
+              "printed_page": 8,
+              "printed_page_basis": "left-detected-right-inferred",
+              "mean_ocr_confidence": 88.0
+            }
           ],
-          "reading_order_basis": "source-pdf-order-provisional"
+          "matched_pdf_pages": [],
+          "reading_order_basis": "printed-page-reconstruction + source-reviewed story starts"
         },
         {
           "id": "02-two-skirmishes",
@@ -196,14 +460,31 @@
           "author": "Shannon Rampe",
           "route": "/stories/two-skirmishes-in-the-never-ending-war-in-rural-ohio/",
           "data_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/stories/two-skirmishes-in-the-never-ending-war-in-rural-ohio.json",
-          "text_state": "text-not-yet-derived",
-          "text_source_kind": null,
-          "text_href": null,
-          "text_url": null,
-          "facsimile_route": "/?issue=02&page=1",
-          "logical_pages": [],
+          "text_state": "spread-split-ocr-provisional",
+          "text_source_kind": "spread-aware-logical-page-ocr",
+          "text_href": "stories/two-skirmishes-in-the-never-ending-war-in-rural-ohio.json",
+          "text_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/stories/two-skirmishes-in-the-never-ending-war-in-rural-ohio.json",
+          "facsimile_route": "/?issue=02&page=29",
+          "logical_pages": [
+            {
+              "logical_page_id": "pdf-029-r",
+              "pdf_page": 29,
+              "spread_side": "R",
+              "printed_page": 9,
+              "printed_page_basis": "left-detected-right-inferred",
+              "mean_ocr_confidence": 88.84
+            },
+            {
+              "logical_page_id": "pdf-013-r",
+              "pdf_page": 13,
+              "spread_side": "R",
+              "printed_page": 10,
+              "printed_page_basis": "detected-without-safe-pair-inference",
+              "mean_ocr_confidence": 90.97
+            }
+          ],
           "matched_pdf_pages": [],
-          "reading_order_basis": null
+          "reading_order_basis": "printed-page-reconstruction + source-reviewed story starts"
         },
         {
           "id": "02-timothy",
@@ -250,17 +531,39 @@
           "author": "Nathan McKnight",
           "route": "/stories/the-memory-of-flesh/",
           "data_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/stories/the-memory-of-flesh.json",
-          "text_state": "whole-spread-ocr-provisional",
-          "text_source_kind": "legacy-whole-spread-ocr",
+          "text_state": "spread-split-ocr-provisional",
+          "text_source_kind": "spread-aware-logical-page-ocr",
           "text_href": "stories/the-memory-of-flesh.json",
           "text_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/stories/the-memory-of-flesh.json",
-          "facsimile_route": "/?issue=02&page=25",
-          "logical_pages": [],
-          "matched_pdf_pages": [
-            25,
-            27
+          "facsimile_route": "/?issue=02&page=27",
+          "logical_pages": [
+            {
+              "logical_page_id": "pdf-027-r",
+              "pdf_page": 27,
+              "spread_side": "R",
+              "printed_page": 27,
+              "printed_page_basis": "detected-without-safe-pair-inference",
+              "mean_ocr_confidence": 91.32
+            },
+            {
+              "logical_page_id": "pdf-028-l",
+              "pdf_page": 28,
+              "spread_side": "L",
+              "printed_page": 28,
+              "printed_page_basis": "left-detected-right-inferred",
+              "mean_ocr_confidence": 94.41
+            },
+            {
+              "logical_page_id": "pdf-031-l",
+              "pdf_page": 31,
+              "spread_side": "L",
+              "printed_page": 28,
+              "printed_page_basis": "right-detected-left-inferred",
+              "mean_ocr_confidence": 91.78
+            }
           ],
-          "reading_order_basis": "source-pdf-order-provisional"
+          "matched_pdf_pages": [],
+          "reading_order_basis": "printed-page-reconstruction + source-reviewed story starts"
         },
         {
           "id": "02-recovery-sunken-vessels",
@@ -269,17 +572,71 @@
           "author": "Benjamin Crites",
           "route": "/stories/the-recovery-of-sunken-vessels/",
           "data_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/stories/the-recovery-of-sunken-vessels.json",
-          "text_state": "whole-spread-ocr-provisional",
-          "text_source_kind": "legacy-whole-spread-ocr",
+          "text_state": "spread-split-ocr-provisional",
+          "text_source_kind": "spread-aware-logical-page-ocr",
           "text_href": "stories/the-recovery-of-sunken-vessels.json",
           "text_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/stories/the-recovery-of-sunken-vessels.json",
-          "facsimile_route": "/?issue=02&page=29",
-          "logical_pages": [],
-          "matched_pdf_pages": [
-            29,
-            35
+          "facsimile_route": "/?issue=02&page=28",
+          "logical_pages": [
+            {
+              "logical_page_id": "pdf-028-r",
+              "pdf_page": 28,
+              "spread_side": "R",
+              "printed_page": 29,
+              "printed_page_basis": "left-detected-right-inferred",
+              "mean_ocr_confidence": 94.83
+            },
+            {
+              "logical_page_id": "pdf-031-r",
+              "pdf_page": 31,
+              "spread_side": "R",
+              "printed_page": 29,
+              "printed_page_basis": "right-detected-left-inferred",
+              "mean_ocr_confidence": 90.76
+            },
+            {
+              "logical_page_id": "pdf-005-l",
+              "pdf_page": 5,
+              "spread_side": "L",
+              "printed_page": 30,
+              "printed_page_basis": "detected-without-safe-pair-inference",
+              "mean_ocr_confidence": 84.42
+            },
+            {
+              "logical_page_id": "pdf-030-l",
+              "pdf_page": 30,
+              "spread_side": "L",
+              "printed_page": 30,
+              "printed_page_basis": "left-detected-right-inferred",
+              "mean_ocr_confidence": 93.14
+            },
+            {
+              "logical_page_id": "pdf-030-r",
+              "pdf_page": 30,
+              "spread_side": "R",
+              "printed_page": 31,
+              "printed_page_basis": "left-detected-right-inferred",
+              "mean_ocr_confidence": 94.15
+            },
+            {
+              "logical_page_id": "pdf-032-l",
+              "pdf_page": 32,
+              "spread_side": "L",
+              "printed_page": 32,
+              "printed_page_basis": "left-detected-right-inferred",
+              "mean_ocr_confidence": 95.14
+            },
+            {
+              "logical_page_id": "pdf-032-r",
+              "pdf_page": 32,
+              "spread_side": "R",
+              "printed_page": 33,
+              "printed_page_basis": "left-detected-right-inferred",
+              "mean_ocr_confidence": 93.72
+            }
           ],
-          "reading_order_basis": "source-pdf-order-provisional"
+          "matched_pdf_pages": [],
+          "reading_order_basis": "printed-page-reconstruction + source-reviewed story starts"
         },
         {
           "id": "02-cover-letter",
@@ -307,17 +664,23 @@
           "author": "Joe Bellomy",
           "route": "/stories/concrete-afternoon/",
           "data_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/stories/concrete-afternoon.json",
-          "text_state": "whole-spread-ocr-provisional",
-          "text_source_kind": "legacy-whole-spread-ocr",
+          "text_state": "spread-split-ocr-provisional",
+          "text_source_kind": "spread-aware-logical-page-ocr",
           "text_href": "stories/concrete-afternoon.json",
           "text_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/stories/concrete-afternoon.json",
-          "facsimile_route": "/?issue=02&page=37",
-          "logical_pages": [],
-          "matched_pdf_pages": [
-            37,
-            38
+          "facsimile_route": "/?issue=02&page=41",
+          "logical_pages": [
+            {
+              "logical_page_id": "pdf-041-l",
+              "pdf_page": 41,
+              "spread_side": "L",
+              "printed_page": 38,
+              "printed_page_basis": "right-detected-left-inferred",
+              "mean_ocr_confidence": 93.89
+            }
           ],
-          "reading_order_basis": "source-pdf-order-provisional"
+          "matched_pdf_pages": [],
+          "reading_order_basis": "printed-page-reconstruction + source-reviewed story starts"
         }
       ]
     },
@@ -328,8 +691,8 @@
       "source_pdf_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/flc3_lo.pdf",
       "story_count": 7,
       "text_source_available": true,
-      "spread_parser_available": false,
-      "spread_parser_manifest": null,
+      "spread_parser_available": true,
+      "spread_parser_manifest": "flc/_PARSED_TEXT/flc3_lo/manifest.json",
       "excluded_index_pages": [
         3
       ],
@@ -341,18 +704,95 @@
           "author": "Shannon Rampe",
           "route": "/stories/a-buried-mystery/",
           "data_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/stories/a-buried-mystery.json",
-          "text_state": "whole-spread-ocr-provisional",
-          "text_source_kind": "legacy-whole-spread-ocr",
+          "text_state": "spread-split-ocr-provisional",
+          "text_source_kind": "spread-aware-logical-page-ocr",
           "text_href": "stories/a-buried-mystery.json",
           "text_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/stories/a-buried-mystery.json",
-          "facsimile_route": "/?issue=03&page=2",
-          "logical_pages": [],
-          "matched_pdf_pages": [
-            2,
-            5,
-            7
+          "facsimile_route": "/?issue=03&page=4",
+          "logical_pages": [
+            {
+              "logical_page_id": "pdf-004-l",
+              "pdf_page": 4,
+              "spread_side": "L",
+              "printed_page": 4,
+              "printed_page_basis": "right-detected-left-inferred",
+              "mean_ocr_confidence": 73.87
+            },
+            {
+              "logical_page_id": "pdf-011-l",
+              "pdf_page": 11,
+              "spread_side": "L",
+              "printed_page": 4,
+              "printed_page_basis": "left-detected-right-inferred",
+              "mean_ocr_confidence": 85.61
+            },
+            {
+              "logical_page_id": "pdf-012-r",
+              "pdf_page": 12,
+              "spread_side": "R",
+              "printed_page": 4,
+              "printed_page_basis": "detected-without-safe-pair-inference",
+              "mean_ocr_confidence": 81.1
+            },
+            {
+              "logical_page_id": "pdf-015-r",
+              "pdf_page": 15,
+              "spread_side": "R",
+              "printed_page": 4,
+              "printed_page_basis": "detected-without-safe-pair-inference",
+              "mean_ocr_confidence": 90.95
+            },
+            {
+              "logical_page_id": "pdf-036-r",
+              "pdf_page": 36,
+              "spread_side": "R",
+              "printed_page": 4,
+              "printed_page_basis": "detected-without-safe-pair-inference",
+              "mean_ocr_confidence": 89.9
+            },
+            {
+              "logical_page_id": "pdf-004-r",
+              "pdf_page": 4,
+              "spread_side": "R",
+              "printed_page": 5,
+              "printed_page_basis": "right-detected-left-inferred",
+              "mean_ocr_confidence": 93.1
+            },
+            {
+              "logical_page_id": "pdf-011-r",
+              "pdf_page": 11,
+              "spread_side": "R",
+              "printed_page": 5,
+              "printed_page_basis": "left-detected-right-inferred",
+              "mean_ocr_confidence": 87.43
+            },
+            {
+              "logical_page_id": "pdf-018-l",
+              "pdf_page": 18,
+              "spread_side": "L",
+              "printed_page": 5,
+              "printed_page_basis": "detected-without-safe-pair-inference",
+              "mean_ocr_confidence": 89.57
+            },
+            {
+              "logical_page_id": "pdf-003-l",
+              "pdf_page": 3,
+              "spread_side": "L",
+              "printed_page": 6,
+              "printed_page_basis": "right-detected-left-inferred",
+              "mean_ocr_confidence": 78.41
+            },
+            {
+              "logical_page_id": "pdf-003-r",
+              "pdf_page": 3,
+              "spread_side": "R",
+              "printed_page": 7,
+              "printed_page_basis": "right-detected-left-inferred",
+              "mean_ocr_confidence": 64.14
+            }
           ],
-          "reading_order_basis": "source-pdf-order-provisional"
+          "matched_pdf_pages": [],
+          "reading_order_basis": "printed-page-reconstruction + source-reviewed story starts"
         },
         {
           "id": "03-gilgamesh-golem",
@@ -361,18 +801,39 @@
           "author": "Nathan McKnight",
           "route": "/stories/the-gilgamesh-golem/",
           "data_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/stories/the-gilgamesh-golem.json",
-          "text_state": "whole-spread-ocr-provisional",
-          "text_source_kind": "legacy-whole-spread-ocr",
+          "text_state": "spread-split-ocr-provisional",
+          "text_source_kind": "spread-aware-logical-page-ocr",
           "text_href": "stories/the-gilgamesh-golem.json",
           "text_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/stories/the-gilgamesh-golem.json",
-          "facsimile_route": "/?issue=03&page=9",
-          "logical_pages": [],
-          "matched_pdf_pages": [
-            9,
-            11,
-            13
+          "facsimile_route": "/?issue=03&page=22",
+          "logical_pages": [
+            {
+              "logical_page_id": "pdf-022-r",
+              "pdf_page": 22,
+              "spread_side": "R",
+              "printed_page": 8,
+              "printed_page_basis": "detected-without-safe-pair-inference",
+              "mean_ocr_confidence": 89.41
+            },
+            {
+              "logical_page_id": "pdf-031-l",
+              "pdf_page": 31,
+              "spread_side": "L",
+              "printed_page": 10,
+              "printed_page_basis": "detected-without-safe-pair-inference",
+              "mean_ocr_confidence": 83.1
+            },
+            {
+              "logical_page_id": "pdf-021-l",
+              "pdf_page": 21,
+              "spread_side": "L",
+              "printed_page": 14,
+              "printed_page_basis": "detected-without-safe-pair-inference",
+              "mean_ocr_confidence": 94.47
+            }
           ],
-          "reading_order_basis": "source-pdf-order-provisional"
+          "matched_pdf_pages": [],
+          "reading_order_basis": "printed-page-reconstruction + source-reviewed story starts"
         },
         {
           "id": "03-nature-fireflies",
@@ -381,18 +842,23 @@
           "author": "Benjamin Crites",
           "route": "/stories/the-nature-of-fireflies/",
           "data_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/stories/the-nature-of-fireflies.json",
-          "text_state": "whole-spread-ocr-provisional",
-          "text_source_kind": "legacy-whole-spread-ocr",
+          "text_state": "spread-split-ocr-provisional",
+          "text_source_kind": "spread-aware-logical-page-ocr",
           "text_href": "stories/the-nature-of-fireflies.json",
           "text_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/stories/the-nature-of-fireflies.json",
-          "facsimile_route": "/?issue=03&page=2",
-          "logical_pages": [],
-          "matched_pdf_pages": [
-            2,
-            15,
-            21
+          "facsimile_route": "/?issue=03&page=21",
+          "logical_pages": [
+            {
+              "logical_page_id": "pdf-021-r",
+              "pdf_page": 21,
+              "spread_side": "R",
+              "printed_page": 21,
+              "printed_page_basis": "detected-without-safe-pair-inference",
+              "mean_ocr_confidence": 95.21
+            }
           ],
-          "reading_order_basis": "source-pdf-order-provisional"
+          "matched_pdf_pages": [],
+          "reading_order_basis": "printed-page-reconstruction + source-reviewed story starts"
         },
         {
           "id": "03-work-play",
@@ -401,20 +867,55 @@
           "author": "Joe Bellomy",
           "route": "/stories/work-and-play/",
           "data_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/stories/work-and-play.json",
-          "text_state": "whole-spread-ocr-provisional",
-          "text_source_kind": "legacy-whole-spread-ocr",
+          "text_state": "spread-split-ocr-provisional",
+          "text_source_kind": "spread-aware-logical-page-ocr",
           "text_href": "stories/work-and-play.json",
           "text_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/stories/work-and-play.json",
-          "facsimile_route": "/?issue=03&page=14",
-          "logical_pages": [],
-          "matched_pdf_pages": [
-            14,
-            23,
-            25,
-            27,
-            35
+          "facsimile_route": "/?issue=03&page=25",
+          "logical_pages": [
+            {
+              "logical_page_id": "pdf-025-l",
+              "pdf_page": 25,
+              "spread_side": "L",
+              "printed_page": 24,
+              "printed_page_basis": "right-detected-left-inferred",
+              "mean_ocr_confidence": 89.68
+            },
+            {
+              "logical_page_id": "pdf-025-r",
+              "pdf_page": 25,
+              "spread_side": "R",
+              "printed_page": 25,
+              "printed_page_basis": "right-detected-left-inferred",
+              "mean_ocr_confidence": 90.19
+            },
+            {
+              "logical_page_id": "pdf-024-l",
+              "pdf_page": 24,
+              "spread_side": "L",
+              "printed_page": 26,
+              "printed_page_basis": "left-detected-right-inferred",
+              "mean_ocr_confidence": 86.45
+            },
+            {
+              "logical_page_id": "pdf-024-r",
+              "pdf_page": 24,
+              "spread_side": "R",
+              "printed_page": 27,
+              "printed_page_basis": "left-detected-right-inferred",
+              "mean_ocr_confidence": 87.04
+            },
+            {
+              "logical_page_id": "pdf-033-l",
+              "pdf_page": 33,
+              "spread_side": "L",
+              "printed_page": 28,
+              "printed_page_basis": "right-detected-left-inferred",
+              "mean_ocr_confidence": 90.73
+            }
           ],
-          "reading_order_basis": "source-pdf-order-provisional"
+          "matched_pdf_pages": [],
+          "reading_order_basis": "printed-page-reconstruction + source-reviewed story starts"
         },
         {
           "id": "03-strange-forms",
@@ -423,17 +924,63 @@
           "author": "Benjamin Crites",
           "route": "/stories/strange-forms-of-the-surfacing-dead/",
           "data_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/stories/strange-forms-of-the-surfacing-dead.json",
-          "text_state": "whole-spread-ocr-provisional",
-          "text_source_kind": "legacy-whole-spread-ocr",
+          "text_state": "spread-split-ocr-provisional",
+          "text_source_kind": "spread-aware-logical-page-ocr",
           "text_href": "stories/strange-forms-of-the-surfacing-dead.json",
           "text_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/stories/strange-forms-of-the-surfacing-dead.json",
-          "facsimile_route": "/?issue=03&page=31",
-          "logical_pages": [],
-          "matched_pdf_pages": [
-            31,
-            37
+          "facsimile_route": "/?issue=03&page=33",
+          "logical_pages": [
+            {
+              "logical_page_id": "pdf-033-r",
+              "pdf_page": 33,
+              "spread_side": "R",
+              "printed_page": 29,
+              "printed_page_basis": "right-detected-left-inferred",
+              "mean_ocr_confidence": 93.82
+            },
+            {
+              "logical_page_id": "pdf-031-r",
+              "pdf_page": 31,
+              "spread_side": "R",
+              "printed_page": 31,
+              "printed_page_basis": "detected-without-safe-pair-inference",
+              "mean_ocr_confidence": 87.41
+            },
+            {
+              "logical_page_id": "pdf-030-l",
+              "pdf_page": 30,
+              "spread_side": "L",
+              "printed_page": 32,
+              "printed_page_basis": "left-detected-right-inferred",
+              "mean_ocr_confidence": 89.24
+            },
+            {
+              "logical_page_id": "pdf-030-r",
+              "pdf_page": 30,
+              "spread_side": "R",
+              "printed_page": 33,
+              "printed_page_basis": "left-detected-right-inferred",
+              "mean_ocr_confidence": 89.2
+            },
+            {
+              "logical_page_id": "pdf-038-l",
+              "pdf_page": 38,
+              "spread_side": "L",
+              "printed_page": 34,
+              "printed_page_basis": "left-detected-right-inferred",
+              "mean_ocr_confidence": 89.72
+            },
+            {
+              "logical_page_id": "pdf-038-r",
+              "pdf_page": 38,
+              "spread_side": "R",
+              "printed_page": 35,
+              "printed_page_basis": "left-detected-right-inferred",
+              "mean_ocr_confidence": 85.83
+            }
           ],
-          "reading_order_basis": "source-pdf-order-provisional"
+          "matched_pdf_pages": [],
+          "reading_order_basis": "printed-page-reconstruction + source-reviewed story starts"
         },
         {
           "id": "03-thousand-deaths",
@@ -460,29 +1007,112 @@
           "author": "Nathan McKnight",
           "route": "/stories/save-the-kildans/",
           "data_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/stories/save-the-kildans.json",
-          "text_state": "whole-spread-ocr-provisional",
-          "text_source_kind": "legacy-whole-spread-ocr",
+          "text_state": "spread-split-ocr-provisional",
+          "text_source_kind": "spread-aware-logical-page-ocr",
           "text_href": "stories/save-the-kildans.json",
           "text_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/stories/save-the-kildans.json",
-          "facsimile_route": "/?issue=03&page=28",
-          "logical_pages": [],
-          "matched_pdf_pages": [
-            28,
-            39,
-            40,
-            41,
-            43
+          "facsimile_route": "/?issue=03&page=43",
+          "logical_pages": [
+            {
+              "logical_page_id": "pdf-043-r",
+              "pdf_page": 43,
+              "spread_side": "R",
+              "printed_page": 39,
+              "printed_page_basis": "detected-without-safe-pair-inference",
+              "mean_ocr_confidence": 92.73
+            },
+            {
+              "logical_page_id": "pdf-042-l",
+              "pdf_page": 42,
+              "spread_side": "L",
+              "printed_page": 40,
+              "printed_page_basis": "left-detected-right-inferred",
+              "mean_ocr_confidence": 83.74
+            },
+            {
+              "logical_page_id": "pdf-041-r",
+              "pdf_page": 41,
+              "spread_side": "R",
+              "printed_page": 41,
+              "printed_page_basis": "detected-without-safe-pair-inference",
+              "mean_ocr_confidence": 93.62
+            },
+            {
+              "logical_page_id": "pdf-042-r",
+              "pdf_page": 42,
+              "spread_side": "R",
+              "printed_page": 41,
+              "printed_page_basis": "left-detected-right-inferred",
+              "mean_ocr_confidence": 93.65
+            },
+            {
+              "logical_page_id": "pdf-012-l",
+              "pdf_page": 12,
+              "spread_side": "L",
+              "printed_page": 42,
+              "printed_page_basis": "detected-without-safe-pair-inference",
+              "mean_ocr_confidence": 85.32
+            },
+            {
+              "logical_page_id": "pdf-039-l",
+              "pdf_page": 39,
+              "spread_side": "L",
+              "printed_page": 42,
+              "printed_page_basis": "right-detected-left-inferred",
+              "mean_ocr_confidence": 92.77
+            },
+            {
+              "logical_page_id": "pdf-039-r",
+              "pdf_page": 39,
+              "spread_side": "R",
+              "printed_page": 43,
+              "printed_page_basis": "right-detected-left-inferred",
+              "mean_ocr_confidence": 87.42
+            },
+            {
+              "logical_page_id": "pdf-047-l",
+              "pdf_page": 47,
+              "spread_side": "L",
+              "printed_page": 46,
+              "printed_page_basis": "right-detected-left-inferred",
+              "mean_ocr_confidence": 92.3
+            },
+            {
+              "logical_page_id": "pdf-047-r",
+              "pdf_page": 47,
+              "spread_side": "R",
+              "printed_page": 47,
+              "printed_page_basis": "right-detected-left-inferred",
+              "mean_ocr_confidence": 89.66
+            },
+            {
+              "logical_page_id": "pdf-043-l",
+              "pdf_page": 43,
+              "spread_side": "L",
+              "printed_page": 84,
+              "printed_page_basis": "detected-without-safe-pair-inference",
+              "mean_ocr_confidence": 94.26
+            },
+            {
+              "logical_page_id": "pdf-041-l",
+              "pdf_page": 41,
+              "spread_side": "L",
+              "printed_page": 88,
+              "printed_page_basis": "detected-without-safe-pair-inference",
+              "mean_ocr_confidence": 92.77
+            }
           ],
-          "reading_order_basis": "source-pdf-order-provisional"
+          "matched_pdf_pages": [],
+          "reading_order_basis": "printed-page-reconstruction + source-reviewed story starts"
         }
       ]
     }
   ],
   "summary": {
     "story_count": 22,
-    "stories_with_machine_text": 20,
-    "stories_with_spread_parsed_text": 0,
+    "stories_with_machine_text": 21,
+    "stories_with_spread_parsed_text": 17,
     "issues_with_text_source": 3,
-    "issues_with_spread_parser": 0
+    "issues_with_spread_parser": 3
   }
 }
