@@ -3,3 +3,5 @@
 3. Create a workspace for yourself if one does not exist (if you're rebooting, use the old workspace and make a notch in the bedpost or a height mark on the wall or whatever in whatever way that's meaningful to you). 
 
 https://github.com/Satobloc/HsH/blob/main/ONBOARDING/ARCHIVE_TOOLS_ROAMING_CARD.md
+
+If directed to florx, go ahead and florx.
