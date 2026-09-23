@@ -14,10 +14,62 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Install OCR only when text sources are missing
+        run: |
+          if [ ! -s flc/_AUTO_DIGITIZE_TEST/flc2_lo/embedded_text.txt ] || [ ! -s flc/_AUTO_DIGITIZE_TEST/flc3_lo/embedded_text.txt ]; then
+            sudo apt-get update
+            sudo apt-get install -y ocrmypdf tesseract-ocr
+          fi
+
+      - name: Derive missing issue text sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          for src in flc/flc2_lo.pdf flc/flc3_lo.pdf; do
+            stem="$(basename "$src" .pdf)"
+            out="flc/_AUTO_DIGITIZE_TEST/$stem"
+            text="$out/embedded_text.txt"
+            if [ -s "$text" ]; then
+              echo "$stem text already exists; reusing"
+              continue
+            fi
+            mkdir -p "$out"
+            echo "OCR text pass: $src"
+            ocrmypdf \
+              --deskew \
+              --rotate-pages \
+              --clean \
+              --skip-text \
+              --optimize 1 \
+              --sidecar "$text" \
+              "$src" "/tmp/${stem}-ocr.pdf"
+            SRC="$src" OUT="$out" python - <<'PY'
+          import datetime as dt, hashlib, json, os
+          from pathlib import Path
+          src = Path(os.environ['SRC'])
+          out = Path(os.environ['OUT'])
+          text = out / 'embedded_text.txt'
+          manifest = {
+              'source_path': str(src),
+              'source_sha256': hashlib.sha256(src.read_bytes()).hexdigest(),
+              'source_preserved': True,
+              'text': {
+                  'method': 'ocrmypdf-sidecar',
+                  'chars': len(text.read_text(encoding='utf-8', errors='replace')),
+                  'review_state': 'machine-derived-provisional'
+              },
+              'generated_utc': dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat(),
+              'purpose': 'flc live story-text feed source'
+          }
+          (out / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n', encoding='utf-8')
+          PY
+          done
 
       - name: Build story feed
         run: python tools/build_flc_story_text_feed.py
@@ -27,10 +79,12 @@ jobs:
           python -m json.tool flc/_SITE_FEED/latest.json >/dev/null
           python -m json.tool flc/_SITE_FEED/story-index.json >/dev/null
 
-      - name: Publish derived story feed
+      - name: Publish derived text and story feed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add flc/_AUTO_DIGITIZE_TEST/flc2_lo/embedded_text.txt flc/_AUTO_DIGITIZE_TEST/flc2_lo/manifest.json
+          git add flc/_AUTO_DIGITIZE_TEST/flc3_lo/embedded_text.txt flc/_AUTO_DIGITIZE_TEST/flc3_lo/manifest.json
           git add flc/_SITE_FEED/latest.json flc/_SITE_FEED/story-index.json flc/_SITE_FEED/stories
           git diff --cached --quiet && exit 0
           git commit -m "Refresh flc story feed [skip archive-admin]"
