@@ -1,5 +1,5 @@
 {
-  "protocol": "flc-site-tunnel/v2",
+  "protocol": "flc-site-tunnel/v3",
   "project_id": "floating-liars-club",
   "display_name": "floating liars' club",
   "short_name": "flc",
@@ -28,10 +28,13 @@
     "source_view_field": "facsimile_route"
   },
   "text_policy": {
-    "preferred_layer": "spread-aware-logical-page-ocr",
-    "fallback_layer": "legacy-whole-spread-ocr",
+    "geometry_model": "one PDF page = one photographed printed magazine page; many pages contain two prose columns; PDF sequence may not equal printed-page sequence",
+    "preferred_layer": "page-aware-column-ocr",
+    "fallback_layer": "legacy-whole-page-layout-ocr",
+    "story_boundary_layer": "source-reviewed printed contents table",
     "current_authority": "machine-derived provisional text",
-    "completeness_default": "unknown / potentially partial until story page membership and reading order are reviewed",
+    "completeness_field": "text_completeness",
+    "completeness_default": "unknown / potentially partial unless recovered printed-page range is explicitly complete",
     "frontend_label": "provisional machine text",
     "do_not_claim": "complete or reviewed transcription unless a later record explicitly says so",
     "source_view": "keep facsimile available beside every machine-text reader"
@@ -44,9 +47,10 @@
       "latest.tunnel_status",
       "latest.summary.story_count",
       "latest.summary.stories_with_machine_text",
-      "latest.summary.stories_with_spread_parsed_text",
-      "latest.summary.issues_with_text_source",
-      "latest.summary.issues_with_spread_parser",
+      "latest.summary.stories_with_page_aware_text",
+      "latest.summary.stories_with_complete_page_ranges",
+      "latest.summary.issues_with_legacy_text_source",
+      "latest.summary.issues_with_page_parser",
       "latest.story_index_url",
       "frontend_fetch_time",
       "live_or_packaged_fallback"
@@ -58,7 +62,7 @@
   "current_smoke_test": {
     "minimum_story_count": 22,
     "minimum_text_ready": 7,
-    "spread_parser_should_supersede_legacy_when_available": true,
+    "page_parser_should_supersede_legacy_when_available": true,
     "example_slug": "eye-of-the-angry-god",
     "example_route": "/stories/eye-of-the-angry-god/",
     "example_data_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/stories/eye-of-the-angry-god.json"
