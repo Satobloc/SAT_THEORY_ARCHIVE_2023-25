@@ -3,8 +3,9 @@
   "project_id": "floating-liars-club",
   "display_name": "floating liars' club",
   "short_name": "flc",
-  "bundle_version": "2026-09-23.3",
+  "bundle_version": "2026-09-23.4",
   "default_experience": "editorial",
+  "tunnel_contract_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/tunnel.json",
   "dynamic_feed": {
     "latest_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/latest.json",
     "story_index_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/story-index.json",
@@ -19,6 +20,7 @@
     {"path":"/facsimile/","template":"facsimile"}
   ],
   "frontend_contract": [
+    "Load tunnel_contract_url once as the consumer protocol; it defines bootstrap, routing, cache and status-handshake behavior.",
     "On every page load, fetch dynamic_feed.latest_url first rather than resolving latest.json against the chatgpt.site origin.",
     "Then fetch latest.story_index_url. Do not guess a relative backend base path.",
     "Use each story's route, text_url, text_state, facsimile_route, and reading_order_basis.",
@@ -26,14 +28,14 @@
     "The story route fetches text_url and renders display_text as OCR-derived provisional text, with facsimile_route beside it.",
     "Do not hide a story because text is provisional; label the text state compactly.",
     "If backend fetch fails, keep the packaged site snapshot and report fallback state on /reconstruction-status/.",
-    "On /reconstruction-status/, show bundle_version, latest.built_utc, story counts, live-vs-fallback state, and the actual backend URL fetched.",
+    "On /reconstruction-status/, show bundle_version, latest.built_utc, story counts, live-vs-fallback state, frontend fetch time, and the actual backend URL fetched.",
     "A successful backend fetch should never leave a text-ready story as an unlinked contents item."
   ],
   "current_backend_expectation": {
     "story_count": 22,
     "minimum_text_ready_now": 7,
     "text_ready_issue": "01",
-    "note": "october 2002 currently has a machine-text layer; november 2002 and january 2003 await the next digitization pass"
+    "note": "october 2002 currently has a machine-text layer; november 2002 and january 2003 are in the text-source pipeline"
   },
   "style": {
     "short_name": "flc",
