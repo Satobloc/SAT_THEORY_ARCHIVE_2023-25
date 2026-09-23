@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 """Build the public flc story-text feed from current auto-digitize output.
 
-This is the fast Sites bridge. It does not run OCR. It packages whatever
-_auto-digitize_ text already exists into stable story records so the frontend
-can link story titles to readable provisional text while keeping facsimile as
-source of record.
+Fast Sites bridge: no OCR is run here. Existing derived text is packaged into
+stable story records with absolute public data URLs. Facsimile remains source of
+record; machine text is explicitly provisional.
 """
 from __future__ import annotations
 
@@ -21,6 +20,9 @@ FLC = ROOT / "flc"
 AUTO = FLC / "_AUTO_DIGITIZE_TEST"
 OUT = FLC / "_SITE_FEED"
 CATALOG = OUT / "story_catalog.json"
+RAW_REPO = "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main"
+RAW_FEED = f"{RAW_REPO}/flc/_SITE_FEED"
+RAW_FLC = f"{RAW_REPO}/flc"
 
 
 def norm(s: str) -> str:
@@ -84,11 +86,13 @@ def main() -> int:
     built_at = dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat()
 
     index: dict[str, Any] = {
-        "schema_version": 1,
+        "schema_version": 2,
         "project_id": catalog["project_id"],
         "display_name": catalog["display_name"],
         "short_name": catalog["short_name"],
         "built_utc": built_at,
+        "self_url": f"{RAW_FEED}/story-index.json",
+        "latest_url": f"{RAW_FEED}/latest.json",
         "text_policy": "OCR-derived provisional text. Source facsimile remains authoritative; reviewed text may supersede this layer without changing story ids/routes.",
         "issues": [],
     }
@@ -110,12 +114,24 @@ def main() -> int:
         if manifest_path.exists():
             source_sha = load_json(manifest_path).get("source_sha256")
 
+        # Contents/index pages often mention many story titles and must not be
+        # mistaken for story body text. Three or more title matches marks such a
+        # page as navigation furniture for this first-pass extractor.
+        page_story_hits: dict[int, set[str]] = {}
+        for i, page_text in enumerate(pages, 1):
+            for story in issue["stories"]:
+                if alias_score(page_text, story.get("aliases", [story["title"]])):
+                    page_story_hits.setdefault(i, set()).add(story["id"])
+        index_pages = {p for p, ids in page_story_hits.items() if len(ids) >= 3}
+
         issue_index: dict[str, Any] = {
             "id": issue["id"],
             "display_title": issue["display_title"],
             "source_file": source_file,
+            "source_pdf_url": f"{RAW_FLC}/{source_file}",
             "story_count": len(issue["stories"]),
             "text_source_available": text_path.exists(),
+            "excluded_index_pages": sorted(index_pages),
             "stories": [],
         }
 
@@ -123,6 +139,8 @@ def main() -> int:
             total_stories += 1
             matched = []
             for i, page_text in enumerate(pages, 1):
+                if i in index_pages:
+                    continue
                 score = alias_score(page_text, story.get("aliases", [story["title"]]))
                 if score:
                     clean = page_text.rstrip()
@@ -148,12 +166,16 @@ def main() -> int:
             if matched:
                 text_ready += 1
 
+            rel_story = f"stories/{story['slug']}.json"
+            text_url = f"{RAW_FEED}/{rel_story}" if matched else None
+            first_pdf_page = matched[0]["pdf_page"] if matched else None
             record = {
-                "schema_version": 1,
+                "schema_version": 2,
                 "project_id": catalog["project_id"],
                 "story_id": story["id"],
                 "slug": story["slug"],
                 "route": f"/stories/{story['slug']}/",
+                "data_url": f"{RAW_FEED}/{rel_story}",
                 "title": story["title"],
                 "author": story["author"],
                 "issue_id": issue["id"],
@@ -162,7 +184,9 @@ def main() -> int:
                 "review_state": "auto-only" if matched else "unavailable",
                 "reading_order_basis": order_basis,
                 "source_pdf": f"flc/{source_file}",
+                "source_pdf_url": f"{RAW_FLC}/{source_file}",
                 "source_pdf_sha256": source_sha,
+                "facsimile_route": f"/?issue={issue['id']}&page={first_pdf_page}" if first_pdf_page else f"/?issue={issue['id']}&page=1",
                 "ocr_source": str(text_path.relative_to(ROOT)) if text_path.exists() else None,
                 "pages": matched,
                 "display_text": "\n\n".join(p["text"] for p in matched) if matched else None,
@@ -181,8 +205,11 @@ def main() -> int:
                 "title": story["title"],
                 "author": story["author"],
                 "route": record["route"],
+                "data_url": record["data_url"],
                 "text_state": state,
-                "text_href": f"stories/{story['slug']}.json" if matched else None,
+                "text_href": rel_story if matched else None,
+                "text_url": text_url,
+                "facsimile_route": record["facsimile_route"],
                 "matched_pdf_pages": [p["pdf_page"] for p in matched],
                 "reading_order_basis": order_basis
             })
@@ -196,16 +223,19 @@ def main() -> int:
     safe_write(OUT / "story-index.json", json.dumps(index, indent=2, ensure_ascii=False) + "\n")
 
     latest = {
-        "schema_version": 1,
+        "schema_version": 2,
         "project_id": catalog["project_id"],
         "display_name": catalog["display_name"],
         "short_name": catalog["short_name"],
-        "site_bundle": "site-bundle.json",
-        "story_index": "story-index.json",
         "built_utc": built_at,
+        "self_url": f"{RAW_FEED}/latest.json",
+        "site_bundle": "site-bundle.json",
+        "site_bundle_url": f"{RAW_FEED}/site-bundle.json",
+        "story_index": "story-index.json",
+        "story_index_url": f"{RAW_FEED}/story-index.json",
         "summary": index["summary"],
-        "tunnel_status": "story feed generated",
-        "frontend_instruction": "Fetch story-index.json on load. If text_href is present, make the story title/byline a link to /stories/<slug>/ and fetch that JSON for provisional text; keep facsimile available beside it."
+        "tunnel_status": "story feed generated / absolute frontend URLs ready",
+        "frontend_instruction": "Fetch story_index_url on page load with cache disabled or a cache-busting query. If a story has text_url, make its title/byline a link to route and fetch text_url for provisional text; keep facsimile_route beside it."
     }
     safe_write(OUT / "latest.json", json.dumps(latest, indent=2, ensure_ascii=False) + "\n")
     print(json.dumps(latest["summary"]))
