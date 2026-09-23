@@ -1,16 +1,19 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "project_id": "floating-liars-club",
   "display_name": "floating liars' club",
   "short_name": "flc",
+  "built_utc": "2026-09-23T12:19:11+00:00",
+  "self_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/latest.json",
   "site_bundle": "site-bundle.json",
+  "site_bundle_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/site-bundle.json",
   "story_index": "story-index.json",
-  "built_utc": "2026-09-23T12:16:00+00:00",
+  "story_index_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/story-index.json",
   "summary": {
     "story_count": 22,
     "stories_with_machine_text": 7,
     "issues_with_text_source": 1
   },
-  "tunnel_status": "story feed generated",
-  "frontend_instruction": "Fetch story-index.json on load. If text_href is present, make the story title/byline a link to /stories/<slug>/ and fetch that JSON for provisional text; keep facsimile available beside it."
+  "tunnel_status": "story feed generated / absolute frontend URLs ready",
+  "frontend_instruction": "Fetch story_index_url on page load with cache disabled or a cache-busting query. If a story has text_url, make its title/byline a link to route and fetch text_url for provisional text; keep facsimile_route beside it."
 }
