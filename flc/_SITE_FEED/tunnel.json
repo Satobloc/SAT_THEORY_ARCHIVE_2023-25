@@ -1,8 +1,14 @@
 {
-  "protocol": "flc-site-tunnel/v1",
+  "protocol": "flc-site-tunnel/v2",
   "project_id": "floating-liars-club",
   "display_name": "floating liars' club",
   "short_name": "flc",
+  "brand": {
+    "lockup": "flc -- floating liars' club",
+    "lowercase": true,
+    "italic": true,
+    "font_family": "Times New Roman, Times, serif"
+  },
   "bootstrap_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/latest.json",
   "site_bundle_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/site-bundle.json",
   "story_index_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/story-index.json",
@@ -22,7 +28,9 @@
     "source_view_field": "facsimile_route"
   },
   "text_policy": {
-    "current_layer": "machine-derived provisional text",
+    "preferred_layer": "spread-aware-logical-page-ocr",
+    "fallback_layer": "legacy-whole-spread-ocr",
+    "current_authority": "machine-derived provisional text",
     "completeness_default": "unknown / potentially partial until story page membership and reading order are reviewed",
     "frontend_label": "provisional machine text",
     "do_not_claim": "complete or reviewed transcription unless a later record explicitly says so",
@@ -36,7 +44,9 @@
       "latest.tunnel_status",
       "latest.summary.story_count",
       "latest.summary.stories_with_machine_text",
+      "latest.summary.stories_with_spread_parsed_text",
       "latest.summary.issues_with_text_source",
+      "latest.summary.issues_with_spread_parser",
       "latest.story_index_url",
       "frontend_fetch_time",
       "live_or_packaged_fallback"
@@ -48,7 +58,7 @@
   "current_smoke_test": {
     "minimum_story_count": 22,
     "minimum_text_ready": 7,
-    "expected_text_ready_issue": "01",
+    "spread_parser_should_supersede_legacy_when_available": true,
     "example_slug": "eye-of-the-angry-god",
     "example_route": "/stories/eye-of-the-angry-god/",
     "example_data_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/stories/eye-of-the-angry-god.json"
