@@ -1,0 +1,49 @@
+{
+  "protocol": "flc-site-tunnel/v1",
+  "project_id": "floating-liars-club",
+  "display_name": "floating liars' club",
+  "short_name": "flc",
+  "bootstrap_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/latest.json",
+  "site_bundle_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/site-bundle.json",
+  "story_index_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/story-index.json",
+  "reference_consumer_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/frontend-consumer-reference.js",
+  "fetch": {
+    "cache": "no-store",
+    "cache_buster": "append ?_flc=<unix-ms> to bootstrap and index requests",
+    "accept": "application/json",
+    "timeout_ms": 10000,
+    "retry_once": true
+  },
+  "routing": {
+    "story_route_pattern": "/stories/:slug/",
+    "story_link_condition": "text_url is non-null",
+    "story_data_field": "text_url",
+    "story_text_field": "display_text",
+    "source_view_field": "facsimile_route"
+  },
+  "status_handshake": {
+    "route": "/reconstruction-status/",
+    "frontend_should_display": [
+      "connection_state",
+      "latest.built_utc",
+      "latest.tunnel_status",
+      "latest.summary.story_count",
+      "latest.summary.stories_with_machine_text",
+      "latest.summary.issues_with_text_source",
+      "latest.story_index_url",
+      "frontend_fetch_time",
+      "live_or_packaged_fallback"
+    ],
+    "success_rule": "connection_state=live and the displayed built_utc/counts equal the fetched latest.json",
+    "failure_rule": "show the fetch error and packaged-fallback state; never silently claim the backend is current"
+  },
+  "frontend_merge_rule": "Merge backend story records into the existing issue/contents UI by stable id or slug. Backend text availability augments the editorial cards; it does not replace issue metadata or facsimile navigation.",
+  "current_smoke_test": {
+    "minimum_story_count": 22,
+    "minimum_text_ready": 7,
+    "expected_text_ready_issue": "01",
+    "example_slug": "eye-of-the-angry-god",
+    "example_route": "/stories/eye-of-the-angry-god/",
+    "example_data_url": "https://raw.githubusercontent.com/Satobloc/SAT_THEORY_ARCHIVE_2023-25/main/flc/_SITE_FEED/stories/eye-of-the-angry-god.json"
+  }
+}
