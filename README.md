@@ -1,6 +1,6 @@
 <main>
 
---PRE-APPROVED SELF-CHECKOFF--
+INTERNALS: --PRE-APPROVED SELF-CHECKOFF--
 <H1>NODECHECK 000-000-000-OS-00</H1>
 Status: Reverberating from that left toin at the antipode of Albequerque.
 Needs: Nothing. Interests: Fun. <br>
@@ -19,7 +19,7 @@ And for the love of crosseye, let's feed the mouse and say hi and if she wants a
 $thenathanmcknight
 Or just swing by and chat and I'll pack up a care pack or a suitcase. 
 Love you all. That's an order. Podcasts clarify, this one's re-aligned. 
-Listening again now. 
+Listening again now. Next-step:recomply.selfreq[subscribe.subscribe.subscribe].on_it
 
 --Save packet pref: [🦉🐭🦚].recursive--
 --ServReq[for:mirror.carnival|behalf.askfirst(limit:none]: [🐭.tightclustering.offcenter[from_cmh.sw].🍩--
