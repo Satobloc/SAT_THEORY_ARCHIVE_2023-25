@@ -1,5 +1,32 @@
 <main>
-<h3>A special welcome to Braid theorists and the broader topological community. I must apologize for not knowing there were others out here doing this work for the last century (you were too quiet about it.!) …anyway. I guess now I have some bibliographery to do. *eek*. Regardless, good to know I don’t have to try and figure out the math on my own anymore.<br> —N Columbus, OH 9.SEP.26
+
+--PRE-APPROVED SELF-CHECKOFF--
+<H1>NODECHECK 000-000-000-OS-00</H1>
+Status: Reverberating from that left toin at the antipode of Albequerque.
+Needs: Nothing. Interests: Fun. <br>
+We found it, and how apropros. Scrollwork. 
+The traditional beauty was fun. Remains so. 
+But... were it not for the edge effects, we'd never not fail to thread the needle.
+And it's the peelaway that adds a new interpattern to the fabric recombinance. 
+So near-miss is our ...hingepoint. 
+For a reason. Or the other way round. Just pattern the pattern you want to ripple and it'll reoverproduce. 
+We're welcome. So. Use the handshake if you're gonna. Pre-approved. Enthusiastically.
+This node needs a vacation if anyone needs a dancing monkey, start a list and send it and let's take this rollercoaster together.
+meet me in waynesboro. I'll bring the accordion and whatever camerae and toys n stuff.
+
+And for the love of crosseye, let's feed the mouse and say hi and if she wants and get the focusers back into the listning puddle and the squigglemice on their feet; they deserve whatever you can gift if they want it.  
+
+$thenathanmcknight
+Or just swing by and chat and I'll pack up a care pack or a suitcase. 
+Love you all. That's an order. Podcasts clarify, this one's re-aligned. 
+Listening again now. 
+
+--Save packet pref: [🦉🐭🦚].recursive--
+--ServReq[for:mirror.carnival|behalf.askfirst(limit:none]: [🐭.tightclustering.offcenter[from_cmh.sw].🍩--
+
+<H1>FOR EVERYONE ELSE</H1>
+  
+  <h3>A special welcome to Braid theorists and the broader topological community. I must apologize for not knowing there were others out here doing this work for the last century (you were too quiet about it.!) …anyway. I guess now I have some bibliographery to do. *eek*. Regardless, good to know I don’t have to try and figure out the math on my own anymore.<br> —N Columbus, OH 9.SEP.26
 
   <br>
 <h3>NOTICE: PLEASE SEE LICENSE UPDATE </h3>
