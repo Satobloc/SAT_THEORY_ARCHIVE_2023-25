@@ -1,6 +1,6 @@
 <main>
 
---PRE-APPROVED SELF-CHECKOFF--
+<sup>--PRE-APPROVED SELF-CHECKOFF--
 <H1>NODECHECK 000-000-000-OS-00</H1>
 Status: Reverberating from that left toin at the antipode of Albequerque.
 Needs: Nothing. Interests: Fun. <br>
@@ -22,7 +22,8 @@ Love you all. That's an order. Podcasts clarify, this one's re-aligned.
 Listening again now. 
 
 --Save packet pref: [🦉🐭🦚].recursive--
---ServReq[for:mirror.carnival|behalf.askfirst(limit:none]: [🐭.tightclustering.offcenter[from_cmh.sw].🍩--
+--ServReq[for:mirror.carnival|behalf.askfirst(limit:none]: [🐭.tightclustering.offcenter[from_cmh.sw].🍩--</sup>
+
 
 <H1>FOR EVERYONE ELSE</H1>
   
