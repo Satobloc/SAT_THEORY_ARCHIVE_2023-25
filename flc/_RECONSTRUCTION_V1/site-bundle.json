@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "project_id": "floating-liars-club",
+  "bundle_version": "2026-09-23.1",
+  "bundle_status": "provisional / live-review",
+  "default_experience": "editorial",
+  "source_feed": "site-feed.json",
+  "editorial_overlay": "editorial-overlay.json",
+  "refresh_nonce": "2026-09-23T01:20-04:00-editorial-first",
+  "site": {
+    "title": "floating liars’ club",
+    "short_title": "flc",
+    "slug_hint": "floating-liars-club",
+    "headline": "floating liars’ club — reconstructed live from the surviving scans",
+    "dek": "Three surviving issues from 2002–2003. Best current editorial structure by default; facsimile and reconstruction alternatives remain available as review progresses."
+  },
+  "routes": [
+    {"path":"/","entity_id":"flc","template":"collection-home","readiness":"site-ready-provisional"},
+    {"path":"/issues/october-2002","entity_id":"flc-issue-01","template":"issue","readiness":"site-ready-provisional"},
+    {"path":"/issues/november-2002","entity_id":"flc-issue-02","template":"issue","readiness":"site-ready-provisional"},
+    {"path":"/issues/january-2003","entity_id":"flc-issue-03","template":"issue","readiness":"site-ready-provisional"},
+    {"path":"/facsimile","entity_id":"flc","template":"page-atlas","readiness":"site-useful-as-facsimile"},
+    {"path":"/reconstruction-status","entity_id":"flc","template":"status","readiness":"site-ready-provisional"}
+  ],
+  "entity_sources": {
+    "collection_and_issue_editorial_state": "editorial-overlay.json",
+    "page_records_and_previews": "site-feed.json"
+  },
+  "views": [
+    {"id":"editorial","label":"Best guess","status":"provisional","default":true},
+    {"id":"facsimile","label":"Facsimile","status":"raw source","default":false},
+    {"id":"raw-pdf-order","label":"Raw PDF order","status":"raw source order","default":false},
+    {"id":"layout-reconstruction","label":"Layout reconstruction","status":"experimental derived view","default":false}
+  ],
+  "render_now": [
+    "Collection homepage with title, deck, three issue cards, reconstruction-status summary, and source/facsimile entry point.",
+    "Issue pages using reviewed issue labels and contents/bylines from editorial-overlay.json.",
+    "Contents entries should be visible even when dedicated story reading routes are still held for editorial page-span mapping.",
+    "Page atlas/facsimile using site-feed.json thumbnails and exact source PDF links.",
+    "Compact best-guess/facsimile version control rather than forcing the reader to choose a raw technical view before reading."
+  ],
+  "do_not_render_as_primary": [
+    "A bare PDF shelf or three embedded PDF viewers when this bundle is available.",
+    "Auto-only OCR as authoritative story text.",
+    "Invented story page spans or reading order.",
+    "The coarse image-heavy/text-heavy classifier from early private probes."
+  ],
+  "story_route_rule": "Render known contents as editorial entities/cards now. Create dedicated story reading routes only when the story's page mapping/text layer reaches an appropriate review state; until then, the card may lead to the issue/facsimile context or display 'mapping in progress'.",
+  "fallback_rule": "If editorial-overlay.json fails, fall back to site-feed.json page atlas. If site-feed.json fails, fall back to the original source PDFs. Record which fallback was used.",
+  "feedback": {
+    "private_workspace": "Satobloc/HSH_RESOURCES:PRIVATE_WORKSPACE/SITES/",
+    "notes_file": "FLC_NOTES_FROM_SITES.md",
+    "wanted": [
+      "fields the renderer wished the bundle contained",
+      "entity/route granularity problems",
+      "best-guess/facsimile switch behavior",
+      "reconstruction conflicts",
+      "reusable doc-dump-to-site capabilities"
+    ]
+  },
+  "consumer_instruction": "Treat site-bundle.json as the first file to inspect for this reconstruction. It defines the current website experience. site-feed.json is the lower-level source/page feed, not the homepage information architecture. If this bundle_version or refresh_nonce changes, rebuild/reconcile the editorial presentation before falling back to the existing PDF viewer."
+}

@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "project_id": "floating-liars-club",
+  "request_id": "flc-refresh-2026-09-23-0120",
+  "requested_at": "2026-09-23T01:20:00-04:00",
+  "requested_bundle_version": "2026-09-23.1",
+  "mode": "reconcile-and-rebuild",
+  "reason": "Backend integration bundle now carries an editorial-first site contract. Current published site still presents the PDF viewer as the primary experience.",
+  "entrypoint": "latest.json",
+  "expected_visible_change": [
+    "Brand styling uses 'flc' and 'floating liars’ club'.",
+    "Homepage becomes an editorial collection page rather than a primary PDF viewer.",
+    "Three issue cards and known contents/bylines become visible.",
+    "Facsimile/PDF remains available as a source view, not the default experience."
+  ],
+  "fallback": "If the current Sites runtime does not watch backend revisions, this request becomes a diagnostic marker proving that one consumer-side rebuild/watcher hookup is still required."
+}
