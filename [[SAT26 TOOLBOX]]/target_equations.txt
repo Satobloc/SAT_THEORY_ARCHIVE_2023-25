@@ -1,0 +1,30 @@
+
+CURRENT TARGET EQUATIONS
+
+1. Governing equation, unforced incompressible Navier-Stokes on T^3:
+
+    partial_t u + (u dot grad)u = -grad p + nu Delta u
+    div u = 0
+
+2. Starting snapshot:
+
+    u_A(x,y,z) = (sin z, 0, 0)
+
+3. Near-singular endpoint snapshot:
+
+    u_B^epsilon(x,y,z) = (-sin y, sin x, 0)/(epsilon^2 + 2 - cos x - cos y)
+
+4. Candidate bridge:
+
+    w(tau) = 3 tau^2 - 2 tau^3
+    E(tau) = sin^2(pi tau)
+
+    u_W = (1-w)u_A + w u_B^epsilon + g E(tau) sum_j c_j(tau)m_j(x,y,z)
+
+5. Vorticity residual:
+
+    omega = curl u_W
+
+    R_NS = (1/T) partial_tau omega + (u_W dot grad)omega - (omega dot grad)u_W - nu Delta omega
+
+Target: R_NS = 0.
