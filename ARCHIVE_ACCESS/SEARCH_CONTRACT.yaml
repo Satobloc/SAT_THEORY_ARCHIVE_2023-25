@@ -1,0 +1,46 @@
+schema_version: 1
+search_contract:
+  required_fields:
+    - question
+    - scope_paths
+    - search_terms
+    - method
+    - coverage
+    - exact_locators
+    - unresolved_gaps
+  methods:
+    - exact_filename
+    - exact_text
+    - indexed_code_search
+    - index_lookup
+    - bounded_full_text_scan
+    - pdf_text_extraction
+    - visual_pdf_inspection
+    - semantic_review
+  coverage_values:
+    - complete_for_declared_scope
+    - bounded_partial
+    - index_only
+    - unavailable
+    - truncated
+  locator_fields:
+    - repository
+    - branch_or_commit
+    - path
+    - page
+    - line_or_section
+    - sha256
+  status_dimensions:
+    - provenance
+    - historical_or_current
+    - theory_status
+    - vetting_status
+    - quarantine_or_sandbox
+  safeguards:
+    - never_equate_index_presence_with_source_validation
+    - never_equate_search_hit_with_proof
+    - inspect_source_context_for_material_claims
+    - report_unsearched_paths_and_unavailable_tools
+    - preserve_source_files_unchanged
+    - record_query_and_search_date
+    - resume_with_explicit_cursor_and_processed_manifest
