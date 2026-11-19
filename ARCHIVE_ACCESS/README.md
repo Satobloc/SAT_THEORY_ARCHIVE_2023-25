@@ -60,6 +60,10 @@ Never report a search as comprehensive if any relevant directory, branch, file f
 6. Return a compact findings table plus reproducible search manifest.
 7. Update an existing index only after verifying its generation/update contract; do not hand-edit generated indexes casually.
 
+## Mersearch integration
+
+For three-repository source archaeology, use the existing HsH Mersearch worker route: [MERSEARCH_WORKER_START_HERE](https://github.com/Satobloc/HsH/blob/main/WORKSPACES/COMMON/MERSEARCH_WORKER_START_HERE.md) and [MERSEARCH_RELEASES](https://github.com/Satobloc/HsH/blob/main/WORKSPACES/COMMON/MERSEARCH_RELEASES.md). The deployed bridge searches the SAT archive, HsH, and HSH_RESOURCES. Its shared request file is a single occupied slot: read `WORKSPACES/COMMON/MERSEARCH_REQUEST.json` first and never overwrite a pending/retry request. GitHub code search is only a fallback and must not be reported as a Mersearch result.
+
 ## Next infrastructure work
 
 - [ ] Inventory every existing index, manifest, extraction layer, and cursor with owner/tool and freshness date.
