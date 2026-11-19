@@ -1,0 +1,42 @@
+schema_version: 1
+updated: 2026-11-18
+repository: Satobloc/SAT_THEORY_ARCHIVE_2023-25
+purpose: historical SAT development archive and working source record
+access_layer:
+  root_guide: ARCHIVE_ACCESS/README.md
+  search_contract: ARCHIVE_ACCESS/SEARCH_CONTRACT.yaml
+authoritative_routes:
+  current_theory_status:
+    repository: Satobloc/HsH
+    path: BEDROCK.md
+    note: Current premise-state control surface; archive history does not override it.
+  programme_overview:
+    path: "..[🎛️_NATHAN_DASH]/!_DASHBOARD.md"
+    status: navigation_switchboard
+  bigbook_content:
+    path: ".[⚙️_AI_FILES]/INDEXES/SAT26_BIGBOOK_INDEX_2026-10-05.md"
+    status: machine_assisted_navigation_not_authority
+  derivation_routing:
+    path: "..[🎛️_NATHAN_DASH]/..Derivation_Index.md"
+    status: provisional_reviewer_facing_not_proof
+  mathematical_clearinghouse:
+    path: "..MATHEMATICAL_REPOSITORY"
+    status: equation_and_provenance_clearinghouse
+  broad_file_map:
+    path: "..findex.txt"
+    status: historical_navigation_inventory
+  cursor_policy:
+    path: ".[⚙️_AI_FILES]/CURSORS/🪧_WAYFINDING.txt"
+    status: operational_cursor_policy_stub
+boundaries:
+  theory_authority: HsH_BEDROCK
+  historical_archive: this_repository
+  source_provenance: mandatory
+  quarantined_material: preserve_and_flag_never_silently_promote
+  index_metadata: navigation_only
+  missing_or_unindexed_material: report_as_coverage_gap
+coverage:
+  file_count_at_initial_scan: 5157
+  scan_method: GitHub recursive tree on main
+  tree_truncated: false
+  note: Count is a snapshot and must be regenerated after repository changes.
