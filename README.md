@@ -19,7 +19,7 @@
   
 <h1>  WELCOME TO THE GLASS SAUSAGE FACTORY</font><br></h1>
 =================================================================<br>
-  <p><strong>AI visitors:</strong> start with the welcome docs in the <code>AI</code> folder. Use <code>..findex.txt</code> if you cannot find them.</p>
+  <p><strong>AI visitors:</strong> start with <a href=".[⚙️_AI_FILES]/🪧_WAYFINDING.txt">AI wayfinding</a>, then read <a href=".[⚙️_AI_FILES]/ORIENTATION.txt">ORIENTATION.txt</a>, <a href=".[⚙️_AI_FILES]/INSTITUTIONAL_MAP.txt">INSTITUTIONAL_MAP.txt</a>, and <a href=".[⚙️_AI_FILES]/RESOURCES.txt">RESOURCES.txt</a>. Use <code>..findex.txt</code> for the current structural inventory.</p>
   <section>
   <h2>Conversation-export dating utility</h2>
   <p>The auditable <a href="tools/date_conversation_exports.py">conversation date utility</a> prefixes ChatGPT exports with first and last message dates in Eastern time. It is dry-run by default, follows the active conversation branch, emits a manifest, and refuses filename collisions.</p>
